@@ -2,9 +2,19 @@
 <html>
 <head>
     <title>What2eat</title>
-    <script src="{% static 'script.js' %}"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'food/style.css' %}">
+    <script src="{% static 'food/script.js' %}"></script>
 </head>
 <body>
+    <div class="header">
+        <p>
+            <a href="https://github.com/gongahkia">Gongahkia</a>
+        </p>
+        <p>
+            <a href="https://github.com/gongahkia/w2e">Source</a>
+        </p>
+    </div>
     <h1 align="center">What2eat</h1>
     <h2>Nearby Food Suggestions</h2>
     <div id="food-list"></div>

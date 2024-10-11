@@ -12,4 +12,4 @@ class UserPreferenceViewSet(viewsets.ModelViewSet):
     serializer_class = UserPreferenceSerializer
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'food/index.html')
