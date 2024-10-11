@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'what_2_eat.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'we_eat_what_db',
+        'NAME': 'what_2_eat_db',
         'USER': 'your_db_user',
         'PASSWORD': 'your_db_password',
         'HOST': 'localhost',
