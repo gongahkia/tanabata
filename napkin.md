@@ -7,7 +7,7 @@
 * Integrate scrapers with the existing backend code
 * Better understand what the backend Django code is doing 
 * Write the frontend and integrate it properly with the backend
-* Deploy with either Heroku or Vercel
+* Deploy with Heroku for complete frontend and backend support
 
 ## Internal reference
 
