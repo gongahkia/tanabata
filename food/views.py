@@ -1,3 +1,15 @@
+from rest_framework import viewsets
 from django.shortcuts import render
+from .models import FoodPlace, UserPreference
+from .serializers import FoodPlaceSerializer, UserPreferenceSerializer
 
-# Create your views here.
+class FoodPlaceViewSet(viewsets.ModelViewSet):
+    queryset = FoodPlace.objects.all()
+    serializer_class = FoodPlaceSerializer
+
+class UserPreferenceViewSet(viewsets.ModelViewSet):
+    queryset = UserPreference.objects.all()
+    serializer_class = UserPreferenceSerializer
+
+def index(request):
+    return render(request, 'index.html')

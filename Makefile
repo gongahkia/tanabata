@@ -5,5 +5,9 @@ test:mock.py
 	@python3 mock.py
 
 config:
-	@echo "(1/1) installing dependencies..."
-	@pip install django djangorestframework
+	@echo "(0/4) installing dependencies..."
+	@echo "(1/4) installing django..."
+	@echo "(2/4) installing djangorestframework..."
+	@echo "(3/4) installing scrapy..."
+	@echo "(4/4) installing beautifulsoup4..."
+	@pip install django djangorestframework scrapy beautifulsoup4

@@ -1,6 +1,16 @@
 # `napkin.md`
 
-## Backend
+## FUA
+
+* Add the logic for the scrapers with beautifulsoup4, scrapy and google places api
+* Work out how to integrate google's / the browser's geolocation API to determine user location
+* Integrate scrapers with the existing backend code
+* Better understand what the backend Django code is doing 
+* Write the frontend and integrate it properly with the backend
+
+## Internal reference
+
+### Backend
 
 1. Django
     * Python web framework
@@ -18,7 +28,7 @@
 6. Celery
     * handle scraping on a scheduled basis or when requested by the userq
 
-## Frontend
+### Frontend
 
 * React
 * Vue
