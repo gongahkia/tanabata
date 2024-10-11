@@ -1,13 +1,29 @@
 """
 FUA
 
-to edit the below code, most of it
-probably isn't very accurate to the 
-actual website's layouts
+test the scraping code below first!
 
 then after ensuring data can be scraped, 
 link the below scraped data to the existing
 postgresql database via django orm
+
+~~~ CAPITALAND.COM DOMAIN DOM STRUCTURE ~~~
+
+div.listing-container
+ul.listing-items
+for item in ul.listing-items:
+    item = article.listing-item.listing-tenants
+    a.href -> click into each a.href
+        div.cm-details-section-head
+        div.cm-details-section-content
+            div.cm --> all text content
+            div.rte --> all text content
+        section.cm.cm-property-details
+            dd.icon-marker.icon-rounded --> all text content
+    div.listing-image.intrinsic-6x5 -> get the style attribute
+    div.content
+        div.cg
+        h3.title
 """
 
 import scrapy
@@ -37,21 +53,36 @@ class CapitalandSpiderSpider(scrapy.Spider):
 
     def parse(self, response):
         """
-        FUA 
-        
-        edit the code placed below here
+        general execution function that
+        engages parsing and loading of 
+        CapitaLand webpage
+
+        also note that each_listing below 
+        can also be extracted as 
+        article.listing-item.listing-tenants
         """
-        stores = response.css('.store-info')  # Adjust this selector based on the actual HTML structure
+        # - extraction code -
+        listings = response.css('div.listing-container ul.listing-items') 
+        for each_listing in listings:
+            detail_link = each_listing.css('a::attr(href)').get()
+            if detail_link:
+                yield response.follow(detail_link, self.parse_detail)
+            else:
+                print("no detail link found!")
+        # - load more listings -
+        next_page = response.css('div.listing-cta a.cta.cta-see-more.fn_see-more::attr(href)').get()
+        if next_page:
+            yield response.follow(next_page, self.parse)
 
-        for store in stores:
-            name = store.css('.store-name::text').get().strip()  # Adjust according to the HTML structure
-            location = store.css('.store-location::text').get().strip()  # Adjust according to the HTML structure
-            price = store.css('.store-price::text').get().strip()  # Adjust according to the HTML structure
-            category = 'Food and Beverage'  # Since you are only scraping this category
-
-            yield {
-                'name': name,
-                'location': location,
-                'price': price,
-                'category': category,
-            }
+    def parse_detail(self, response):
+        """
+        parse detailed information 
+        from each listing
+        """
+        details = {
+            'name': response.css('div.cm-details-section-head::text').get(default='').strip(),
+            'location': response.css('section.cm.cm-property-details dd.icon-marker.icon-rounded::text').get(default='').strip(),
+            'description': response.css('div.cm-details-section-content div.rte::text').get(default='').strip(),
+            'category': response.css('div.cm-details-section-content div.cm::text').get(default='').strip(),
+        }
+        yield details
