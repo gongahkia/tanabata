@@ -1,19 +1,15 @@
 # `w2e`
 
-What2Eat, a web app that decides where to eat.
-
-Stack can be found in [`napkin.md`](./napkin.md).
+What2Eat, a web app that helps you decide where to eat.
 
 <p align='center'>
-    <img src="https://preview.redd.it/okarun-just-eating-onigiri-v0-5gfquu41zgmd1.jpeg?auto=webp&s=ebb62ae60908b4ae5d34005097b16bb51f572cc7" height='200px'>
-    <br><i>placeholder image for now</i> 
+    <img src="https://preview.redd.it/okarun-just-eating-onigiri-v0-5gfquu41zgmd1.jpeg?auto=webp&s=ebb62ae60908b4ae5d34005097b16bb51f572cc7" height='225px'>
+    <br>ランチに何を食べたい？
 </p>
 
 ## How to build it
 
-Don't.  
-  
-Access the web app [here](addalinkherelater.com).
+Don't. Access the web app [here](addalinkherelater.com).
 
 ## Usage
 
