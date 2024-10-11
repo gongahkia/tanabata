@@ -18,6 +18,7 @@ Don't. Access the web app [here](addalinkherelater.com).
 For testing purposes.
 
 ```console
+$ make config
 $ make
 ```
 
