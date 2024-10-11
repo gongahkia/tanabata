@@ -1,4 +1,7 @@
-from django.db import models
+# define database models, which are postgresql tables, here
+# after defining models, the following commands must be called
+    # python3 manage.py makemigrations
+    # python3 manage.py migrate
 
 from django.db import models
 

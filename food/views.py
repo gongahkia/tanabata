@@ -1,3 +1,6 @@
+# handles application logic 
+# bridges models (data) and templates (presentation)
+
 from rest_framework import viewsets
 from django.shortcuts import render
 from .models import FoodPlace, UserPreference
