@@ -1,10 +1,12 @@
 all: test
 
 test: manage.py
+	@clear
 	@echo "serving frontend by executing manage.py..."
 	@python3 manage.py runserver
 
 config:
+	@clear
 	@echo "installing dependencies..."
 	@sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 	@sudo apt install -y postgresql postgresql-contrib
@@ -20,7 +22,10 @@ config:
 	@echo "configuration complete"
 
 mock:
+	@clear
 	@echo "starting up postgresql cli tool..."
 	@sudo -u postgres psql -f mock.sql
 	@echo "created database and user..."
 	@echo "\q to quit"
+	@echo "checking postgresql server status..."
+	@pg_isready -U your_db_user
