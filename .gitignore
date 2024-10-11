@@ -44,3 +44,4 @@ yarn-error.log*
 /.cache/
 */migrations/*
 /static/
+output.json
