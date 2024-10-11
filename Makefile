@@ -1,13 +1,19 @@
 all:test
 
-test:mock.py
-	@echo "(1/1) running testing file at mock.py..."
-	@python3 mock.py
+test:manage.py
+	@echo "serving frontend by executing manage.py..."
+	@python3 manage.py runserver
 
 config:
-	@echo "(0/4) installing dependencies..."
-	@echo "(1/4) installing django..."
-	@echo "(2/4) installing djangorestframework..."
-	@echo "(3/4) installing scrapy..."
-	@echo "(4/4) installing beautifulsoup4..."
-	@pip install django djangorestframework scrapy beautifulsoup4
+	@echo "installing dependencies..."
+	@sudo apt update && sudo apt upgrade && sudo apt autoremove
+	@sudo apt install postgresql postgresql-contrib
+	@pip install django djangorestframework scrapy beautifulsoup4 psycopg2-binary
+	@echo "starting postgresql database..."
+	@sudo service postgresql start
+	@systemctl list-units --type=service | grep postgresql
+	@echo "initializing database cluster..."
+	@sudo service postgresql initdb
+	@echo "configuing postgresql to start on boot..."
+	@sudo systemctl enable postgresql
+	@echo "configuration complete"
