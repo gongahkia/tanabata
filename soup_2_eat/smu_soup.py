@@ -64,7 +64,7 @@ def scrape_smu(base_url):
     scrapes the specified SMU website 
     for food and beverage details
     """
-    html_file_path = "ntu_dining_details.html"
+    html_file_path = "smu_dining_details.html"
     session = HTMLSession()
     response = session.get(base_url)
     response.html.render() 
