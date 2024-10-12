@@ -10,7 +10,7 @@ config:
 	@echo "installing dependencies..."
 	@sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 	@sudo apt install -y postgresql postgresql-contrib
-	@pip install django djangorestframework scrapy beautifulsoup4 psycopg2-binary webdriver_manager selenium scrapy-splash
+	@pip install django djangorestframework scrapy beautifulsoup4 psycopg2-binary webdriver_manager selenium scrapy-splash requests_html lxml[html_clean]
 	@sudo snap install docker
 	@echo "starting postgresql database..."
 	@sudo service postgresql start
