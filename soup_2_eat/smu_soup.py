@@ -3,7 +3,9 @@
 
 debug the scraper here, its having 
 trouble loading in the webpage due to 
-the the nature of headless browsers
+the the nature of incapsula which prevents
+scrapers from reading webdata from 
+headless browsers
 
 ~~~ INTERNAL REFERENCE ~~~
 

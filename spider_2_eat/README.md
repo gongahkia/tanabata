@@ -1,4 +1,4 @@
-# `scrape 2 eat`
+# `spider 2 eat`
 
 Scrapy spiders currently crawl the following websites.
 
