@@ -3,10 +3,21 @@
 ## FUA
 
 * Debug capitaland_spider.py code since currently my spider is unable to scrape any items
+* Debug capitaland_soup.py code since currently my bs4 scraper is unable to scrape any items
 
 * Sites hardcoded to be scraped
-    * https://www.ionorchard.com/en/dine.html?category=Casual%20Dining%20and%20Takeaways
-    * https://www.ionorchard.com/en/dine.html?category=Restaurants%20and%20Cafes
+
+    * focus on scraping these today :robot:
+        * https://admissions.smu.edu.sg/experience-smu/food-trail
+        * https://www.smu.edu.sg/campus-life/visiting-smu/food-beverages-listing
+        * https://www.ntu.edu.sg/life-at-ntu/leisure-and-dining/general-directory?locationTypes=all&locationCategories=all&page=1
+        * https://www.ntu.edu.sg/life-at-ntu/leisure-and-dining
+        * https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/ --> kent ridge campus
+        * https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages-bukit-timah/
+        * https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/
+        * https://www.ionorchard.com/en/dine.html?category=Casual%20Dining%20and%20Takeaways
+        * https://www.ionorchard.com/en/dine.html?category=Restaurants%20and%20Cafes
+
     * https://www.jewelchangiairport.com/
     * https://www.sportshub.com.sg/shop-dine
     * https://www.sengkanggrandmall.com.sg/en.html
