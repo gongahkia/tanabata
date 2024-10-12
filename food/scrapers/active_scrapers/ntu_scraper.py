@@ -1,15 +1,14 @@
 import os
 import re
-import json
 import django
-import requests
+from requests_html import AsyncHTMLSession
 from bs4 import BeautifulSoup
-from food.models import FoodPlace 
+from food.models import FoodPlace
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "what_2_eat.settings") 
 django.setup()
 
-def delete_file(target_url):
+async def delete_file(target_url):
     """
     Helper function that attempts 
     to delete a file at the specified 
@@ -29,25 +28,30 @@ def clean_string(input_string):
     cleaned_string = re.sub(r'<[^>]+>', '', cleaned_string)
     return cleaned_string.strip()
 
-def scrape_ntu(base_url):
+async def scrape_ntu(base_url):
     """
     Scrapes the specified NTU website 
     for the food vendor's name, location, 
     description, category, and url.
     """
+    session = AsyncHTMLSession()
     page = 1
     details_list = []
     errors = []
 
     while True:
         url = f"{base_url}{page}"
-        response = requests.get(url)
+        print(f"Fetching URL: {url}")
+        response = await session.get(url)
+        await response.html.arender()  # Render the JavaScript content
+
+        # Check response status
         if response.status_code != 200:
             errors.append(f"Failed to retrieve page {page}: {response.status_code}")
             break
-        
-        # Render the page content using BeautifulSoup
-        soup = BeautifulSoup(response.text, 'html.parser')
+
+        # Parse the page content using BeautifulSoup
+        soup = BeautifulSoup(response.html.html, 'html.parser')
         listings = soup.select('div.col-sm-8.col-md-9 li.search__results-item.col-sm-6.col-md-4')
 
         if not listings:
@@ -95,10 +99,14 @@ def scrape_ntu(base_url):
 
 # ----- Execution Code -----
 
-# if __name__ == "__main__":
+# async def main():
 #     TARGET_URL = "https://www.ntu.edu.sg/life-at-ntu/leisure-and-dining/general-directory?locationTypes=all&locationCategories=all&page="
-#     details_list, errors = scrape_ntu(TARGET_URL)
+#     details_list, errors = await scrape_ntu(TARGET_URL)
 #     if errors:
 #         print(f"errors encountered: {errors}")
 #     else:
 #         print("Scraping complete")
+
+# if __name__ == "__main__":
+#     import asyncio
+#     asyncio.run(main())

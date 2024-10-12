@@ -7,31 +7,28 @@ from django.http import JsonResponse
 from .models import FoodPlace, UserPreference
 from .serializers import FoodPlaceSerializer, UserPreferenceSerializer
 from .scrapers.active_scrapers.ntu_scraper import scrape_ntu 
+from asgiref.sync import sync_to_async
 
-def index_view(request):
-    food_places = FoodPlace.objects.all() 
+async def index_view(request):
+    food_places = await sync_to_async(FoodPlace.objects.all)()
     return render(request, 'food/index.html', {'food_places': food_places})
 
-def scrape_food_places(request):
+async def scrape_food_places(request):
     print("executing scrape_food_places...")
     base_url = "https://www.ntu.edu.sg/life-at-ntu/leisure-and-dining/general-directory?locationTypes=all&locationCategories=all&page="
-    details_list, errors = scrape_ntu(base_url) 
+    details_list, errors = await scrape_ntu(base_url)  # Use await here
     for item in details_list:
-        FoodPlace.objects.update_or_create(
+        FoodPlace.objects.create(
             name=item['name'],
-            defaults={
-                'location': item['location'],
-                'description': item['description'],
-                'category': item.get('category', ''),
-                'price': None,
-                'url': item['url']
-            }
+            location=item['location'],
+            description=item['description'],
+            category=item.get('category', ''),
+            price=None
         )
-    updated_food_places = FoodPlace.objects.all().values()
     if errors:
-        print(errors)
+        print(f"Errors encountered: {errors}")
     print("scrape_food_places finished execution!")
-    return JsonResponse(list(updated_food_places), safe=False)
+    return render(request, 'food/index.html', {'food_places': FoodPlace.objects.all()})
 
 class FoodPlaceViewSet(viewsets.ModelViewSet):
     queryset = FoodPlace.objects.all()
