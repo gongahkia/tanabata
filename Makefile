@@ -10,7 +10,7 @@ config:
 	@echo "installing dependencies..."
 	@sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 	@sudo apt install -y postgresql postgresql-contrib firefox
-	@pip install django djangorestframework scrapy beautifulsoup4 psycopg2-binary webdriver_manager selenium scrapy-splash requests_html lxml[html_clean]
+	@pip install django djangorestframework scrapy beautifulsoup4 psycopg2-binary webdriver_manager selenium scrapy-splash requests_html lxml[html_clean] aiohttp
 	@sudo snap install docker
 	@echo "starting postgresql database..."
 	@sudo service postgresql start
@@ -30,3 +30,12 @@ mock:
 	@echo "\q to quit"
 	@echo "checking postgresql server status..."
 	@pg_isready -U your_db_user
+	@echo "\dt --> lists tables"
+	@echo "\d {table_name} --> list table of the specified name"
+	@echo "\q --> quit"
+	@psql -h localhost -U user_gongahkia -d tako_db
+
+migrate:manage.py
+	@python3 manage.py makemigrations
+	@python3 manage.py migrate
+	@python3 manage.py runserver

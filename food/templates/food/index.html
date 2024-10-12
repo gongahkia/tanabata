@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>What2eat</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tako</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'food/style.css' %}">
     <script src="{% static 'food/script.js' %}"></script>
@@ -15,8 +17,21 @@
             <a href="https://github.com/gongahkia/w2e">Source</a>
         </p>
     </div>
-    <h1 align="center">What2eat</h1>
+    <h1 align="center">Tako</h1>
     <h2>Nearby Food Suggestions</h2>
-    <div id="food-list"></div>
+    <ul id="food-list"> 
+        {% for vendor in food_places %}
+            <li>
+                <strong>{{ vendor.name }}</strong><br>
+                Location: {{ vendor.location }}<br>
+                Description: {{ vendor.description }}<br>
+                Category: {{ vendor.category }}<br>
+                Price: {{ vendor.price|default:"N/A" }}<br>
+                <a href="{{ vendor.url }}">Visit Website</a>
+            </li>
+        {% empty %}
+            <li>No food places found.</li> 
+        {% endfor %}
+    </ul>
 </body>
 </html>
