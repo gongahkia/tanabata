@@ -64,25 +64,29 @@ class CapitalandSpiderSpider(scrapy.Spider):
         # - extraction code -
         listings = response.css('div.listing-container ul.listing-items') 
         for each_listing in listings:
-            detail_link = each_listing.css('a::attr(href)').get()
+            detail_link = each_listing.css('article.listing-item.listing-tenants a::attr(href)').get()
             if detail_link:
-                yield response.follow(detail_link, self.parse_detail)
+                yield response.follow(detail_link, self.parse_detail, meta={'detail_link': response.urljoin(detail_link)})
             else:
-                print("no detail link found!")
+                self.logger.warning("no detail link found for listing!")
         # - load more listings -
         next_page = response.css('div.listing-cta a.cta.cta-see-more.fn_see-more::attr(href)').get()
         if next_page:
             yield response.follow(next_page, self.parse)
+        else:
+            self.logger.warning("no more pages found!")
 
     def parse_detail(self, response):
         """
         parse detailed information 
         from each listing
         """
+        detail_link = response.meta['detail_link']
         details = {
             'name': response.css('div.cm-details-section-head::text').get(default='').strip(),
             'location': response.css('section.cm.cm-property-details dd.icon-marker.icon-rounded::text').get(default='').strip(),
             'description': response.css('div.cm-details-section-content div.rte::text').get(default='').strip(),
             'category': response.css('div.cm-details-section-content div.cm::text').get(default='').strip(),
+            'url': detail_link,
         }
         yield details
