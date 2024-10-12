@@ -19,7 +19,3 @@ For testing purposes.
 $ make config
 $ make
 ```
-
-## References
-
-* [When2meet](https://www.when2meet.com/)
