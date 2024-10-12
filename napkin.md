@@ -2,26 +2,26 @@
 
 ## FUA
 
+* focus on scraping these today :robot:
+    * https://admissions.smu.edu.sg/experience-smu/food-trail
+    * https://www.smu.edu.sg/campus-life/visiting-smu/food-beverages-listing
+    * https://www.ntu.edu.sg/life-at-ntu/leisure-and-dining/general-directory?locationTypes=all&locationCategories=all&page=1
+    * https://www.ntu.edu.sg/life-at-ntu/leisure-and-dining
+    * https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/ --> kent ridge campus
+    * https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages-bukit-timah/
+    * https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/
+    * https://www.ionorchard.com/en/dine.html?category=Casual%20Dining%20and%20Takeaways
+    * https://www.ionorchard.com/en/dine.html?category=Restaurants%20and%20Cafes
+
+* draw a yuho-related icon with the guy eating a takoyaki for the readme
+    * make it a 3-color palette kinda deal
+    * rename the repo to be `takoyaki` or some cute variant
+        * 3 takoyaki on a stick, each with a face
+
 * Debug capitaland_spider.py code since currently my spider is unable to scrape any items
 * Debug capitaland_soup.py code since currently my bs4 scraper is unable to scrape any items
 
 * Sites hardcoded to be scraped
-
-    * focus on scraping these today :robot:
-        * https://admissions.smu.edu.sg/experience-smu/food-trail
-        * https://www.smu.edu.sg/campus-life/visiting-smu/food-beverages-listing
-        * https://www.ntu.edu.sg/life-at-ntu/leisure-and-dining/general-directory?locationTypes=all&locationCategories=all&page=1
-        * https://www.ntu.edu.sg/life-at-ntu/leisure-and-dining
-        * https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/ --> kent ridge campus
-        * https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages-bukit-timah/
-        * https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/
-        * https://www.ionorchard.com/en/dine.html?category=Casual%20Dining%20and%20Takeaways
-        * https://www.ionorchard.com/en/dine.html?category=Restaurants%20and%20Cafes
-
-    * draw a yuho-related icon with the guy eating a takoyaki for the readme
-        * make it a 3-color palette kinda deal
-        * rename the repo to be `takoyaki` or some cute variant
-            * 3 takoyaki on a stick, each with a face
 
     * https://www.jewelchangiairport.com/
     * https://www.sportshub.com.sg/shop-dine
