@@ -83,6 +83,14 @@
     * https://www.thomsonplaza.com.sg
     * https://www.yishun107.com.sg
 
+* Look into alternatives to bs4 and scrapy to enact webscraping
+    * lxml
+    * puppeteer
+    * playwright
+    * mechanicalsoup
+    * requests-html
+    * xpath
+
 * Currently I'm just running specified URLs to scrape to validate the scraper to django pipeling, but after that pipeline is validated, implement proper geolocation API checks that will scrape for food based on available sites nearby
 * Alternative workflow would be to scrape these mall's data as backup data to begin with, then store them in the DB but more specific per-location requests can be scraped later
 * Add the logic for the scrapers with beautifulsoup4, scrapy and google places api
