@@ -18,6 +18,11 @@
         * https://www.ionorchard.com/en/dine.html?category=Casual%20Dining%20and%20Takeaways
         * https://www.ionorchard.com/en/dine.html?category=Restaurants%20and%20Cafes
 
+    * draw a yuho-related icon with the guy eating a takoyaki for the readme
+        * make it a 3-color palette kinda deal
+        * rename the repo to be `takoyaki` or some cute variant
+            * 3 takoyaki on a stick, each with a face
+
     * https://www.jewelchangiairport.com/
     * https://www.sportshub.com.sg/shop-dine
     * https://www.sengkanggrandmall.com.sg/en.html
