@@ -7,6 +7,9 @@ the the nature of incapsula which prevents
 scrapers from reading webdata from 
 headless browsers
 
+might have to look into using selenium
+to scrape this site instead
+
 ~~~ INTERNAL REFERENCE ~~~
 
 site to scrape: https://www.smu.edu.sg/campus-life/visiting-smu/food-beverages-listing

@@ -7,6 +7,13 @@ then after ensuring data can be scraped,
 link the below scraped data to the existing
 postgresql database via django orm
 
+there are some issues parsing this site
+as similar to smu, it relies on incapsula to 
+shield its site data from other sites
+
+might have to look into using selenium
+to scrape this site instead
+
 ~~~ CAPITALAND.COM DOMAIN DOM STRUCTURE ~~~
 
 div.listing-container
