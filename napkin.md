@@ -14,6 +14,10 @@
 * Debug smu_mineral.py code since currently my selenium scraper is unable to scrape any items
 * Debug nus_soup.py code since currently my bs4 scraper is unable to scrape any items
 * Debug nus_mineral.py code since currently my selenium scraper is unable to scrape any items
+* Debug ion_orchard_soup.py code since currently my bs4 scraper is unable to scrape any items
+* Debug ion_orchard_mineral.py code since currently my selenium scraper is unable to scrape any items
+
+* Debug the asynchronous django function that is preventing my index.html from loading right now
 
 * Sites hardcoded to be scraped :robot:
     * https://www.jewelchangiairport.com/
