@@ -1,9 +1,9 @@
-# `w2e`
+# `tako`
 
-What2Eat, a web app that helps you decide where to eat.
+Tako, a web app that helps you decide where to eat.
 
 <p align='center'>
-    <img src="https://preview.redd.it/okarun-just-eating-onigiri-v0-5gfquu41zgmd1.jpeg?auto=webp&s=ebb62ae60908b4ae5d34005097b16bb51f572cc7" height='225px'>
+    <img src="./asset/logo/tako_mascot.png" width=40% height=40%>
     <br>ランチに何を食べたい？
 </p>
 
