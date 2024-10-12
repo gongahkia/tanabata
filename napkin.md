@@ -2,9 +2,10 @@
 
 ## FUA
 
+* Continue to debug the ntu_soup.py which appears to be working
+* See if I can apply the same logic to my smu_soup.py
+
 * focus on scraping these today :robot:
-    * https://www.ntu.edu.sg/life-at-ntu/leisure-and-dining/general-directory?locationTypes=all&locationCategories=all&page=1
-    * https://www.ntu.edu.sg/life-at-ntu/leisure-and-dining
     * https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/ --> kent ridge campus
     * https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages-bukit-timah/
     * https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/
@@ -15,6 +16,8 @@
     * make it a 3-color palette kinda deal
     * rename the repo to be `takoyaki` or some cute variant
         * 3 takoyaki on a stick, each with a face
+
+* do I want to expose the API script to make tako an API wrapper that exposes food places in colleges and malls? if so add that in the README.md and learn how to write a wrapper for an API!
 
 * Debug capitaland_spider.py code since currently my spider is unable to scrape any items
 * Debug capitaland_soup.py code since currently my bs4 scraper is unable to scrape any items
