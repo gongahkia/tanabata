@@ -8,11 +8,6 @@
     * https://www.ionorchard.com/en/dine.html?category=Casual%20Dining%20and%20Takeaways
     * https://www.ionorchard.com/en/dine.html?category=Restaurants%20and%20Cafes
 
-* draw a yuho-related icon with the guy eating a takoyaki for the readme
-    * make it a 3-color palette kinda deal
-    * rename the repo to be `takoyaki` or some cute variant
-        * 3 takoyaki on a stick, each with a face
-
 * do I want to expose the API script to make `tako` an API wrapper that exposes food places in colleges and malls? if so add that in the README.md and learn how to write a wrapper for an API!
 
 * Debug capitaland_spider.py code since currently my spider is unable to scrape any items
