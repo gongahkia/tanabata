@@ -2,12 +2,6 @@
 
 ## FUA
 
-* Continue to debug the ntu_soup.py which appears to be working
-
-* focus on scraping these today :robot:
-    * https://www.ionorchard.com/en/dine.html?category=Casual%20Dining%20and%20Takeaways
-    * https://www.ionorchard.com/en/dine.html?category=Restaurants%20and%20Cafes
-
 * do I want to expose the API script to make `tako` an API wrapper that exposes food places in colleges and malls? if so add that in the README.md and learn how to write a wrapper for an API!
 
 * Debug capitaland_spider.py code since currently my spider is unable to scrape any items
@@ -21,8 +15,7 @@
 * Debug nus_soup.py code since currently my bs4 scraper is unable to scrape any items
 * Debug nus_mineral.py code since currently my selenium scraper is unable to scrape any items
 
-* Sites hardcoded to be scraped
-
+* Sites hardcoded to be scraped :robot:
     * https://www.jewelchangiairport.com/
     * https://www.sportshub.com.sg/shop-dine
     * https://www.sengkanggrandmall.com.sg/en.html
