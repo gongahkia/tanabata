@@ -1,7 +1,7 @@
 # `tako`
 
 <p align='center'>
-    <img src="./asset/logo/tako_mascot.png" width=60% height=60%>
+    <img src="./asset/logo/tako_mascot.png" width=40% height=40%>
     <br>ランチに何を食べたい？
 </p>
 
