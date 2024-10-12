@@ -117,7 +117,7 @@ def scrape_ntu(base_url):
 # ----- execution code -----
 
 TARGET_URL= "https://www.ntu.edu.sg/life-at-ntu/leisure-and-dining/general-directory?locationTypes=all&locationCategories=all&page="
-TARGET_FILEPATH = "output/ntu_dining_details.json"
+TARGET_FILEPATH = "./../output/ntu_dining_details.json"
 result = scrape_ntu(TARGET_URL)
 details_list, errors = result[0], result[1]
 

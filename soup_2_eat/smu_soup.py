@@ -110,7 +110,7 @@ def scrape_smu(base_url):
 # ----- execution code -----
 
 TARGET_URL = "https://www.smu.edu.sg/campus-life/visiting-smu/food-beverages-listing"
-TARGET_FILEPATH = "output/smu_dining_details.json"
+TARGET_FILEPATH = "./../output/smu_dining_details.json"
 
 result = scrape_smu(TARGET_URL)
 details_list, errors = result[0], result[1]
