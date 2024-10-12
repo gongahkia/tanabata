@@ -14,24 +14,42 @@
             <a href="https://github.com/gongahkia">Gongahkia</a>
         </p>
         <p>
-            <a href="https://github.com/gongahkia/tako">Source</a>
+            <a href="https://github.com/gongahkia/w2e">Source</a>
         </p>
     </div>
     <h1 align="center">Tako</h1>
     <h2>Nearby Food Suggestions</h2>
-    <ul id="food-list"> 
-        {% for food_place in food_places %}
+    
+    <button id="scrape-button">Scrape Food Places</button>
+    <ul id="food-list">
+        {% for vendor in food_places %}
             <li>
-                <strong>{{ food_place.name }}</strong><br>
-                Location: {{ food_place.location }}<br>
-                Description: {{ food_place.description }}<br>
-                Category: {{ food_place.category }}<br>
-                Price: {{ food_place.price|default:"N/A" }}<br>
-                <a href="{{ food_place.url }}">Visit Website</a>
+                <strong>{{ vendor.name }}</strong><br>
+                Location: {{ vendor.location }}<br>
+                Description: {{ vendor.description }}<br>
+                Category: {{ vendor.category }}<br>
+                <a href="{{ vendor.url }}">Visit Website</a>
             </li>
-        {% empty %}
-            <li>No food places found.</li> 
         {% endfor %}
     </ul>
+    <script>
+        document.getElementById('scrape-button').addEventListener('click', function() {
+            fetch('/scrape-food-places/')
+                .then(response => response.json())
+                .then(data => {
+                    const foodList = document.getElementById('food-list');
+                    foodList.innerHTML = ''; 
+                    data.forEach(place => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `<strong>${place.name}</strong><br>
+                                        Location: ${place.location}<br>
+                                        Description: ${place.description}<br>
+                                        Category: ${place.category}<br>
+                                        <a href="${place.url}">Visit Website</a>`;
+                        foodList.appendChild(li);
+                    });
+                });
+        });
+    </script>
 </body>
 </html>

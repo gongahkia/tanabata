@@ -95,10 +95,10 @@ def scrape_ntu(base_url):
 
 # ----- Execution Code -----
 
-if __name__ == "__main__":
-    TARGET_URL = "https://www.ntu.edu.sg/life-at-ntu/leisure-and-dining/general-directory?locationTypes=all&locationCategories=all&page="
-    details_list, errors = scrape_ntu(TARGET_URL)
-    if errors:
-        print(f"errors encountered: {errors}")
-    else:
-        print("Scraping complete")
+# if __name__ == "__main__":
+#     TARGET_URL = "https://www.ntu.edu.sg/life-at-ntu/leisure-and-dining/general-directory?locationTypes=all&locationCategories=all&page="
+#     details_list, errors = scrape_ntu(TARGET_URL)
+#     if errors:
+#         print(f"errors encountered: {errors}")
+#     else:
+#         print("Scraping complete")
