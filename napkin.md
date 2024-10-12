@@ -20,6 +20,8 @@
 
 * Debug capitaland_spider.py code since currently my spider is unable to scrape any items
 * Debug capitaland_soup.py code since currently my bs4 scraper is unable to scrape any items
+* Debug smu_spider.py code since currently my spider is unable to scrape any items
+* Debug smu_soup.py code since currently my bs4 scraper is unable to scrape any items
 
 * Sites hardcoded to be scraped
 
