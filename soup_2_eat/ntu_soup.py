@@ -37,17 +37,31 @@ details = {
 }
 """
 
-from requests_html import HTMLSession
-from bs4 import BeautifulSoup
 import json
 import os
+import re
+from bs4 import BeautifulSoup
+from requests_html import HTMLSession
 
 def delete_file(target_url):
+    """
+    helper function that 
+    attempts to delete a file
+    at the specified url
+    """
     try:
         os.remove(target_url)
-        print(f"Deleted file at filepath: {target_url}")
+        print(f"deleted file at filepath: {target_url}")
     except OSError as e:
-        print(f"Error deleting file at filepath: {target_url} due to {e}")
+        print(f"error deleting file at filepath: {target_url} due to {e}")
+
+def clean_string(input_string):
+    """
+    sanitises a provided string
+    """
+    cleaned_string = re.sub(r'\n+', ' ', input_string)
+    cleaned_string = re.sub(r'<[^>]+>', '', cleaned_string)
+    return cleaned_string.strip()
 
 def scrape_ntu(base_url):
     """
@@ -79,13 +93,15 @@ def scrape_ntu(base_url):
             for listing in listings:
 
                 name = listing.select_one('div.img-card__body h3.img-card__title').get_text(strip=True)
-                location = listing.select_one('span.img-card__label.location-label span.location').get_text(strip=True) if listing.select_one('span.img-card__label.location-label') else ''
-                description = listing.select_one('p.img-card__info').get_text(strip=True) if listing.select_one('p.img-card__info') else ''
+                raw_location = listing.select_one('span.img-card__label.location-label span.location').get_text(strip=True) if listing.select_one('span.img-card__label.location-label') else ''
+                clean_location = clean_string(raw_location)
+                raw_description = listing.select_one('p.img-card__info').get_text(strip=True) if listing.select_one('p.img-card__info') else ''
+                clean_description = clean_string(raw_description)
                 url = listing.select_one('a.link.link--icon')['href']
                 details = {
                     'name': name,
-                    'location': location,
-                    'description': description,
+                    'location': clean_location,
+                    'description': clean_description,
                     'category': '', # FUA assume category is not available for now
                     'url': url
                 }
