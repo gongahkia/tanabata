@@ -9,7 +9,7 @@ config:
 	@clear
 	@echo "installing dependencies..."
 	@sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
-	@sudo apt install -y postgresql postgresql-contrib
+	@sudo apt install -y postgresql postgresql-contrib firefox
 	@pip install django djangorestframework scrapy beautifulsoup4 psycopg2-binary webdriver_manager selenium scrapy-splash requests_html lxml[html_clean]
 	@sudo snap install docker
 	@echo "starting postgresql database..."
