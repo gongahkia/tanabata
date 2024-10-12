@@ -1,3 +1,14 @@
+""" 
+FUA
+
+there are some issues parsing this site
+as similar to smu, it relies on incapsula to 
+shield its site data from other sites
+
+might have to look into using selenium
+to scrape this site instead
+"""
+
 import requests
 from bs4 import BeautifulSoup
 

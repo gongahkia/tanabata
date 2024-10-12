@@ -1,5 +1,17 @@
+"""
+FUA
+
+there are some issues parsing this site
+as similar to smu, it relies on incapsula to 
+shield its site data from other sites
+
+might have to look into using selenium
+to scrape this site instead
+"""
+
 import requests
 from bs4 import BeautifulSoup
+from requests_html import HTMLSession
 
 class CapitalandExtractor:
 
@@ -22,17 +34,35 @@ class CapitalandExtractor:
             "https://www.capitaland.com/sg/malls/tampinesmall/en/stores.html?category=foodandbeverage",
             "https://www.capitaland.com/sg/malls/westgate/en/stores.html?category=foodandbeverage"
         ]
+        self.session = HTMLSession() 
+
+    def sanitize_url(self, url):
+        """
+        sanitize the given URL
+        to extract the mall name
+        """
+        try:
+            parts = url.split('/')
+            mall_name = parts[5] 
+            return mall_name
+        except IndexError:
+            print(f"Invalid URL format found with the URL: {url}")
+            return None
 
     def fetch_page(self, url):
         """
         fetch the page and return a 
         BeautifulSoup object
         """
-        response = requests.get(url)
+        response = self.session.get(url) 
         if response.status_code == 200:
-            return BeautifulSoup(response.text, 'html.parser')
+            html_file_path = "capitaland_links.html"
+            with open(html_file_path, 'w', encoding='utf-8') as html_file:
+                html_file.write(response.html.html)
+            print(f"Raw HTML written to file: {html_file_path}")
+            return BeautifulSoup(response.html.html, 'html.parser') 
         else:
-            print(f"Failed to retrieve page {url}")
+            print(f"Failed to retrieve page {url} with status code: {response.status_code}")
             return None
 
     def extract_store_links(self):
@@ -49,7 +79,8 @@ class CapitalandExtractor:
             if soup:
                 listings = soup.select('div.listing-container ul.listing-items article.listing-item.listing-tenants a')
                 links = [self.base_url + listing.get('href') for listing in listings if listing.get('href')]
-                store_links[url] = links
+                sanitized_url = self.sanitize_url(url)
+                store_links[sanitized_url] = links
         return store_links
 
 # ----- execution code -----
