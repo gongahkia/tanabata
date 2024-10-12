@@ -1,6 +1,6 @@
 # `tako`
 
-Tako, a web app that helps you decide where to eat.
+Tako, a web app that helps you decide where to eat *(within walking distance)*.
 
 <p align='center'>
     <img src="./asset/logo/tako_mascot.png" width=40% height=40%>
