@@ -9,6 +9,5 @@ BeautifulSoup4 currently scrapes the following websites.
 ## Usage
 
 ```console
-$ scrapy crawl spider_name
-$ scrapy crawl spider_name -o output.json
+$ python3 main.py
 ```
