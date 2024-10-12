@@ -33,28 +33,55 @@ details = {
 }
 """
 
-import requests
+import json
+import os
+import re
+from requests_html import HTMLSession
 from bs4 import BeautifulSoup
 
-print("soup start")
+def delete_file(target_url):
+    """
+    helper function that attempts 
+    to delete a file at the specified 
+    URL
+    """
+    try:
+        os.remove(target_url)
+        print(f"deleted file at filepath: {target_url}")
+    except OSError as e:
+        print(f"error deleting file at filepath: {target_url} due to {e}")
 
-url = "https://www.smu.edu.sg/campus-life/visiting-smu/food-beverages-listing"
+def clean_string(input_string):
+    """
+    sanitize a provided string
+    """
+    cleaned_string = re.sub(r'\n+', ' ', input_string)
+    cleaned_string = re.sub(r'<[^>]+>', '', cleaned_string)
+    return cleaned_string.strip()
 
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36',
-    'Referer': 'https://www.google.com/'
-}
+def scrape_smu(base_url):
+    """
+    scrapes the specified SMU website 
+    for food and beverage details
+    """
+    session = HTMLSession()
+    response = session.get(base_url)
+    response.html.render() 
+    details_list = []
+    errors = []
 
-response = requests.get(url, headers=headers)
-if response.status_code != 200:
-    print(f"failed to retrieve page url: {url}")
-    print(f"status code: {response.status_code}")
-    exit()
-else:
-    print(f"succesfully retrieved page url: {url}")
-    soup = BeautifulSoup(response.text, 'html.parser')
+    if response.status_code != 200:
+        print(f"failed to retrieve page URL: {base_url}")
+        print(f"status code: {response.status_code}")
+        errors.append("Failed to retrieve data")
+        return details_list, errors
+
+    print(f"successfully retrieved page URL: {base_url}")
+    soup = BeautifulSoup(response.html.html, 'html.parser')
     print(soup)
-    locations = soup.select('div.col-md-9')
+
+    locations = soup.select('div.col-md-9 div.location')
+
     for location in locations:
         name = location.select_one('h4.location-title').get_text(strip=True) if location.select_one('h4.location-title') else ''
         location_text = location.select_one('div.location-address').get_text(strip=True) if location.select_one('div.location-address') else ''
@@ -65,11 +92,27 @@ else:
         category = "Food and Beverage"
         details = {
             'name': name,
-            'location': location_text,
-            'description': f"{description} {contact_info} {hours_info}".strip(),
+            'location': clean_string(location_text),
+            'description': f"{clean_string(description)} {clean_string(contact_info)} {clean_string(hours_info)}".strip(),
             'category': category,
             'url': location_url
         }
-        print(details)
+        details_list.append(details)
 
-    print("soup end")
+    return details_list, errors
+
+# ----- execution code -----
+
+TARGET_URL = "https://www.smu.edu.sg/campus-life/visiting-smu/food-beverages-listing"
+TARGET_FILEPATH = "output/smu_dining_details.json"
+
+result = scrape_smu(TARGET_URL)
+details_list, errors = result[0], result[1]
+
+if errors:
+    print(f"errors encountered: {errors}")
+print("Scraping complete")
+delete_file(TARGET_FILEPATH)
+
+with open(TARGET_FILEPATH, 'w') as f:
+    json.dump(details_list, f, indent=4)
