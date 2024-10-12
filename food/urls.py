@@ -8,5 +8,5 @@ router.register(r'user-preferences', UserPreferenceViewSet)
 
 urlpatterns = [
     path('', index_view, name='index'),
-    path('', include(router.urls)),
+    path('api/', include(router.urls)),
 ]

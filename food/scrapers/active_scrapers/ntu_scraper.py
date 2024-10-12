@@ -2,14 +2,14 @@ import os
 import re
 import json
 import django
+import requests
 from bs4 import BeautifulSoup
-from requests_html import AsyncHTMLSession
 from food.models import FoodPlace 
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "what_2_eat.settings") 
 django.setup()
 
-async def delete_file(target_url):
+def delete_file(target_url):
     """
     Helper function that attempts 
     to delete a file at the specified 
@@ -29,28 +29,30 @@ def clean_string(input_string):
     cleaned_string = re.sub(r'<[^>]+>', '', cleaned_string)
     return cleaned_string.strip()
 
-async def scrape_ntu(base_url):
+def scrape_ntu(base_url):
     """
     Scrapes the specified NTU website 
     for the food vendor's name, location, 
     description, category, and url.
     """
-    session = AsyncHTMLSession()
     page = 1
     details_list = []
     errors = []
 
     while True:
         url = f"{base_url}{page}"
-        response = await session.get(url)
-        await response.html.arender()  # Use arender for async rendering
-        soup = BeautifulSoup(response.html.html, 'html.parser')
-
+        response = requests.get(url)
+        if response.status_code != 200:
+            errors.append(f"Failed to retrieve page {page}: {response.status_code}")
+            break
+        
+        # Render the page content using BeautifulSoup
+        soup = BeautifulSoup(response.text, 'html.parser')
         listings = soup.select('div.col-sm-8.col-md-9 li.search__results-item.col-sm-6.col-md-4')
 
         if not listings:
             errors.append("No more listings found.")
-            return [details_list, errors]
+            break
 
         for listing in listings:
             name = listing.select_one('div.img-card__body h3.img-card__title').get_text(strip=True)
@@ -71,6 +73,7 @@ async def scrape_ntu(base_url):
 
             details_list.append(details)
 
+            # Update or create food places in the database
             FoodPlace.objects.update_or_create(
                 name=name,
                 defaults={
@@ -86,18 +89,16 @@ async def scrape_ntu(base_url):
         if next_page and 'href' in next_page.attrs:
             page += 1
         else:
-            return [details_list, errors]
+            break
+
+    return details_list, errors
 
 # ----- Execution Code -----
 
-async def main():
+if __name__ == "__main__":
     TARGET_URL = "https://www.ntu.edu.sg/life-at-ntu/leisure-and-dining/general-directory?locationTypes=all&locationCategories=all&page="
-    result = await scrape_ntu(TARGET_URL)
-    details_list, errors = result[0], result[1]
+    details_list, errors = scrape_ntu(TARGET_URL)
     if errors:
         print(f"errors encountered: {errors}")
-    print("Scraping complete")
-
-if __name__ == "__main__":
-    import asyncio
-    asyncio.run(main())
+    else:
+        print("Scraping complete")
