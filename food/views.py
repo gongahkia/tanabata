@@ -7,11 +7,12 @@ from .models import FoodPlace, UserPreference
 from .serializers import FoodPlaceSerializer, UserPreferenceSerializer
 from .scrapers.active_scrapers.ntu_scraper import scrape_ntu 
 
-def scrape_and_save_food_places(request):
+def scrape_and_save_food_places():
     base_url = "https://www.ntu.edu.sg/life-at-ntu/leisure-and-dining/general-directory?locationTypes=all&locationCategories=all&page="
     details_list, errors = scrape_ntu(base_url) 
+    FoodPlace.objects.all().delete() 
     for item in details_list:
-        FoodPlace.objects.create(
+        FoodPlace.objects.update_or_create(
             name=item['name'],
             location=item['location'],
             description=item['description'],
@@ -20,10 +21,10 @@ def scrape_and_save_food_places(request):
         )
     if errors:
         print(f"Errors encountered: {errors}")
-    return render(request, 'food/index.html', {'food_places': FoodPlace.objects.all()})
+    print(details_list)
 
 def index_view(request):
-    scrape_and_save_food_places(request)
+    scrape_and_save_food_places()
     return render(request, 'food/index.html', {'food_places': FoodPlace.objects.all()})
 
 class FoodPlaceViewSet(viewsets.ModelViewSet):

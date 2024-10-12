@@ -20,14 +20,14 @@
     <h1 align="center">Tako</h1>
     <h2>Nearby Food Suggestions</h2>
     <ul id="food-list"> 
-        {% for vendor in food_places %}
+        {% for food_place in food_places %}
             <li>
-                <strong>{{ vendor.name }}</strong><br>
-                Location: {{ vendor.location }}<br>
-                Description: {{ vendor.description }}<br>
-                Category: {{ vendor.category }}<br>
-                Price: {{ vendor.price|default:"N/A" }}<br>
-                <a href="{{ vendor.url }}">Visit Website</a>
+                <strong>{{ food_place.name }}</strong><br>
+                Location: {{ food_place.location }}<br>
+                Description: {{ food_place.description }}<br>
+                Category: {{ food_place.category }}<br>
+                Price: {{ food_place.price|default:"N/A" }}<br>
+                <a href="{{ food_place.url }}">Visit Website</a>
             </li>
         {% empty %}
             <li>No food places found.</li> 
