@@ -1,9 +1,9 @@
 """
 ~~~ FUA ~~~
 
-try and understand what the scraper code does
-
-debug as required
+might need to debug the incomplete scraping 
+that occurs every so often when the ntu_soup.py 
+runs
 
 ~~~ INTERNAL REFERENCE ~~~
 
