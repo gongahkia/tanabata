@@ -64,6 +64,7 @@ def scrape_smu(base_url):
     scrapes the specified SMU website 
     for food and beverage details
     """
+    html_file_path = "ntu_dining_details.html"
     session = HTMLSession()
     response = session.get(base_url)
     response.html.render() 
@@ -77,6 +78,11 @@ def scrape_smu(base_url):
         return details_list, errors
 
     print(f"successfully retrieved page URL: {base_url}")
+
+    # with open(html_file_path, 'w', encoding='utf-8') as html_file:
+    #     html_file.write(response.html.html)
+    # print(f"raw HTML written to file: {html_file_path}")
+
     soup = BeautifulSoup(response.html.html, 'html.parser')
     print(soup)
 
