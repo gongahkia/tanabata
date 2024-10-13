@@ -7,6 +7,8 @@
 
 * need to debug why the script.js and style.css in my ./food/static/food/ folder is not visible when i serve my index.html file
 
+* try scraping with playwright
+
 * Debug capitaland_spider.py code since currently my spider is unable to scrape any items
 * Debug capitaland_extractor_soup.py code since currently my bs4 scraper is unable to scrape any items
 * Debug capitaland_parser_soup.py code since currently my bs4 scraper is unable to scrape any items

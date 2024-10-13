@@ -30,30 +30,23 @@ def scrape_ion_orchard(base_urls):
     """
     details_list = []
     errors = []
-
     with sync_playwright() as p:
-        # Launch the Chromium browser in headless mode
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
-
         for base_url in base_urls:
             page_num = 1
             while True:
                 url = f"{base_url}&page={page_num}"
                 try:
                     page.goto(url)
-
-                    # Wait for the listings to be present
                     page.wait_for_selector('div.cmp-dynamic-list-dine-shop-grid-item')
-
                     listings = page.query_selector_all('div.cmp-dynamic-list-dine-shop-grid-item')
                     if not listings:
                         errors.append("No more listings found.")
                         break
-
                     for listing in listings:
-                        name = listing.query_selector('div.cmp-dynamic-list-dine-shop-item-content.cmp-dynamic-list-dine-shop-item-content-item-title').inner_text().strip()
-                        raw_location = listing.query_selector('div.cmp-dynamic-list-dine-shop-item-content.cmp-dynamic-list-dine-shop-item-content-item-num')
+                        name = listing.query_selector('div.cmp-dynamic-list-dine-shop-item-content div.cmp-dynamic-list-dine-shop-item-content-info span.cmp-dynamic-list-dine-shop-item-content-item-title').inner_text().strip()
+                        raw_location = listing.query_selector('div.cmp-dynamic-list-dine-shop-item-content div.cmp-dynamic-list-dine-shop-item-content-info span.cmp-dynamic-list-dine-shop-item-content-item-num').inner_text().strip()
                         clean_location = clean_string(raw_location.inner_text().strip() if raw_location else '')
                         description = "" 
                         category = ""
