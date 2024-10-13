@@ -9,4 +9,5 @@ router.register(r'user-preferences', UserPreferenceViewSet)
 urlpatterns = [
     path('', index_view, name='index'),
     path('scrape-food-places/', scrape_food_places, name='scrape-food-places'),
+    path('api/', include(router.urls)),
 ]
