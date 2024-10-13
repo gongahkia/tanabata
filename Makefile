@@ -11,7 +11,7 @@ config:
 	@clear
 	@echo "installing dependencies..."
 	@sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
-	@sudo apt install -y postgresql postgresql-contrib firefox
+	@sudo apt install -y postgresql postgresql-contrib
 	@pip install django djangorestframework scrapy beautifulsoup4 psycopg2-binary webdriver_manager selenium scrapy-splash requests_html lxml[html_clean] aiohttp daphne uvicorn playwright
 	@playwright install
 	@sudo snap install docker
