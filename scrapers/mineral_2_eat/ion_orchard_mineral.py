@@ -1,16 +1,19 @@
 import json
 import os
 import re
+import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 def delete_file(target_url):
     """
-    helper function that attempts to 
-    delete a file at the specified url
+    Helper function that attempts to 
+    delete a file at the specified url.
     """
     try:
         os.remove(target_url)
@@ -20,7 +23,7 @@ def delete_file(target_url):
 
 def clean_string(input_string):
     """
-    sanitizes a provided string
+    Sanitizes a provided string.
     """
     cleaned_string = re.sub(r'\n+', ' ', input_string)
     cleaned_string = re.sub(r'<[^>]+>', '', cleaned_string)
@@ -28,26 +31,40 @@ def clean_string(input_string):
 
 def scrape_ion_orchard(base_urls):
     """
-    scrapes the specified ion orchard 
+    Scrapes the specified Ion Orchard 
     websites for the food vendor's name,
-    location, description, category, and url
+    location, description, category, and URL.
     """
     options = Options()
-    options.headless = True 
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
+    options.headless = True  # Run in headless mode
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+
+    try:
+        driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
+    except Exception as e:
+        print(f"Error initializing Chrome: {e}")
+        return [], [f"Browser initialization failed: {e}"]
+
     details_list = []
     errors = []
+
     for base_url in base_urls:
         page = 1
         while True:
             url = f"{base_url}&page={page}"
             try:
                 driver.get(url)
-                driver.implicitly_wait(10) 
-                listings = driver.find_elements(By.CSS_SELECTOR, 'div.cmp-dynamic-list-dine-shop-grid-item')
+
+                # Wait for the listings to be present
+                listings = WebDriverWait(driver, 10).until(
+                    EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'div.cmp-dynamic-list-dine-shop-grid-item'))
+                )
+
                 if not listings:
                     errors.append("No more listings found.")
                     break
+
                 for listing in listings:
                     name = listing.find_element(By.CSS_SELECTOR, 'div.cmp-dynamic-list-dine-shop-item-content.cmp-dynamic-list-dine-shop-item-content-item-title').text.strip()
                     raw_location = listing.find_element(By.CSS_SELECTOR, 'div.cmp-dynamic-list-dine-shop-item-content.cmp-dynamic-list-dine-shop-item-content-item-num').text.strip() if listing.find_elements(By.CSS_SELECTOR, 'div.cmp-dynamic-list-dine-shop-item-content.cmp-dynamic-list-dine-shop-item-content-item-num') else ''
@@ -63,11 +80,14 @@ def scrape_ion_orchard(base_urls):
                         'url': vendor_url
                     }
                     details_list.append(details)
+
+                # Check for next page
                 next_page = driver.find_elements(By.CSS_SELECTOR, 'div.cmp-dynamic-list-pagination-container span.cmp-dynamic-list-paginate-item.active')
                 if next_page:
                     page += 1
                 else:
                     break 
+
             except Exception as e:
                 errors.append(f"Error processing {url}: {e}")
                 break 
@@ -75,7 +95,7 @@ def scrape_ion_orchard(base_urls):
     driver.quit() 
     return details_list, errors
 
-# ----- execution Code -----
+# ----- Execution Code -----
 
 BASE_URLS = [
     "https://www.ionorchard.com/en/dine.html?category=Casual%20Dining%20and%20Takeaways",
