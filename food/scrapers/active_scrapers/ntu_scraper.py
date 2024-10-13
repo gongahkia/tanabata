@@ -1,3 +1,7 @@
+# !NOTE
+    # important to note that all scraper functions and corresponding database operations must be converted to be asynchronous via the sync_to_async library
+    # this is as Django ORM doesn't support async queries
+
 import os
 import re
 import django
@@ -11,7 +15,7 @@ django.setup()
 
 async def delete_file(target_url):
     """
-    Helper function that attempts 
+    helper function that attempts 
     to delete a file at the specified 
     filepath (not used in this implementation)
     """
@@ -23,7 +27,7 @@ async def delete_file(target_url):
 
 def clean_string(input_string):
     """
-    Sanitize a provided string.
+    sanitize a provided string
     """
     cleaned_string = re.sub(r'\n+', ' ', input_string)
     cleaned_string = re.sub(r'<[^>]+>', '', cleaned_string)
@@ -31,9 +35,9 @@ def clean_string(input_string):
 
 async def scrape_ntu(base_url):
     """
-    Scrapes the specified NTU website 
+    scrapes the specified NTU website 
     for the food vendor's name, location, 
-    description, category, and url.
+    description, category, and url
     """
     session = AsyncHTMLSession()
     page = 1
@@ -43,17 +47,15 @@ async def scrape_ntu(base_url):
         url = f"{base_url}{page}"
         print(f"Fetching URL: {url}")
         response = await session.get(url)
-        await response.html.arender()  # Render the JavaScript content
+        await response.html.arender() 
         if response.status_code != 200:
             errors.append(f"Failed to retrieve page {page}: {response.status_code}")
             break
         soup = BeautifulSoup(response.html.html, 'html.parser')
         listings = soup.select('div.col-sm-8.col-md-9 li.search__results-item.col-sm-6.col-md-4')
-
         if not listings:
             errors.append("No more listings found.")
             break
-
         for listing in listings:
             name = listing.select_one('div.img-card__body h3.img-card__title').get_text(strip=True)
             raw_location = listing.select_one('span.img-card__label.location-label span.location').get_text(strip=True) if listing.select_one('span.img-card__label.location-label') else ''
@@ -69,7 +71,6 @@ async def scrape_ntu(base_url):
                 'category': '',  
                 'url': url
             }
-
             details_list.append(details)
             await sync_to_async(FoodPlace.objects.update_or_create)(
                 name=name,
@@ -86,5 +87,4 @@ async def scrape_ntu(base_url):
             page += 1
         else:
             break
-
     return details_list, errors
