@@ -1,4 +1,4 @@
-all: test
+all: migrate
 
 test: manage.py
 	@clear
@@ -39,6 +39,7 @@ mock:
 
 migrate:manage.py
 	@clear
+	@python3 manage.py collectstatic
 	@python3 manage.py makemigrations
 	@python3 manage.py migrate
 	@daphne -p 8000 what_2_eat.asgi:application

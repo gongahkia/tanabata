@@ -29,6 +29,7 @@ async def scrape_food_places(request):
         )
     if errors:
         print(f"Errors encountered: {errors}")
+    print(f"details list has {len(details_list)} items")
     print("scrape_food_places finished execution!")
     food_places = await sync_to_async(list)(FoodPlace.objects.all())
     return render(request, 'food/index.html', {'food_places': food_places})
