@@ -10,25 +10,28 @@ from .scrapers.active_scrapers.ntu_scraper import scrape_ntu
 from asgiref.sync import sync_to_async
 
 async def index_view(request):
-    food_places = await sync_to_async(FoodPlace.objects.all)()
+    food_places = await sync_to_async(list)(FoodPlace.objects.all())
     return render(request, 'food/index.html', {'food_places': food_places})
 
 async def scrape_food_places(request):
     print("executing scrape_food_places...")
     base_url = "https://www.ntu.edu.sg/life-at-ntu/leisure-and-dining/general-directory?locationTypes=all&locationCategories=all&page="
-    details_list, errors = await scrape_ntu(base_url)  # Use await here
+    details_list, errors = await scrape_ntu(base_url)
     for item in details_list:
-        FoodPlace.objects.create(
+        await sync_to_async(FoodPlace.objects.update_or_create)(
             name=item['name'],
-            location=item['location'],
-            description=item['description'],
-            category=item.get('category', ''),
-            price=None
+            defaults={
+                'location': item['location'],
+                'description': item['description'],
+                'category': item.get('category', ''),
+                'price': None
+            }
         )
     if errors:
         print(f"Errors encountered: {errors}")
     print("scrape_food_places finished execution!")
-    return render(request, 'food/index.html', {'food_places': FoodPlace.objects.all()})
+    food_places = await sync_to_async(list)(FoodPlace.objects.all())
+    return render(request, 'food/index.html', {'food_places': food_places})
 
 class FoodPlaceViewSet(viewsets.ModelViewSet):
     queryset = FoodPlace.objects.all()
