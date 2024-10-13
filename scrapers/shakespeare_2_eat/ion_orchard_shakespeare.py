@@ -45,13 +45,15 @@ def scrape_ion_orchard(base_urls):
                         errors.append("No more listings found.")
                         break
                     for listing in listings:
-                        name = listing.query_selector('div.cmp-dynamic-list-dine-shop-item-content div.cmp-dynamic-list-dine-shop-item-content-info span.cmp-dynamic-list-dine-shop-item-content-item-title').inner_text().strip()
-                        raw_location = listing.query_selector('div.cmp-dynamic-list-dine-shop-item-content div.cmp-dynamic-list-dine-shop-item-content-info span.cmp-dynamic-list-dine-shop-item-content-item-num').inner_text().strip()
+                        # details = listing.query_selector('div.cmp-dynamic-list-dine-shop-item-content-info').inner_text()
+                        name = listing.query_selector('div.cmp-dynamic-list-dine-shop-item-content-info div.cmp-dynamic-list-dine-shop-item-content-info span.cmp-dynamic-list-dine-shop-item-content-item-title').inner_text().strip()
+                        raw_location = listing.query_selector('div.cmp-dynamic-list-dine-shop-item-content-info div.cmp-dynamic-list-dine-shop-item-content-info span.cmp-dynamic-list-dine-shop-item-content-item-num').inner_text().strip()
                         clean_location = clean_string(raw_location.inner_text().strip() if raw_location else '')
+                        print(name)
+                        print(clean_location)
                         description = "" 
                         category = ""
                         vendor_url = base_url 
-
                         details = {
                             'name': name,
                             'location': clean_location,
