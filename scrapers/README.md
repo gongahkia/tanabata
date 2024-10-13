@@ -36,3 +36,10 @@ Selenium scrapers currently scrape the following websites.
 | `nus_mineral` | https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/ | - https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/<br> - https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/<br> - https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages-bukit-timah/ | :x: |
 | `ion_orchard_mineral` | https://www.ionorchard.com/en/dine.html | - https://www.ionorchard.com/en/dine.html?category=Casual%20Dining%20and%20Takeaways<br> - https://www.ionorchard.com/en/dine.html?category=Restaurants%20and%20Cafes | :x: |
 
+## Playwright
+
+Playwright scrapers currently scrape the following websites.
+
+| Playwright scraper name | Domains scraped | Sites scraped | Status |
+| :--- | :--- | :--- | :--- |
+| | | | | 
