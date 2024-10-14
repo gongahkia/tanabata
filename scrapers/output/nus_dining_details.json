@@ -1,7 +1,388 @@
 {
     "nus": {
-        "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/": [],
-        "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/": [],
-        "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages-bukit-timah/": []
+        "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/": [
+            {
+                "name": "Anna\u2019s x Union The SoupSpoon",
+                "location": "Forum",
+                "description": "(PENDING HALAL CERTIFICATION)\nTerm Time Operating Hours:\nMon-Fri: 9.00am-8.00pm\nSat: 10.00am\u20135.00pm\nSun & PH: Closed\nNearest Carpark: CP 18\nNearest Bus Stop: Central Library\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Arise & Shine",
+                "location": "Engineering Block E4",
+                "description": "Term Time Operating Hours:\nMon-Fri, 8.00am-6.00pm\nSat, 8.30am-3.30pm\nSun/PH Closed\nVacation Operating Hours:\nMon-Fri, 8.00pm-5.00pm\nSat/Sun/PH Closed\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Arise & Shine",
+                "location": "Science Block S16",
+                "description": "(Temporarily closed for upgrading works)\nTerm Time Operating Hours:\nMon-Fri, 8.00am-6.00pm\nSat/Sun/PH closed\nVacation Operating Hours:\nMon-Fri, 8.00am-4.00pm\nSat/Sun/PH closed\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Bar Bar Black Sheep",
+                "location": "Alice Lee Plaza",
+                "description": "Term Time & Vacation Operating Hours:\nMon-Sat, 12.00pm-10.30pm\nSun, closed\nContact: 62591050\nNearest Carpark: 3\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Bistro Box",
+                "location": "College of Design and Engineering",
+                "description": "(HALAL CERTIFIED)\nSeating Capacity: 150\nTerm Time Operating Hours:\nMon-Fri, 7.30am-8.00pm\nSat/Sun/PH closed\nVacation Operating Hours:\nMon-Fri, 8.00pm-7.00pm\nSat/Sun/PH closed\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Burnt Cones",
+                "location": "University Hall",
+                "description": "Term Time Operating Hours: Mon to Fri 8.00am\u20138.00pm\nVacation Operating Hours: Mon to Fri 8.00am\u20137.00pm\nWeekend & PH: Closed\nNearest Carpark: CP 6B\nNearest Bus Stops: University Hall & Opp. University Hall\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Burnt Cones",
+                "location": "Medicine Block MD11",
+                "description": "Term Time & Vacation Operating Hours:\nMon-Sun: 7.30am-10.00pm\n(Last order 9.30pm)\nContact: 9711 1097\nNearest Carpark: 9A\nNearest Bus Stop: LT 27 & S 17\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Cafe Delight",
+                "location": "Ventus",
+                "description": "Term Time & Vacation Operating Hours:\nMon-Fri, 8.00am-5.00pm\nSat/Sun/PH closed\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "E2 Kitchen",
+                "location": "Engineering Block E2",
+                "description": "Seating Capacity: \u2013\nTerm Time & Vacation Operating Hours:\nMon-Fri, 8.00am-7.00pm\nSat, 8.00am-2.00pm\nSun/PH closed\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Eighteen Chefs",
+                "location": "Faculty of Science Blk S16",
+                "description": "(HALAL CERTIFIED)\nOperating Hours:\nSchool Term\nMon-Fri: 10.00am \u2013 7.30pm\nSat, Sun & PH: Closed\nVacation\nMon-Fri: 10.00am \u2013 6.30pm\nSat, Sun & PH: Closed\nNearest Bus Stops: LT 27 and S 17\nNearest Car Park: CP7\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Eureka Taste",
+                "location": "Medicine Block MD6",
+                "description": "Term Time & Vacation Operating Hours:\nMon-Fri, 7.00am-7.00pm\nSat/Sun/PH, Closed\nContact: 96602224/88783119\nNearest Carpark: 9A (for staff season holders only), 6B (for public)\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "foreword COFFEE ROASTER",
+                "location": "Yong Siew Toh Conservatory of Music",
+                "description": "Term Time & Vacation Operating Hours:\nMon-Fri, 8.00am-5.00pm\nSat/Sun/PH, closed\nContact: 89490142 (WhatsApp only)\nNearest carpark: CP3\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Frontier",
+                "location": "Faculty of Science",
+                "description": "(HALAL & VEGETARIAN FOOD OPTIONS AVAILABLE)\nSeating Capacity: 700\nNumber of Stalls: 15\nTerm Time Operating Hours^:\nMon-Fri, 7.30am-4.00pm/8.00pm*\nSat, 7.30am-3.00pm\nSun/PH closed\nVacation Operating Hours^:\nMon-Fri, 7.00am to 7.00pm\nSat, 7.00am-2.00pm\n*Some stalls, during term time only\n^Stalls\u2019 operating hours vary\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Gong Cha @ Frontier Canteen",
+                "location": "Frontier, Faculty of Science",
+                "description": "Term Time & Vacation Operating Hours:\nMon-Fri, 11.00am-7.00pm\nSat/Sun/PH closed\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Good Day Cafe",
+                "location": "Medicine+Science Library",
+                "description": "Term Time & Vacation Operating Hours:\nMon to Fri, 7.30am-6.30pm\nSat/Sun/PH: Closed\nNearest Carpark: CP 9A\nNearest Bus Stop: S 17\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "He by He Brews",
+                "location": "Blk EA",
+                "description": "Term Time & Vacation Operating Hours:\nMon to Fri, 8.00am \u2013 5.00pm\nSat/Sun/PH: Closed\nNearest Carparks: CP 2A and 2B\nNearest Bus Stops: EA (operating during term time) and The Japanese Primary School\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Kuro Kare",
+                "location": "Techno Edge (level 2)",
+                "description": "Term Time & Vacation Operating Hours:\nMon to Fri, 11.00am \u2013 7.30pm\nSat/Sun/PH: Closed\nNearest Carpark: 17 (for staff season holders only), 1 (for public)\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Li Ji Coffeehouse",
+                "location": "Frontier (Aircon)",
+                "description": "Term Time & Vacation Operating Hours:\nMon-Fri, 7.00am-7.30pm\nSat, 7.00am-3.00pm\nSun/PH closed\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Liang Ban Kung Fu",
+                "location": "The Deck Level 2",
+                "description": "Seating Capacity: 268\nTerm Time & Vacation Operating Hours:\nMon-Sat, 8.00am-6.00pm\nSun/PH closed\nContact: 68731173\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Makan Boleh",
+                "location": "The Terrace @ COM3",
+                "description": "(MUSLIM OWNED)\nTerm Time & Vacation Operating Hours:\nMon \u2013 Sat: 8.00am \u2013 8.00pm\nSun/PH closed\nNearest Carpark: CP11\nNearest Bus Stop: COM 3\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Mrs Hen",
+                "location": "The Deck Level 2",
+                "description": "(HALAL CERTIFIED)\nSeating Capacity: 268\nTerm Time & Vacation Operating Hours:\nMon-Fri: 11.00am-3.00pm\nSat/Sun/PH: closed\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Nami",
+                "location": "vation4.0",
+                "description": "Term Time Operating Hours:\nMon-Fri, 8.00am-5.30pm\nSat/Sun/PH closed\nVacation Operating Hours:\nMon-Fri, 8.30am-5.00pm\nSat/Sun/PH closed\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Nine Fresh",
+                "location": "Faculty of Science",
+                "description": "Seating Capacity: 9\nTerm Time Operating Hours:\nMon-Fri, 11.00am \u2013 6.30pm\nSat, 11.00am \u2013 3.00pm\nSun/PH closed\nVacation Operating Hours:\nMon-Fri, 11.00am \u2013 6.30pm\nSat, 11.00am \u2013 3.00pm\nSun/PH closed\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Pasta Express",
+                "location": "Frontier (Aircon)",
+                "description": "Term Time Operating Hours:\nMon-Fri, 9.30am-7.30pm\nSat, 9.30am-1.30pm\nSun/PH closed\nVacation Operating Hours:\nMon-Fri, 10.00am-7.30pm\nSat/Sun/PH closed\nContact: 90258148\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "PGP Aircon Canteen",
+                "location": "Prince George\u2019s Park",
+                "description": "*CLOSE FOR MAINTENANCE WORK TILL 25 JUL 2024*\n(VEGETARIAN FOOD OPTION AVAILABLE)\nSeating Capacity: 308\nNumber of Stalls: 11\nTerm Time & Vacation Operating Hours^:\nMon-Fri, 7.30am-8.00pm\nSat-Sun, 8.00am-8.00pm\n^Stalls\u2019 operating hours vary\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Salad Express X Pasta Express",
+                "location": "The Deck Level 2",
+                "description": "Term Time Operating Hours:\nMon-Fri, 9.30am-7.30pm\nSat, 9.30am \u2013 1.30pm\nSun/PH closed\nVacation Operating Hours:\nMon-Fri, 10.00am \u2013 7.30pm\nSat/Sun/PH closed\nContact: 90258148\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Smooy @ COM3",
+                "location": "The Terrace @ COM3",
+                "description": "Term Time & Operating Hours:\nMon-Fri: 11.00am to 7.30pm\nVacation Operating Hours: Closed\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Starbucks",
+                "location": "S9",
+                "description": "Term Time Operating Hours:\nMon-Fri/PH eve, 7.30am to 7.00pm\nSat/Sun/PH Closed\nVacation Operating Hours:\nMon-Fri/PH eve, 8.00am-4.30pm\nContact: 68160981\nNearest Carpark: 7 (for staff season holders only), 6B (for public)\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Starbucks",
+                "location": "College of Design and Engineering",
+                "description": "Term Time Operating Hours:\nMon-Fri/PH Eve, 8.30am to 5.30pm\nSat/Sun/PH Closed\n(Close during Vacation)\nContact: 69746925\nNearest Carpark: 17 (for staff season holders only), 1 (for public)\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Supersnacks",
+                "location": "Prince George\u2019s Park",
+                "description": "(PENDING HALAL CERTIFICATION)\nSeating Capacity: 80\nTerm Time & Vacation Operating Hours:\nMon-Fri, 11.00am-2.00am\nSat/Sun/PH, 6.00pm-2.00am\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Taiwan Ichiban",
+                "location": "Frontier (Aircon)",
+                "description": "Term Time Operating Hours:\nMon-Fri, 8.30am-7.30pm\nSat, 8.30am-3.00pm\nSun/PH closed\nVacation Operating Hours:\nMon-Fri, 9.00am-7.00pm\nSat, 9.00am-3.00pm\nSun/PH closed\nContact: 98555793\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Techno Edge",
+                "location": "College of Design and Engineering",
+                "description": "(HALAL & VEGETARIAN FOOD OPTIONS AVAILABLE)\nSeating Capacity: 450\nNumber of Stalls: 12\nTerm Time Operating Hours^:\nSat, 7.30-am-3.00pm\nSun/PH closed\nVacation Operating Hours^:\nMon-Fri, 7.00am-8.00pm\nSat, 7.30am-6.00pm\n*Some stalls, during term time only\n^Stalls\u2019 operating hours vary\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "The Coffee Bean & Tea Leaf",
+                "location": "The Terrace @ COM3",
+                "description": "(HALAL CERTIFIED)\nTerm Time Vacation Operating Hours:\nMon-Fri: 8.00am to 8.00pm\nSat: 9.00am to 6.00pm\nSun/PH: Closed\nVacation Operating Hours:\nMon-Fri: 8.00am to 6.00pm\nSat/Sun/PH: Closed\nNearest Carpark: 11 (for public), 13 (for staff season holders only)\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "The Coffee Roaster",
+                "location": "Blk AS8",
+                "description": "Term Time Operating Hours:\nMon-Fri, 8.00am-5.30pm\nSat/Sun/PH closed\nVacation Operating Hours:\nMon-Fri, 8.30am-5.00pm\nSat/Sun/PH closed\nNearest Carpark: 16\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "The Deck",
+                "location": "Faculty of Arts & Social Sciences",
+                "description": "(HALAL & VEGETARIAN FOOD OPTIONS AVAILABLE)\nSeating Capacity: 1018\nNumber of Stalls: 13\nTerm Time Operating Hours^:\nMon-Fri, 7.30am-4.00pm/8.00pm*\nSat,7.30am-3.00pm\nSun/PH closed\nVacation Operating Hours^:\nMon-Fri, 7.00am-6.00pm\n*Some stalls, during term time only\n^Stalls\u2019 operating hours vary\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "The Spread",
+                "location": "Business School Mochtar Riady Building",
+                "description": "Seating Capacity: 100\nTerm Time Operating Hours:\nMon-Fri, 8.00am-8.00pm\nSat, 8.00am-3.00pm\nSun/PH closed\nVacation Operating Hours:\nMon-Fri, 8.00am-6.00pm (Bistro: 6.00pm to 9.00pm)\nSat, 8.00am-2.30pm\nSun/PH, Closed\nContact: 69085955\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "The Terrace",
+                "location": "Computing 3 (COM3)",
+                "description": "*CLOSE FOR RENOVATION TILL AUG 2024*\nSeating Capacity: 756\nTerm Time Operating Hours:\nMon-Fri, 7.30am-7.00pm\nSat-Sun, Closed\nVacation Operating Hours:\nMon-Fri, 7.30am to 3.00pm\nSat-Sun, Closed\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "TOMORO COFFEE",
+                "location": "Hon Sui Sen Memorial Library",
+                "description": "Term Time Operating Hours:\nMon-Fri, 8.00am\u20136.30pm,\nSat/Sun/PH, 8.00am \u2013 2.00pm\nVacation Operating Hours:\nMon to Fri, 8.00am \u2013 5.00pm\nSat/Sun/PH, Closed\nNearest Carpark: CP 12\nNearest Bus Stop: Opp. Hon Sui Sen Memorial Library\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "Uncle Penyet Fusion",
+                "location": "Frontier (Aircon)",
+                "description": "(HALAL CERTIFIED)\nTerm Time & Vacation Operating Hours:\nMon-Fri, 7.00am-7.30pm\nSat, 7.00am-3.00pm\nSun/PH closed\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            },
+            {
+                "name": "University Club",
+                "location": "Shaw Foundation Alumni House",
+                "description": "Seating Capacity: 70\nTerm Time & Vacation Operating Hours:\nMon-Fri, 12.00pm-3.00pm (Last order 2.45pm)\nSat/Sun/PH closed\nContact No: 6779 8919\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/"
+            }
+        ],
+        "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/": [
+            {
+                "name": "Bismillah Biryani",
+                "location": "UTown Stephen Riady Centre (SRC)",
+                "description": "(MUSLIM OWNED)\nTerm Time & Vacation Operating Hours:\nMon-Fri: 11.30am \u2013 7.30pm\nSat: 11.30am \u2013 5.00pm\nNearest Carpark: Stephen Riady Centre\nNearest Bus Stop: University Town\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/"
+            },
+            {
+                "name": "Fine Food",
+                "location": "Town Plaza",
+                "description": "(HALAL FOOD OPTIONS AVAILABLE)\nSeating Capacity: 410\nNumber of Stalls: 14\nTerm Time & Vacation Operating Hours:\nMon-Sun, 8.00am-8.30pm\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/"
+            },
+            {
+                "name": "Flavours @ UTown",
+                "location": "UTown Stephen Riady Centre",
+                "description": "(HALAL FOOD OPTIONS AVAILABLE)\nSeating Capacity: 700\nNumber of Stalls: 11\nTerm Time & Vacation Operating Hours:\nMon-Sun: 7.30am to 8.30pm\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/"
+            },
+            {
+                "name": "Hwang\u2019s Korean Restaurant",
+                "location": "Town Plaza",
+                "description": "Seating Capacity: 114\nTerm Time & Vacation Operating Hours:\nMon-Sat, 10.30am-9.00pm\nSun closed\nContact No: 9833 0603\nNearest Carpark: CREATE Tower\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/"
+            },
+            {
+                "name": "LiXin",
+                "location": "Town Plaza",
+                "description": "Term Time & Vacation Operating Hours: Mon-Sun 10.30 am \u2013 9.30 pm\nNearest Carpark: CREATE Tower\nNearest Bus Stop: University Town\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/"
+            },
+            {
+                "name": "Mr Bean / Do Qoo",
+                "location": "Town Plaza",
+                "description": "(HALAL CERTIFIED)\nTerm Time Operating Hours:\nMon-Fri 7.30am\u20139.00pm\nSat-Sat & PH 8.30am\u20137.30pm\nVacation Operating Hours:\nMon-Fri, 8 am \u2013 7 pm\nWeekend/PH closed\nNearest Carpark: CREATE Tower\nNearest Bus Stop: University Town\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/"
+            },
+            {
+                "name": "Starbucks",
+                "location": "Education Resource Centre (ERC)",
+                "description": "Seating Capacity: 330\nTerm Time & Vacation Operating Hours:\nDaily 8.00am to 9.00pm\nContact: 6910 1127\nNearest Carpark: Stephen Riady Centre\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/"
+            },
+            {
+                "name": "Subway",
+                "location": "Stephen Riady Centre",
+                "description": "(HALAL CERTIFIED)\nSeating Capacity: 15\nTerm Time & Vacation Operating Hours:\nMon-Sun, 8.30am-9.30pm\nNearest Carpark: Stephen Riady Centre\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/"
+            },
+            {
+                "name": "Supersnacks",
+                "location": "Stephen Riady Centre",
+                "description": "(PENDING HALAL CERTIFICATION)\nTerm Time Operating Hours:\nMon-Fri, 11.00am-2.00am\nSat/Sun/PH, 6.00pm-2.00am\nNearest Carpark: Stephen Riady Centre\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/"
+            },
+            {
+                "name": "The Royals Bistro",
+                "location": "Town Plaza",
+                "description": "(HALAL CERTIFIED)\nSeating Capacity: 60\nTerm Time & Vacation Operating Hours:\nMon-Sat, 11.00am-8.00pm\nSun/PH closed\n(Will be closed on 29 Dec 2022 \u2013 2 Jan 2023)\nContact: 97771353\nNearest Carpark: CREATE Tower\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/"
+            },
+            {
+                "name": "Triplets",
+                "location": "UTown Stephen Riady Centre (SRC)",
+                "description": "(HALAL CERTIFIED)\nSeating Capacity: 8\nTerm Time Operating Hours:\nMon \u2013 Fri, 9.00am to 9.00pm\nVacation Operating Hours:\nClosed\nNearest Carpark: CREATE Tower\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/"
+            },
+            {
+                "name": "Udon Don Bar",
+                "location": "Town Plaza",
+                "description": "Seating Capacity:\nTerm Time Operating Hours:\nMon-Sun: 11.00am-9.30pm\nVacation Operating Hours:\nMon-Sun: 11.00am-9.00pm\nContact: 66946240\nNearest Carpark: CREATE Tower\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/"
+            },
+            {
+                "name": "Waa Cow",
+                "location": "Stephen Riady Centre (SRC)",
+                "description": "Term Time Operating Hours:\nMon-Fri, 11.30am-8.30pm\nSat/Sun/PH, 12.00pm-8.30pm\nVacation Operating Hours:\nMon-Fri, 11.30am-8.30pm\nSat/Sun/PH, 12.00pm-8.30pm\nContact: 82230550\nNearest Carpark: Stephen Riady Centre\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/"
+            }
+        ],
+        "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages-bukit-timah/": [
+            {
+                "name": "The Summit",
+                "location": "BTC Block B",
+                "description": "Seating Capacity: 330\nNumber of Stalls: 7\nTerm Time Operating Hours^:\nMon-Fri, 7.00am-8.00pm\nSat, 7.00am-4.00pm\nVacation Operating Hours^:\nMon-Fri, 7.30am-6.00pm\nSat, 7.30am-2.30pm\n(Some stalls are closed on 29-30 Dec 2022)\n^Stalls\u2019 operating hours vary\n",
+                "category": "Food and Beverage",
+                "url": "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages-bukit-timah/"
+            }
+        ]
     }
 }
