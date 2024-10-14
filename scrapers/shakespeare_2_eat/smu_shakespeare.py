@@ -5,7 +5,7 @@ from playwright.sync_api import sync_playwright
 
 def delete_file(target_url):
     """
-    Helper function that attempts 
+    helper function that attempts 
     to delete a file at the specified 
     URL
     """
@@ -17,7 +17,7 @@ def delete_file(target_url):
 
 def clean_string(input_string):
     """
-    Sanitize a provided string
+    sanitize a provided string
     """
     cleaned_string = re.sub(r'\n+', ' ', input_string)
     cleaned_string = re.sub(r'<[^>]+>', '', cleaned_string)
@@ -25,7 +25,7 @@ def clean_string(input_string):
 
 def scrape_smu(base_url):
     """
-    Scrapes the specified SMU website 
+    scrapes the specified SMU website 
     for food and beverage details
     """
     details_list = []
@@ -47,14 +47,13 @@ def scrape_smu(base_url):
                 name = location.query_selector('h4.location-title').inner_text()
                 location_element = location.query_selector('div.location-address')
                 location_info = location_element.inner_text()
-                location_url_info = location_element.query_selector('a')['href'] if location_element and location_element.query_selector('a') else ''
+                location_url_info = location_element.query_selector('a').get_attribute('href') if location_element and location_element.query_selector('a') else ''
                 description = location.query_selector('div.location-description').inner_text()
                 category = "Food and Beverage"
                 contact_element = location.query_selector('div.location-contact')
                 contact_info = contact_element.inner_text().strip() if contact_element else ''
                 hours_element = location.query_selector('div.location-hours')
                 hours_info = hours_element.inner_text().strip() if hours_element else ''
-                
                 
                 details = {
                     'name': name,
@@ -64,9 +63,9 @@ def scrape_smu(base_url):
                     'url': location_url_info
                 }
 
-                print(details)
+                # print(details)
 
-                # details_list.append(details)
+                details_list.append(details)
 
         except Exception as e:
             errors.append(f"Error processing {base_url}: {e}")
