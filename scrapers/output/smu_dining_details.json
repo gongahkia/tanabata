@@ -1,1 +1,156 @@
-[]
+[
+    {
+        "name": "SUBARASHII SUPER DON \u2013 VEGETARIAN OPTIONS",
+        "location": "Located at 81 Victoria Street, SMU Administration Building, #03-02, Singapore 188065",
+        "description": "A cosy and humble cafe serving affordable and wholesome Japanese dons like Yakiniku Beef Bowl to Vegan Unagi Bowl, alongside familiar Japanese side dishes such as Pumpkin Croquette and Tori Karaage to complete the meal. Contact: eatsubarashii@gmail.com Opening Hours Mon-Fri\t10am-6pm Sat-Sun & PH\tClosed",
+        "category": "Food and Beverage",
+        "url": "https://maps.smu.edu.sg/pin/subarashii-super-don-vegetarian-options"
+    },
+    {
+        "name": "1983 A TASTE OF NANYANG - HALAL CERTIFIED",
+        "location": "Located at 70 Stamford Road #01-21 Li Ka Shing Library Building, Singapore 178901",
+        "description": "Be transported back to the 1980s with tastes of great local fares, weaving together a strong Nanyang culture. Proud signatures include Nasi Lemak, Curry Chicken with Rice/ Bread, Traditional kopi and toast sets, 1983 A Taste of Nanyang dedicates to preserving the nostalgic tastes of Singapore.  Opening Hours Mon-Fri\t7am-6pm Sat\t7am-3pm Sun & Public Holidays\tClosed",
+        "category": "Food and Beverage",
+        "url": "https://maps.smu.edu.sg/pin/1983-taste-nanyang-halal-certified"
+    },
+    {
+        "name": "BR\u00c6K. \u2013 VEGETARIAN OPTIONS",
+        "location": "Located at 70 Stamford Road #B1-25 Li Ka Shing Library Building, Singapore 178901",
+        "description": "At br\u00e6k., we aim to provide individuals with a place to escape from everyday chaos. We believe in creating a nurturing space that fosters meaningful connections and unforgettable conversations. With every visit to br\u00e6k., we are dedicated to delivering our customers an exceptional experience filled with unexpected happiness. Contact: tristan.lim@givemeabraek.com Opening Hours Mon-Fri\t9am-10pm Sat & Sun\t11.30am-6pm Public Holidays\tClosed",
+        "category": "Food and Beverage",
+        "url": "https://maps.smu.edu.sg/pin/braek-vegetarian-options"
+    },
+    {
+        "name": "FLOURISH BAKEHOUSE \u2013 VEGETARIAN OPTIONS",
+        "location": "Located at 70 Stamford Road #01-22A Li Ka Shing Library Building, Singapore 178901",
+        "description": "Flourish Bakehouse is a home-grown bakery that serves specialty coffee, artisanal bakes and grilled cheese sandwiches amongst many others. Expect bold yet comforting flavours and picnic-friendly options to enjoy on the campus green. Contact: hello@flourishbakehouse.com Opening Hours Mon-Fri\t8am-5pm Sat & Sun\t8am-2pm Public Holidays\tClosed",
+        "category": "Food and Beverage",
+        "url": "https://maps.smu.edu.sg/pin/flourish-bakehouse-vegetarian-options"
+    },
+    {
+        "name": "KOUFU FOODCOURT - VEGETARIAN OPTIONS AND HALAL CERTIFIED FOR CERTAIN STALLS",
+        "location": "Located at 70 Stamford Road #B1-26 & #B1-28 Li Ka Shing Library Building, Singapore 178901",
+        "description": "The revamped Koufu at SMU outlet offers diners a vibrant and cheerful setting with over 15 food stalls. An ideal dining location for students and working adults to catch up over comfort and affordable food  Opening Hours Mon-Fri\t6:45am to 9pm Sat\t6.45am to 4pm Sun/PH\tClosed",
+        "category": "Food and Beverage",
+        "url": "https://maps.smu.edu.sg/pin/koufu-foodcourt-vegetarian-options-and-halal-certified-certain-stalls"
+    },
+    {
+        "name": "TRIPLETS BY BAKERY CUISINE - HALAL CERTIFIED",
+        "location": "Located at 70 Stamford Road #B1-24A Li Ka Shing Library Building, Singapore 178901",
+        "description": "Enjoy freshly baked confectionaries and aroma coffee and tea at TripletS! Contact: +65 6686 5728 Opening Hours Mon \u2013 Fri\t7am to 9.30pm Sat, Sun & PH\t8am to 8pm",
+        "category": "Food and Beverage",
+        "url": "https://maps.smu.edu.sg/pin/triplets-bakery-cuisine-halal-certified"
+    },
+    {
+        "name": "KING KONG CURRY",
+        "location": "Located at 40 Stamford Road #01-04 SMU Connexion Singapore 178908",
+        "description": "We believe in serving our customers with our heart by serving the best prepare dishes which warm the hearts Contact: +65 9696 1660 Opening Hours Mon-Fri\t8am to 8pm Sat\t8am to 8pm",
+        "category": "Food and Beverage",
+        "url": "https://maps.smu.edu.sg/pin/king-kong-curry"
+    },
+    {
+        "name": "OPEN KITCHEN BY PRATA ALLEY - VEGETARIAN OPTIONS",
+        "location": "Located at 40 Stamford Road #01-01 SMU Connexion, Singapore 178908",
+        "description": "Open Kitchen, a sister restaurant of the award winning Prata Alley (321 WE Mall). Enjoy our crowd favourites like the light and fluffy rotis, scrumptious gorengs, tandoori plates and our ever fragrant briyanis, pair with a teh terik, or a refreshing mango lassi. Contact: +65 9090 9548 Opening Hours Mon-Fri\t8am to 8pm Sat\t8am to 5pm",
+        "category": "Food and Beverage",
+        "url": "https://maps.smu.edu.sg/pin/open-kitchen-prata-alley-vegetarian-options"
+    },
+    {
+        "name": "PARK\u2019S KITCHEN \u2013 VEGETARIAN OPTIONS",
+        "location": "Located at 40 Stamford Road #01-02 SMU Connexion, Singapore 178908",
+        "description": "Park\u2019s Kitchen has started to share their favourite Korean food with more people. They serve high-quality, homely, yet affordable Korean food. Come and get ready to be a K-foodie!  Opening Hours Mon-Fri\t10am-7pm Sat\t10am-2pm Sun and PH\tclosed",
+        "category": "Food and Beverage",
+        "url": "https://maps.smu.edu.sg/pin/parks-kitchen-vegetarian-options"
+    },
+    {
+        "name": "PASTA EXPRESS - VEGETARIAN OPTIONS",
+        "location": "Located at 40 Stamford Road #01-03 SMU Connexion, Singapore 178908",
+        "description": "Delectable build your own pastas to satisfy all taste buds! Contact: +65 97119906 Opening Hours Mon-Fri\t9am to 8pm Sat\t9am to 2pm Sun & PH\tClosed",
+        "category": "Food and Beverage",
+        "url": "https://maps.smu.edu.sg/pin/pasta-express-vegetarian-options"
+    },
+    {
+        "name": "SUPERGREEN - VEGETARIAN OPTIONS",
+        "location": "Located at 40 Stamford Road #01-06 SMU Connexion, Singapore 178908",
+        "description": "Eat Well, Live Well! Mixed Greens served wholesome, delicious and affordable salad bowls. Eating well can be a choice and it does not have to be expensive. Contact: +65 90292408 Opening Hours Mon-Fri\t9.30am to 7.30pm Sat, Sun and PH\tClosed",
+        "category": "Food and Beverage",
+        "url": "https://maps.smu.edu.sg/pin/supergreen-vegetarian-options"
+    },
+    {
+        "name": "THAILAND STREET FOOD - VEGETARIAN OPTIONS",
+        "location": "Located at 40 Stamford Road #01-05 SMU Connexion, Singapore 178908",
+        "description": "A family-run restaurant providing a mix of authentic thai cuisine and fusion dishes. We aim to provide you best quality food for class, main branch located at Yishun Junction Nine. Contact: +65 9680 6310 Opening Hours Mon-Fri\t9am - 9pm Sat\t9am - 3pm Sun & PH\tClosed",
+        "category": "Food and Beverage",
+        "url": "https://maps.smu.edu.sg/pin/thailand-street-food-vegetarian-options"
+    },
+    {
+        "name": "ONALU - VEGETARIAN OPTIONS",
+        "location": "Located at 60 Stamford Road #01-11/12/13 School of Accountancy Building, Singapore 178900",
+        "description": "Onalu serve smoothies, smoothie bowls and super sandwiches. At Onalu, we only source for natural produce because we strongly believe that will result in high quality, wholesome and tasty food for all. Contact: +65 8268 5900 Opening Hours Mon-Fri\t10am - 7.30pm Sat & Sun\t11am - 4pm",
+        "category": "Food and Beverage",
+        "url": "https://maps.smu.edu.sg/pin/onalu-vegetarian-options"
+    },
+    {
+        "name": "CANTEEN BISTRO",
+        "location": "Located at 80 Stamford Road #B1-61 School of Computing and Information Systems Building, Singapore 178902",
+        "description": "We are a casual western style restaurant nestled in heart of town at SMU. We strive to serve good food, good drinks, good vibes to our customers. Contact: +65 9825 5962 Opening Hours Mon-Sat\t11am to 1am Sun\tClosed",
+        "category": "Food and Beverage",
+        "url": "https://maps.smu.edu.sg/pin/canteen-bistro"
+    },
+    {
+        "name": "KURO KARE \u2013 VEGETARIAN OPTIONS",
+        "location": "Located at 80 Stamford Road #B1-65 School of Computing and Information Systems Building, Singapore 178902",
+        "description": "Conceptualised and run by a fine-dining team, Kuro Kare\u2019s 36-hour Japanese Curry and seasonal chef\u2019s specials emphasise technique and top ingredients but at affordable prices. Contact: https://instagram.com/kurokare Opening Hours Mon \u2013 Fri\t11am \u2013 8:30pm (last order at 8pm) Sat, Sun & PH\tClosed",
+        "category": "Food and Beverage",
+        "url": "https://maps.smu.edu.sg/pin/kuro-kare-vegetarian-options"
+    },
+    {
+        "name": "PROVIDENCE CAFE AND BAKERY \u2013 VEGETARIAN OPTIONS AND HALAL CERTIFIED",
+        "location": "Located at 80 Stamford Road #01-62 School of Computing and Information Systems Building, Singapore 178902",
+        "description": "Providence Caf\u00e9 and Bakery is part of iFood Pte Ltd and Good News Caf\u00e9 Mgt, group of companies. We are a Caf\u00e9 Bakery providing freshly baked, quality food at affordable prices. Contact: +65 6336 4161 Opening Hours Mon-Fri\t8am to 8pm Sat\t8am to 4pm Sun and PH\tClosed",
+        "category": "Food and Beverage",
+        "url": "https://maps.smu.edu.sg/pin/providence-cafe-and-bakery-vegetarian-options-and-halal-certified"
+    },
+    {
+        "name": "STARBUCKS",
+        "location": "Located at 80 Stamford Road #B1-61A School of Computing and Information Systems Building, Singapore 178902",
+        "description": "Singapore is the third international country outside North America to introduce Starbucks to its discerning customers who readily embrace the Starbucks Experience. Starbucks operations in Singapore is fully licensed to Maxim's Caterers Limited, a company incorporated in Hong Kong and a leading restaurant operator of multiple brands across Asia. The first Starbucks store opened on 14 December 1996 at Liat Towers, strategically located along the nation's renowned Orchard Road shopping belt. Contact: +65 68161045 Opening Hours Mon-Fri\t7:30am to 9pm Sat-Sun & PH\t7:30am to 5pm",
+        "category": "Food and Beverage",
+        "url": "https://maps.smu.edu.sg/pin/starbucks-0"
+    },
+    {
+        "name": "SUBWAY - VEGETARIAN OPTIONS AND HALAL CERTIFIED",
+        "location": "Located at 80 Stamford Road #01-62 School of Computing and Information Systems Building, Singapore 178902",
+        "description": "At Subway Restaurant, the sandwiches are made fresh before your eyes, just the way you like. Eat fresh at SUBWAY Restaurant today! Contact: +65 6837 3786 Opening Hours Mon-Fri\t9am to 9pm Sat\t9am to 8pm Sun\t10am to 5pm",
+        "category": "Food and Beverage",
+        "url": "https://maps.smu.edu.sg/pin/subway-vegetarian-options-and-halal-certified"
+    },
+    {
+        "name": "KHOON COFFEEHOUSE EXPRESS \u2013 VEGETARIAN OPTIONS",
+        "location": "Located at 90 Stamford Road #01-72 School of Economics / School of Computing and Information Systems 2 Building Singapore 178903",
+        "description": "Serving only the best in the house, Khoon Coffeehouse Express presents to you a carefully curated selection of Asian delights such as the Yaowarat Sweet Buns, Taiwanese Lu Rou Fan, Malaysian Kolo Mee, Baked Rice and your favourite breakfast burgers. Look forward to our version of internet drinks such as the viral Coconut Milk Foam Coffee and many more!  Opening Hours Mon-Fri\t8am \u2013 8pm Sat\t9.30 \u2013 7pm Sun & Public Holidays\tClosed",
+        "category": "Food and Beverage",
+        "url": "https://maps.smu.edu.sg/pin/khoon-coffeehouse-express-vegetarian-options"
+    },
+    {
+        "name": "NASI LEMAK AYAM TALIWANG/HONG SENG CURRY RICE EXPRESS",
+        "location": "Located at 90 Stamford Road #01-73 School of Economics / School of Computing and Information Systems 2 Building Singapore 178903",
+        "description": "Singapore Hawker culture has been added to the UNESCO list. We are proud to be bringing 2 hawker favorites, Michelin-rated Nasi Lemak and traditional Hainanese Curry Rice to SMU. Head down today to support our hawkers!  Opening Hours Mon-Fri\t7am to 11pm Sat\t9am to 9pm Sun\t10am to 3pm",
+        "category": "Food and Beverage",
+        "url": "https://maps.smu.edu.sg/pin/nasi-lemak-ayam-taliwanghong-seng-curry-rice-express"
+    },
+    {
+        "name": "THE TEA PARTY EXPRESS",
+        "location": "Located at 90 Stamford Road #01-74 & #01-75 School of Economics / School of Computing and Information Systems 2 Building Singapore 178903",
+        "description": "The Tea Party Pte Ltd first established itself at 6th Avenue, Bukit Timah in 2004. Through the years, The Tea Party has managed to attract a large variety of customers from students to working adults and families. This is due to The Tea Party\u2019s mission to offer good quality food and beverage to the public at an affordable price. Contact: +65 6837 2137 Opening Hours Mon-Sat\t10am-7:30pm Sat & Sun\t11am-4pm",
+        "category": "Food and Beverage",
+        "url": "https://maps.smu.edu.sg/pin/tea-party-express"
+    },
+    {
+        "name": "PRINCE NOODLES",
+        "location": "Located at 55 Armenian Street #03-02 School of Law Building, Singapore 179943",
+        "description": "Your favourite K.L. Handmade Noodles.  Opening Hours Mon \u2013 Fri\t9am to 9pm (or stock runs out)",
+        "category": "Food and Beverage",
+        "url": "https://maps.smu.edu.sg/pin/prince-noodles"
+    }
+]

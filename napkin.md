@@ -3,8 +3,8 @@
 ## FUA
 
 * focus on this for now
-    * finish debugging ion_orchard_shakespeare.py
-    * continue DEBUGGING EACH playwright file and check the specified HTML DOM STRUCTURE CALL is still correct! there is hope!
+    * continue DEBUGGING EACH playwright file and check the specified HTML DOM STRUCTURE CALL is still correct! there is hope! 
+    * convert existing scrapers in selenium to playwright and try to see if those work
     * try scraping with playwright, converting existing scraping code to playwright
 
 * do I want to expose the API script to make `tako` an API wrapper that exposes food places in colleges and malls? if so add that in the README.md and learn how to write a wrapper for an API
