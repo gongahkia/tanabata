@@ -35,8 +35,10 @@ def scrape_ion_orchard(base_urls):
         page = browser.new_page()
         for base_url in base_urls:
             try:
+                print(f"trying to scrape url: {base_url}")
                 page.goto(base_url)
                 page.wait_for_selector('div.cmp-dynamic-list-dine-shop-item-content-info')
+                print("page 1 found")
                 while True:
                     # listings = page.query_selector_all('div.cmp-dynamic-list-dine-shop-item-content-info')
                     # if not listings:
@@ -62,14 +64,13 @@ def scrape_ion_orchard(base_urls):
                         #     'url': vendor_url
                         # }
                         # details_list.append(details)
-
-                    # Check for next page and click it
                     next_page_button = page.query_selector('div.cmp-dynamic-list-pagination-container span.cmp-dynamic-list-paginate-item.active + span.cmp-dynamic-list-paginate-item')
-                    if next_page_button:
-                        print("found")
+                    if next_page_button and next_page_button.inner_text().strip() != "":
+                        print(f"page {next_page_button.inner_text()} found")
                         next_page_button.click()
                         page.wait_for_selector('div.cmp-dynamic-list-dine-shop-item-content-info') 
                     else:
+                        print("no more numbered pages found")
                         break
             except Exception as e:
                 errors.append(f"Error processing {base_url}: {e}")
