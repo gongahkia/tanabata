@@ -34,45 +34,44 @@ def scrape_ion_orchard(base_urls):
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
         for base_url in base_urls:
-            page_num = 1
-            while True:
-                url = f"{base_url}&page={page_num}"
-                try:
-                    page.goto(url)
-                    page.wait_for_selector('div.cmp-dynamic-list-dine-shop-grid-item')
-                    listings = page.query_selector_all('div.cmp-dynamic-list-dine-shop-grid-item')
+            try:
+                page.goto(base_url)
+                page.wait_for_selector('div.cmp-dynamic-list-dine-shop-item-content-info')
+                while True:
+                    listings = page.query_selector_all('div.cmp-dynamic-list-dine-shop-item-content-info')
                     if not listings:
                         errors.append("No more listings found.")
                         break
                     for listing in listings:
-                        # details = listing.query_selector('div.cmp-dynamic-list-dine-shop-item-content-info').inner_text()
-                        name = listing.query_selector('div.cmp-dynamic-list-dine-shop-item-content-info div.cmp-dynamic-list-dine-shop-item-content-info span.cmp-dynamic-list-dine-shop-item-content-item-title').inner_text().strip()
-                        raw_location = listing.query_selector('div.cmp-dynamic-list-dine-shop-item-content-info div.cmp-dynamic-list-dine-shop-item-content-info span.cmp-dynamic-list-dine-shop-item-content-item-num').inner_text().strip()
-                        clean_location = clean_string(raw_location.inner_text().strip() if raw_location else '')
-                        print(name)
-                        print(clean_location)
-                        description = "" 
-                        category = ""
-                        vendor_url = base_url 
-                        details = {
-                            'name': name,
-                            'location': clean_location,
-                            'description': description,
-                            'category': category,
-                            'url': vendor_url
-                        }
-                        details_list.append(details)
+                        print(listing.inner_text())
+                        # name = listing.query_selector('div.cmp-dynamic-list-dine-shop-item-content-info span.cmp-dynamic-list-dine-shop-item-content-item-title').inner_text()
+                        # # raw_location = listing.query_selector('div.cmp-dynamic-list-dine-shop-item-content-info div.cmp-dynamic-list-dine-shop-item-content-info span.cmp-dynamic-list-dine-shop-item-content-item-num').inner_text().strip()
+                        # print(name)
+                        # # print(raw_location)
+                        # # clean_location = clean_string(raw_location.inner_text().strip() if raw_location else '')
+                        # description = "" 
+                        # category = ""
+                        # vendor_url = base_url 
+                        # details = {
+                        #     'name': name,
+                        #     'location': clean_location,
+                        #     'description': description,
+                        #     'category': category,
+                        #     'url': vendor_url
+                        # }
+                        # details_list.append(details)
 
-                    # Check for next page
-                    next_page = page.query_selector('div.cmp-dynamic-list-pagination-container span.cmp-dynamic-list-paginate-item.active')
-                    if next_page:
-                        page_num += 1
+                    # Check for next page and click it
+                    next_page_button = page.query_selector('div.cmp-dynamic-list-pagination-container span.cmp-dynamic-list-paginate-item.active + span.cmp-dynamic-list-paginate-item')
+                    if next_page_button:
+                        next_page_button.click()
+                        page.wait_for_selector('div.cmp-dynamic-list-dine-shop-item-content-info') 
                     else:
-                        break 
+                        break  # No more pages to navigate
 
-                except Exception as e:
-                    errors.append(f"Error processing {url}: {e}")
-                    break 
+            except Exception as e:
+                errors.append(f"Error processing {url}: {e}")
+                break 
 
         browser.close() 
     return details_list, errors
