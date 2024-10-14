@@ -4,13 +4,36 @@ from playwright.sync_api import sync_playwright
 
 def clean_string(input_string):
     """
-    Sanitize a provided string.
+    sanitize a provided string
     """
     return input_string.strip()
 
+def parse_details(name, details, url):
+    """
+    parses and sorts each field
+    from the given detail string
+    and sorts it into the provided
+    JSON categories for easier
+    API sorting
+    """
+    fin = {
+        "name": name,
+        "location": "",
+        "description": "",
+        "category": "Food and Beverage",
+        "url": url
+    }
+    for line in details.split("\n"):
+        if line.startswith("Location: "):
+            fin["location"] = line.lstrip("Location: ")
+        else:
+            fin["description"] += f"{line.strip()}\n"
+    return fin
+
 def fetch_nus_dining_data(url):
     """
-    Fetches dining details from the given NUS page using Playwright.
+    fetches dining details from 
+    the given NUS page using Playwright
     """
     details_list = []
     errors = []
@@ -36,18 +59,12 @@ def fetch_nus_dining_data(url):
 
             name = listing.query_selector('h3[style="text-align: left"]').inner_text()
             details = listing.query_selector('p[style="text-align: left"] + p').inner_text() # + p goes one element down walahi
-            print(name)
-            print(details)
-            # details_element = listing.query_selector('div.vc_custom_heading.vc_custom_1534520726761.vc_gitem-post-data.vc_gitem-post-data-source-post_excerpt p')
-            # name = name_element.inner_text().strip() if name_element else ''
-            # details = details_element.inner_text().strip() if details_element else ''
-            
-            # if name and details:
-            #     details_list.append({
-            #         'name': clean_string(name),
-            #         'details': clean_string(details)
-            #     })
-        
+            fin_details = parse_details(name, details, url)
+
+            # print(fin_details)
+
+            details_list.append(fin_details)
+
         browser.close()
     
     return details_list, errors
