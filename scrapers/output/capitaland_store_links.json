@@ -1,254 +1,1484 @@
 {
     "plazasingapura": [
-        "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/-50-taste-of-traditi.html",
-        "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/85-redhill-teochew-fishball-noodle.html",
-        "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/aki-sushi-grill.html",
-        "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/arteastiq.html",
-        "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/auntie-anne_s.html",
-        "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/bangkok-jam.html",
-        "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/bashu-sichuan-cuisine.html",
-        "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/beard-papa.html",
-        "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/bears.html",
-        "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/bengawan-solo.html",
-        "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/boost-juice-bars.html",
-        "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/breadtalk.html",
-        "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/burger-king.html",
-        "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/canton-paradise.html",
-        "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/cellarbration.html",
-        "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/chagee.html"
+        {
+            "name": "50 \u5e74 Taste Of Tradition",
+            "location": "B2-58",
+            "description": "Traditional Hainanese bread, pastries and tarts, cupcakes, cream puffs freshly baked daily!",
+            "category": "PRODUCTS AND SERVICES\n\nFood & Beverage , Toast , Coffee , Bakery & Confectionery",
+            "url": "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/-50-taste-of-traditi.html"
+        },
+        {
+            "name": "85 Redhill Teochew Fishball Noodles",
+            "location": "B2-39",
+            "description": "85 Redhill Teochew Fishball Noodles specialises in Teochew Style Fishball Noodles that preserves the nostalgic flavour\u00a0and taste. Served with a generous portion of Handmade Teochew Fishball and Fishcake that is light and bouncy but dense in flavour, 85 Redhill Teochew Fishball Noodles will keep you hooked!",
+            "category": "PRODUCTS AND SERVICES\n\nAsian Cuisine , Local Delights",
+            "url": "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/85-redhill-teochew-fishball-noodle.html"
+        },
+        {
+            "name": "Aki Sushi & Grill",
+            "location": "B2-40",
+            "description": "At Aki Sushi & Grill restaurant, excite your tastebuds with a variety of delectable Japanese delights, including classics such as Nigiri Sushi, Chirashi and Robatayaki. Check out this small eatery and sushi bar for yourself!",
+            "category": "PRODUCTS AND SERVICES\n\nJapanese Cuisine , Ricebowls , Sashimi , Sushi , Casual Dining",
+            "url": "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/aki-sushi-grill.html"
+        },
+        {
+            "name": "Arteastiq DePatio",
+            "location": "03-70 to 72",
+            "description": "The Arteastiq Group announces the launch of our new, reformulated F&B brand concept, Arteastiq DePatio, specially crafted by our expert Chefs. The Courtyard Of Chefs showcases modern European street-style dishes, based on classic home-cooked recipes. Promising an unforgettable and gastronomical experience that will take your taste buds through scenes of Europe.\u00a0\n\n\nFrom Pancetta Roast Pork Belly (a slab of savoury, juicy pork belly), Gemelli Parmigiana (traditional Italian cheese eggplant spaghetti), Paccheri Beer Butter (also known as beer pasta), Al Taglio Pizza (authentic, quality wood-fire baked pizza) to Flattened Potatoes. Be spoilt for choice and you will be coming back for more. The menu also offers a variety of flavoursome and mouth-watering dishes, refreshing tea concoctions, aromatic coffee and cocoa beverages as well as a good selection of red wine, white wine, champagne and cocktails.",
+            "category": "PRODUCTS AND SERVICES\n\nCoffee , Pizza , Desserts , Food & Beverage , High Tea , Western Cuisine , Western Dining",
+            "url": "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/arteastiq.html"
+        },
+        {
+            "name": "Auntie Anne's",
+            "location": "B2-37",
+            "description": "Auntie Anne\u2019s has become a favourite and household name in Singapore, and it all began at a farmer\u2019s market in Pennsylvania in the year 1988. Anne Beiler and her husband, Jonas, sold an assortment of treats including hand-dolled, soft pretzels. Through experimenting different combinations of ingredients, Anne created an iconic masterpiece \u2013 the same freshly baked goodness you know and love today.\n\n\nA fan favourite and must try is the Sour Cream and Onion flavoured pretzel, which has the savoury sour cream and onion powder dusted on the chewy yet firm pretzel. If you are craving for some sweet snacks, the Cinnamon sugar or Sweet Almond pretzel is the choice for you. The Sweet Almond pretzel is rich but not as sweet as the Cinnamon Sugar, and the almonds provide a satisfying crunch and additional nutty flavour. There are also dips available for a little extra indulgence. Pair your soft pretzels with Auntie Anne\u2019s signature refreshing lemonade for a gratifying finish.\u00a0\n\n\nAuntie Anne\u2019s is more than the world\u2019s largest soft pretzel franchise, it is also a business that is committed to giving back to the community that they serve. So, head on over to an Auntie Anne\u2019s outlet in Singapore today for a delightful snack and contribute to a good cause!",
+            "category": "PRODUCTS AND SERVICES\n\nPretzels",
+            "url": "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/auntie-anne_s.html"
+        },
+        {
+            "name": "Bangkok Jam",
+            "location": "03-85",
+            "description": "Inspired by the \u201cCity of Angels\u201d, Bangkok, Bangkok Jam offers a modern twist to traditional Thai cuisine introducing a contemporary culinary experience to Singapore, whilst still retaining the authenticity of the well-loved cuisine. Their winning formula comprises of modern cooking techniques, notable dishes, quality and fresh ingredients as well as their stylish interior design. Signatures include their Tom Yum Fried Rice with Seafood, Grilled Chicken Thigh with Lettuce Wrap, Grilled Pork Spare Ribs with Spicy Lime Dip, and more! Other remarkable dishes that will leave you wanting more also consists of Thai Fish Cakes, Stir-fried Squid in Salted Egg Sauce, Green Papaya Salad with Soft Shell Crab, and more!\u00a0\n\n\nJust one taste of Bangkok Jam\u2019s show-stopping specialities, complemented with pleasant dining atmosphere and warm hospitality of the service staff, you will not even need to fly to Bangkok to be immersed in the exotic foods and gracious \u201csmiling culture\u201d! Come experience it for yourself today at one of Singapore\u2019s 5 outlets island-wide!",
+            "category": "MAKE A RESERVATION",
+            "url": "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/bangkok-jam.html"
+        },
+        {
+            "name": "Bashu Sichuan Cuisine",
+            "location": "06-07",
+            "description": "Ba Shu Yan Yi is a restaurant specializing in Sichuan cuisine. Since 2015, we've been dedicated to serving authentic dishes loved by locals and tourists alike. Our chefs from Sichuan bring rich culinary experience and mastery of classic dishes like Green Pepper Fish and Spicy Chicken. Each dish is made with high-quality ingredients, preserving the authentic flavors of Sichuan. Our cozy restaurant is ideal for family gatherings, social events, or business dinners. We prioritize excellent service and delicious Sichuan cuisine. Visit Ba Shu Yan Yi to enjoy authentic Sichuan flavors in a warm and inviting atmosphere.",
+            "category": "MAKE A RESERVATION",
+            "url": "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/bashu-sichuan-cuisine.html"
+        },
+        {
+            "name": "Beard Papa's",
+            "location": "B2-27 to 28",
+            "description": "Beard Papa bakes impossibly fragrant cream puffs bursting with flavored custard filling including unique flavors like Melon, Hazelnut Marshmallow and Peach Melba.\n\n\n\nOriginated from Japan, we are known as the World\u2019s Best Cream Puffs since 1999, with more than 400 stores worldwide.",
+            "category": "PRODUCTS AND SERVICES\n\nPastries , Cream Puffs",
+            "url": "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/beard-papa.html"
+        },
+        {
+            "name": "BEARS",
+            "location": "B2-21",
+            "description": "Popular Taiwanese Snacks.",
+            "category": "PRODUCTS AND SERVICES\n\nFood & Beverage",
+            "url": "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/bears.html"
+        },
+        {
+            "name": "Bengawan Solo",
+            "location": "B2-59",
+            "description": "Bengawan Solo preserves the time-honored taste of Singapore's local kuehs and confectionery by using traditional methods, the finest and freshest ingredients, and absolutely no artificial preservatives to replicate this homemade quality in our bakes. This passion and commitment to great taste, quality and freshness has made Bengawan Solo a household brand name in Singapore and a firm favourite with overseas visitors looking for a uniquely Singaporean premium food gift.",
+            "category": "PRODUCTS AND SERVICES\n\nPeranakan Delights",
+            "url": "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/bengawan-solo.html"
+        },
+        {
+            "name": "Boost Juice Bars",
+            "location": "B2-55",
+            "description": "It's amazing that something so healthy can taste so good! Boost offers a huge, extra tasty range of low-fat green smoothies, freshly squeezed juices and dairy free crushes. All products are at least 98% fat-free and we never ever add artificial flavours, colours, sugar or water.",
+            "category": "PRODUCTS AND SERVICES\n\nFruit Juice",
+            "url": "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/boost-juice-bars.html"
+        },
+        {
+            "name": "BreadTalk",
+            "location": "B2-26",
+            "description": "BreadTalk is a Singaporean homegrown brand that has been imprinted fondly on Singapore\u2019s food culture, firmly established as the go-to store for affordable and good quality variety of bread and cakes. Since its beginnings in 2000, BreadTalk honours the art of bread-making by giving life to their novel creations. They have no sign of slowing down as they continue to bring joy and goodness to satisfy every customer. BreakTalk\u2019s premium and natural ingredients are carefully selected from global retailers such as procuring milled flour from Japan as well as pure butter from New Zealand. Pastes or fillings are made in the Central Kitchens at BreakTalk IHQ and the ingredients are specially processed from its raw states, so as to ensure greater quality control of the finished products. The best-selling buns include BreadTalk\u2019s iconic Flosss Buns, the very bun that helped them gain traction in the hearts and tummies of many locals. There are also other creations like the Cheese Sausage and Cheese Boat buns, Bak Kwa Delight, as well as a variety of donut flavours. The products BreadTalk offers are made with a focus on creating perfect harmony among textures, flavours and ingredients. Stop by a BreadTalk outlet for a taste of Singapore\u2019s favourite bakery now!",
+            "category": "PRODUCTS AND SERVICES\n\nFood & Beverage",
+            "url": "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/breadtalk.html"
+        },
+        {
+            "name": "BURGER KING",
+            "location": "B1-11",
+            "description": "Welcome to the home of flame-grilled perfection! Enjoy the best-selling, signature flame-grilled WHOPPER\u00ae\ufe0f as well as other top BK favourites such as the velvety smooth Double Mushroom Swiss, deliciously juicy Tendergrill\u00ae\ufe0f Chicken that is made of chicken thigh fillet and the irresistible sides such as Onion Rings, Taro Turnover, HERSHEY\u2019S\u00ae\ufe0f Sundae Pie and more! Sink your teeth in our juicy burgers now!",
+            "category": "PRODUCTS AND SERVICES\n\nBurger And Fries , Fried Chicken , Snacks & Finger Food",
+            "url": "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/burger-king.html"
+        },
+        {
+            "name": "Canton Paradise",
+            "location": "03-01",
+            "description": "Relish and experience the best of Hong Kong amidst a truly inimitable setting. Immerse in our pursuit of fine Cantonese cuisine with an extensive all-day menu offering from roast specialties, dim sum to delectable congee, noodles and wok-fried classics, fully captured in the essence of H.K cuisine.",
+            "category": "MAKE A RESERVATION",
+            "url": "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/canton-paradise.html"
+        },
+        {
+            "name": "Cellarbration",
+            "location": "B2-63",
+            "description": "Since its launch in 2012, Cellarbration has been the online and retail destination for the largest selection of Wine, Spirits and Beers in Singapore and South East Asia region. It has achieved remarkable growth in these markets with its high online profile and a country-wide presence of 7 impressive retail locations around main districts in Singapore. We pride ourselves in being that One-Stop Beverage Solution by offering a wide range of services and including our customers into a space that shares a mutual interest, passion and enjoyment for liquor. Cellarbration has become the leading player in the fast-growing private liquor consumption sector, with a business model that combines great value, dependable personal service with our knowledgeable and friendly team, and an overall sense of lifestyle for all our valued customers.",
+            "category": "PRODUCTS AND SERVICES\n\nLiqueur",
+            "url": "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/cellarbration.html"
+        },
+        {
+            "name": "CHAGEE",
+            "location": "01-58, 01-59",
+            "description": "The story of CHAGEE first began in 2017 in the hometown of tea, Yunnan, China. Guided by the vision to connect everyone with a good cup of tea, the brand constantly innovates to provide healthy and delicious tea beverages to consumers. CHAGEE has since grown to over 4,500+ stores globally, with over 100+ stores across Malaysia, Singapore and Thailand. Its signature tea is Jasmine Green Milk Tea, which sells an average of over 100 million cups yearly.",
+            "category": "PRODUCTS AND SERVICES\n\nTea , Milk Tea",
+            "url": "https://www.capitaland.com/sg/malls/plazasingapura/en/stores/chagee.html"
+        }
     ],
     "aperia": [
-        "https://www.capitaland.com/sg/malls/aperia/en/stores/aimer-la-patisserie.html",
-        "https://www.capitaland.com/sg/malls/aperia/en/stores/armoury.html",
-        "https://www.capitaland.com/sg/malls/aperia/en/stores/au-croissant.html",
-        "https://www.capitaland.com/sg/malls/aperia/en/stores/aurora-asian-kitchenbar.html",
-        "https://www.capitaland.com/sg/malls/aperia/en/stores/blanco-court-beef-noodle.html",
-        "https://www.capitaland.com/sg/malls/aperia/en/stores/carbon&.html",
-        "https://www.capitaland.com/sg/malls/aperia/en/stores/chef-foong-restaurant.html",
-        "https://www.capitaland.com/sg/malls/aperia/en/stores/fm-food-master.html",
-        "https://www.capitaland.com/sg/malls/aperia/en/stores/folks-collectiveslurpnoodlebar.html",
-        "https://www.capitaland.com/sg/malls/aperia/en/stores/ha-jun.html",
-        "https://www.capitaland.com/sg/malls/aperia/en/stores/hao-lai-ke.html",
-        "https://www.capitaland.com/sg/malls/aperia/en/stores/ichiho-donburi-sushi.html",
-        "https://www.capitaland.com/sg/malls/aperia/en/stores/im-em-thai-kitchen.html",
-        "https://www.capitaland.com/sg/malls/aperia/en/stores/jollibean.html",
-        "https://www.capitaland.com/sg/malls/aperia/en/stores/kaeden-cafe.html",
-        "https://www.capitaland.com/sg/malls/aperia/en/stores/koi-the.html"
+        {
+            "name": "Aimer La Patisserie",
+            "location": "01-42",
+            "description": "Homemade Gelato / Pastisserie",
+            "category": "PRODUCTS AND SERVICES\n\nDesserts",
+            "url": "https://www.capitaland.com/sg/malls/aperia/en/stores/aimer-la-patisserie.html"
+        },
+        {
+            "name": "Armoury",
+            "location": "01-44,45",
+            "description": "Defining the fun steakhouse & bar for family and friends gatherings, dating, casual & business meet-ups, solo me-time.\n\n\u200b\n\nWith more good steaks, good happy hour and more casual comfort, Armoury serves premium steaks typically reserved for fine dining steakhouses.\n\n\u200b\u200b\n\nFeaturing quality steak cuts including Hokkaido Wagyu, Australia Wagyu and Black Angus to enhance your casual dining experience\n\n\u200b\u200b\n\nA class above where extraordinary meets everyday.",
+            "category": "MAKE A RESERVATION",
+            "url": "https://www.capitaland.com/sg/malls/aperia/en/stores/armoury.html"
+        },
+        {
+            "name": "Au Croissant",
+            "location": "01-35",
+            "description": "Au Croissant, which stands for The Croissant, was founded and set up in 2019. The French have been known to produce the best and highest quality bread, inspiring us to make Au Croissant a French inspired bakery.",
+            "category": "PRODUCTS AND SERVICES\n\nBakery & Confectionery",
+            "url": "https://www.capitaland.com/sg/malls/aperia/en/stores/au-croissant.html"
+        },
+        {
+            "name": "Aurora Asian Kitchen & Bar",
+            "location": "01-44,45",
+            "description": "Asian kitchen & bar serving Asian dishes and tapas with a twist.",
+            "category": "PRODUCTS AND SERVICES\n\nBeverages , Western Cuisine",
+            "url": "https://www.capitaland.com/sg/malls/aperia/en/stores/aurora-asian-kitchenbar.html"
+        },
+        {
+            "name": "Blanco Court Beef Noodle",
+            "location": "01-39",
+            "description": "Blanco Court Beef Noodles was founded back in 1979, offering traditional Hainanese style beef noodles. The same authentic recipe has been preserved and passed down since then. The secret behind the rich and bold taste lies in the herbal soup stock, which is also the key ingredient used for the gravy that comes with the dry version. Chef\u2019s recommendation: Superior Beef Noodles, the ultimate bowl that comes with premium cut beef shank, tender beef slices, gourmet beef balls, soft, melt-in-your mouth beef tendons and springy beef tripe.",
+            "category": "PRODUCTS AND SERVICES\n\nNoodles",
+            "url": "https://www.capitaland.com/sg/malls/aperia/en/stores/blanco-court-beef-noodle.html"
+        },
+        {
+            "name": "Carbon&",
+            "location": "01-43, 43A",
+            "description": "Carbon& is a craft beer restaurant. By day, we offer a range of dishes such as the Yakiniku Beef Bowl and tender Teriyaki Chicken Leg bowl that\u2019s perfect for a hearty lunch. By night, the craft beers on tap starts flowing coupled with beer bites and Hakka-inspired bites that makes it a watering hole great for a post-work tipple.",
+            "category": "PRODUCTS AND SERVICES\n\nRicebowls",
+            "url": "https://www.capitaland.com/sg/malls/aperia/en/stores/carbon&.html"
+        },
+        {
+            "name": "Chef Foong Restaurant",
+            "location": "02-09",
+            "description": "",
+            "category": "PRODUCTS AND SERVICES\n\nChinese Cuisine , Food & Beverage , Seafood",
+            "url": "https://www.capitaland.com/sg/malls/aperia/en/stores/chef-foong-restaurant.html"
+        },
+        {
+            "name": "FM Food Master",
+            "location": "02-16",
+            "description": "Food Court",
+            "category": "PRODUCTS AND SERVICES\n\nFood & Beverage",
+            "url": "https://www.capitaland.com/sg/malls/aperia/en/stores/fm-food-master.html"
+        },
+        {
+            "name": "Folks Collective & Slurp Noodle Bar",
+            "location": "01-17, 20",
+            "description": "Folks Collective, a vintage-inspired Thai restaurant and bar with an existing outlet in the CBD. In collaboration with Thai Supermarket, Folks Collective brings a quintessential Bangkok bistro to Aperia Mall.\u200b\n\n\n\u00a0They offer a concise selection of Cross Street bestsellers and boasts an extensive bar menu. Sister brand, Slurp, a noodle & tea bar serves wok fried- and authentic boat noodles, an exclusive menu to this outlet.",
+            "category": "PRODUCTS AND SERVICES\n\nThai Cuisine , Thai Street Food",
+            "url": "https://www.capitaland.com/sg/malls/aperia/en/stores/folks-collectiveslurpnoodlebar.html"
+        },
+        {
+            "name": "Ha Jun",
+            "location": "01-28, 31A",
+            "description": "Ha-Jun is a Korean food establishment which aims to provide affordable and delicious food to everyone.",
+            "category": "PRODUCTS AND SERVICES\n\nKorean Cuisine",
+            "url": "https://www.capitaland.com/sg/malls/aperia/en/stores/ha-jun.html"
+        },
+        {
+            "name": "Hao Lai Ke",
+            "location": "01-39",
+            "description": "",
+            "category": "PRODUCTS AND SERVICES\n\nFood & Beverage",
+            "url": "https://www.capitaland.com/sg/malls/aperia/en/stores/hao-lai-ke.html"
+        },
+        {
+            "name": "Ichiho - Donburi & Sushi",
+            "location": "02-07 08",
+            "description": "Ichiho - Donburi & Sushi is a contemporary Japanese restaurant that delivers fresh seafood and premium fish everyday. We get our seafood directly from Japan, flown 2-3x a week keeping the seafood fresh til it reaches your tummy!",
+            "category": "PRODUCTS AND SERVICES\n\nJapanese Cuisine",
+            "url": "https://www.capitaland.com/sg/malls/aperia/en/stores/ichiho-donburi-sushi.html"
+        },
+        {
+            "name": "IM-EM Thai Kitchen",
+            "location": "01-40",
+            "description": "IM-EM Thai Kitchen bring about an array of Thai delicacies to the heart of Singapore.",
+            "category": "MAKE A RESERVATION",
+            "url": "https://www.capitaland.com/sg/malls/aperia/en/stores/im-em-thai-kitchen.html"
+        },
+        {
+            "name": "Jollibean",
+            "location": "01-30A",
+            "description": "Established in 1995, Jollibean uses only Grade A, non-GMO and single variety IP Canadian soy beans and strives to offer healthy soy-related beverages and street snacks made with the finest ingredients, in the freshest possible manner. Whether you are looking for a tasty, healthy snack or a delicious food & drink with dessert options, Jollibean and its wide range of soy bean products are here to please even the most diverse palates.",
+            "category": "PRODUCTS AND SERVICES\n\nSoya Milk",
+            "url": "https://www.capitaland.com/sg/malls/aperia/en/stores/jollibean.html"
+        },
+        {
+            "name": "Kaeden Cafe",
+            "location": "01-25",
+            "description": "KAEDEN is Danish for chain or the centre of connection. This is reflected in our logo where a single chain runs through a bicycle. Food has an extraordinary ability to spark enjoyment and connection. We hope that our cafe brings you closer to your friends and family as you make conversation and merry over a hearty fare.",
+            "category": "PRODUCTS AND SERVICES\n\nFood & Beverage",
+            "url": "https://www.capitaland.com/sg/malls/aperia/en/stores/kaeden-cafe.html"
+        },
+        {
+            "name": "KOI THE",
+            "location": "01-27",
+            "description": "The only Milk Tea that\u2019s so good you can actually tell us apart from the rest, KOI Caf\u00e9 serves Milk tea with a variety of standout toppings and exclusive flavors. Try out our Ovatine Macchiato which exudes a malty aroma that balances the intense rich velvetness of our Macchiato roast.",
+            "category": "PRODUCTS AND SERVICES\n\nTea , Coffee , Milk Tea",
+            "url": "https://www.capitaland.com/sg/malls/aperia/en/stores/koi-the.html"
+        }
     ],
     "bedokmall": [
-        "https://www.capitaland.com/sg/malls/bedokmall/en/stores/ajisen-tanjiro.html",
-        "https://www.capitaland.com/sg/malls/bedokmall/en/stores/au-croissant.html",
-        "https://www.capitaland.com/sg/malls/bedokmall/en/stores/avocadoria.html",
-        "https://www.capitaland.com/sg/malls/bedokmall/en/stores/baskin-robbins.html",
-        "https://www.capitaland.com/sg/malls/bedokmall/en/stores/bee-cheng-hiang.html",
-        "https://www.capitaland.com/sg/malls/bedokmall/en/stores/boost-juice-bars.html",
-        "https://www.capitaland.com/sg/malls/bedokmall/en/stores/breadtalk.html",
-        "https://www.capitaland.com/sg/malls/bedokmall/en/stores/canton-paradise.html",
-        "https://www.capitaland.com/sg/malls/bedokmall/en/stores/chateraise-coming-soon-.html",
-        "https://www.capitaland.com/sg/malls/bedokmall/en/stores/chicha-san-chen-1703444396.html",
-        "https://www.capitaland.com/sg/malls/bedokmall/en/stores/coffeesarang.html",
-        "https://www.capitaland.com/sg/malls/bedokmall/en/stores/crave_stuff_d.html",
-        "https://www.capitaland.com/sg/malls/bedokmall/en/stores/cut-butchery.html",
-        "https://www.capitaland.com/sg/malls/bedokmall/en/stores/devil-chicken.html",
-        "https://www.capitaland.com/sg/malls/bedokmall/en/stores/dian-xiao-er.html",
-        "https://www.capitaland.com/sg/malls/bedokmall/en/stores/duke-bakery.html"
+        {
+            "name": "Ajisen Tanjiro",
+            "location": "01-69 to 70",
+            "description": "Introducing an evolved concept of Ajisen Ramen, Ajisen Tanjiro offers a wide selection of ramen to cater to discerning customers. Other than ramen, we do offer Maze Soba, Rice Set and side dishes for the unique dining experience.",
+            "category": "PRODUCTS AND SERVICES\n\nJapanese Cuisine",
+            "url": "https://www.capitaland.com/sg/malls/bedokmall/en/stores/ajisen-tanjiro.html"
+        },
+        {
+            "name": "Au Croissant",
+            "location": "B2-15",
+            "description": "Creating the finest croissant you deserve. Founded in 2019, we were inspired by how the French produce their bread, thus kick starting our journey to bring the flavor into the little red dot. Every process is close monitored by a group of chefs we have personally hand-picked to ensure that we deliver the best that you deserve.",
+            "category": "PRODUCTS AND SERVICES\n\nBakery & Confectionery",
+            "url": "https://www.capitaland.com/sg/malls/bedokmall/en/stores/au-croissant.html"
+        },
+        {
+            "name": "Avocadoria",
+            "location": "B2-09",
+            "description": "Avocadoria Singapore is the first-ever International Franchise originating from The Philippines. Bringing the healthiest, most innovative, and delectable Avocado treats and refreshments to customers from all walks of life. Experience not just guilt-free, but healthy indulgence with our signature tin cakes, shakes, ice creams and more, at affordable prices.",
+            "category": "PRODUCTS AND SERVICES\n\nDesserts , Fruit Juice , Ice Cream , Beverages",
+            "url": "https://www.capitaland.com/sg/malls/bedokmall/en/stores/avocadoria.html"
+        },
+        {
+            "name": "Baskin Robbins",
+            "location": "B1-K1 to K3",
+            "description": "With our variety of premium ice cream flavors imported straight from the States, try out our signature waffle sundaes, blasts and shakes , ice cream cakes and more. Our \"31 flavours\" slogan stands for a different ice cream flavor for each day of the month, be spoilt for choices on the scoop to go for! Go bananas for our Banana Royale Waffle Sundae or create your own signature milkshake now!",
+            "category": "PRODUCTS AND SERVICES\n\nIce Cream , Cake",
+            "url": "https://www.capitaland.com/sg/malls/bedokmall/en/stores/baskin-robbins.html"
+        },
+        {
+            "name": "Bee Cheng Hiang",
+            "location": "B2-23",
+            "description": "Bee Cheng Hiang has been passionately committed to making the best bakkwa since 1933. The home-grown brand uses the most natural and premium ingredients possible and maintains an unyielding position on rejecting the use of MSG, artificial preservatives, meat-tenderiser, colouring and flavouring. Known for its enterprising and innovative spirit, Bee Cheng Hiang has pioneered various products that have redefined the bakkwa industry, such as the Mini EZ Series (vacuum-packed bakkwa) and the EZ Mini Crunchies series (crunchy floss). Today, with more than 370 stores in 12 countries and regions, Bee Cheng Hiang is the largest bakkwa retailer globally.",
+            "category": "PRODUCTS AND SERVICES\n\nBak Kwa , Pork Floss",
+            "url": "https://www.capitaland.com/sg/malls/bedokmall/en/stores/bee-cheng-hiang.html"
+        },
+        {
+            "name": "Boost Juice Bars",
+            "location": "01-04",
+            "description": "Boost Juice - the nation\u2019s favorite makers of fresh smoothies and juices! We serve millions of Singaporeans our iconic green cups, filled with fruit and veggies deliciousness.\n\n\nDeliciousness that comes from simple, natural goodness, served to you with a love life attitude that will make you so happy you\u2019ll probably end up high fiving random strangers.\n\n\nIt\u2019s about making healthy living easy!! So naturally, nutrition is a key component in developing our range of smoothies and juices that sees us blending through millions of tonnes of fruit and veggies every year.\n\n\nDon\u2019t believe us? Let us prove it! Come and see us at Boost Juice and try it for yourself.\nSTORE DETAILS\nLocation\n01-04\nWebsite\nhttp://www.boostjuicebars.com.sg\nTHIS STORE ACCEPTS\neCapitaVoucher\nDBS (Instant STAR$\u00ae\ufe0f Earn)",
+            "category": "PRODUCTS AND SERVICES\n\nFruit Juice",
+            "url": "https://www.capitaland.com/sg/malls/bedokmall/en/stores/boost-juice-bars.html"
+        },
+        {
+            "name": "BreadTalk",
+            "location": "B2-25",
+            "description": "With over a 1000 different breads, buns and cakes that are baked 100% natural with no artificial additives or preservatives, Breadtalk delivers flavor explosions in bite-sized confectionery goodness.",
+            "category": "PRODUCTS AND SERVICES\n\nBread , Cake , Pastries , Toast , Coffee",
+            "url": "https://www.capitaland.com/sg/malls/bedokmall/en/stores/breadtalk.html"
+        },
+        {
+            "name": "Canton Paradise",
+            "location": "B2-11",
+            "description": "Canton Paradise Restaurant sets out to capture the essence of Hong Kong with its offering of nostalgic Cantonese favourites and dim sum as well as an array of roast specialities. The extensive all-day menu offers an affordable selection of Hong Kong classics. Enjoy a taste of authenticity at this Chinese restaurant with an all-day menu of delectable dim sum.\u00a0\n\n\nTry the Steamed Molten Salted Egg Yolk Custard Piggy Buns to liven things up at the table. These little buns shaped like cartoon pigs are almost too adorable to eat. Don\u2019t let the cute exterior fool you though, the naturally sweet and savoury molten salted egg yolk lava will tantalise your taste buds.",
+            "category": "MAKE A RESERVATION",
+            "url": "https://www.capitaland.com/sg/malls/bedokmall/en/stores/canton-paradise.html"
+        },
+        {
+            "name": "Chateraise",
+            "location": "B2-19",
+            "description": "Ch\u00e2terais\u00e9 is the No.1 confectionery company in Japan.\n\u00a0\nThe pastry shop has about 500 stores across Japan and over 40 stores in Asia.\u00a0Chateraise is unique in featuring a wide variety of cakes, pastries, sweets and Japanese drinks.\u00a0\n\u00a0\nTreats from\u00a0Ch\u00e2terais\u00e9\u00a0are\u00a0made with specially selected fresh ingredients such as pure natural water from Hakushu area, and milk and eggs delivered directly from pastures and farms in Japan, with little or no preservatives.",
+            "category": "PRODUCTS AND SERVICES\n\nCake , Ice Cream , Cheese Tart , Cream Puffs",
+            "url": "https://www.capitaland.com/sg/malls/bedokmall/en/stores/chateraise-coming-soon-.html"
+        },
+        {
+            "name": "CHICHA San Chen (\u5403\u8336\u4e09\u5343)",
+            "location": "B2-24A",
+            "description": "CHICHA San Chen (\u5403\u8336\u4e09\u5343) was founded in 1998 with a mission to make high-quality freshly brewed teas accessible to discerning tea drinkers. Every cup is freshly brewed with an exclusively patented Teapresso machine, marrying the best of bubble tea with traditional tea.",
+            "category": "PRODUCTS AND SERVICES\n\nMilk Tea , Tea , Food & Beverage",
+            "url": "https://www.capitaland.com/sg/malls/bedokmall/en/stores/chicha-san-chen-1703444396.html"
+        },
+        {
+            "name": "COFFEESARANG",
+            "location": "01-78",
+            "description": "Coffee Is A Lovely Energizer.\n\n\nCoffee is a living energy for us to relax, think, remember, talk, listen, see, dream, and love.\n\n\nOur COFFEESARANG is a place where customers can enjoy a special coffee or a zestful tea with delicious food such as Panini Sandwich, Waffle, Croissants as well as an Authentic Korean flavors' Dessert, BingSu.\n\n\nWe hope our customers are happy at our COFFEESARANG and be energized to do what they love.",
+            "category": "PRODUCTS AND SERVICES\n\nCoffee , Desserts , Korean Dessert , Sandwiches , Tea , Waffles",
+            "url": "https://www.capitaland.com/sg/malls/bedokmall/en/stores/coffeesarang.html"
+        },
+        {
+            "name": "CRAVE/Stuff'd",
+            "location": "B2-22",
+            "description": "CRAVE is an establishment that houses the best of both worlds where the original Adam Road nasi lemak by Selera Rasa meets the Amoy Street teh tarik by Rafee\u2019s Corner under one roof. The two household names have joined hands to create a spellbinding gourmet experience for Singaporeans.\nStuff'd - Deliciously grilled naturally marinated chicken is hand-rolled daily into rolls and rolls of humongous sized wraps, freshly prepared right in front of you. A delicious mix of nutritional natural goodness.",
+            "category": "PRODUCTS AND SERVICES\n\nAsian Cuisine , Local Delights",
+            "url": "https://www.capitaland.com/sg/malls/bedokmall/en/stores/crave_stuff_d.html"
+        },
+        {
+            "name": "Cut Butchery",
+            "location": "B2-52",
+            "description": "Cut Butchery is a family owned 5-Star butchery. As importers and distributors to restaurants across the island, we bring you high quality meats and deli products at highly competitive rates. We are known for our friendly and honest service, selecting only the day\u2019s freshest meat for sale to our customers.\u00a0\n\n\nInstilled as part of our core values, we only insist on antibiotics-free, hormone-free and nitrate-free meat products. With no preservatives and cancer causing nitrates, we provide one of the cleanest, natural meats in Singapore. Cut Butchery promises pocket friendly high quality selections.",
+            "category": "PRODUCTS AND SERVICES\n\nFresh Products , Marinated Meat , Poultry , Meat , Fresh & Frozen Food",
+            "url": "https://www.capitaland.com/sg/malls/bedokmall/en/stores/cut-butchery.html"
+        },
+        {
+            "name": "Devil Chicken",
+            "location": "B2-K11",
+            "description": "Best Taiwanese fried chicken for the past 10 years! Standing out from the crowd with 25mm of extraordinarily thick chicken breast meat that is of unparalleled juiciness, the fried chicken cutlet created by Devil Chicken has a thin yet amazingly crispy outer layer to complement the succulent meat. With every crunch of excellence, the fried chicken cutlet created by Devil Chicken and its addictive menu have garnered a unique identity and strong following.",
+            "category": "PRODUCTS AND SERVICES\n\nFried Chicken Cutlet , Snacks & Finger Food , Taiwanese Food",
+            "url": "https://www.capitaland.com/sg/malls/bedokmall/en/stores/devil-chicken.html"
+        },
+        {
+            "name": "Dian Xiao Er",
+            "location": "01-71 to 74",
+            "description": "Dian Xiao Er - the must eat herbal roast duck in Singapore!\n\n\n\nUsing only the finest quality of Cherry Valley ducks paired with freshest ingredients, our duck are prepared and freshly roast daily. They are marinated with a revitalising blend of Chinese herbs and spices for hours, roasted at a precise temperature to retain its juice while in the oven. Crisp to the touch, and golden brown in appearance, our herbal roast duck is complemented with our specially concocted herbal sauce that makes it impossible to resist!\nSTORE DETAILS\nLocation\n01-71 to 74\nContact\n+65 6844 9266\nWebsite\nhttp://www.dianxiaoer.com.sg\nTHIS STORE ACCEPTS\nCapitaCard\neCapitaVoucher\nDBS (Instant STAR$\u00ae\ufe0f Earn)",
+            "category": "MAKE A RESERVATION",
+            "url": "https://www.capitaland.com/sg/malls/bedokmall/en/stores/dian-xiao-er.html"
+        },
+        {
+            "name": "Duke Bakery",
+            "location": "B2-24",
+            "description": "Duke Bakery has created over 60 different innovative kinds of delicious breads. Ingeniously incorporating the Japanese style of light and soft bread textures together with classic European style baking of using yeast from fermented fruits, Duke Bakery delivers a rich, healthy and varied foodscape that you definitely do not want to miss.",
+            "category": "PRODUCTS AND SERVICES\n\nBread",
+            "url": "https://www.capitaland.com/sg/malls/bedokmall/en/stores/duke-bakery.html"
+        }
     ],
     "bugisjunction": [
-        "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/108-matcha-saro.html",
-        "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/ajisen-ramen.html",
-        "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/teppan-yaki.html",
-        "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/bakery-1946.html",
-        "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/bengawan-solo.html",
-        "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/best-ah-ma-cafe-bytinbox.html",
-        "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/big-fish-small-fish.html",
-        "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/boost-juice-bars.html",
-        "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/bulgogi-syo.html",
-        "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/buta-kizoku.html",
-        "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/butter-studio.html",
-        "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/chewy-junior.html",
-        "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/chocolate-origin.html",
-        "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/chou-niang.html",
-        "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/crystal-jade-la-mian.html",
-        "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/daily-chicken.html"
+        {
+            "name": "108 Matcha Saro",
+            "location": "B1-03D",
+            "description": "108 Matcha Saro originates from Asahikawa, Hokkaido Japan. Well-loved for its mouth- watering Obanyaki, Parfait, Warabi mochi and Soft Serve Ice-Cream cone, what sets 108 Matcha Saro apart from its peers is the authenticity and quality of its key ingredients.",
+            "category": "THIS STORE ACCEPTS\neCapitaVoucher",
+            "url": "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/108-matcha-saro.html"
+        },
+        {
+            "name": "Ajisen Ramen",
+            "location": "01-01",
+            "description": "Ajisen Ramen has been operating since 1968 and is popular for its flavourful Tonkotsu (pork bone) broth. First launched in Kumamoto, Japan, Ajisen Ramen has more than 700 restaurants worldwide, with 20 outlets in Singapore alone. They are the world\u2019s largest Ramen Chain, famed as the \u201cWorld Ramen\u201d, and aim to operate 1,000 restaurants globally.\u00a0\n\n\nThe Tonkostsu soup in Ajisen Ramen is made with ingredients imported from Japan, and their ramen noodles are house-made, which, when briefly cooked, stay smooth and bouncy to taste. Not to mention, Ajisen Ramen\u2019s Tonkotsu soup has anti-ageing qualities due to the amount of collagen immersed in the soup. Collagen, a protein largely found in connective tissues, cartilage and bone, makes up a significant percentage of the 60 trillion body cells and can be considered the essence of life.\u00a0\n\n\nAjisen Ramen does not neglect taste either, Kumamoto Ramen features Senmiyu, a brown sauce, accompanying the Tonkotsu soup, which has all its flavours expertly sealed into the sauce, assuring you will be hooked on their combination of Tonkotsu and Senmiya. So be prepared to be spoilt for choice with Ajisen Ramen\u2019s extensive ramen variety when you visit any outlet in Singapore.",
+            "category": "PRODUCTS AND SERVICES\n\nJapanese Cuisine , Sushi , Ramen",
+            "url": "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/ajisen-ramen.html"
+        },
+        {
+            "name": "ALLEY.WEI TEPPAN-YAKI",
+            "location": "B1-K23",
+            "description": "ALLEY.WEI TEPPAN-YAKI uses the traditional way of serving, where food is cooked on a hot plate table in front of diners by trained chefs and served directly to the plate in a much more efficient method.",
+            "category": "PRODUCTS AND SERVICES\n\nTeppanyaki",
+            "url": "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/teppan-yaki.html"
+        },
+        {
+            "name": "Bakery 1946",
+            "location": "M01-K1",
+            "description": "Bakery 1946 is a traditional Korean bakery where skilled artisans meticulously craft each loaf of bread, investing time and effort to produce healthy, universally loved bread. Their dedication shines through in every piece of bread.",
+            "category": "THIS STORE ACCEPTS\neCapitaVoucher",
+            "url": "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/bakery-1946.html"
+        },
+        {
+            "name": "Bengawan Solo",
+            "location": "B1-03A",
+            "description": "Bengawan Solo is a homegrown brand that started in 1979 as Bengawan Solo Cake Shop in Marine Terrace by Tjendri Anastasia. What began as a simple interest in Indonesian delicacies became a full-blown entrepreneurship when her cakes and kuehs gained popularity amongst family and friends.\u00a0\n\n\nBengawan Solo uses traditional methods of production and the only finest quality ingredients to prepare delicacies without preservatives. Even at the centralised kitchen, many of Bengawan Solo's products are still handmade or completed by hand in order to maintain the authenticity and standard of what they deliver to their customers. Kuehs like Ondeh Ondeh and Kueh Dadar are handmade throughout the process daily before distributing the finished products to other outlets across Singapore. Bengawan Solo\u2019s signature range also includes Pandan Chiffon Cake, Lapis Sagu, Kueh Lapis and Pineapple Tarts. Anastasia takes pride in producing the best Indonesian and local cakes as well as kuehs. Bengawan Solo continues to introduce new recipes and improve existing ones in order to keep their menu interesting.\u00a0\n\n\nWith 38 outlets and over 409 employees in Singapore, Bengawan Solo is not going to stop bringing traditional treats to you anytime soon!",
+            "category": "PRODUCTS AND SERVICES\n\nPeranakan Delights",
+            "url": "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/bengawan-solo.html"
+        },
+        {
+            "name": "Best Ah Ma Cafe by Tin Box",
+            "location": "01-71 to 72",
+            "description": "Best Ah Ma Cafe by Tin Box is a collaboration between Tin Box Group and the beloved Malaysian Kopitiam, Best Ah Ma Cafe (\u597d\u5bb6\u5a46).\u00a0\n\n\nExplore the nostalgic charm of Best Ah Ma Cafe by Tin Box and immerse in the ambience of an authentic, traditional Kopitiam-inspired cafe. From the irresistible aroma of our kaya butter toast to the comforting flavours of our fragrant Nasi Lemak, each dish is a tribute to our rich local food culture. Complement your meal with our selection of aromatic local \u2018kopi\u2019 and \u2018teh\u2019.\u00a0\n\n\nAt Best Ah Ma Cafe, cherished memories and delicious cuisine come together to create an unforgettable dining experience.",
+            "category": "PRODUCTS AND SERVICES\n\nFood & Beverage",
+            "url": "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/best-ah-ma-cafe-bytinbox.html"
+        },
+        {
+            "name": "Big Fish Small Fish",
+            "location": "04-05",
+            "description": "Big Fish Small Fish is a unique Fish & Crisps caf\u00e9 offering our customers a Fish and Chips meal amid a dining experience that is engaging and fun. This is the first of its kind in Singapore, originated in Punggol operating from shipping containers in a serene lush greenery setting.\u00a0\n\n\nBig Fish Small Fish offers a variety of fishes such as Salmon, Seabass and Dory that is prepared upon order in a light and crispy batter. They come with a generous portion of freshly sliced potato crisps.\u00a0\n\n\nThere is also a Today\u2019s Catch, where they offer fresh fish as a premium selection while stock last. Diners may also complement their meals with add-ons like Calamari and Garlic Butter Mussels. They also offer desserts (Churros) for a complete meal. The highlight would be the free flow of sauces and dips available. The favourites are Cheese Sauce, Salted Egg Sauce and Curry Sauce. These sauces enhance the Fish & Crisps meal and are simply addictive, making one crave for more as they dine.",
+            "category": "MAKE A RESERVATION",
+            "url": "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/big-fish-small-fish.html"
+        },
+        {
+            "name": "Boost Juice Bars",
+            "location": "B1-01A",
+            "description": "It's amazing that something so healthy can taste so good! Boost offers a huge, extra tasty range of low-fat green smoothies, freshly-squeezed juices and dairy-free crushes. All products are at least 98% fat-free, and we never ever add artificial flavours, colours, sugar or water.",
+            "category": "PRODUCTS AND SERVICES\n\nFruit Juice",
+            "url": "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/boost-juice-bars.html"
+        },
+        {
+            "name": "Bulgogi Syo",
+            "location": "02-49",
+            "description": "Get ready for a new dining concept brought to you by the K-BBQ Artisans at Seorae. They bring you Bulgogi Syo - a brand new dining experience where the Perfect Fire (Bul) and Perfect Meat (Gogi) comes together to offer you the Perfect Experience (Syo/Show).",
+            "category": "PRODUCTS AND SERVICES\n\nKorean Cuisine",
+            "url": "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/bulgogi-syo.html"
+        },
+        {
+            "name": "Buta Kizoku",
+            "location": "02-48",
+            "description": "With a wide selection of Japanese Kushiyaki \u4e32\u713c\u304d, ranging from Yakiton \u3084\u304d\u3068\u3093 to Yakitori \u713c\u304d\u9ce5, head over to Buta Kizoku for premium quality Japanese Skewers all within your pockets! And if you're feeling it, you have to pair those jumbo skewers with their alcohol selection!",
+            "category": "PRODUCTS AND SERVICES\n\nFood & Beverage , Japanese Cuisine",
+            "url": "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/buta-kizoku.html"
+        },
+        {
+            "name": "BUTTER STUDIO",
+            "location": "01-61 to 61A",
+            "description": "Butter Studio is a Halal-certified bakery in Singapore that sells artisanal home-style bakes inspired by recipes passed down from generations before. Their handmade goods are produced with high-quality ingredients such as farm-fresh eggs, local market produce and seasonal fruits. Butter Studio celebrates honest and delicious handcrafted treats with an appreciation for the community they serve.\u00a0\n\n\nButter Studio offers their award-winning Salted Caramel Red Velvet, which is a local fan favourite that has layers of red velvet, cream cheese frosting and house-made sea salt caramel sauce. Other popular choices include the Sea Salt Nutella tart, Milo Speculoos Fudge and Salted Gula Melaka cupcake. Seasonal items are also available monthly, while special Butter Studio collections are offered during the holiday seasons.\u00a0\n\n\nAt their bakery caf\u00e9, brunch specialty poached eggs, hearty dinner burgers and delightful desserts are made from scratch with fresh market produce daily. Their Crabby Eggs Neptune and Wasabi Eggs Royale are recommended items on the menu.\u00a0\n\n\nSatisfy your sweet tooth and drop by Butter Studio's outlet in Singapore for your next sweet fix!",
+            "category": "PRODUCTS AND SERVICES\n\nCake , Pastries , Cupcakes , Dessert Table",
+            "url": "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/butter-studio.html"
+        },
+        {
+            "name": "Chewy Junior",
+            "location": "B1-12",
+            "description": "Sink your teeth into your first Chewy Junior and you'll know it's not any ordinary cream puff. It's crispy on the outside, yet soft and chewy on the inside, making it perfect to munch on! With so many delicious flavours to choose from, you'll absolutely be spoilt for choice @ Chewy Junior!",
+            "category": "PRODUCTS AND SERVICES\n\nCream Puffs",
+            "url": "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/chewy-junior.html"
+        },
+        {
+            "name": "Chocolate Origin",
+            "location": "B1-01 to 02",
+            "description": "As a specialist in chocolate cakes and confectionaries, Chocolate Origin uses only the best ingredients. We promise you a taste of indulgence with every bite! You really don\u2019t need a reason for indulgence!",
+            "category": "PRODUCTS AND SERVICES\n\nChocolate , Pastries , Cake",
+            "url": "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/chocolate-origin.html"
+        },
+        {
+            "name": "Chou Niang",
+            "location": "B1-KIO-10 to 11",
+            "description": "Retail of Fermented Sweet Rice Wine - Original, Fresher, Healthier\n\n\n\u00a0\u767e\u5e74\u5473\u9053 \u7eaf\u624b\u5de5\u9c9c\u917f",
+            "category": "THIS STORE ACCEPTS\neCapitaVoucher",
+            "url": "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/chou-niang.html"
+        },
+        {
+            "name": "Crystal Jade La Mian Xiao Long Bao",
+            "location": "B1-04A",
+            "description": "Crystal Jade is renowned for their one-Michelin star restaurant and holds numerous Michelin Bib Gourmand awards. This restaurant has been a household name in Singapore, and its popularity can be felt by the range of outlets it has opened on Singapore\u2019s shores. Besides, Crystal Jade also operates upwards of 100 stores in 25 major cities and is recognised for their high regard for quality as well as culinary mastery. The brand aims to broaden the impression of Chinese cuisine and to ensure that the Chinese culture is conserved fittingly.\u00a0\n\n\nTheir menu is curated to incorporate contemporary gastronomy as well as the essence of Chinese cuisine in a manner that is new and rejuvenating. Crystal Jade La Mian offers a range of delicious dishes from appetisers to traditional handmade La Mian as well as Jiangnan-style food. Kick off your appetite with their Spicy Japanese Cucumber, Beancurd with Pork Floss or Chilled Chicken Marinated with Chinese Wine. Some of their popular La Mian choices include Chilled La Mian with spicy chicken, preserved egg and cucumber, La Mian with peanut sauce in Szechuan style as well as La Mian with braised beef belly in spicy soup. Dig into Jiangnan\u2019s classic food fare like Deep-fried Crispy Duck, Braised Pork Belly with Pancake, Deep-fried Spare Rib with Crispy Garlic in addition to Saut\u00e9ed Chicken in Spicy Sauce and Macadamia Nut. There are also an array of dim sum and fried rice options to savour.\u00a0\n\n\nDine at Crystal Jade La Mian in Singapore for a taste of authentic Shanghainese and provincial dishes today!",
+            "category": "MAKE A RESERVATION",
+            "url": "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/crystal-jade-la-mian.html"
+        },
+        {
+            "name": "Daily Chicken",
+            "location": "B1-06",
+            "description": "Daily Chicken, the latest dining brand from Katrina Group, was conceptualized in partnership with Daily Beer following the successful launch of the leading South Korean craft beer and fried chicken brand\u2019s first international outlet in Singapore. Known for its mouth-watering Korean fried chicken, Daily Chicken now brings an exclusive Korean street food menu with non-spicy options perfect for everyone.\u00a0\n\n\nDaily Chicken, an authentic, family-friendly casual restaurant, uses ingredients imported directly from Korea. Daily Chicken offers not only its signature crispy fried chicken in irresistible flavours but also exciting dishes like Chicken Gangjeong, Gimbap, and Chewy or Crispy Hotteok. For office professionals looking to unwind, they can relish the Singapore-exclusive K-Ginseng Lager, brewed with whole Korean ginseng and designed to revitalise and uplift. New non-alcoholic drinks have also been created specifically for Daily Chicken, perfect for the whole family to enjoy.\u00a0\n\n\nLocated at Bugis Junction, Daily Chicken is set to spread its wings with more outlets in convenient locations soon. Come and taste the difference \u2013 it\u2019ll be love at first bite!",
+            "category": "PRODUCTS AND SERVICES\n\nKorean Cuisine , Korean Fried Chicken",
+            "url": "https://www.capitaland.com/sg/malls/bugisjunction/en/stores/daily-chicken.html"
+        }
     ],
     "bugisplus": [
-        "https://www.capitaland.com/sg/malls/bugisplus/en/stores/amps-tea.html",
-        "https://www.capitaland.com/sg/malls/bugisplus/en/stores/astons.html",
-        "https://www.capitaland.com/sg/malls/bugisplus/en/stores/azul-at-golden-village.html",
-        "https://www.capitaland.com/sg/malls/bugisplus/en/stores/blackball.html",
-        "https://www.capitaland.com/sg/malls/bugisplus/en/stores/chateraise.html",
-        "https://www.capitaland.com/sg/malls/bugisplus/en/stores/coco-ichibanya.html",
-        "https://www.capitaland.com/sg/malls/bugisplus/en/stores/gel-re.html",
-        "https://www.capitaland.com/sg/malls/bugisplus/en/stores/genki-sushi.html",
-        "https://www.capitaland.com/sg/malls/bugisplus/en/stores/haidilao-hot-pot-1676088334.html",
-        "https://www.capitaland.com/sg/malls/bugisplus/en/stores/j-co.html",
-        "https://www.capitaland.com/sg/malls/bugisplus/en/stores/jinjia-chicken-diner.html",
-        "https://www.capitaland.com/sg/malls/bugisplus/en/stores/kanemochi.html",
-        "https://www.capitaland.com/sg/malls/bugisplus/en/stores/koi-the.html",
-        "https://www.capitaland.com/sg/malls/bugisplus/en/stores/lau-wang-claypot.html",
-        "https://www.capitaland.com/sg/malls/bugisplus/en/stores/liho@cafe.html",
-        "https://www.capitaland.com/sg/malls/bugisplus/en/stores/marutama-ra-men.html"
+        {
+            "name": "amps tea",
+            "location": "05-09",
+            "description": "At amps tea, we believe in the timeless charm of traditional tea drinking, and we are on a mission to share this rich cultural experience with the world. Join us as we embark on a journey to bridge the gap between the heritage of traditional tea and the contemporary palate, all while promoting a healthy and fulfilling lifestyle.",
+            "category": "PRODUCTS AND SERVICES\n\nBeverages",
+            "url": "https://www.capitaland.com/sg/malls/bugisplus/en/stores/amps-tea.html"
+        },
+        {
+            "name": "Astons Specialties",
+            "location": "05-08 to 08A",
+            "description": "Astons was started with a simple aim \u2013 to bring quality yet affordable Western cuisine to diners everywhere in Singapore. Since 2005, Astons has been providing great food at reasonable prices, carving its name and popularity into the hearts of Singaporeans who often patronise the causal dining establishment.\u00a0\n\n\n\nThey offer an extensive menu that utilises the freshest and best quality ingredients, providing a satisfying experience for everyone. For starters, the Cream of Mushroom Soup is a good option and it comes with a slice of toasted fragrant garlic bread to tantalise your appetite. Other than their popular Prime Ribeye that is juicy and cooked to your preferred doneness, the Chargrilled Chicken is also a fan favourite. The chicken is succulent and perfectly grilled so that the charred parts bring out the taste of the chicken and paired with their sauce flavourfully. Another must try includes the Honey Bourbon Ribs which is slathered generously with BBQ sauce and so tender the meat slides right off the bones. Most main courses include 2 side dishes and there are other seafood and pasta options available in their menu as well.\u00a0\n\n\nVisit Astons outlet in Singapore today for a great food along with great company!",
+            "category": "MAKE A RESERVATION",
+            "url": "https://www.capitaland.com/sg/malls/bugisplus/en/stores/astons.html"
+        },
+        {
+            "name": "AZUL at Golden Village",
+            "location": "05-01",
+            "description": "AZUL, inspired by the lively and spirited flavours of Spanish and Mexican cuisine, is a fresh dining concept with an expansive menu featuring timeless favourites such as Quesadilla and Chicken Chorizo Frito.\u00a0\n\n\nEnhanced by its distinctive blue (AZUL) interior, AZUL invites you to experience the richness of these culinary treasures, even if you are not watching a movie!\u00a0\n\n\nHead over to AZUL at Golden Village today. We are open to public!",
+            "category": "PRODUCTS AND SERVICES\n\nSpanish Cuisine , Mexican Food",
+            "url": "https://www.capitaland.com/sg/malls/bugisplus/en/stores/azul-at-golden-village.html"
+        },
+        {
+            "name": "Blackball",
+            "location": "01-14",
+            "description": "Blackball creates the Taiwanese shaved ice dessert with a twist. With a selection of 12 Blackball signatures to choose from, there has got to be a flavor for you! Adventurous ones can create their ow flavor bursts by choosing their own toppings including our chewy pearls and fragrant yam and sesame balls.",
+            "category": "PRODUCTS AND SERVICES\n\nMilk Tea , Taiwanese Dessert",
+            "url": "https://www.capitaland.com/sg/malls/bugisplus/en/stores/blackball.html"
+        },
+        {
+            "name": "Chateraise",
+            "location": "01-07",
+            "description": "Chateraise has been a hugely successful patisserie in Japan since 1954, and they finally made their way to Singapore in 2015. The pastry shop has more than 470 stores across Japan and operates 27 outlets in Singapore alone. Chateraise is unique in featuring a wide variety of cakes, pastries, sweets and Japanese drinks. Treats from Chateraise are made with fresh ingredients that are directly sourced from pastures and farms. Their desserts are made in Chateraise\u2019s own factory and delivered to the outlets all across the world. The patisserie collaborates with Japanese farmers in order to procure the finest and healthiest ingredients for their desserts. A wide range of Japanese and western cakes like fresh cream cakes, baked confectioneries, Japanese pastries as well as Japanese specialty hot and cold drinks are available. Some of their offerings include the Legendary Fresh Cream Cake, Castella, Cream Puffs and Baked Cheese Tart. They even offer a mixed and matched version of cakes, such as the Fresh Cream and Chocolate Cream Special Strawberry Cake. Chateraise will leave you spoilt for choice! With its signature faint milk flavour and smooth texture, Chateraise\u2019s baked goods are bound to get you coming back for more! Come by outlets in Singapore today!",
+            "category": "PRODUCTS AND SERVICES\n\nCake , Ice Cream , Cheese Tart , Cream Puffs",
+            "url": "https://www.capitaland.com/sg/malls/bugisplus/en/stores/chateraise.html"
+        },
+        {
+            "name": "CoCo ICHIBANYA",
+            "location": "01-10",
+            "description": "CoCo ICHIBANYA was founded in Nishi- Biwajima-cho, in the Aichi Prefecture of Japan.\u00a0\n\n\nThe restaurant has been so successful because of its diverse menu where patrons can choose the spicy level, rice portion, type of sauce and additional toppings such as cheese, bacon and fried squid. Each level of spice incrementally stings your palate and paralyses your lips. For those with masochistic intentions can try spice levels 6 to 10 which will roil your stomach into a blazing furnace. CoCo ICHIBANYA also features Tonkatsu dishes which are panko-crusted meat fried to a golden crisp.\u00a0\n\n\nCoCo ICHIBANYA also prides itself on providing customer service of supreme standards, where restaurant staff continuously review processes to ensure cleanliness, consistent food quality and service excellence.\u00a0\n\n\nVisit CoCo ICHIBANYA at Bugis+ for heart-warming and belly-burning Japanese curry dishes!",
+            "category": "PRODUCTS AND SERVICES\n\nJapanese Curry Rice , Japanese Cuisine , Udon",
+            "url": "https://www.capitaland.com/sg/malls/bugisplus/en/stores/coco-ichibanya.html"
+        },
+        {
+            "name": "Gel\u00e1re",
+            "location": "05-10",
+            "description": "Gel\u00e1re is a renowned dessert caf\u00e9 originating from Australia.\u00a0\n\n\nIndulge in our signature no air content ice cream with freshly baked waffles and explore a delectable range of desserts, savouries and barista-made coffees.\u00a0\n\n\nExperience the perfect blend of scrumptious treats crafted with premium, all-natural ingredients and a chill-out vibe, where every visit is a delightful escape into the world of sweet indulgence.",
+            "category": "PRODUCTS AND SERVICES\n\nWaffles , Ice Cream , Desserts , Coffee , Tea , Pastas",
+            "url": "https://www.capitaland.com/sg/malls/bugisplus/en/stores/gel-re.html"
+        },
+        {
+            "name": "GENKI SUSHI",
+            "location": "01-08",
+            "description": "Today, Genki Sushi Singapore has a total of 18 outlets, islandwide. Using the latest technologies and innovations, Genki Sushi Singapore intelligently delivers food to diners\u2019 tables via a fully functional Kousoku Express system which is greatly adored by all Genki fans.\u00a0\n\n\nIntegrated seamlessly with its BYOD (Bring Your Own Device) ordering system, dining at Genki Sushi Singapore is truly a unique unconventional experience.\u00a0\n\n\nGet your sushi cravings fix at Genki Sushi!",
+            "category": "PRODUCTS AND SERVICES\n\nJapanese Cuisine , Sushi , Sashimi",
+            "url": "https://www.capitaland.com/sg/malls/bugisplus/en/stores/genki-sushi.html"
+        },
+        {
+            "name": "Haidilao Hot Pot \u6d77\u5e95\u635e\u706b\u9505",
+            "location": "04-10",
+            "description": "The brand Haidilao was founded in 1994. With over 20 years of development, Haidilao International Holding Ltd. has become a world-renowned catering enterprise. By the end of June 30, 2020 ,Haidilao has opened 935 chain restaurants in China, Singapore, U.S., South Korea, Japan, Canada ,the United Kingdom, Malaysia , Vietnam,Indonesia and Australia. Over the years, Haidilao has withstood the challenges of the market as well as customers, and has successfully forged a quality hot pot brand which has earned a reputation for itself. Haidilao combines kinds of characteristics of hot pot in many places of China. As a large-scale chain catering enterprise with operations all over the world, Haidilao adheres to integrity in business. It gives the highest priority to continuously improving the quality and safety of its food products, providing more thoughtful services to its customers while delivering healthier, safer and more nutritious food.",
+            "category": "PRODUCTS AND SERVICES\n\nChinese Cuisine , Steamboat",
+            "url": "https://www.capitaland.com/sg/malls/bugisplus/en/stores/haidilao-hot-pot-1676088334.html"
+        },
+        {
+            "name": "J.Co",
+            "location": "01-03",
+            "description": "J.CO IS A LIFESTYLE CAFE THAT FEATURES EXCEPTIONALLY HANDCRAFTED DONUTS WITH PREMIUM SOURCED & FRESHLY ROASTED ARTISAN COFFEE.\u00a0\nSince our 1st store opening 13 years ago, J.CO expanded to 350+ stores throughout Indonesia, Singapore, Hong Kong, Malaysia, Philippines & Saudi Arabia.\u00a0\n\nJ.CO continues to evolve in F&B products, service, and store design to offer a great experience to the widest range of customers.",
+            "category": "PRODUCTS AND SERVICES\n\nCoffee , Donuts",
+            "url": "https://www.capitaland.com/sg/malls/bugisplus/en/stores/j-co.html"
+        },
+        {
+            "name": "JINJJA!! CHICKEN DINER",
+            "location": "01-11",
+            "description": "",
+            "category": "PRODUCTS AND SERVICES\n\nKorean Cuisine , Korean Fried Chicken",
+            "url": "https://www.capitaland.com/sg/malls/bugisplus/en/stores/jinjia-chicken-diner.html"
+        },
+        {
+            "name": "KANEMOCHI",
+            "location": "02-50",
+            "description": "Originating from Thailand, Kanemochi is a popular dessert chain whose specialty is mochi ice cream. Imagine a harmonious combination of flavorsome ice cream wrapped in a sticky rice confection, all resulting in a tantalizing bite-sized happiness. The perfect ending to an amazing meal or anytime for a gourmet sweet snack. Try out unique flavors like Korean Banana Milk and Thai Iced Tea. What's more, all Kanemochi ice cream are made with zero preservatives! Head over to Kanemochi to try out one of the 17 flavors of our mochi ice cream.",
+            "category": "PRODUCTS AND SERVICES\n\nMochi Ice Cream",
+            "url": "https://www.capitaland.com/sg/malls/bugisplus/en/stores/kanemochi.html"
+        },
+        {
+            "name": "KOI THE",
+            "location": "01-01",
+            "description": "The only Milk Tea that\u2019s so good you can actually tell us apart from the rest, KOI Caf\u00e9 serves Milk tea with a variety of standout toppings and exclusive flavors. Try out our Ovatine Macchiato which exudes a malty aroma that balances the intense rich velvetness of our Macchiato roast.",
+            "category": "PRODUCTS AND SERVICES\n\nTea , Coffee , Milk Tea",
+            "url": "https://www.capitaland.com/sg/malls/bugisplus/en/stores/koi-the.html"
+        },
+        {
+            "name": "LAU WANG CLAYPOT",
+            "location": "04-13",
+            "description": "A local restaurant selling claypot dishes, sides dishes and beverages",
+            "category": "PRODUCTS AND SERVICES\n\nLocal Delights , Beverages",
+            "url": "https://www.capitaland.com/sg/malls/bugisplus/en/stores/lau-wang-claypot.html"
+        },
+        {
+            "name": "LiHo @ Cafe",
+            "location": "03-29 to 30",
+            "description": "\u201cHow are you?\u201d is a familiar and common phrase used in most languages. It is a phrase used to reflect the concern for one\u2019s well-being. Translating this phrase into the Chinese dialect, Hokkien, is LiHO TEA \u91cc\u559d\u8336 our brand name. We take pride in our name as it celebrates Singapore as a melting pot of culture. A simple greeting of LiHO is a great way for individuals to bond and it is even better with a cup of Singapore\u2019s home grown tea brand, LiHO TEA.",
+            "category": "THIS STORE ACCEPTS\neCapitaVoucher\nDBS (Instant STAR$\u00ae\ufe0f Earn)",
+            "url": "https://www.capitaland.com/sg/malls/bugisplus/en/stores/liho@cafe.html"
+        },
+        {
+            "name": "Marutama Ra-men",
+            "location": "04-02",
+            "description": "Marutama offers an authentic Japanese ramen experience, serving a tantalising collection of dishes that are suitable for family gatherings, large groups, catching up with friends and colleagues. From Zenbu Ramen to Marutama Ramen, its extensive menu is reflective of the restaurant\u2019s efforts to cater to every palate. Marutama\u2019s specialty is the thin Japanese noodle \u2013 ramen \u2013 in fresh chicken paitan soup. The soups are mildly flavored, an ideal template for the wheaty flavor of the ramen. Their unique toppings include half-boiled aji tamago, aosa seaweed topping, and melt-in-your-mouth char siew.",
+            "category": "PRODUCTS AND SERVICES\n\nRamen",
+            "url": "https://www.capitaland.com/sg/malls/bugisplus/en/stores/marutama-ra-men.html"
+        }
     ],
     "bukitpanjangplaza": [
-        "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/ah-ma-chi-mian.html",
-        "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/andes-by-astons.html",
-        "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/arabisk.html",
-        "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/bee-cheng-hiang.html",
-        "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/bengawan-solo.html",
-        "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/bibimbap-dosirak.html",
-        "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/bober-tea.html",
-        "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/boost-juice-bars.html",
-        "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/burger-king.html",
-        "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/chinatown-tan-s-tutucoconutcake.html",
-        "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/crave.html",
-        "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/fish-with-you.html",
-        "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/fong-sheng-hao.html",
-        "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/four-leaves.html",
-        "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/gado-grill.html",
-        "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/greendot.html"
-    ],
-    "clarkequay": [
-        "https://www.capitaland.com/sg/malls/clarkequay/en/stores/bbq-box-prime.html",
-        "https://www.capitaland.com/sg/malls/clarkequay/en/stores/capital.html",
-        "https://www.capitaland.com/sg/malls/clarkequay/en/stores/chapters-by-drinksco.html",
-        "https://www.capitaland.com/sg/malls/clarkequay/en/stores/chupitos-shots-bar.html",
-        "https://www.capitaland.com/sg/malls/clarkequay/en/stores/coco-lato.html",
-        "https://www.capitaland.com/sg/malls/clarkequay/en/stores/cuba-libre-cafe--bar.html",
-        "https://www.capitaland.com/sg/malls/clarkequay/en/stores/east_treasure_chines.html",
-        "https://www.capitaland.com/sg/malls/clarkequay/en/stores/fu-lin-restaurantbar.html",
-        "https://www.capitaland.com/sg/malls/clarkequay/en/stores/gabbar-bistro-bar.html",
-        "https://www.capitaland.com/sg/malls/clarkequay/en/stores/grand-konak-turkishandlebanesecuisine.html",
-        "https://www.capitaland.com/sg/malls/clarkequay/en/stores/hai-di-lao-_.html",
-        "https://www.capitaland.com/sg/malls/clarkequay/en/stores/hanjip-korean-grill-house.html",
-        "https://www.capitaland.com/sg/malls/clarkequay/en/stores/harry_s-clarke-quay.html",
-        "https://www.capitaland.com/sg/malls/clarkequay/en/stores/helen-s.html",
-        "https://www.capitaland.com/sg/malls/clarkequay/en/stores/here-kitty-kitty.html",
-        "https://www.capitaland.com/sg/malls/clarkequay/en/stores/home.html"
+        {
+            "name": "Ah Ma Chi Mian",
+            "location": "01-58 to 59",
+            "description": "A heritage brand inspired by the founder's grandmother, Ah Ma Chi Mian serves up a contemporary twist to the well-loved minced meat noodles while preserving tradition. For lovers of \"Bak Chor Mee\", Ah Ma Chi Mian's soup is a definite must try as the broth is loaded with minced pork which adds a layer of sweetness, coupled with skillfully cooked noodles, garnished with anchovies and herbs. Each bowl of minced meat noodles is tossed with their secret sauce, served with delicious meatballs and fishballs.",
+            "category": "PRODUCTS AND SERVICES\n\nFood & Beverage",
+            "url": "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/ah-ma-chi-mian.html"
+        },
+        {
+            "name": "Andes by Astons",
+            "location": "03-10",
+            "description": "ANDES BY ASTONS is a Halal Certified casual dining restaurant in Singapore and a spinoff of ASTONS Specialties, but it is still branded in the customary cowboy theme. ASTONS is popular for its \u201cValue-For-Money\u201d concept and ANDES continues to offer the best value and quality of food to all diners.\u00a0\n\n\n\nANDES uses quality ingredients and provides generous portions, guaranteed to satisfy your taste buds and wallets. Their menu features an extensive selection of steak cuts, seafood and chicken with most of the main courses including 2 side dishes that diners can select from a range of options to suit their cravings. The Prime Ribeye or Sirloin is a popular choice with its succulent texture, cooked to your desired doneness, which at its inexpensive price point is definitely worth a try. The Hickory BBQ Chicken is tender and juicy, pairing nicely with the smokey and sweet Hickory sauce. There are also fish options such as their Chargrilled Salmon Fillet that is charred enticingly yet does not dry out the salmon. If one main meat is not enough for you, opt for the Super Combo that offers an extra variety, like the Surf & Turf which comes with Prime Ribeye and Prawns, also including 2 side dishes.\u00a0\n\n\nSo if you're feeling the hunger pangs for hearty western grub then head down to any ANDES outlet across Singapore today. For there is definitely something to delight all!",
+            "category": "PRODUCTS AND SERVICES\n\nWestern Cuisine",
+            "url": "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/andes-by-astons.html"
+        },
+        {
+            "name": "ARABISK",
+            "location": "01-55",
+            "description": "At Arabisk, we are on a mission to bring the authentic flavors of the Mediterranean to Singapore. Our menu is inspired by the rich and vibrant flavors of the Middle East and North Africa, with a focus on healthy and wholesome dishes.\n\n\nWe are committed to using fresh, natural and locally sourced ingredients to create dishes that are not only delicious but also provide a healthy and balanced diet. Whether you\u2019re looking for a light lunch, an indulgent dinner or a tasty snack, come by and experience the unique flavors of Arabisk.",
+            "category": "PRODUCTS AND SERVICES\n\nKebab",
+            "url": "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/arabisk.html"
+        },
+        {
+            "name": "Bee Cheng Hiang",
+            "location": "01-24",
+            "description": "Bee Cheng Hiang has been passionately committed to making the best bakkwa since 1933. The home-grown brand uses the most natural and premium ingredients possible and maintains an unyielding position on rejecting the use of MSG, artificial preservatives, meat-tenderiser, colouring and flavouring. Known for its enterprising and innovative spirit, Bee Cheng Hiang has pioneered various products that have redefined the bakkwa industry, such as the Mini EZ Series (vacuum-packed bakkwa) and the EZ Mini Crunchies series (crunchy floss). Today, with more than 370 stores in 12 countries and regions, Bee Cheng Hiang is the largest bakkwa retailer globally.",
+            "category": "PRODUCTS AND SERVICES\n\nBak Kwa , Pork Floss",
+            "url": "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/bee-cheng-hiang.html"
+        },
+        {
+            "name": "Bengawan Solo",
+            "location": "01-66 to 67",
+            "description": "Bengawan Solo preserves the time-honored taste of Singapore's local kuehs and confectionery by using traditional methods, the finest and freshest ingredients, and absolutely no artificial preservatives to replicate this homemade quality in our bakes. This passion and commitment to great taste, quality and freshness has made Bengawan Solo a household brand name in Singapore and a firm favourite with overseas visitors looking for a uniquely Singaporean premium food gift.",
+            "category": "PRODUCTS AND SERVICES\n\nPeranakan Delights",
+            "url": "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/bengawan-solo.html"
+        },
+        {
+            "name": "Bibimbap! / Dosirak!",
+            "location": "01-41",
+            "description": "Bibimbap Dosirak are Korean style lunch boxes filled with fragrance rice topped with all sorts of seasoned saut\u00e9ed vegetables, marinated meat, a fried egg sunny side up, finished with a sprinkle of sesame and generous dollop of a sweet-spicy-savoury Bibimbap sauce.\u00a0A truly delicious & nutritious meal that can be served in a real quick time.",
+            "category": "PRODUCTS AND SERVICES\n\nFood & Beverage , Korean Cuisine",
+            "url": "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/bibimbap-dosirak.html"
+        },
+        {
+            "name": "Bober Tea",
+            "location": "01-23",
+            "description": "An artisanal bubble tea brand differentiated by high-quality ingredients, affordable creative blends and beautiful packaging, Bober Tea uses premium ingredients like Okinawa Black Sugar, Hokkaido Milk, and Pure Matcha powder.",
+            "category": "PRODUCTS AND SERVICES\n\nMilk Tea , Tea",
+            "url": "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/bober-tea.html"
+        },
+        {
+            "name": "Boost Juice Bars",
+            "location": "01-20",
+            "description": "It's amazing that something so healthy can taste so good! Boost offers a huge, extra tasty range of low-fat green smoothies, freshly squeezed juices and dairy free crushes. All products are at least 98% fat-free and we never ever add artificial flavours, colours, sugar or water.\n\n\nWe're still open for takeaway and delivery from 10am - 10pm.\u00a0\n\n\nDelivery\nDelivery:\u00a0Food Panda | Grab\nDelivery Area: Please verify your delivery area via the delivery service.",
+            "category": "PRODUCTS AND SERVICES\n\nFruit Juice",
+            "url": "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/boost-juice-bars.html"
+        },
+        {
+            "name": "BURGER KING",
+            "location": "01-28",
+            "description": "Welcome to the home of flame-grilled perfection! Enjoy the best-selling, signature flame-grilled WHOPPER\u00ae\ufe0f as well as other top BK favourites such as the velvety smooth Double Mushroom Swiss, deliciously juicy Tendergrill\u00ae\ufe0f Chicken that is made of chicken thigh fillet and the irresistible sides such as Onion Rings, Taro Turnover, HERSHEY\u2019S\u00ae\ufe0f Sundae Pie and more! Sink your teeth in our juicy burgers now.",
+            "category": "PRODUCTS AND SERVICES\n\nBurger And Fries , Fried Chicken , Snacks & Finger Food",
+            "url": "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/burger-king.html"
+        },
+        {
+            "name": "Chinatown Tan's Tutu Coconut Cake",
+            "location": "01-47A",
+            "description": "Handcrafted from start to end, this is a nostalgic snack with more than 80 years of history.",
+            "category": "PRODUCTS AND SERVICES\n\nFood & Beverage",
+            "url": "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/chinatown-tan-s-tutucoconutcake.html"
+        },
+        {
+            "name": "CRAVE",
+            "location": "01-18",
+            "description": "CRAVE serves up the famous nasi lemak from Adam Road by Selera Rasa, matched with the best teh tarik from Rafee's Corner.",
+            "category": "PRODUCTS AND SERVICES\n\nAsian Cuisine , Local Delights",
+            "url": "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/crave.html"
+        },
+        {
+            "name": "Fish With You",
+            "location": "02-19 to 19A",
+            "description": "Dive into a world of flavour at Fish With You!",
+            "category": "PRODUCTS AND SERVICES\n\nFood & Beverage",
+            "url": "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/fish-with-you.html"
+        },
+        {
+            "name": "Fong Sheng Hao",
+            "location": "01-53 to 54",
+            "description": "Taiwan's very first Charcoal Toast & Milk Tea, Fong Sheng Hao started it\u2019s journey in a small alley near Shilin MRT station in Taipei. Despite being in an inconspicuous location, it has created exceptional achievements. With dedication and persistency, Fong Sheng Hao soon created an awareness in the community and became many people's favourite. Due to its popularity, Fong Sheng Hao was eventually awarded \u2018Taipei Top 10 Must Eat Breakfast\u2019 by the media.",
+            "category": "PRODUCTS AND SERVICES\n\nToast , Milk Tea , Desserts",
+            "url": "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/fong-sheng-hao.html"
+        },
+        {
+            "name": "Four Leaves",
+            "location": "01-25",
+            "description": "Four Leaves provides innovative and quality bakes to our customers that will fill your palate with the buttery fragrance fresh out of the oven. Sink your teeth into fluffy buns and breads, delightfully sweet strawberry shortcake and more!",
+            "category": "PRODUCTS AND SERVICES\n\nBread , Cake , Pastries , Sandwiches",
+            "url": "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/four-leaves.html"
+        },
+        {
+            "name": "Gado & Grill",
+            "location": "01-42",
+            "description": "Gado & Grill is a Halal Indonesian fast food restaurant, specializing in Indonesian Grill. A popular menu item at Gado & Grill is GadoMie \u2122, which is inspired by the all-time popular Indonesian Indomie Goreng and Gado Gado.",
+            "category": "PRODUCTS AND SERVICES\n\nFood & Beverage",
+            "url": "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/gado-grill.html"
+        },
+        {
+            "name": "Greendot",
+            "location": "01-36",
+            "description": "Established in 2011, Greendot has grown to become one of Singapore's leading plant-based restaurant chains, specialising in Asian-fusion, plant-based dishes. Our mission is to make healthier, greener, and meat-free meals accessible and convenient for everyone. At Greendot, we believe that by enjoying a plant-based meal at least once a week, individuals can make a positive impact on their health, the community, and protecting the environment.",
+            "category": "PRODUCTS AND SERVICES\n\nVegetarian",
+            "url": "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores/greendot.html"
+        }
     ],
     "funan": [
-        "https://www.capitaland.com/sg/malls/funan/en/stores/a-gan-guo-kui.html",
-        "https://www.capitaland.com/sg/malls/funan/en/stores/afuri.html",
-        "https://www.capitaland.com/sg/malls/funan/en/stores/ajumma's.html",
-        "https://www.capitaland.com/sg/malls/funan/en/stores/alchemist-arcade.html",
-        "https://www.capitaland.com/sg/malls/funan/en/stores/amps-tea.html",
-        "https://www.capitaland.com/sg/malls/funan/en/stores/beyond-fruit.html",
-        "https://www.capitaland.com/sg/malls/funan/en/stores/big-appetite.html",
-        "https://www.capitaland.com/sg/malls/funan/en/stores/bizen-okayama-wagyu-steakhouse.html",
-        "https://www.capitaland.com/sg/malls/funan/en/stores/boost-juice-bars.html",
-        "https://www.capitaland.com/sg/malls/funan/en/stores/chateraise.html",
-        "https://www.capitaland.com/sg/malls/funan/en/stores/churros-republic.html",
-        "https://www.capitaland.com/sg/malls/funan/en/stores/dal_komm-coffee.html",
-        "https://www.capitaland.com/sg/malls/funan/en/stores/dapur-penyet.html",
-        "https://www.capitaland.com/sg/malls/funan/en/stores/deli-bowl.html",
-        "https://www.capitaland.com/sg/malls/funan/en/stores/dunkin_-donuts.html",
-        "https://www.capitaland.com/sg/malls/funan/en/stores/flavors-by-saute.html"
+        {
+            "name": "A Gan Guo Kui",
+            "location": "B2-K05",
+            "description": "\u9505\u76d4 Guo Kui is a thin flatbread usually stuffed with various types of fillings and it is a popular street snack from China. \u963f\u7518\u9505\u76d4 A Gan Guo Kui originates from China, Hubei Jingzhou City with a long preserved tradition of over 1000 years. All the Guo Kuis from A Gan are flattened and baked using a huge traditional charcoal heated clay oven till the bread is crispy golden brown and till the ingredients are baked.",
+            "category": "THIS STORE ACCEPTS\neCapitaVoucher\nDBS (Instant STAR$\u00ae\ufe0f Earn)",
+            "url": "https://www.capitaland.com/sg/malls/funan/en/stores/a-gan-guo-kui.html"
+        },
+        {
+            "name": "Afuri",
+            "location": "B1-29",
+            "description": "Afuri was first started by Hiroto Nakamura in Tokyo in 2003 and has expanded the brand internationally to stores in Portugal and Canada. Takahashi Kenichi, CEO of Japan Foods Holding, had worked to bring Afuri to Singapore since 2012. His vision was finally realised seven years later, with the launch of Afuri ramen + dumplings in Singapore.\n\n\u00a0\n\nAfuri stands out from its competitors by making their signature ramen with yuzu, a small citrus fruit native to Asia. They are also crafted authentically to Japan\u2019s specification, producing ramen that is thin, light and refined. Afuri ramen are soaked in broth boiled with ingredients such as chicken, kombu and dried bonito. A dash of yuzu in the broth delivers a refreshing twist to the taste of the dish entirely. The pork slices that top the ramen are cooked over lava stones locally, as compared to being grilled with charcoal in Japan, yet the depth of the flavour is still preserved. For a satisfying side dish, opt for Afuri\u2019s dumplings that comes in a layer of crispy thin crust covering the bottom.\n\n\u00a0\n\nAfuri not only aims to share their passion for the process of producing quality and well-made food, but also to do their part in contributing to the community and so much more. Just as they are named after Mt. Afuri that stands steadfast and dependable, Afuri restaurant has one belief: \u201cOne ramen. One staff. Always Higher.\u201d So make your way to their outlet in Singapore today for a hot piping bowl of ramen!",
+            "category": "THIS STORE ACCEPTS\nCapitaCard\neCapitaVoucher\nDBS (Instant STAR$\u00ae\ufe0f Earn)",
+            "url": "https://www.capitaland.com/sg/malls/funan/en/stores/afuri.html"
+        },
+        {
+            "name": "Ajumma's",
+            "location": "B1-31",
+            "description": "Experience the bold and vibrant flavours of Ajumma\u2019s Korean dishes, from savoury, smoky cuts of beef, to heartwarming bowls of rich kimchi broth, you are definitely in for a treat! Made from scratch daily with the freshest ingredients and seasoned with love, Ajumma's will leave you feeling full in your bellies and in your hearts.\n\n\nWe're still open for takeaway/delivery!",
+            "category": "THIS STORE ACCEPTS\nCapitaCard\neCapitaVoucher\nDBS (Instant STAR$\u00ae\ufe0f Earn)",
+            "url": "https://www.capitaland.com/sg/malls/funan/en/stores/ajumma's.html"
+        },
+        {
+            "name": "Alchemist & Arcade",
+            "location": "01-01",
+            "description": "Coffee meets fashion at Alchemist & Arcade, where you can enjoy quality brews alongside curated fashion selections. A space where individuals can find common ground, exploring the best of both worlds under one roof.Find out more at\u00a0alchemist.com.sg & aforarcade.com",
+            "category": "PRODUCTS AND SERVICES\n\nFashion , Fashion And Apparels , Food & Beverage",
+            "url": "https://www.capitaland.com/sg/malls/funan/en/stores/alchemist-arcade.html"
+        },
+        {
+            "name": "amps tea",
+            "location": "02-K07",
+            "description": "At amps tea, we believe in the timeless charm of traditional tea drinking, and we are on a mission to share this rich cultural experience with the world. Join us as we embark on a journey to bridge the gap between the heritage of traditional tea and the contemporary palate, all while promoting a healthy and fulfilling lifestyle.",
+            "category": "PRODUCTS AND SERVICES\n\nBeverages",
+            "url": "https://www.capitaland.com/sg/malls/funan/en/stores/amps-tea.html"
+        },
+        {
+            "name": "Beyond Fruit",
+            "location": "B2-K15",
+            "description": "Beyond Fruit, Singapore's 1st Sticky Natural Yogurt.\u00a0\u00a0\n\u00a0\u00a0\nWe offer a unique combination of fresh fruits and natural yogurt - packed with probiotics which are beneficial bacteria that promote gut health and digestion.\u00a0\n\u00a0\u00a0\nWe provide a wholesome, guilt-free nutritious snack that is perfect for on-the-go indulgence.",
+            "category": "PRODUCTS AND SERVICES\n\nFruits , Smoothie , Ice Cream",
+            "url": "https://www.capitaland.com/sg/malls/funan/en/stores/beyond-fruit.html"
+        },
+        {
+            "name": "Big Appetite",
+            "location": "B2-24",
+            "description": "Our Food Court operates daily from 8 am to 10 pm daily and offers not just a selection of the best food choices but also a Salad Bar and more! It\u2019s a Food Court for everyone.",
+            "category": "PRODUCTS AND SERVICES\n\nFood & Beverage",
+            "url": "https://www.capitaland.com/sg/malls/funan/en/stores/big-appetite.html"
+        },
+        {
+            "name": "Bizen Okayama Wagyu Steakhouse",
+            "location": "B2-22",
+            "description": "Bizen Okayama Wagyu Steakhouse operates under the Astons Group based in Singapore, and seeks to provides top-shelf and exclusive Bizengyu to steak lovers at affordable prices. Partnering with Okayama cattle farmers, Bizen Steakhouse imports whole cadavers which are specifically selected and handled by butchers trained in japan, ensuring diners taste the variety and best of cuts.\u00a0\n\nTheir menu serves up caramelised steaks from a selection of Prime cuts, Butcher Cuts and Adventure Cuts. The steaks are cooked upon a high-intense charcoal grill originating from Japan, ensuring the cuts are prepared deliciously. Other than steaks, Bizen Steakhouse also features Wagyu rice and pasta like Wagyu Curry Bread Bowl and Wagyu Beef Bolognese that includes a choice of Chawanmushi or Miso Soup. If Wagyu is not to your fancy, they offer Japanese influenced chops, burgers and hearty bites with a as well. For those who wish to savour good food with alcohol, Bizen Steakhouse has an assortment of beer, shochu, sake and wine to satisfy.\u00a0\n\n\nSo if you're a self-proclaimed steak lover then visit any Bizen Okayama Wagyu Steakhouse branch in Singapore for high succulent quality meats!\n\n\nWe're still open for takeaway!",
+            "category": "THIS STORE ACCEPTS\neCapitaVoucher\nDBS (Instant STAR$\u00ae\ufe0f Earn)",
+            "url": "https://www.capitaland.com/sg/malls/funan/en/stores/bizen-okayama-wagyu-steakhouse.html"
+        },
+        {
+            "name": "Boost Juice Bars",
+            "location": "B2-K14",
+            "description": "Boost Juice - the nation\u2019s favorite makers of fresh smoothies and juices! We serve millions of Singaporeans our iconic green cups, filled with fruit and veggies deliciousness.\n\nDeliciousness that comes from simple, natural goodness, served to you with a love life attitude that will make you so happy you\u2019ll probably end up high fiving random strangers.\n\nIt\u2019s about making healthy living easy!! So naturally, nutrition is a key component in developing our range of smoothies and juices that sees us blending through millions of tonnes of fruit and veggies every year.\n\nDon\u2019t believe us? Let us prove it! Come and see us at Boost Juice and try it for yourself.",
+            "category": "PRODUCTS AND SERVICES\n\nFruit Juice",
+            "url": "https://www.capitaland.com/sg/malls/funan/en/stores/boost-juice-bars.html"
+        },
+        {
+            "name": "Chateraise",
+            "location": "B2-07",
+            "description": "Chateraise is a hugely successful patisserie from Japan established since 1954. The pastry shop has more than 630 stores across Japan and operates more than 30 outlets in Singapore. A wide range of Japanese and western confectioneries such as fresh cream cakes, baked products and traditional Japanese specialties are available.\n\u00a0\nThe patisserie collaborates with Japanese farmers in order to procure the finest and healthiest ingredients for their desserts.\nTreats from Chateraise are made with fresh ingredients, directly sourced from pastures and farms, in Chateraise\u2019s own factory and then delivered to outlets all across the world.",
+            "category": "PRODUCTS AND SERVICES\n\nCake , Ice Cream , Cheese Tart , Cream Puffs",
+            "url": "https://www.capitaland.com/sg/malls/funan/en/stores/chateraise.html"
+        },
+        {
+            "name": "Churros Republic",
+            "location": "B2-K08",
+            "description": "Churros Republic is Singapore's only Michelin Preferred Churros. Our churros are handcrafted and made fresh daily from a traditional Spanish recipe. They are cooked fresh to order and served with only the best ingredients. From our Signature Series with decadent plated churros, to the no-frill bite-sized churros for you to snack on - we have it all. Wash down our churros with our signature Butterscotch Brew (inspired by Harry Potter), or our wide range of artisanal sodas.",
+            "category": "PRODUCTS AND SERVICES\n\nFood & Beverage",
+            "url": "https://www.capitaland.com/sg/malls/funan/en/stores/churros-republic.html"
+        },
+        {
+            "name": "Dal.komm COFFEE",
+            "location": "03-17",
+            "description": "Founded in South Korea, dal.komm COFFEE is a trendy lifestyle entertainment coffee chain gaining traction globally. Rising to international popularity for its featured appearance in several scenes of the hit Korean TV DRAMA, Descendants of the Sun, Goblin and Mr Sunshine, the caf\u00e9 has since become a go-to spot for Korean fans and regular Singaporean alike. dal.komm COFFEE offers a unique selection of coffee blends categorised into K1, K2, K3, K4, all of which made from exclusively-sourced Arabica bean blends. Each blend has its own unique profile and characteristics, shining in its own right. For instance, the K1, comprises of a blend of Brazil and Costa Rican beans served in frozen cubes whilst temperature-controlled milk; the creaminess of the coffee slowly thickens and intensifies as the ice gradually melts. So treat yourself to quality coffee at dal.komm COFFEE\u2019s outlet at CapitaLand mall, Funan. Be greeted by a cosy and welcoming ambience, with songs and tunes that were used in popular Korean Drama series playing in the background.",
+            "category": "THIS STORE ACCEPTS\nCapitaCard\neCapitaVoucher\nDBS (Instant STAR$\u00ae\ufe0f Earn)",
+            "url": "https://www.capitaland.com/sg/malls/funan/en/stores/dal_komm-coffee.html"
+        },
+        {
+            "name": "Dapur Penyet",
+            "location": "B2-18",
+            "description": "Established in 2005, we serve quality, authentic Indonesian food at value-added prices. We offer a variety of sambal with different levels of spiciness to cater to every taste bud.",
+            "category": "PRODUCTS AND SERVICES\n\nFood & Beverage , Indonesian Cuisine",
+            "url": "https://www.capitaland.com/sg/malls/funan/en/stores/dapur-penyet.html"
+        },
+        {
+            "name": "Deli Bowl",
+            "location": "02-06",
+            "description": "At Delibowl our philosophy is built upon a strong desire to bring quality food and unparalleled dining experience to a new dimension, and to this end, we ensure that all of our dishes are prepared daily using the freshest of ingredients, and uncompromising on quality. Our inspiration is drawn from the eight culinary traditions of China, which is rich and diverse and makeup what is understood to be Chinese food today. Delibowl adopted the notion of \"One Exquisite Bowl,\" fulfilling the passion that lies beneath all we do, to provide our guests with a dining experience second to none. One Bowl to Satisfy.",
+            "category": "THIS STORE ACCEPTS\neCapitaVoucher\nDBS (Instant STAR$\u00ae\ufe0f Earn)",
+            "url": "https://www.capitaland.com/sg/malls/funan/en/stores/deli-bowl.html"
+        },
+        {
+            "name": "DUNKIN' DONUTS",
+            "location": "B2-05",
+            "description": "Dunkin' Donuts is Singapore\u2019s favourite all-day stop for great coffee and baked goods. Visit us to enjoy a fantastic selection of donuts including all-time favourites Mr Happy, Boston Kreme and Strawberry Filled Donut as well as delightful limited edition options.",
+            "category": "PRODUCTS AND SERVICES\n\nDonuts , Coffee , Sandwiches",
+            "url": "https://www.capitaland.com/sg/malls/funan/en/stores/dunkin_-donuts.html"
+        },
+        {
+            "name": "Flavours by Saute",
+            "location": "B1-30",
+            "description": "Flavours by Saut\u00e9 is the latest venture by Saut\u00e9 and serves fusion vegetarian and vegan food in Singapore. They aim to create a homely and cosy environment for families and friends to bond over an enjoyable meal. Whether your lifestyle gears towards veganism, health conscious diets or anything in between, Flavours by Saut\u00e9 has something for you.\n\n\u00a0\n\nFlavours by Saut\u00e9 crafts their food from natural ingredients that are wholesome, nutritious and of the best quality. All their dishes do not contain garlic or onion, and are meat-free. One of their bestsellers is the Orh Luak, which comes in Sichuan Mala, Quinoa and the chef recommended Truffle flavour as well. Give their Nyonya Otah Cutlet Quinoa Rice a try, it is free of mock-meat and offers house-made baked Nyonya Otah Cutlet instead! Their Laksa Lion Mane Spaghetti is a popular choice and Singapore fan favourite as well, with a creamy, nostalgic Laksa base and saut\u00e9ed lion mane mushrooms for a chewy touch. To round up your meal, the Gula Melaka Latte and Caramel Swiss Carrot Cake with Ice-cream are good choices to indulge in.\n\n\u00a0\n\nVisit Singapore\u2019s Flavours by Saut\u00e9 for great tasting Earth-based cuisine today!",
+            "category": "THIS STORE ACCEPTS\nCapitaCard\neCapitaVoucher\nDBS (Instant STAR$\u00ae\ufe0f Earn)",
+            "url": "https://www.capitaland.com/sg/malls/funan/en/stores/flavors-by-saute.html"
+        }
     ],
     "imm": [
-        "https://www.capitaland.com/sg/malls/imm/en/stores/ajisen-ramen.html",
-        "https://www.capitaland.com/sg/malls/imm/en/stores/balithai.html",
-        "https://www.capitaland.com/sg/malls/imm/en/stores/bantianyao-grilled-f.html",
-        "https://www.capitaland.com/sg/malls/imm/en/stores/burger-king.html",
-        "https://www.capitaland.com/sg/malls/imm/en/stores/cha-saap-saap.html",
-        "https://www.capitaland.com/sg/malls/imm/en/stores/daun-pandan-rice-dumpling.html",
-        "https://www.capitaland.com/sg/malls/imm/en/stores/duke-bakery.html",
-        "https://www.capitaland.com/sg/malls/imm/en/stores/eat-pizza.html",
-        "https://www.capitaland.com/sg/malls/imm/en/stores/eat_.html",
-        "https://www.capitaland.com/sg/malls/imm/en/stores/ecreative-cake.html",
-        "https://www.capitaland.com/sg/malls/imm/en/stores/four-leaves.html",
-        "https://www.capitaland.com/sg/malls/imm/en/stores/fragrance.html",
-        "https://www.capitaland.com/sg/malls/imm/en/stores/fu-lin-fried-yongtofu.html",
-        "https://www.capitaland.com/sg/malls/imm/en/stores/gong-yuan-ma-la-tang.html",
-        "https://www.capitaland.com/sg/malls/imm/en/stores/hai-di-lao.html",
-        "https://www.capitaland.com/sg/malls/imm/en/stores/hainan-second-street.html"
+        {
+            "name": "Ajisen Ramen",
+            "location": "01-113",
+            "description": "Ajisen Ramen has been operating since 1968 and is popular for its flavourful Tonkotsu (pork bone) broth. First launched in Kumanoto, Japan, Ajisen Ramen currently has more than 700 restaurants located around the world, with 20 outlets in Singapore alone. They are the world\u2019s largest Ramen Chain, famed as the \u201cWorld Ramen\u201d and aims to operate 1000 restaurants globally. The Tonkostsu soup in Ajisen Ramen is made with ingredients imported from Japan, and their ramen noodles are house made, which, when briefly cooked, stay smooth and bouncy to taste. Not to mention, Ajisen Ramen\u2019s Tonkotsu soup has anti-ageing qualities due to the amount of collagen immersed in the soup. Collagen, a protein largely found in connective tissues, cartilage and bone, makes up a significant percentage of the 60 trillion body cells and can be considered the essence of life. Ajisen Ramen does not neglect taste either, Kumamoto Ramen features Senmiyu; a brown sauce, accompanying the Tonkotsu soup, that has all its flavours expertly sealed into the sauce, assuring you will be hooked on their combination of Tonkotsu and Senmiya. So be prepared to be spoilt for choice with Ajisen Ramen\u2019s extensive ramen variety when you visit any outlet in Singapore.",
+            "category": "PRODUCTS AND SERVICES\n\nJapanese Cuisine , Sushi , Ramen",
+            "url": "https://www.capitaland.com/sg/malls/imm/en/stores/ajisen-ramen.html"
+        },
+        {
+            "name": "BALIthai",
+            "location": "01-21",
+            "description": "Staying true to its slogan, \u201cThairiffic meets Indolicious,\u201d Bali Thai\u2019s team had crafted out an exquisite menu to bring out the best in Thai and Indonesian dishes in Singapore, delivering the perfect fusion of the two cuisines under one roof. Contrary to other fusion restaurants whereby cuisines are merged into completely new dishes, Bali Thai offers perennial food favourites from both Thai and Indonesian cultures, including the famous \u201cTauhu Telur\u201d, \u201cCombi Bakar\u201d, \u201cPla Rad Prik\u201d and more. Best sellers also include rich-tasting Assam Curry Fish Head, palatable Seafood BBQ Platter, flavourful Pandan Leaf Chicken and many more!\u00a0\n\n\nApart from the single main courses found on the food menu, there are also a wide range of selection for group and family diners, ranging from appetisers to set meals, some of which includes Thai Prawn and Fish Cakes, and 2-10 Pax set menus.\u00a0\n\n\nWith these mouth-watering and must-try dishes, in combination with being immersed in the cosy restaurant ambience, it is sure to leave you coming back for more! Come by any Bali Thai outlet in Singapore for a fusion feast today!",
+            "category": "PRODUCTS AND SERVICES\n\nTom Yum , Thai Street Food , Thai Cuisine , Pad Thai",
+            "url": "https://www.capitaland.com/sg/malls/imm/en/stores/balithai.html"
+        },
+        {
+            "name": "BANTIANYAO GRILLED FISH \u534a\u5929\u5996\u70e4\u9c7c",
+            "location": "01-22",
+            "description": "BANTIANYAO INDUSTRY is a renowned catering group based in China. Since the creation of the first grilled fish with rattan pepper in 2015, BANTIANYAO has opened more than 1,500 chain stores in Asia. We have currently expanded overseas to locations including Malaysia, Indonesia, and South Korea, recognized for its commitment to culinary excellence and exceptional dining experiences. With a rich history and a reputation for innovation, BANTIANYAO has established itself as a leader in the Chinese catering industry.\u00a0\n\n\nAs part of our ongoing expansion and commitment to bringing our unique flavors and dining experiences to a global audience, we are excited to announce plans to open a branch in Singapore. Our foray into the Singaporean market underscores our ambition to cater to diverse palates and to be a part of the vibrant culinary tapestry of the region.",
+            "category": "PRODUCTS AND SERVICES\n\nBBQ & Grill , Chinese Cuisine",
+            "url": "https://www.capitaland.com/sg/malls/imm/en/stores/bantianyao-grilled-f.html"
+        },
+        {
+            "name": "BURGER KING",
+            "location": "01-51",
+            "description": "Craving a quarter pound of flame-grilled beef garnished with ripe tomatoes, crisp lettuce, onions and crunchy pickles on a toasted sesame seed bun? That's right, you are thinking of the Burger King Whopper Burger.",
+            "category": "PRODUCTS AND SERVICES\n\nBurger And Fries , Fried Chicken , Snacks & Finger Food",
+            "url": "https://www.capitaland.com/sg/malls/imm/en/stores/burger-king.html"
+        },
+        {
+            "name": "Cha Saap Saap",
+            "location": "01-K07",
+            "description": "Located at IMM Level 1, opposite Saap Saap Thai, we are bringing you fun & refreshing signature Thai Iced Blended drinks with tropical fruits. Cha Saap Saap aims to share the aromatic and goodness of Thai Iced Milk Tea with everyone. It also provides Thai drink lovers with an irresistibly satisfying and refreshing feel with every sip!",
+            "category": "PRODUCTS AND SERVICES\n\nBeverages , Thai Milk Tea , Smoothie",
+            "url": "https://www.capitaland.com/sg/malls/imm/en/stores/cha-saap-saap.html"
+        },
+        {
+            "name": "Daun Pandan Rice Dumpling",
+            "location": "01-K04",
+            "description": "Daun Pandan rice Dumpling sells glutinous rice dumplings with a variety of sumptuous fillings wrapped and cooked in pandan leaves. From innovative flavors like Black Pepper Chicken to Kee Chang with Red Beans, indulge in these glutinous goodness today.",
+            "category": "PRODUCTS AND SERVICES\n\nRice Dumpling",
+            "url": "https://www.capitaland.com/sg/malls/imm/en/stores/daun-pandan-rice-dumpling.html"
+        },
+        {
+            "name": "Duke Bakery",
+            "location": "01-22A",
+            "description": "Duke Bakery has created over 60 different innovative kinds of delicious breads. Ingeniously incorporating the Japanese style of light and soft bread textures together with classic European style baking of using yeast from fermented fruits, Duke Bakery delivers a rich, healthy and varied foodscape that you definitely do not want to miss.",
+            "category": "PRODUCTS AND SERVICES\n\nBread",
+            "url": "https://www.capitaland.com/sg/malls/imm/en/stores/duke-bakery.html"
+        },
+        {
+            "name": "Eat Pizza",
+            "location": "01-K11",
+            "description": "Hailing all the way from South Korea, Eat Pizza cooks up piping hot pizza a la minute, made to your order in as short as 5 minutes. Its pizzas are fast, convenient and tasty, created to be grab-and-go in a long rectangular shape of a fulfilling 25cm. The special shape makes it convenient to eat with one hand when alone and great for sharing to try a multitude of flavours when with a group of friends. Flavours come in over 10 enticing variations, including Sweet Potato Pizza, Crispy Potato Bacon Pizza and house signature Hot Spicy Chicken Pizza. Every outlet boasts its own exclusive flavors, with IMM offering the unique taste of Korean sausage. Every pizza is made with high protein dough and extra virgin olive oil, topped with 100% natural cheese and only the freshest, primest ingredients.",
+            "category": "PRODUCTS AND SERVICES\n\nFood & Beverage , Korean Cuisine , Pizza",
+            "url": "https://www.capitaland.com/sg/malls/imm/en/stores/eat-pizza.html"
+        },
+        {
+            "name": "EAT.",
+            "location": "01-K08",
+            "description": "Retaining the original taste and flavor of yesteryears, EAT Restaurant offers local favourites at wallet-friendly prices. The gravy of the Minced Pork Noodle is seasoned appropriately with a dash of vinegar, adding the perfect punch of piquancy to balance the minced meat and the homemade fried wanton. Our Minced Pork Noodles will leave you craving for more. Along with other local favorites like our specialty Handmade Fishball Noodle, Laksa, Satay Beehoon and more, make EAT the place to eat!",
+            "category": "PRODUCTS AND SERVICES\n\nAsian Cuisine , Coffee , Local Delights",
+            "url": "https://www.capitaland.com/sg/malls/imm/en/stores/eat_.html"
+        },
+        {
+            "name": "eCreative Cake",
+            "location": "01-40",
+            "description": "eCreative is a halal certified bakery that has been baking since 1991.\n\n\nAs a leader in the field of cake customisation for every occasion and with years of experience, they value and understand the tastes and preferences of their customers. Customising designs to their customer\u2019s desire, eCreative has forged meaningful and unforgettable memories with their customers.",
+            "category": "PRODUCTS AND SERVICES\n\nBakery & Confectionery , Cakes And Pastry , Cupcakes , Desserts",
+            "url": "https://www.capitaland.com/sg/malls/imm/en/stores/ecreative-cake.html"
+        },
+        {
+            "name": "Four Leaves",
+            "location": "01-44 to 45",
+            "description": "Four Leaves provides innovative and quality bakes to our customers that will fill your palate with the buttery fragrance fresh out of the oven. Sink your teeth into fluffy buns and breads, delightfully sweet strawberry shortcake and more!",
+            "category": "PRODUCTS AND SERVICES\n\nBread , Cake , Pastries , Sandwiches",
+            "url": "https://www.capitaland.com/sg/malls/imm/en/stores/four-leaves.html"
+        },
+        {
+            "name": "Fragrance",
+            "location": "01-43",
+            "description": "Fragrance was created by Madam Ong who was encouraged by the passion and optimism of Singapore\u2019s newfound independence in 1969. With recipes that are traditional and long-standing, Fragrance preserves a taste of nostalgia in their products. Not to mention, their tantalising barbecued selection and classic local snacks are manufactured right on Singapore\u2019s shores. At Fragrance, all products are produced in Singapore using only the best quality of ingredients, ensuring consistency and hygiene standards are meticulously maintained. Madam Ong\u2019s effort and diligence succeeded with her iconic formula, where the divine scent of her Bak Kwa attracts Singaporeans from all walks of life. Fragrance offers products from Bak Kwa, Chinese Sausages and Cuttlefish to Pastries, Mooncakes and a variety of Tau Sar Piah flavours. Some of their Bak Kwa options include Singapore Sliced Tender Bak Kwa, Chicken Bak Kwa, Gold Coin Bak Kwa and even Crocodile Bak Kwa for those who possess adventurous taste buds. There are also 4 types of Floss, Pork Floss, Chicken Floss, Fish Floss and Crispy Pork Floss for customers to choose from. The Tau Sar Piahs come in 5 different flavours with the traditional sweet and salty as well as Queen Pastry and Morso Lotus Paste Tau Sar Piahs. Visit Fragrance for a taste traditional Singaporean favourites today!",
+            "category": "PRODUCTS AND SERVICES\n\nBak Kwa , Pork Floss",
+            "url": "https://www.capitaland.com/sg/malls/imm/en/stores/fragrance.html"
+        },
+        {
+            "name": "Fu Lin Fried Yong Tofu",
+            "location": "01-47",
+            "description": "Fu Lin is synonymous with the freshest ingredients that make up the delectable dish - yong tau foo. Over at Fu Lin, there is a wide selection of ingredients for you to choose from, served in soup, dry or curry base.",
+            "category": "PRODUCTS AND SERVICES\n\nAsian Cuisine , Curry , Noodles , Rice , Soup",
+            "url": "https://www.capitaland.com/sg/malls/imm/en/stores/fu-lin-fried-yongtofu.html"
+        },
+        {
+            "name": "Gong Yuan Ma La Tang",
+            "location": "02-52",
+            "description": "Gong Yuan Ma La Tang is a 100% locally owned brand that was established in 2017. To provide a unique Ma La cuisine experience while retaining the authenticity of the local fan favourite dish. We offer drinkable Ma La soup bases that do not leave a greasy or overwhelming aftertaste. To ensure that, we constantly refine our soup bases through customer\u2019s feedback as well as research and developments.\u00a0\n\n\nWe understand that different people have different dietary needs and spice preferences. Hence, we have other soup bases such as Mushroom, Pork bone, Tomato and Pickled Vegetable soup bases for those who do not enjoy spices. We have also come up with a vegetarian friendly soup for our vegetarian consumers.",
+            "category": "PRODUCTS AND SERVICES\n\nChinese Cuisine , Food & Beverage",
+            "url": "https://www.capitaland.com/sg/malls/imm/en/stores/gong-yuan-ma-la-tang.html"
+        },
+        {
+            "name": "Haidilao Hot Pot \u6d77\u5e95\u635e\u706b\u9505",
+            "location": "03-01, 03-02",
+            "description": "Haidilao was founded in 1994 and it began serving the worldwide popular Sichuan style Hot Pot, gathering various regional influences and tastes along the way. Watch the chefs knead their homemade noodles right at your booths and taste the freshness of the succulent noodles that's perfect with the hearty spice-infused broth. Enjoy complimentary drinks and snacks while waiting for a table.",
+            "category": "MAKE A RESERVATION",
+            "url": "https://www.capitaland.com/sg/malls/imm/en/stores/hai-di-lao.html"
+        },
+        {
+            "name": "Hainan Second Street",
+            "location": "02-38 to 38A",
+            "description": "Hainan Second Street is the masterpiece of a group of Hainanese brothers aspiring to spread the love for our heritage food to the Singaporean community. We have taken it upon ourselves to share with Singaporeans delicious fare fine-tuned through generations of Hainanese culinary excellence. Combined with our authentic Hainanese setting, we endeavour to build a nostalgic environment \u2013 a place where people can gather and experience genuity. With time passing us by and traditions being forsaken, the best way to preserve our culture and keep to our roots is by staying true to the flavours and style of dining. Having an ethos to build a real sense of community and neighbourhood, Hainan Second Street will uphold a spirit of excellence in keeping the craft of our cooking genuine and gastronomical.",
+            "category": "PRODUCTS AND SERVICES\n\nChinese Cuisine , Food & Beverage",
+            "url": "https://www.capitaland.com/sg/malls/imm/en/stores/hainan-second-street.html"
+        }
     ],
     "junction8": [
-        "https://www.capitaland.com/sg/malls/junction8/en/stores/4-fingers-crispy-chicken.html",
-        "https://www.capitaland.com/sg/malls/junction8/en/stores/tamago-en.html",
-        "https://www.capitaland.com/sg/malls/junction8/en/stores/ajisen-ramen.html",
-        "https://www.capitaland.com/sg/malls/junction8/en/stores/ambush.html",
-        "https://www.capitaland.com/sg/malls/junction8/en/stores/bbq-express.html",
-        "https://www.capitaland.com/sg/malls/junction8/en/stores/bee-cheng-hiang.html",
-        "https://www.capitaland.com/sg/malls/junction8/en/stores/bengawan-solo.html",
-        "https://www.capitaland.com/sg/malls/junction8/en/stores/boost-juice-bars.html",
-        "https://www.capitaland.com/sg/malls/junction8/en/stores/breadtalk.html",
-        "https://www.capitaland.com/sg/malls/junction8/en/stores/cat-_-the-fiddle.html",
-        "https://www.capitaland.com/sg/malls/junction8/en/stores/chateraise0.html",
-        "https://www.capitaland.com/sg/malls/junction8/en/stores/chocolate-origin.html",
-        "https://www.capitaland.com/sg/malls/junction8/en/stores/crave.html",
-        "https://www.capitaland.com/sg/malls/junction8/en/stores/daun-pandan-ricedumpling.html",
-        "https://www.capitaland.com/sg/malls/junction8/en/stores/dian-xiao-er.html",
-        "https://www.capitaland.com/sg/malls/junction8/en/stores/din-tai-fung.html"
+        {
+            "name": "4 Fingers Crispy Chicken",
+            "location": "01-32",
+            "description": "Crispy double fried chicken slathered in piquant garlic soy sauce, golden Kimchi Fries, refreshing Honey Yuzu drink and four fingers - all you need to a smashing meal.",
+            "category": "PRODUCTS AND SERVICES\n\nKorean Cuisine , Korean Fried Chicken , Burger And Fries , Rice Box",
+            "url": "https://www.capitaland.com/sg/malls/junction8/en/stores/4-fingers-crispy-chicken.html"
+        },
+        {
+            "name": "Aburi-EN",
+            "location": "01-37",
+            "description": "Specializing in aburi or partially grilled meat, Aburi-EN offers a variety of high-quality donburi (rice bowls) at affordable prices in a comfortable and affable ambiance. Aburi-EN takes pride in its homemade umami-packed meat sauce, as well as the high-quality imported pork and the A4/A5 Miyazaki Wagyu it uses which has won Japan\u2019s \u201cNational Wagyu Award\u201d four consecutive times.\u00a0\n\n\nAt Aburi-EN, you can enjoy Japanese drinking culture with an extensive selection of Japanese cocktails, highballs, shochu and sake that complements the array of grilled meats. Focusing on premium ingredients grilled to perfection and offered at affordable prices, it\u2019s little wonder why Aburi-EN is a favourite amongst many.",
+            "category": "PRODUCTS AND SERVICES\n\nJapanese Cuisine",
+            "url": "https://www.capitaland.com/sg/malls/junction8/en/stores/tamago-en.html"
+        },
+        {
+            "name": "Ajisen Ramen",
+            "location": "B1-19",
+            "description": "Originating from Kumamoto Japan since 1968, Ajisen Ramen is famous for its flavourful Tonkotsu (pork bone) broth.\u00a0\n\n\nThe ingredients in the preparation of Ajisen Ramen\u2019s tonkotsu soup are imported from Japan. Briefly and lightly cooked, our house made ramen noodles remain springy and smooth to taste. Be spoilt for choice with Ajisen Ramen\u2019s extensive range of ramen variety.",
+            "category": "PRODUCTS AND SERVICES\n\nJapanese Cuisine , Sushi , Ramen",
+            "url": "https://www.capitaland.com/sg/malls/junction8/en/stores/ajisen-ramen.html"
+        },
+        {
+            "name": "Ambush",
+            "location": "02-19 to 20, 02-27",
+            "description": "Ambush was founded by Stanley Ng, who was first introduced to authentic European food in Luzerne, Switzerland. The wonderful experience gained from eating in restaurants and cafes was the beginning of his vision to introduce a new venture of European cuisine to Singapore. What started as a interim food kiosk in 2002 became 3 kiosk in 2003, which eventually gave rise to a union of the stores across Singapore in 2005 creating a small yet superbly formed eatery, Ambush. The path to creating a Singapore-wide chain of affordable, high quality and informal European restaurants was paved. Ambush offers a weekday lunch set menu and a usual ala carte menu, as well as a brunch selection on the weekends. From salads to tapas and Spanish paellas, be spoilt for choice when you dine at Ambush where you can have a taste of authentic European cuisine without stepping a foot out of Singapore. The Pear and Peach Salad is a chef recommended dish with walnuts, spinach, tomatoes, onion and balsamic oil that makes a tasty yet well-balanced meal. Be sure to give their seafood paella a try, with risotto, shrimps, pancetta, parmigiano, edamame and red pepper coulis, it is guaranteed to tantalize your taste buds. Visit any Ambush outlet in Singapore for a selection of excellent European dishes in a modern and friendly setting today!",
+            "category": "MAKE A RESERVATION",
+            "url": "https://www.capitaland.com/sg/malls/junction8/en/stores/ambush.html"
+        },
+        {
+            "name": "BBQ Express",
+            "location": "B1-K10 to K11",
+            "description": "If you are looking for a lunch time quick fix or a little dinner extras, BBQ Express is the way to go! From hearty omurice meals to just Grilled Honey Pork Ribs for sides, BBQ Express is on the fast track to your heart and stomach.",
+            "category": "PRODUCTS AND SERVICES\n\nBBQ & Grill , Snacks & Finger Food",
+            "url": "https://www.capitaland.com/sg/malls/junction8/en/stores/bbq-express.html"
+        },
+        {
+            "name": "Bee Cheng Hiang",
+            "location": "B1-13",
+            "description": "Bee Cheng Hiang has been passionately committed to making the best bakkwa since 1933. The home-grown brand uses the most natural and premium ingredients possible and maintains an unyielding position on rejecting the use of MSG, artificial preservatives, meat-tenderiser, colouring and flavouring. Known for its enterprising and innovative spirit, Bee Cheng Hiang has pioneered various products that have redefined the bakkwa industry, such as the Mini EZ Series (vacuum-packed bakkwa) and the EZ Mini Crunchies series (crunchy floss). Today, with more than 370 stores in 12 countries and regions, Bee Cheng Hiang is the largest bakkwa retailer globally.",
+            "category": "PRODUCTS AND SERVICES\n\nBak Kwa , Pork Floss",
+            "url": "https://www.capitaland.com/sg/malls/junction8/en/stores/bee-cheng-hiang.html"
+        },
+        {
+            "name": "Bengawan Solo",
+            "location": "B1-02",
+            "description": "Bengawan Solo preserves the time-honored taste of Singapore's local kuehs and confectionery by using traditional methods, the finest and freshest ingredients, and absolutely no artificial preservatives to replicate this homemade quality in our bakes. This passion and commitment to great taste, quality and freshness has made Bengawan Solo a household brand name in Singapore and a firm favourite with overseas visitors looking for a uniquely Singaporean premium food gift.",
+            "category": "PRODUCTS AND SERVICES\n\nPeranakan Delights",
+            "url": "https://www.capitaland.com/sg/malls/junction8/en/stores/bengawan-solo.html"
+        },
+        {
+            "name": "Boost Juice Bars",
+            "location": "B1-K1",
+            "description": "Boost Juice Bars serves delicious and healthy smoothies and juices using premium ingredients with no added sugar and nothing artificial. We\u2019re all about loving life and making you feel just a little bit better.",
+            "category": "PRODUCTS AND SERVICES\n\nFruit Juice",
+            "url": "https://www.capitaland.com/sg/malls/junction8/en/stores/boost-juice-bars.html"
+        },
+        {
+            "name": "BreadTalk",
+            "location": "01-35 to 36",
+            "description": "Remodeled after the coffeeshops from the 60s, Toast Box recreates the nostalgic yesteryears for you to enjoy a fragrant cup of Nanyang Coffee accompanied by freshy toasted bread and other local delights. Get ready to take a trip down memory lane.",
+            "category": "PRODUCTS AND SERVICES\n\nAsian Cuisine , Bread , Coffee , Cake , Toast , Local Delights , Pastries",
+            "url": "https://www.capitaland.com/sg/malls/junction8/en/stores/breadtalk.html"
+        },
+        {
+            "name": "Cat & the Fiddle",
+            "location": "02-32A",
+            "description": "Cat & the Fiddle is the home to Singapore\u2019s first and foremost Halal-certified premium cheesecake, where you can find a diverse selection of 20 varieties of gourmet cheesecakes.",
+            "category": "PRODUCTS AND SERVICES\n\nCake",
+            "url": "https://www.capitaland.com/sg/malls/junction8/en/stores/cat-_-the-fiddle.html"
+        },
+        {
+            "name": "Chateraise",
+            "location": "B1-19B",
+            "description": "Chateraise is the No.1 confectionery company in Japan.\n\n\n\nAll of our sweets and ice creams are made from specially selected fresh ingredients such as pure natural water from Hakushu area, and milk and eggs delivered directly from contracted farms in Japan, with little or no preservatives. We directly deliver all our sweets from Japan to stores around the world.",
+            "category": "PRODUCTS AND SERVICES\n\nCake , Ice Cream , Cheese Tart , Cream Puffs",
+            "url": "https://www.capitaland.com/sg/malls/junction8/en/stores/chateraise0.html"
+        },
+        {
+            "name": "Chocolate Origin",
+            "location": "02-33",
+            "description": "Chocolate Origin operates 9 stores in Singapore and uses the finest ingredients to produce delectable and delightful cakes, ensuring all the goodness when you take a bite. Chocolate Origin offers a range of treats, from Specialty Cakes to Cuppa Lava Cake and Gelato. With their Specialty Cakes, one piece is never enough, indulge in a whole Chocolate Origin cake that comes in two options \u2013 subtly sweet ORIGINAL and bitter DARK. The Cuppa Lava Cake is a glorious treat featuring a warm chocolate cake on top of vanilla ice cream, with hot molten chocolate lava flowing out from within the cake. From freshly brewed artisan lattes to ice chocolate shakes, Chocolate Origin\u2019s beverages are prepared lovingly and earnestly, allowing you to enjoy a pleasant refreshment anytime. Expect a serving of velvety smooth gelato, produced with rich Belgian Chocolate and high quality fresh milk that gives a blend of sweetness and bitterness in every mouthful. There is no reason needed for an indulgence, simply head to any Chocolate Origin outlet across Singapore for a wonderful treat!",
+            "category": "PRODUCTS AND SERVICES\n\nChocolate , Pastries , Cake",
+            "url": "https://www.capitaland.com/sg/malls/junction8/en/stores/chocolate-origin.html"
+        },
+        {
+            "name": "CRAVE",
+            "location": "B1-K8",
+            "description": "CRAVE serves up the famous nasi lemak from Adam Road by Selera Rasa, matched with the best teh tarik from Rafee's Corner.",
+            "category": "PRODUCTS AND SERVICES\n\nAsian Cuisine , Local Delights",
+            "url": "https://www.capitaland.com/sg/malls/junction8/en/stores/crave.html"
+        },
+        {
+            "name": "Daun Pandan Rice Dumpling",
+            "location": "B1-K3",
+            "description": "Daun Pandan Rice Dumplings is a family business that has been in operation for generations. The traditional triangular shaped glutinous rice dumplings filled with various ingredients which are then wrapped in pandan leaves are their specialty and most popular item. All outlets in Singapore offer a selection of Rice Dumplings, from Nonya to Hokkien, Teochew and Vegetarian dumplings. Daun Pandan Rice Dumplings\u2019 introduced a product recently, their Black Pepper Chicken Dumpling, which features a delightful peppery hint that is sure to tantalise your taste buds. There are also meatless options like the Vegetarian Nonya Dumpling as well as the Peanut Vegetarian Dumpling, which are also guaranteed to satisfy your dumpling cravings. For the sweet tooth customers, Daun Pandan Rice Dumplings Kee Chang and Kee Chang with Red Bean are the ideal choices, especially when enjoyed with a sprinkle of sugar. Not to mention, they offer other freshly made delights like Tea Egg, Cup Corn, Tutu Kueh, Muah Chee and Wah Koh Kueh as well. Pay a visit to a Daun Pandan Rice Dumplings outlet for a taste of traditional flavours today! We're still open for takeaway and delivery. IMM: Available from 10am to 9.30pm Lot One Shoppers' Mall: Available from 10am to 9.30pm",
+            "category": "PRODUCTS AND SERVICES\n\nRice Dumpling",
+            "url": "https://www.capitaland.com/sg/malls/junction8/en/stores/daun-pandan-ricedumpling.html"
+        },
+        {
+            "name": "Dian Xiao Er",
+            "location": "B1-07",
+            "description": "Since its inception in 2002, Dian Xiao Er has grown into one of the most renowned household names in Singapore \u2013 famed for its Herbal Roast Ducks and mouth-watering specials such as the Pan-Fried Cod Fish and Wheatgrass Tofu. The brand prides itself on dishing out nutritious and balanced quality meals, which explains a menu brimming with a wide array of meat, seafood, and vegetables. A meal at Dian Xiao Er is reminiscent of a taste of home.",
+            "category": "MAKE A RESERVATION",
+            "url": "https://www.capitaland.com/sg/malls/junction8/en/stores/dian-xiao-er.html"
+        },
+        {
+            "name": "Din Tai Fung",
+            "location": "01-41",
+            "description": "World-renowned Taiwanese restaurant \u2013 Din Tai Fung was established in the Shanxi Province of China in 1927 by gourmet food doyen \u2013 Yang Bing-Yi. In recognition of the restaurant\u2019s passion for culinary excellence, Din Tai Fung has been conferred several titles such as the one-Michelin star award and has been crowned as one of the World\u2019s Top Ten Restaurants in 1993 by The New York Times. The franchise has since expanded to over 119 restaurants in countries such as Japan, China, Macau, Singapore, Malaysia and the United States.\u00a0\n\n\nThroughout its 40 year history of serving Taiwanese delicacies, one of Din Tai Fung\u2019s most notable dish would be the Steamed Pork Dumplings \u2013 Xiao Long Bao. Beneath the delicately pleated dough encompasses marinated minced pork oozing a rich gelatinised broth of goodness. To elucidate the restaurant\u2019s purse for perfection, each soup dumpling is delicately crafted with the 18-fold technique cand weighed for accuracy. Din Tai Fung Chefs also undergo proficiency tests every 3 months to ensure that they upkeep the highly-exalted food standards.\u00a0\n\n\nCome by Din Tai Fung at Junction 8 for an amazing meal today!",
+            "category": "PRODUCTS AND SERVICES\n\nChinese Cuisine , Taiwanese Food , La Mian , Xiao Long Bao",
+            "url": "https://www.capitaland.com/sg/malls/junction8/en/stores/din-tai-fung.html"
+        }
     ],
     "lotone": [
-        "https://www.capitaland.com/sg/malls/lotone/en/stores/ajisen-ramen.html",
-        "https://www.capitaland.com/sg/malls/lotone/en/stores/bbq-express.html",
-        "https://www.capitaland.com/sg/malls/lotone/en/stores/bee-cheng-hiang.html",
-        "https://www.capitaland.com/sg/malls/lotone/en/stores/bengawan-solo.html",
-        "https://www.capitaland.com/sg/malls/lotone/en/stores/boost-juice-bars.html",
-        "https://www.capitaland.com/sg/malls/lotone/en/stores/chateraise.html",
-        "https://www.capitaland.com/sg/malls/lotone/en/stores/chicha_san_chen_.html",
-        "https://www.capitaland.com/sg/malls/lotone/en/stores/cococane.html",
-        "https://www.capitaland.com/sg/malls/lotone/en/stores/crave0.html",
-        "https://www.capitaland.com/sg/malls/lotone/en/stores/delifrance.html",
-        "https://www.capitaland.com/sg/malls/lotone/en/stores/dian-xiao-er.html",
-        "https://www.capitaland.com/sg/malls/lotone/en/stores/eat_.html",
-        "https://www.capitaland.com/sg/malls/lotone/en/stores/food-junction.html",
-        "https://www.capitaland.com/sg/malls/lotone/en/stores/four-leaves.html",
-        "https://www.capitaland.com/sg/malls/lotone/en/stores/fun-toast.html",
-        "https://www.capitaland.com/sg/malls/lotone/en/stores/gong-cha.html"
+        {
+            "name": "Ajisen Ramen",
+            "location": "04-11 to 12",
+            "description": "Originating from Kumamoto Japan since 1968, Ajisen Ramen is famous for its flavourful Tonkotsu (pork bone) broth.\u00a0\n\n\nThe ingredients in the preparation of Ajisen Ramen\u2019s tonkotsu soup are imported from Japan. Briefly and lightly cooked, our house made ramen noodles remain springy and smooth to taste. Be spoilt for choice with Ajisen Ramen\u2019s extensive range of ramen variety.",
+            "category": "PRODUCTS AND SERVICES\n\nJapanese Cuisine , Sushi , Ramen",
+            "url": "https://www.capitaland.com/sg/malls/lotone/en/stores/ajisen-ramen.html"
+        },
+        {
+            "name": "BBQ Express",
+            "location": "B1-K33",
+            "description": "If you are looking for a lunch time quick fix or a little dinner extras, BBQ Express is the way to go! From hearty omurice meals to just Grilled Honey Pork Ribs for sides, BBQ Express is on the fast track to your heart and stomach.",
+            "category": "PRODUCTS AND SERVICES\n\nBBQ & Grill , Snacks & Finger Food",
+            "url": "https://www.capitaland.com/sg/malls/lotone/en/stores/bbq-express.html"
+        },
+        {
+            "name": "Bee Cheng Hiang",
+            "location": "B1-K11 to K12",
+            "description": "Bee Cheng Hiang has been passionately committed to making the best bakkwa since 1933. The home-grown brand uses the most natural and premium ingredients possible and maintains an unyielding position on rejecting the use of MSG, artificial preservatives, meat-tenderiser, colouring and flavouring. Known for its enterprising and innovative spirit, Bee Cheng Hiang has pioneered various products that have redefined the bakkwa industry, such as the Mini EZ Series (vacuum-packed bakkwa) and the EZ Mini Crunchies series (crunchy floss). Today, with more than 370 stores in 12 countries and regions, Bee Cheng Hiang is the largest bakkwa retailer globally.",
+            "category": "PRODUCTS AND SERVICES\n\nBak Kwa , Pork Floss",
+            "url": "https://www.capitaland.com/sg/malls/lotone/en/stores/bee-cheng-hiang.html"
+        },
+        {
+            "name": "Bengawan Solo",
+            "location": "B1-14",
+            "description": "Bengawan Solo preserves the time-honored taste of Singapore's local kuehs and confectionery by using traditional methods, the finest and freshest ingredients, and absolutely no artificial preservatives to replicate this homemade quality in our bakes. This passion and commitment to great taste, quality and freshness has made Bengawan Solo a household brand name in Singapore and a firm favourite with overseas visitors looking for a uniquely Singaporean premium food gift.",
+            "category": "PRODUCTS AND SERVICES\n\nPeranakan Delights",
+            "url": "https://www.capitaland.com/sg/malls/lotone/en/stores/bengawan-solo.html"
+        },
+        {
+            "name": "Boost Juice Bars",
+            "location": "B1-K17",
+            "description": "Boost Juice - the nation\u2019s favourite makers of fresh smoothies and juices! We serve millions of Singaporeans our iconic green cups, filled with fruits and veggies deliciousness.\n\n\nHere at Boost we\u2019ve made it our pledge to get more fruits and veggies into every customers day and make healthy living easy! So naturally, nutrition is a key component in developing our range of smoothies and juices that sees us blending through millions of tonnes of fruits and veggies every year.\n\n\nDeliciousness that comes from simple, natural goodness, served to you with a love life attitude that will make you so happy!",
+            "category": "THIS STORE ACCEPTS\nCapitaCard\neCapitaVoucher\nDBS (Instant STAR$\u00ae\ufe0f Earn)",
+            "url": "https://www.capitaland.com/sg/malls/lotone/en/stores/boost-juice-bars.html"
+        },
+        {
+            "name": "Chateraise",
+            "location": "B1-15",
+            "description": "Chateraise is the No.1 confectionery company in Japan.\n\n\n\nAll of our sweets and ice creams are made from specially selected fresh ingredients such as pure natural water from Hakushu area, and milk and eggs delivered directly from contracted farms in Japan, with little or no preservatives. We directly deliver all our sweets from Japan to stores around the world.",
+            "category": "PRODUCTS AND SERVICES\n\nCake , Ice Cream , Cheese Tart , Cream Puffs",
+            "url": "https://www.capitaland.com/sg/malls/lotone/en/stores/chateraise.html"
+        },
+        {
+            "name": "CHICHA San Chen (\u5403\u8336\u4e09\u5343)",
+            "location": "01-05",
+            "description": "CHICHA San Chen (\u5403\u8336\u4e09\u5343) was founded in 1998 with a mission to make high-quality freshly brewed teas accessible to discerning tea drinkers. Every cup is freshly brewed with an exclusively patented Teapresso machine, marrying the best of bubble tea with traditional tea.",
+            "category": "PRODUCTS AND SERVICES\n\nMilk Tea , Tea , Food & Beverage",
+            "url": "https://www.capitaland.com/sg/malls/lotone/en/stores/chicha_san_chen_.html"
+        },
+        {
+            "name": "CocoCane",
+            "location": "B1-K6",
+            "description": "Specialises in Coconut and Sugarcane products. CocoCane serves freshly juiced 100% pure coconut water and 100% pure sugarcane juice.",
+            "category": "PRODUCTS AND SERVICES\n\nFruit Juice , Food & Beverage",
+            "url": "https://www.capitaland.com/sg/malls/lotone/en/stores/cococane.html"
+        },
+        {
+            "name": "CRAVE",
+            "location": "B1-K19",
+            "description": "Savour the nation's favourite by indulging at Crave! Enjoy some award-winning Adam Road Nasi Lemak by Selera Rasa, topped off with crunchy flavourful ikan bilis, nuts and the tantalising iconic sambal! For a wider range of flavour and experience, Breakfast is now available with aromatic beehoon and flavourful dry laksa crafted to complement the favourite ingredients you know and love.",
+            "category": "PRODUCTS AND SERVICES\n\nAsian Cuisine , Local Delights",
+            "url": "https://www.capitaland.com/sg/malls/lotone/en/stores/crave0.html"
+        },
+        {
+            "name": "Delifrance",
+            "location": "03-14A",
+            "description": "Delifrance serves a wide range of authentic French treats, from buttery crisp baguettes and croissants, to generously filled signature sandwiches , exquisite tarts, cakes and pastries. Enjoy a true Parisian experience at our enhanced cafe concept outlet - take a break from all the hustle and bustle, have a hearty meal and sip on a cup of coffee or tea. Be sure to visit Delifrance today and choose from our wide selection of delectable French fare. Bon appetit!",
+            "category": "PRODUCTS AND SERVICES\n\nWestern Cuisine , Bread , Cake , Pastries , Sandwiches",
+            "url": "https://www.capitaland.com/sg/malls/lotone/en/stores/delifrance.html"
+        },
+        {
+            "name": "Dian Xiao Er",
+            "location": "B1-32 to 33",
+            "description": "Dian Xiao Er, the must eat herbal roast duck in Singapore!\n\n\nUsing only the finest quality of Cherry Valley ducks paired with freshest ingredients, our duck are prepared and freshly roast daily. They are marinated with a revitalising blend of Chinese herbs and spices for hours, roasted at a precise temperature to retain its juice while in the oven. Crisp to the touch, and golden brown in appearance, our herbal roast duck is complemented with our specially concocted herbal sauce that makes it impossible to resist!",
+            "category": "MAKE A RESERVATION",
+            "url": "https://www.capitaland.com/sg/malls/lotone/en/stores/dian-xiao-er.html"
+        },
+        {
+            "name": "EAT.",
+            "location": "B1-K3",
+            "description": "Retaining the original taste and flavor of yesteryears, EAT Restaurant offers local favourites at wallet-friendly prices. The gravy of the Minced Pork Noodle is seasoned appropriately with a dash of vinegar, adding the perfect punch of piquancy to balance the minced meat and the homemade fried wanton. Our Minced Pork Noodles will leave you craving for more. Along with other local favorites like our specialty Handmade Fishball Noodle, Laksa, Satay Beehoon and more, make EAT the place to eat!",
+            "category": "PRODUCTS AND SERVICES\n\nAsian Cuisine , Coffee , Local Delights",
+            "url": "https://www.capitaland.com/sg/malls/lotone/en/stores/eat_.html"
+        },
+        {
+            "name": "Food Junction",
+            "location": "04-14 to 16",
+            "description": "Food junction gathers the best of local hawker delicacies so that you can enjoy the best of Singapore's food culture all in one place. We serve a good variety of Singapore favourites like Bar Chor Mee and Hokkien Prawn Mee while highlighting other international specialties that will whet your appetites. Crafted tables and chairs for comfort are used with the interior of the food court embellished with scenic and lighthearted murals to accentuate a happy dining experience.",
+            "category": "THIS STORE ACCEPTS\neCapitaVoucher\nDBS (Instant STAR$\u00ae\ufe0f Earn)",
+            "url": "https://www.capitaland.com/sg/malls/lotone/en/stores/food-junction.html"
+        },
+        {
+            "name": "Four Leaves",
+            "location": "B1-K14 to K15, B1-20",
+            "description": "Four Leaves began with their first outlet in Singapore in 1981 on Nutmeg Road and has since grown to over 30 outlets strong. They have launched their Central Factory and retail outlets all across Singapore\u2019s heartlands. Four Leaves has also expanded their operations to multiple brands such as Epi d\u2019Or, Country Brot and St Leaven as well as a subsidiary branch in Malaysia. At Four Leaves, a variety of baked products and cakes are made with the latest Japanese machinery, novel ideas and a commitment to quality. Their ingredients like premium wheat flour are sourced from the most trustworthy manufacturer and handled expertly, ensuring all stages are approached with utmost excellence. Four Leaves offers all sorts of bread and cakes, from Mini Buns to Dry Items and Packaged Sandwiches. The Mini Buns features selections like Little Tuna Buns, Little Coffee Friend, Little Almond Cream Cheese and Little Egg Roll among others. There are also other bread items such as Healthy Tuna Bun, Siopan, Croissant and Bak Kwa Blossom. Some of their Signature cakes include the Original Strawberry Cake, Strawberry Shortcake, Almond FruitsTop and Blackforest Classic besides other creamy and rich creations. Come by a Four Leaves outlet and grab yourself a bag of delightful baked goods now!",
+            "category": "PRODUCTS AND SERVICES\n\nBread , Cake , Pastries , Sandwiches",
+            "url": "https://www.capitaland.com/sg/malls/lotone/en/stores/four-leaves.html"
+        },
+        {
+            "name": "Fun Toast",
+            "location": "04-03 to 04",
+            "description": "Fun Toast started in 1941, by founders who mastered the craft of roasting Nanyang coffee and Singapore\u2019s iconic charcoal grilled kaya toasts. This unassuming yet charming coffeeshop was first opened on Telok Ayer Street as Kheng Nam Hong, but has since evolved from a traditional family Coffeehouse to an innovative and uniquely Singaporean Coffeehouse.\u00a0\n\n\nAt Fun Toast, the pleasing aroma of brewed coffee and tea fills the eatery, while their delicious traditional Nanyang food and beverages captivates diners across Singapore. Their Fun Toast Sets, that come with a drink and eggs, include the Signature Yuan Yang Soft Bun, featuring a combination of Kaya and Peanut Butter spread, Kaya Butter Toast, French toast as well as Chicken Toastburger. Their Fun Meal boasts a more hearty selection of dishes, like their Signature Soya Sauce Chicken with Rice or Chee Cheong Fun, Curry Chicken with Rice or Soft Bun as well as Mee Siam and Beef Rendang. Fun Toast offers Fun Delights such as Soft Bread, Assorted Bao and Nasi Lemak too. Give their refreshing Red Cane Leaf for a quick lung and stomach heat relief, the drink is even topped with bits of water chestnut!\u00a0\n\n\nVisit Fun Toast for a taste of traditional Nanyang favourites today!",
+            "category": "PRODUCTS AND SERVICES\n\nAsian Cuisine , Coffee , Tea , Toast , Local Delights",
+            "url": "https://www.capitaland.com/sg/malls/lotone/en/stores/fun-toast.html"
+        },
+        {
+            "name": "Gong Cha",
+            "location": "04-18A",
+            "description": "The essence of Gong Cha, or Tribute Tea, originated from the provision of the most premium and refined teas to the Emperor of China. It represents the highest quality and expectations of beverages. Established in Taiwan in 2006, Gong Cha has become deeply appreciated by its customers, gaining global renown by word of mouth and a uniquely customised service.\n\n\nToday, Gong Cha outlets around the world number near 1,500, having become a widespread sensational concept among various consumers. Gong Cha\u2019s story is one that roots itself as one of the most reliable providers of quality tea in the world.",
+            "category": "PRODUCTS AND SERVICES\n\nFood & Beverage",
+            "url": "https://www.capitaland.com/sg/malls/lotone/en/stores/gong-cha.html"
+        }
     ],
     "rafflescity": [
-        "https://www.capitaland.com/sg/malls/rafflescity/en/stores/anti_dote.html",
-        "https://www.capitaland.com/sg/malls/rafflescity/en/stores/asia-grand-restaurant.html",
-        "https://www.capitaland.com/sg/malls/rafflescity/en/stores/asian-market-cafe.html",
-        "https://www.capitaland.com/sg/malls/rafflescity/en/stores/awfully-chocolate.html",
-        "https://www.capitaland.com/sg/malls/rafflescity/en/stores/bacha-coffee.html",
-        "https://www.capitaland.com/sg/malls/rafflescity/en/stores/bee-cheng-hiang.html",
-        "https://www.capitaland.com/sg/malls/rafflescity/en/stores/bengawan-solo.html",
-        "https://www.capitaland.com/sg/malls/rafflescity/en/stores/boost-juice-bars.html",
-        "https://www.capitaland.com/sg/malls/rafflescity/en/stores/breadtalk.html",
-        "https://www.capitaland.com/sg/malls/rafflescity/en/stores/brotherbird-bakehouse.html",
-        "https://www.capitaland.com/sg/malls/rafflescity/en/stores/brotzeit.html",
-        "https://www.capitaland.com/sg/malls/rafflescity/en/stores/cafe-meal-muji.html",
-        "https://www.capitaland.com/sg/malls/rafflescity/en/stores/casa-vostra.html",
-        "https://www.capitaland.com/sg/malls/rafflescity/en/stores/cedele.html",
-        "https://www.capitaland.com/sg/malls/rafflescity/en/stores/chagee.html",
-        "https://www.capitaland.com/sg/malls/rafflescity/en/stores/cinnabon.html"
+        {
+            "name": "Anti:dote",
+            "location": "01-Fairmont",
+            "description": "Anti:dote is a stylishly modern cocktail bar in Singapore with a selection of concoctions that never fails to impress and appeals to the most discerning of taste buds. Classic recipes are reconceptualised with a contemporary flair while the mastery of traditional bartending and the artisanship of experimental mixology techniques are merged. At Anti:dote, drinks crafted with premium spirits and housemade bitters, liqueurs and sodas are paired perfectly with innovative modern tapas.\u00a0\n\n\nAnti:dote is also loved by many Singaporeans for serving afternoon treats in its iconic pristine white chest of drawers, accompanied by more than 30 types of loose leaf teas which are a courtesy of TWG Tea Company. Begin your afternoon tea with your preferred set, which is between the Anti:dote tea, the oriental tea and the regal tea. Each offers its own unique appetizers such as the Anti:Dote black truffle scrambled eggs, 3 kinds of dim sum and smoked salmon with caviar. The drawers are filled with pastries and savoury bites such as Earl Grey \u00c9clair, Warm Raisin and Candied Ginger scones as well as Boston Lobster Rolls. They even offer a Children\u2019s Tea set which includes peanut butter and jelly sandwiches and similar finger foods.\u00a0\n\n\nPlan your next relaxing afternoon or chill night at Anti:Dote today!",
+            "category": "MAKE A RESERVATION",
+            "url": "https://www.capitaland.com/sg/malls/rafflescity/en/stores/anti_dote.html"
+        },
+        {
+            "name": "Asia Grand Restaurant",
+            "location": "03-22B",
+            "description": "Asia Grand Restaurant serves authentic Cantonese cuisines. Their menu offers an extensive range of unpretentious traditional Cantonese dishes that reflects our Hong Kong origins. With specially sourced ingredients and exceptional culinary technique, they provide a truly fine dining Asia Grand experience.",
+            "category": "MAKE A RESERVATION",
+            "url": "https://www.capitaland.com/sg/malls/rafflescity/en/stores/asia-grand-restaurant.html"
+        },
+        {
+            "name": "Asian Market Cafe",
+            "location": "02-Fairmont",
+            "description": "Asian Market Caf\u00e9 has returned with a newly refurbished interior that is reminiscent of the black and white charm of Singapore\u2019s historical colonial-style homes. With a 5-star Crescent Rating as a Halal-friendly hotel under Fairmont Singapore\u2019s belt, feast on a spread of beloved local dishes and contemporary regional delicacies that boasts the authentic Halal-certified pan-Asian cuisine.\n\n\nThere are many live action stations where chefs cook the dishes on the spot; dishes like pratas and satays are made fresh at your order so that you can enjoy the utmost flavour. Be sure to try the Thai style roasted beef which is an Asian take on the classic western roast that will titillate your taste buds. The seafood selection ranges from sashimi to shell fish and chili crabs, which will no doubt satisfy your seafood cravings. Round up your meal with tropical fruits and a mixture of Asian desserts. The Durian Pengat is a fan favourite with its creamy texture and rich taste. You can even venture to build your own Ice Kachang and Chendol at the stations available in the desserts section.\n\n\nHead on over to Asian Market Caf\u00e9 today for a satisfying and sumptuous meal!",
+            "category": "MAKE A RESERVATION",
+            "url": "https://www.capitaland.com/sg/malls/rafflescity/en/stores/asian-market-cafe.html"
+        },
+        {
+            "name": "Awfully Chocolate",
+            "location": "B1-52 to 53",
+            "description": "Awfully Chocolate made its start in Singapore in 1998 and began with a focus on cakes, more specifically chocolate cakes. There was only one cake \u2013 a simple dark chocolate cake between layers of dark chocolate fudge. One that is rich in taste yet moist and light, not just mousse and not overly sweet but something you would crave for and never tire of. Awfully Chocolate has since added more variety of desserts into their menu, becoming a place for the enjoyment of sweet treats. Their products are handmade daily from scratch with premium quality chocolate to ensure only the best are shared with you. Their signature Chocolate Peanut Butter Cake is a dark chocolate cake layered with creamy peanut butter sprinkled with nibbles of caramel crunch. A fan favourite is the Salted Butterscotch Brownie that is chewy and thick, especially with the handmade butterscotch on top and in the centre. The natural sea salt elevates its salty-sweet finish. Besides cakes, Awfully Chocolate is also popular for their Hei Ice Cream, which is made with the best Belgian chocolate and 100% Dutch fresh milk. It is produced with a low overrun to ensure it has a rich and dense flavour. Treat yourself to luxurious chocolate desserts at any Awfully Chocolate outlet in Singapore today!",
+            "category": "PRODUCTS AND SERVICES\n\nChocolate , Cake , Pastries",
+            "url": "https://www.capitaland.com/sg/malls/rafflescity/en/stores/awfully-chocolate.html"
+        },
+        {
+            "name": "Bacha Coffee",
+            "location": "01-38 to 39",
+            "description": "The story of Bacha Coffee begins in 1910 in Marrakech at the spectacular Dar el Bacha palace. Today, Bacha Coffee provides customers with a unique opportunity to travel the world through their cup by exploring over 200 varieties of 100% Arabica coffees from 35 of the most well reputed producing countries. Enhance your at-home coffee ritual, elevate your takeaway experience or find the perfect gift amongst the beautifully crafted packed coffees, gift hampers, and timeless coffee accessories.",
+            "category": "PRODUCTS AND SERVICES\n\nCoffee",
+            "url": "https://www.capitaland.com/sg/malls/rafflescity/en/stores/bacha-coffee.html"
+        },
+        {
+            "name": "Bee Cheng Hiang",
+            "location": "B1-59",
+            "description": "Bee Cheng Hiang has been passionately committed to making the best bakkwa since 1933. The home-grown brand uses the most natural and premium ingredients possible and maintains an unyielding position on rejecting the use of MSG, artificial preservatives, meat-tenderiser, colouring and flavouring. Known for its enterprising and innovative spirit, Bee Cheng Hiang has pioneered various products that have redefined the bakkwa industry, such as the Mini EZ Series (vacuum-packed bakkwa) and the EZ Mini Crunchies series (crunchy floss). Today, with more than 370 stores in 12 countries and regions, Bee Cheng Hiang is the largest bakkwa retailer globally.",
+            "category": "PRODUCTS AND SERVICES\n\nBak Kwa , Pork Floss",
+            "url": "https://www.capitaland.com/sg/malls/rafflescity/en/stores/bee-cheng-hiang.html"
+        },
+        {
+            "name": "Bengawan Solo",
+            "location": "B1-02A",
+            "description": "Bengawan Solo preserves the time-honored taste of Singapore's local kuehs and confectionery by using traditional methods, the finest and freshest ingredients, and absolutely no artificial preservatives to replicate this homemade quality in our bakes. This passion and commitment to great taste, quality and freshness has made Bengawan Solo a household brand name in Singapore and a firm favourite with overseas visitors looking for a uniquely Singaporean premium food gift.",
+            "category": "PRODUCTS AND SERVICES\n\nPeranakan Delights",
+            "url": "https://www.capitaland.com/sg/malls/rafflescity/en/stores/bengawan-solo.html"
+        },
+        {
+            "name": "Boost Juice Bars",
+            "location": "B1-51",
+            "description": "Boost Juice Bar originates from Australia in the year 2000, born out of a desire for healthier alternatives to fast food. In 6 years, Boost opened over 250 shops worldwide, before landing in Singapore in 2006 and expanding to 16 shops locally. The menu was created through consulting naturopaths and nutritionists, ensuring their wholesome juices and smoothies are free of artificial flavours, colours and preservatives. Boost passionately innovates products to maximize its health qualities, and continually research the latest means to enhance and refine the products they offer. Their range of TD4\u00ae low fat frozen yoghurts used in their smoothies contain live cultures such as Streptococcus Thermophillis as well as Lactobacillus Delbruekil for added nutritional benefits. Try some of Singapore\u2019s favourites like the All Berry Bang, which includes blueberries, raspberries, strawberries, apple juice and TD4 strawberry yoghurt, as well as the Mango Magic that features mangoes, mango nectar, banana and TD4 vanilla yoghurt. If you are in need of an energy booster, Brekkie-To-Go-Go is the perfect choice, with ingredients such as banana, toasted museli, honey, low fat milk or soy and TD4 vanilla yoghurt, guaranteed to give you a great start to your day. Visit Boost Juice Bar Singapore for a revitalising treat today!",
+            "category": "PRODUCTS AND SERVICES\n\nFruit Juice",
+            "url": "https://www.capitaland.com/sg/malls/rafflescity/en/stores/boost-juice-bars.html"
+        },
+        {
+            "name": "BreadTalk",
+            "location": "B1-44A",
+            "description": "BreadTalk is a Singaporean homegrown brand that has been imprinted fondly on Singapore\u2019s food culture, firmly established as the go-to store for affordable and good quality variety of bread and cakes. Since its beginnings in 2000, BreadTalk honours the art of bread-making by giving life to their novel creations. They have no sign of slowing down as they continue to bring joy and goodness to satisfy every customer. BreakTalk\u2019s premium and natural ingredients are carefully selected from global retailers such as procuring milled flour from Japan as well as pure butter from New Zealand. Pastes or fillings are made in the Central Kitchens at BreakTalk IHQ and the ingredients are specially processed from its raw states, so as to ensure greater quality control of the finished products. The best-selling buns include BreadTalk\u2019s iconic Flosss Buns, the very bun that helped them gain traction in the hearts and tummies of many locals. There are also other creations like the Cheese Sausage and Cheese Boat buns, Bak Kwa Delight, as well as a variety of donut flavours. The products BreadTalk offers are made with a focus on creating perfect harmony among textures, flavours and ingredients. Stop by a BreadTalk outlet for a taste of Singapore\u2019s favourite bakery now!",
+            "category": "PRODUCTS AND SERVICES\n\nBread",
+            "url": "https://www.capitaland.com/sg/malls/rafflescity/en/stores/breadtalk.html"
+        },
+        {
+            "name": "BROTHERBIRD BAKEHOUSE",
+            "location": "B1-67",
+            "description": "Brotherbird's first bake-on-site unit where customers can expect freshly baked croissants on an hourly basis. With a spread of 15 flavours daily, and with monthly specials, the menu is never the same.",
+            "category": "PRODUCTS AND SERVICES\n\nBakery & Confectionery , Pastries",
+            "url": "https://www.capitaland.com/sg/malls/rafflescity/en/stores/brotherbird-bakehouse.html"
+        },
+        {
+            "name": "Brotzeit",
+            "location": "01-17",
+            "description": "Brotzeit\u2019s taps started flowing in 2006 and have been bringing pure joy and German flavour to Singapore and surround ever since.\n\n\nExpect authentic German dishes carefully crafted from only the best ingredients, your favourite German beer served up to perfection, in an environment that eludes what we Germans refer to as \u2018Gem\u00fctlichkeit\u2019 \u2014 it\u2019s that warm, friendly, and fuzzy vibe that you get when a place feels just right.\n\n\nHere at Brotzeit, German beer is running through our very veins; it is an important part of our DNA and few things are taken as seriously around here. From the sourcing of our beers to the matching glassware, to the pouring technique and maintenance of our draught lines, we strive for perfection and promise no less than that to our patrons.\u00a0\n\n\nWe cracked the code of the pork roast, which is one of the many things Germans have perfected. And the key to this meaty art is of course amazing crackling, something most recipes fall short on with Pork Knuckle. Impossibly tender, juicy pork meat on the bone, all wrapped in crispy crackling skin, Brotzeit\u2019s slow-roasted, hind-leg Pork Knuckle comes with sauerkraut, potato salad, and richly-flavoured beer gravy.",
+            "category": "MAKE A RESERVATION",
+            "url": "https://www.capitaland.com/sg/malls/rafflescity/en/stores/brotzeit.html"
+        },
+        {
+            "name": "Cafe\u0301&Meal MUJI",
+            "location": "02-20, 02-22",
+            "description": "Leveraging on the ideology of \u2019Simple Food is Delicious\u2019, Caf\u00e9&Meal MUJI uses simple culinary treatment of fresh ingredients that highlights its natural goodness.\n\n\n\u00a0In Singapore\u2019s fast paced environment, many of us lack a well-balanced healthy diet. Hence MUJI Cafe sought to provide a selection of dishes made with these in mind \u2013 simplicity, quality, original, healthy and natural.\u00a0\n\n\nWholeheartedly believing in quality ingredients to be the key factor to great taste, MUJI Cafe sources from around the world for the best ingredients along with seasonal vegetables used for all its recipes.\n\n\nTry out MUJI Cafe's 16-Grain Rice, a combination of Niigata Koshihikari Japanese white rice mixed with multi-grains, offering a plethora of vitamins A, B1 and B2, dietary fibre, with minerals that beautify and detoxify the body.",
+            "category": "PRODUCTS AND SERVICES\n\nCake , Cakes And Pastry , Fusion Cuisine , Pastries , Japanese-Western Cuisine , Casual Dining",
+            "url": "https://www.capitaland.com/sg/malls/rafflescity/en/stores/cafe-meal-muji.html"
+        },
+        {
+            "name": "Casa Vostra",
+            "location": "01-49 to 51",
+            "description": "With dishes that you would find in a traditional trattoria, we offer unapologetically Italian fare made from scratch and by hand, fresh from the kitchen everyday. From house-made pizza to hand-rolled pasta and house-cured charcuterie, nothing at Casa Vostra is over $30.",
+            "category": "PRODUCTS AND SERVICES\n\nItalian Cuisine , Pizza , Pastas",
+            "url": "https://www.capitaland.com/sg/malls/rafflescity/en/stores/casa-vostra.html"
+        },
+        {
+            "name": "Cedele",
+            "location": "B1-44M",
+            "description": "Cedele specializes in handmade, artisan baked goods. Founded on strong passion for cooking and baking, Cedele is a perfect blend of the two, introducing a quick-casual dining concept combining bakery cafes, all-day dining service restaurants and bakery kitchens.\n\n\nAt the core of Cedele lies its ethos \u201cEat Well, Be Well\u201d, serving as a guiding principle for the food it makes, to hold great importance to physical nourishment as much as taste and affordability.\n\n\nFeaturing artisan baked goods, Cedele is a pioneer of healthy food options in Singapore. Using the freshest natural ingredients, the brand strongly discourages artificial, processed ingredients such as food colouring, improvers or premixes. From baked pastries such as Garlic Ciabatta and Wholemeal Bloomer to delectable cakes like Blue Pea Coconut Cake and Caramel Sea Salt Tiramisu Cake. Soups are also thickened naturally with vegetables.\n\n\nCome by and treat your body to hearty and healthy artisan baked goods today!",
+            "category": "PRODUCTS AND SERVICES\n\nWestern Cuisine , Bread , Cakes And Pastry , Sandwiches , Soup , Salads , Pastas , Steak",
+            "url": "https://www.capitaland.com/sg/malls/rafflescity/en/stores/cedele.html"
+        },
+        {
+            "name": "CHAGEE",
+            "location": "01-15",
+            "description": "The story of CHAGEE first began in 2017 in the hometown of tea, Yunnan, China. Guided by the vision to connect everyone with a good cup of tea, the brand constantly innovates to provide healthy and delicious tea beverages to consumers. CHAGEE has since grown to over 4,500+ stores globally, with over 100+ stores across Malaysia, Singapore and Thailand. Its signature tea is Jasmine Green Milk Tea, which sells an average of over 100 million cups yearly.",
+            "category": "PRODUCTS AND SERVICES\n\nTea , Milk Tea",
+            "url": "https://www.capitaland.com/sg/malls/rafflescity/en/stores/chagee.html"
+        },
+        {
+            "name": "CINNABON",
+            "location": "B1-60",
+            "description": "Founded in Seattle in 1985, Cinnabon serves fresh, aromatic, oven-hot cinnamon rolls in different flavours, as well as a variety of other baked goods and specialty beverages & coffee. Visit the Cinnabon flagship store today.",
+            "category": "PRODUCTS AND SERVICES\n\nBakery & Confectionery , Cinnamon Roll , Pastries , Beverages",
+            "url": "https://www.capitaland.com/sg/malls/rafflescity/en/stores/cinnabon.html"
+        }
     ],
     "tampinesmall": [
-        "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/ajisen-tanjiro.html",
-        "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/alley-wei.html",
-        "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/bee-cheng-hiang.html",
-        "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/bengawan-solo.html",
-        "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/breadtalk.html",
-        "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/burger-king.html",
-        "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/butter-studio.html",
-        "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/cut-butchery.html",
-        "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/din-tai-fung.html",
-        "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/do-qoo-.html",
-        "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/dough-culture.html",
-        "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/express-teppan-yaki.html",
-        "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/famous-amos.html",
-        "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/fei-siong.html",
-        "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/four-leaves.html",
-        "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/garrett-popcorn0.html"
+        {
+            "name": "Ajisen Tanjiro",
+            "location": "04-19 to 20",
+            "description": "Introducing an evolved concept of Ajisen Ramen, Ajisen Tanjiro offers a wide selection of ramen to cater to discerning customers. Other than ramen, we do offer Maze Soba, Rice Set and side dishes for the unique dining experience.",
+            "category": "PRODUCTS AND SERVICES\n\nJapanese Cuisine",
+            "url": "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/ajisen-tanjiro.html"
+        },
+        {
+            "name": "Alley Wei",
+            "location": "B1-K21",
+            "description": "\u5f04\u5b50\u91cc Alley Wei is a place where customers can find traditional, freshly made Taiwanese/ Chinese street food favourites. Taiwanese soya milk, Bean curd, youtiao and many more with a perfect blend of traditional contemporary taste.",
+            "category": "PRODUCTS AND SERVICES\n\nFood & Beverage",
+            "url": "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/alley-wei.html"
+        },
+        {
+            "name": "Bee Cheng Hiang",
+            "location": "B1-14",
+            "description": "Bee Cheng Hiang has been passionately committed to making the best bakkwa since 1933. The home-grown brand uses the most natural and premium ingredients possible and maintains an unyielding position on rejecting the use of MSG, artificial preservatives, meat-tenderiser, colouring and flavouring. Known for its enterprising and innovative spirit, Bee Cheng Hiang has pioneered various products that have redefined the bakkwa industry, such as the Mini EZ Series (vacuum-packed bakkwa) and the EZ Mini Crunchies series (crunchy floss). Today, with more than 370 stores in 12 countries and regions, Bee Cheng Hiang is the largest bakkwa retailer globally.",
+            "category": "PRODUCTS AND SERVICES\n\nBak Kwa , Pork Floss",
+            "url": "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/bee-cheng-hiang.html"
+        },
+        {
+            "name": "Bengawan Solo",
+            "location": "B1-15",
+            "description": "Bengawan Solo is a homegrown brand that started in 1979 as Bengawan Solo Cake Shop in Marine Terrace by Tjendri Anastasia. What began as a simple interest in Indonesian delicacies became a full blown entrepreneurship when her cakes and kuehs gained popularity amongst family and friends.\u00a0\n\n\nBengawan Solo uses traditional methods of production and the only finest quality ingredients to prepare delicacies without preservatives. Even at the centralised kitchen, many of Bengawan Solo's products are still handmade or completed by hand in order to maintain the authenticity and standard of what they deliver to their customers. Kuehs like Ondeh Ondeh and Kueh Dadar are handmade throughout the process daily before distributing the finished products to the other outlets across Singapore. Bengawan Solo\u2019s signature range also includes Pandan Chiffon Cake, Lapis Sagu, Kueh Lapis and Pineapple Tarts. Anastasia takes pride in producing Indonesian and local cakes as well as kuehs that are better and the best. Bengawan Solo continues to introduce new recipes and improve existing ones in order to keep their menu interesting.\u00a0\n\n\nWith 38 outlets and over 409 employees in Singapore, Bengawan Solo is not going to stop bringing traditional treats to you anytime soon!",
+            "category": "PRODUCTS AND SERVICES\n\nPeranakan Delights",
+            "url": "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/bengawan-solo.html"
+        },
+        {
+            "name": "BreadTalk",
+            "location": "01-32",
+            "description": "BreadTalk is a Singaporean homegrown brand that has been imprinted fondly on Singapore\u2019s food culture, firmly established as the go-to store for affordable and good quality variety of bread and cakes. Since its beginnings in 2000, BreadTalk honours the art of bread-making by giving life to their novel creations. They have no sign of slowing down as they continue to bring joy and goodness to satisfy every customer. BreakTalk\u2019s premium and natural ingredients are carefully selected from global retailers such as procuring milled flour from Japan as well as pure butter from New Zealand. Pastes or fillings are made in the Central Kitchens at BreakTalk IHQ and the ingredients are specially processed from its raw states, so as to ensure greater quality control of the finished products. The best-selling buns include BreadTalk\u2019s iconic Flosss Buns, the very bun that helped them gain traction in the hearts and tummies of many locals. There are also other creations like the Cheese Sausage and Cheese Boat buns, Bak Kwa Delight, as well as a variety of donut flavours. The products BreadTalk offers are made with a focus on creating perfect harmony among textures, flavours and ingredients. Stop by a BreadTalk outlet for a taste of Singapore\u2019s favourite bakery now!",
+            "category": "PRODUCTS AND SERVICES\n\nBread , Cake , Pastries , Toast , Coffee",
+            "url": "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/breadtalk.html"
+        },
+        {
+            "name": "BURGER KING",
+            "location": "01 - 42 to 44",
+            "description": "Welcome to the home of flame-grilled perfection! Enjoy the best-selling, signature flame-grilled WHOPPER\u00ae\ufe0f as well as other top BK favourites such as the velvety smooth Double Mushroom Swiss, deliciously juicy Tendergrill\u00ae\ufe0f Chicken that is made of chicken thigh fillet and the irresistible sides such as Onion Rings, Taro Turnover, HERSHEY\u2019S\u00ae\ufe0f Sundae Pie and more! Sink your teeth in our juicy burgers now.",
+            "category": "PRODUCTS AND SERVICES\n\nBurger And Fries , Fried Chicken , Snacks & Finger Food",
+            "url": "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/burger-king.html"
+        },
+        {
+            "name": "BUTTER STUDIO",
+            "location": "B1-K8",
+            "description": "Deeply inspired by the time-tested recipes passed down through the generations from our grandmothers, Butter Studio was created to honor the spirit of artisan handmade goodness while infusing a uniquely local and playful spin on familiar home-style bakes.",
+            "category": "PRODUCTS AND SERVICES\n\nCake , Pastries , Cupcakes , Dessert Table",
+            "url": "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/butter-studio.html"
+        },
+        {
+            "name": "Cut Butchery",
+            "location": "B1-16",
+            "description": "Cut Butchery is a family owned 5-Star butchery. As importers and distributors to restaurants across the island, we bring you high quality meats and deli products at highly competitive rates. We are known for our friendly and honest service, selecting only the day\u2019s freshest meat for sale to our customers.\u00a0\n\n\nInstilled as part of our core values, we only insist on antibiotics-free, hormone-free and nitrate-free meat products. With no preservatives and cancer causing nitrates, we provide one of the cleanest, natural meats in Singapore. Cut Butchery promises pocket friendly high quality selections.",
+            "category": "PRODUCTS AND SERVICES\n\nFresh Products , Marinated Meat , Poultry , Meat , Fresh & Frozen Food",
+            "url": "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/cut-butchery.html"
+        },
+        {
+            "name": "Din Tai Fung",
+            "location": "02-01, 02-31",
+            "description": "Established in the Shanxi Province of China, Ding Tai Fung was founded by gourmet food connoisseur Yang Bing-Yi. Since its inception in 1927, the household brand has received several accolades in recognition of its pursuit for gastronomy eminence. This includes the esteemed one-Michelin star award and commissioned as one of the Top Ten Restaurants by The New York Times in 1993. Since then, Din Tai Fung has established its footprints in key regions such as Hong Kong, China, Australia, Singapore and Malaysia.\u00a0\n\n\nOne of Din Tai Fung\u2019s most reputed dishes would be the Xiao Long Bao \u2013 soup dumplings prepared in small bamboo steaming baskets. These golf-ball sized dumplings are made from a mixture of succulent minced pork and flavoursome pork broth. The precisely pleated 18-fold skin has been carefully engineered over the years to ensure that the skin does not burst prematurely during cooking. In addition, Din Tai Fung\u2019s chefs undergo rigorous tests and trainings quarterly to ensure that standards are maintained. Some of Din Tai Fung\u2019s noteworthy dishes\u00a0such as the Steamed Chicken Soup, Green Chillies Stuffed with Marinated Minced Meat and other seasonal novelty dishes.\n\n\nIndulge in some Xiao Long Baos at Tampines Mall\u2019s Din Tai Fung today.",
+            "category": "PRODUCTS AND SERVICES\n\nChinese Cuisine , Taiwanese Food , La Mian , Xiao Long Bao",
+            "url": "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/din-tai-fung.html"
+        },
+        {
+            "name": "Do Qoo \u8c46\u8da3",
+            "location": "B1-K19",
+            "description": "",
+            "category": "PRODUCTS AND SERVICES\n\nDessert Soup , Desserts , Waffles",
+            "url": "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/do-qoo-.html"
+        },
+        {
+            "name": "Dough Culture",
+            "location": "B1-K16",
+            "description": "Dough Culture, specializes in its wide varieties of dough fritters and known for its proud signatures of the four heavenly kings; You Tiao, Red Bean Bun, Salted Bun and Butterfly Bun.",
+            "category": "PRODUCTS AND SERVICES\n\nAsian Cuisine , Local Delights",
+            "url": "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/dough-culture.html"
+        },
+        {
+            "name": "Express Teppan-Yaki",
+            "location": "B1-K22",
+            "description": "Express Teppan-Yaki was established by Hsu Fu Hua in Taiwan before the brand ventured overseas and set up branches in Singapore. This leading food and beverage business in Asia brought the concept of affordable, quick and delicious Teppan-Yaki to Singapore\u2019s heartlands. With a vision to redefine the culture of consumption, the founder wishes to create a new consciousness for eating. Experience the phenomenon of fresh and quality food being cooked and served right in front of you, for you. At Teppan-Yaki, there are more than 10 variations of teppan-yaki ingredients that diners can enjoy, each providing a different flavour and experience to your meal. There are sets and ala carte options to the dishes, which come with vegetables that are cooked in a spicy and tasty black pepper sauce that enhances the main ingredients. Give their Teppan-Yaki Chicken Drumstick, Tenderloin Steak or Seafood Varieties a try, it is sure to tantalise your taste buds. There are also other seafood options like Squid with Garlic, Oyster Saut\u00e9ed with Garlic and Fish Fillet. Express Teppan-Yaki also offers a Mushroom set for preferences other than meats and seafoods. Visit a Express Teppan-Yaki outlet in Singapore for a mouth-watering taste of Teppanyaki goodness!",
+            "category": "PRODUCTS AND SERVICES\n\nBBQ & Grill , Teppanyaki",
+            "url": "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/express-teppan-yaki.html"
+        },
+        {
+            "name": "Famous Amos",
+            "location": "B1-K15",
+            "description": "Serving the finest freshly baked cookies since 1983 in Singapore, Famous Amos offers a variety of crunchy and soft & chewy cookies.\u00a0 Muffins, brownies, and ice cream are also served to ensure that there is a treat for everyone.",
+            "category": "PRODUCTS AND SERVICES\n\nCookies , Brownies , Muffins",
+            "url": "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/famous-amos.html"
+        },
+        {
+            "name": "Fei Siong",
+            "location": "B1-K9",
+            "description": "",
+            "category": "PRODUCTS AND SERVICES\n\nAsian Cuisine , Local Delights , Snacks & Finger Food , Coffee",
+            "url": "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/fei-siong.html"
+        },
+        {
+            "name": "Four Leaves",
+            "location": "B1-22",
+            "description": "Four Leaves provides innovative and quality bakes to our customers that will fill your palate with the buttery fragrance fresh out of the oven. Sink your teeth into fluffy buns and breads, delightfully sweet strawberry shortcake and more!",
+            "category": "PRODUCTS AND SERVICES\n\nBread , Cake , Pastries , Sandwiches",
+            "url": "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/four-leaves.html"
+        },
+        {
+            "name": "Garrett Popcorn Shops",
+            "location": "01-39",
+            "description": "Garrett Popcorn Shops\u00ae - A Chicago Tradition from the USA since 1949.\u00a0\n\n\nFor over seven decades, Garrett Popcorn Shops has served gourmet popcorn using wholesome ingredients in their secret family recipes, passed down for generations. Custom grown, non-GMO butterfly and mushroom kernels are first hot-air popped in their kitchens, then enriched with flavor in seasoned, old-fashioned Copper Kettles. Because good things take time, Garrett Popcorn is handcrafted in small batches throughout the day.\u00a0\n\n\nSignature recipes include the fan-invented, original Chicago-style popcorn, Chicago Mix\u00ae, which blends the sweetness of CaramelCrisp\u2122 with the savory goodness of CheeseCorn; plus Buttery (a vegan treat!), Plain, CheeseCorn, CaramelCrisp, Almond CaramelCrisp and Macadamia CaramelCrisp.\u00a0\n\n\nLike no other\u2122, Garrett Popcorn enchants adoring fans around the world.",
+            "category": "PRODUCTS AND SERVICES\n\nSnacks & Finger Food",
+            "url": "https://www.capitaland.com/sg/malls/tampinesmall/en/stores/garrett-popcorn0.html"
+        }
     ],
     "westgate": [
-        "https://www.capitaland.com/sg/malls/westgate/en/stores/328-katong-laksa.html",
-        "https://www.capitaland.com/sg/malls/westgate/en/stores/85-redhill-teochew-fishball-noodles.html",
-        "https://www.capitaland.com/sg/malls/westgate/en/stores/ajumma-s.html",
-        "https://www.capitaland.com/sg/malls/westgate/en/stores/an-acai-affair.html",
-        "https://www.capitaland.com/sg/malls/westgate/en/stores/anjappar.html",
-        "https://www.capitaland.com/sg/malls/westgate/en/stores/astons-specialities.html",
-        "https://www.capitaland.com/sg/malls/westgate/en/stores/bebek-goreng-pak-ndut.html",
-        "https://www.capitaland.com/sg/malls/westgate/en/stores/bingz-.html",
-        "https://www.capitaland.com/sg/malls/westgate/en/stores/breadtalk-cafe.html",
-        "https://www.capitaland.com/sg/malls/westgate/en/stores/brotzeit_-german-bier-bar--restaurant.html",
-        "https://www.capitaland.com/sg/malls/westgate/en/stores/buta-kizoku.html",
-        "https://www.capitaland.com/sg/malls/westgate/en/stores/canton-paradise.html",
-        "https://www.capitaland.com/sg/malls/westgate/en/stores/cat-_-the-fiddle.html",
-        "https://www.capitaland.com/sg/malls/westgate/en/stores/chaffic.html",
-        "https://www.capitaland.com/sg/malls/westgate/en/stores/chateraise.html",
-        "https://www.capitaland.com/sg/malls/westgate/en/stores/coconut-queen.html"
+        {
+            "name": "328 Katong Laksa",
+            "location": "B2-06",
+            "description": "For those who love a little heat, 328 Katong Laksa serves up a bowl of spicy broth enriched with creamy coconut milk and the taste of seafood. Pair it with our signature Otak Otak, it will make breaking a sweat worth it!\nSTORE DETAILS\nLocation\nB2-06\nContact\n+65 9732 8163\nTHIS STORE ACCEPTS\nDBS (Instant STAR$\u00ae\ufe0f Earn)",
+            "category": "PRODUCTS AND SERVICES\n\nAsian Cuisine , Local Delights",
+            "url": "https://www.capitaland.com/sg/malls/westgate/en/stores/328-katong-laksa.html"
+        },
+        {
+            "name": "85 Redhill Teochew Fishball Noodles",
+            "location": "B2-K13 to K14",
+            "description": "85 Redhill Teochew Fishball Noodles specialises in Teochew Style Fishball Noodles that preserves the nostalgic flavour\u00a0and taste. Served with a generous portion of Handmade Teochew Fishball and Fishcake that is light and bouncy but dense in flavour, 85 Redhill Teochew Fishball Noodles will keep you hooked!",
+            "category": "PRODUCTS AND SERVICES\n\nAsian Cuisine , Local Delights",
+            "url": "https://www.capitaland.com/sg/malls/westgate/en/stores/85-redhill-teochew-fishball-noodles.html"
+        },
+        {
+            "name": "Ajumma's",
+            "location": "01-07",
+            "description": "Ajumma\u2019s embodies the vibrant, intense flavours of Korean cuisine. We love the comfort that Korean food brings to people, served up in bowls of piping hot stews, wok-seared bulgogis and crispy, savoury pancakes. No matter your craving, sweet, sour, spicy or savoury, we\u2019ve got a generous serving of it!",
+            "category": "PRODUCTS AND SERVICES\n\nBibimbap , Desserts , Food & Beverage , Korean Cuisine , Korean Dessert , Korean Fried Chicken , Korean Stews , Rice",
+            "url": "https://www.capitaland.com/sg/malls/westgate/en/stores/ajumma-s.html"
+        },
+        {
+            "name": "An Acai Affair",
+            "location": "B1-30",
+            "description": "An Acai Affair was born out of a passion for healthy living in Singapore. They use fresh acai from the tropical plains of Brazil which encapsulates freshness with every bite. An Acai Affair offers an assortment of fresh ingredients, from house made almond butter to organic chia seeds and 100% natural granola. Acai berries have over 10 times more antioxidants than red grapes and can neutralise the damaging effects of free radicals throughout the body while helping you age gracefully. Not to mention, acai berries are also abundant in minerals and vitamins, like calcium and beta-carotene, which promotes healthy skin, hair and nails.\u00a0\n\n\nAn acai bowl is made up of an acai pulp base, a thick purple smoothie, topped with granola, fresh fruits and a variety of superfoods like goji berries and cacao nibs. Triple A is one of their signature bowls and it consists of acai with fresh fruits and superfoods such as almond flakes, pumpkin seeds and chia seeds. Another fan favourite is the Coco Glow, that is an acai layer with coconut sorbet, fresh fruits and superfoods. All their signature bowls come with your choice of drizzle, honey, cookie butter, peanut butter or almond butter.\u00a0\n\n\nCome down to An Acai Affair at Westgate for a taste of pleasure and paradise.",
+            "category": "PRODUCTS AND SERVICES\n\nDesserts",
+            "url": "https://www.capitaland.com/sg/malls/westgate/en/stores/an-acai-affair.html"
+        },
+        {
+            "name": "Anjappar",
+            "location": "04-08",
+            "description": "Preserving the best culinary traditions of Chennai, Anjappar brings hearty North and South Indian cuisine to warm your stomach. With the perfect spice blend and secret home recipes, Anjappar will change your understanding of what is true Indian cuisine.",
+            "category": "MAKE A RESERVATION",
+            "url": "https://www.capitaland.com/sg/malls/westgate/en/stores/anjappar.html"
+        },
+        {
+            "name": "Astons Specialities",
+            "location": "04-04 to 05",
+            "description": "Astons Specialties was started with a simple aim \u2013 to bring quality yet affordable Western cuisine to diners everywhere in Singapore. Since 2005, Astons has been providing great food at reasonable prices, carving its name and popularity into the hearts of locals who often patronise the causal dining establishment. They offer an extensive menu that utilises the freshest and best quality ingredients, providing a satisfying experience for everyone. For starters, the Cream of Mushroom Soup is a good option and it comes with a slice of toasted fragrant garlic bread to tantalise your appetite. Other than their popular Prime Ribeye that is juicy and cooked to your preferred doneness, the Chargrilled Chicken is also a fan favourite amongst Singaporeans. The chicken is succulent and perfectly grilled so that the charred parts bring out the taste of the chicken and paired with their sauce flavourfully. Another must try includes the Honey Bourbon Ribs which is slathered generously with BBQ sauce and so tender the meat slides right off the bones. Most main courses include 2 side dishes and there are other seafood and pasta options available in their menu as well. Visit any Astons Specialties outlet in Singapore today for a great time with family and friends over amazing food!",
+            "category": "PRODUCTS AND SERVICES\n\nWestern Cuisine , BBQ & Grill , Burger And Fries , Steak",
+            "url": "https://www.capitaland.com/sg/malls/westgate/en/stores/astons-specialities.html"
+        },
+        {
+            "name": "Bebek Goreng Pak Ndut",
+            "location": "B1-11",
+            "description": "Bebek Goreng Pak Ndut Singapore serves authentic Indonesian food. All sauces are direct import from Indonesia to make it authentic.\n\n\nBebek Goreng Pak Ndut\u00a0is about giving you great food. And it guarantees that once you have tasted its crispy fried duck that has been marinated for 24 hours, you will be wondering how you could have gone for so long without it.",
+            "category": "PRODUCTS AND SERVICES\n\nFood & Beverage",
+            "url": "https://www.capitaland.com/sg/malls/westgate/en/stores/bebek-goreng-pak-ndut.html"
+        },
+        {
+            "name": "Bingz \u897f\u5c11\u7237",
+            "location": "B1-27",
+            "description": "Bingz(\u897f\u5c11\u7237) was founded in 2014 by two Chinese programmers in Beijing. In the past 9 years, the restaurant has sold more than 80 million crispy burgers and is one of the Chinese brands with the most potential to go global.\u00a0 Bingz (\u897f\u5c11\u7237) is a global quick service provider offering delicious and convenient Chinese food to satisfy the taste buds of our customers.",
+            "category": "PRODUCTS AND SERVICES\n\nBurger And Fries , Chinese Cuisine , Food & Beverage , Noodles",
+            "url": "https://www.capitaland.com/sg/malls/westgate/en/stores/bingz-.html"
+        },
+        {
+            "name": "BreadTalk",
+            "location": "02-03",
+            "description": "BreadTalk is a Singaporean homegrown brand that has been imprinted fondly on Singapore\u2019s food culture, firmly established as the go-to store for affordable and good quality variety of bread and cakes. Since its beginnings in 2000, BreadTalk honours the art of bread-making by giving life to their novel creations. They have no sign of slowing down as they continue to bring joy and goodness to satisfy every customer. BreakTalk\u2019s premium and natural ingredients are carefully selected from global retailers such as procuring milled flour from Japan as well as pure butter from New Zealand. Pastes or fillings are made in the Central Kitchens at BreakTalk IHQ and the ingredients are specially processed from its raw states, so as to ensure greater quality control of the finished products. The best-selling buns include BreadTalk\u2019s iconic Flosss Buns, the very bun that helped them gain traction in the hearts and tummies of many locals. There are also other creations like the Cheese Sausage and Cheese Boat buns, Bak Kwa Delight, as well as a variety of donut flavours. The products BreadTalk offers are made with a focus on creating perfect harmony among textures, flavours and ingredients. Stop by a BreadTalk outlet for a taste of Singapore\u2019s favourite bakery now!",
+            "category": "PRODUCTS AND SERVICES\n\nBread , Cake , Pastries , Toast , Coffee",
+            "url": "https://www.capitaland.com/sg/malls/westgate/en/stores/breadtalk-cafe.html"
+        },
+        {
+            "name": "Brotzeit",
+            "location": "01-04",
+            "description": "Brotzeit is a German Beer Bar and Restaurant offering authentic Bavarian cuisine in a contemporary yet chic setting. Enjoy signature German dishes like the Pork Curry Sausages and Crispy Oven Roasted Pork Knuckles over a chilled glass of beer. Try topping that for a fridate!",
+            "category": "MAKE A RESERVATION",
+            "url": "https://www.capitaland.com/sg/malls/westgate/en/stores/brotzeit_-german-bier-bar--restaurant.html"
+        },
+        {
+            "name": "Buta Kizoku",
+            "location": "01-02",
+            "description": "With a wide selection of Japanese Kushiyaki \u4e32\u713c\u304d, ranging from Yakiton \u3084\u304d\u3068\u3093 to Yakitori \u713c\u304d\u9ce5, head over to Buta Kizoku for premium quality Japanese Skewers all within your pockets! And if you're feeling it, you have to pair those jumbo skewers with our alcohol selection!",
+            "category": "PRODUCTS AND SERVICES\n\nFood & Beverage , Japanese Cuisine",
+            "url": "https://www.capitaland.com/sg/malls/westgate/en/stores/buta-kizoku.html"
+        },
+        {
+            "name": "Canton Paradise",
+            "location": "02-14",
+            "description": "Savour the essence of Hong Kong at Canton Paradise with a wide assortment of traditional favourites like noodle and congee dishes that will be sure to delight diners. Our rendition of congee dishes consist of a perfect combination of jasmine white rice grains with pearl rice grains, continuously boiled to achieve a smooth and silky texture and rich flavour. With a perfect control of the cooking temperature and preparation time of noodles, our chefs dish out plates of silky smooth noodles that will whet your appetite! Relish the finest Cantonese fare, soak up the bustling atmosphere and pursue the love affair with the best of Hong Kong at Canton Paradise.",
+            "category": "PRODUCTS AND SERVICES\n\nDim Sum , Cantonese Specialties , Chinese Cuisine , Soup , Roasted Specialties",
+            "url": "https://www.capitaland.com/sg/malls/westgate/en/stores/canton-paradise.html"
+        },
+        {
+            "name": "Cat & the Fiddle",
+            "location": "01-18",
+            "description": "From the culinary mastermind of Award-Winning Celebrity Pastry Chef Daniel\u00a0Tay comes Cat & the Fiddle - Singapore\u2019s First and Foremost Premium\u00a0Cheesecake Retailer, the cheesecake specialist shop with its message of quality\u00a0and affordability for all, and sustainability for the environment.\n\n\nAt Cat & the Fiddle, you\u2019ll find a diverse selection of 20 varieties of gourmet\ncheesecakes comprising faithful classics, Asian and local-inspired creations like\u00a0Mao Shan Wang Durian Cheesecake, Mango Cheesecake and Milo Dinosaur\u00a0Cheesecake, and even specially-composed medleys of our best-sellers, Fickle\u00a0Feline, so you get to try 10 spectacular flavours in one neat cake!\u00a0Perfect for birthdays, special occasions, and simply indulging, Cat & the Fiddle\u00a0has every cheesecake lover\u2019s whim and fancy catered for.",
+            "category": "PRODUCTS AND SERVICES\n\nCake",
+            "url": "https://www.capitaland.com/sg/malls/westgate/en/stores/cat-_-the-fiddle.html"
+        },
+        {
+            "name": "CHAFFIC",
+            "location": "B1-24A",
+            "description": "CHAFFIC is an innovative Australian brand that combines Australia's finest natural produce with China's prominent tea brews, to create a healthy, tasty and refreshing bubble tea that is well-sought after.\n\n\nWe are discerning towards the selection of our ingredients, with each having to meet\u00a0strict authenticity, quality, and sustainability criteria.\n\n\nOur tea leaves hail from the fabled Fujian Wuyi Mountain. Each, carefully hand-picked, roasted and packed by tea masters who honed their craft for over 1,600 years. They are\u00a0then complemented with the freshest Australian natural produce to elevate your modern tea appreciation experience.",
+            "category": "PRODUCTS AND SERVICES\n\nDesserts , Food & Beverage , Milk Tea , Mooncake , Tea , , Beverages",
+            "url": "https://www.capitaland.com/sg/malls/westgate/en/stores/chaffic.html"
+        },
+        {
+            "name": "Chateraise",
+            "location": "B1-24",
+            "description": "Chateraise is the No.1 confectionery company in Japan.\n\n\n\nAll of our sweets and ice creams are made from specially selected fresh ingredients such as pure natural water from Hakushu area, and milk and eggs delivered directly from contracted farms in Japan, with little or no preservatives. We directly deliver all our sweets from Japan to stores around the world.",
+            "category": "PRODUCTS AND SERVICES\n\nCake , Ice Cream , Cheese Tart , Cream Puffs",
+            "url": "https://www.capitaland.com/sg/malls/westgate/en/stores/chateraise.html"
+        },
+        {
+            "name": "Coconut Queen",
+            "location": "02-49",
+            "description": "Creamy and healing! That is how we get you to fall in love at first sip with all our coconut shakes. Coconut Queen brings you a refreshing menu of milkshakes and coconut waffles made with only the best of young coconuts from around the region. Made using premium fresh young coconuts, our signature Coconut Shake is an absolute tropical delight to your taste buds.",
+            "category": "PRODUCTS AND SERVICES\n\nFood & Beverage , Milkshake , Waffles",
+            "url": "https://www.capitaland.com/sg/malls/westgate/en/stores/coconut-queen.html"
+        }
     ]
 }
