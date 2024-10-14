@@ -4,7 +4,6 @@
 
 * focus on this for now
     * continue DEBUGGING EACH playwright file and check the specified HTML DOM STRUCTURE CALL is still correct! there is hope! 
-        * for nus_shakespeare
         * for capitaland_shakespeare
     * convert existing scrapers in selenium to playwright and try to see if those work
     * try scraping with playwright, converting existing scraping code to playwright
@@ -12,6 +11,7 @@
 * do I want to expose the API script to make `tako` an API wrapper that exposes food places in colleges and malls? if so add that in the README.md and learn how to write a wrapper for an API
     * API is available here http://127.0.0.1:8000/api/food-places/?format=json
     * reformat the final API for each location's food being scraped to be consistent, then define it in another file called API.md
+    * standardise the API wrapper if I decide to expose it for public use at any time
 
 * need to debug why the script.js and style.css in my ./food/static/food/ folder is not visible when i serve my index.html file
 
