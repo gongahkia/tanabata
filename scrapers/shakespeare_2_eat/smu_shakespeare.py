@@ -41,9 +41,11 @@ def scrape_smu(base_url):
             print(f"successfully retrieved page URL: {base_url}")
             locations = page.query_selector_all('div.col-md-9 div.col-md-9')
             for location in locations:
-                print(location.inner_text())
 
-                # name = location.query_selector('h4.location-title')
+               # print(location.inner_text())
+
+                name = location.query_selector("h4.location-title")
+                print(name)
                 # name_text = name.inner_text().strip() if name else ''
                 
                 # location_element = location.query_selector('div.location-address')
