@@ -4,6 +4,8 @@
 
 * focus on this for now
     * continue DEBUGGING EACH playwright file and check the specified HTML DOM STRUCTURE CALL is still correct! there is hope! 
+        * for nus_shakespeare
+        * for capitaland_shakespeare
     * convert existing scrapers in selenium to playwright and try to see if those work
     * try scraping with playwright, converting existing scraping code to playwright
 
@@ -12,20 +14,6 @@
     * reformat the final API for each location's food being scraped to be consistent, then define it in another file called API.md
 
 * need to debug why the script.js and style.css in my ./food/static/food/ folder is not visible when i serve my index.html file
-
-
-* Debug capitaland_spider.py code since currently my spider is unable to scrape any items
-* Debug capitaland_extractor_soup.py code since currently my bs4 scraper is unable to scrape any items
-* Debug capitaland_parser_soup.py code since currently my bs4 scraper is unable to scrape any items
-* Debug capitaland_extractor_mineral.py code since currently my selenium scraper is unable to scrape any items
-* Debug capitaland_parser_mineral.py code since currently my selenium scraper is unable to scrape any items
-* Debug smu_spider.py code since currently my spider is unable to scrape any items
-* Debug smu_soup.py code since currently my bs4 scraper is unable to scrape any items
-* Debug smu_mineral.py code since currently my selenium scraper is unable to scrape any items
-* Debug nus_soup.py code since currently my bs4 scraper is unable to scrape any items
-* Debug nus_mineral.py code since currently my selenium scraper is unable to scrape any items
-* Debug ion_orchard_soup.py code since currently my bs4 scraper is unable to scrape any items
-* Debug ion_orchard_mineral.py code since currently my selenium scraper is unable to scrape any items
 
 * Sites hardcoded to be scraped :robot:
     * https://www.jewelchangiairport.com/
