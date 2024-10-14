@@ -44,33 +44,26 @@ def scrape_smu(base_url):
 
                # print(location.inner_text())
 
-                name = location.query_selector("h4.location-title")
-                print(name)
-                # name_text = name.inner_text().strip() if name else ''
+                name = location.query_selector('h4.location-title').inner_text()
+                location_place = location.query_selector('div.location-address').inner_text()
+                description = location.query_selector('div.location-description').inner_text()
+                category = "Food and Beverage"
+                contact_element = location.query_selector('div.location-contact')
+                contact_info = contact_element.inner_text().strip() if contact_element else ''
+                hours_element = location.query_selector('div.location-hours')
+                hours_info = hours_element.inner_text().strip() if hours_element else ''
+                # print(name, location_place, description, category)
                 
-                # location_element = location.query_selector('div.location-address')
-                # location_text = location_element.inner_text().strip() if location_element else ''
                 # location_url = location_element.query_selector('a')['href'] if location_element and location_element.query_selector('a') else ''
                 
-                # description_element = location.query_selector('div.location-description')
-                # description_text = description_element.inner_text().strip() if description_element else ''
-                
-                # contact_element = location.query_selector('div.location-contact')
-                # contact_info = contact_element.inner_text().strip() if contact_element else ''
-                
-                # hours_element = location.query_selector('div.location-hours')
-                # hours_info = hours_element.inner_text().strip() if hours_element else ''
-                
-                # category = "Food and Beverage"
-                
-                # # Combine the description, contact, and hours into one string
-                # details = {
-                #     'name': name_text,
-                #     'location': clean_string(location_text),
-                #     'description': f"{clean_string(description_text)} {clean_string(contact_info)} {clean_string(hours_info)}".strip(),
-                #     'category': category,
-                #     'url': location_url
-                # }
+                details = {
+                    'name': name,
+                    'location': clean_string(location_place),
+                    'description': f"{clean_string(description)} {clean_string(contact_info)} {clean_string(hours_info)}".strip(),
+                    'category': category,
+                    # 'url': location_url
+                }
+                print(details)
                 # details_list.append(details)
 
         except Exception as e:
