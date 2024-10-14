@@ -38,12 +38,14 @@ def scrape_ion_orchard(base_urls):
                 page.goto(base_url)
                 page.wait_for_selector('div.cmp-dynamic-list-dine-shop-item-content-info')
                 while True:
-                    listings = page.query_selector_all('div.cmp-dynamic-list-dine-shop-item-content-info')
-                    if not listings:
-                        errors.append("No more listings found.")
-                        break
-                    for listing in listings:
-                        print(listing.inner_text())
+                    # listings = page.query_selector_all('div.cmp-dynamic-list-dine-shop-item-content-info')
+                    # if not listings:
+                    #     errors.append("No more listings found.")
+                    #     break
+                    # for listing in listings:
+
+                    #     print(listing.inner_text())
+
                         # name = listing.query_selector('div.cmp-dynamic-list-dine-shop-item-content-info span.cmp-dynamic-list-dine-shop-item-content-item-title').inner_text()
                         # # raw_location = listing.query_selector('div.cmp-dynamic-list-dine-shop-item-content-info div.cmp-dynamic-list-dine-shop-item-content-info span.cmp-dynamic-list-dine-shop-item-content-item-num').inner_text().strip()
                         # print(name)
@@ -64,15 +66,14 @@ def scrape_ion_orchard(base_urls):
                     # Check for next page and click it
                     next_page_button = page.query_selector('div.cmp-dynamic-list-pagination-container span.cmp-dynamic-list-paginate-item.active + span.cmp-dynamic-list-paginate-item')
                     if next_page_button:
+                        print("found")
                         next_page_button.click()
                         page.wait_for_selector('div.cmp-dynamic-list-dine-shop-item-content-info') 
                     else:
-                        break  # No more pages to navigate
-
+                        break
             except Exception as e:
-                errors.append(f"Error processing {url}: {e}")
+                errors.append(f"Error processing {base_url}: {e}")
                 break 
-
         browser.close() 
     return details_list, errors
 
