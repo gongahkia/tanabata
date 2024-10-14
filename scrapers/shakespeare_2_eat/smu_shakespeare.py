@@ -45,25 +45,27 @@ def scrape_smu(base_url):
                # print(location.inner_text())
 
                 name = location.query_selector('h4.location-title').inner_text()
-                location_place = location.query_selector('div.location-address').inner_text()
+                location_element = location.query_selector('div.location-address')
+                location_info = location_element.inner_text()
+                location_url_info = location_element.query_selector('a')['href'] if location_element and location_element.query_selector('a') else ''
                 description = location.query_selector('div.location-description').inner_text()
                 category = "Food and Beverage"
                 contact_element = location.query_selector('div.location-contact')
                 contact_info = contact_element.inner_text().strip() if contact_element else ''
                 hours_element = location.query_selector('div.location-hours')
                 hours_info = hours_element.inner_text().strip() if hours_element else ''
-                # print(name, location_place, description, category)
                 
-                # location_url = location_element.query_selector('a')['href'] if location_element and location_element.query_selector('a') else ''
                 
                 details = {
                     'name': name,
-                    'location': clean_string(location_place),
+                    'location': clean_string(location_info),
                     'description': f"{clean_string(description)} {clean_string(contact_info)} {clean_string(hours_info)}".strip(),
                     'category': category,
-                    # 'url': location_url
+                    'url': location_url_info
                 }
+
                 print(details)
+
                 # details_list.append(details)
 
         except Exception as e:
