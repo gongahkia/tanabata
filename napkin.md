@@ -3,10 +3,8 @@
 ## FUA
 
 * focus on this for now
-    * continue DEBUGGING EACH playwright file and check the specified HTML DOM STRUCTURE CALL is still correct! there is hope! 
-        * for capitaland_shakespeare
-    * convert existing scrapers in selenium to playwright and try to see if those work
     * try scraping with playwright, converting existing scraping code to playwright
+    * go back to debug capitaland_extractor_shakespeare.py to click the 'Load More' event when first obtaining each store's URL
 
 * do I want to expose the API script to make `tako` an API wrapper that exposes food places in colleges and malls? if so add that in the README.md and learn how to write a wrapper for an API
     * API is available here http://127.0.0.1:8000/api/food-places/?format=json
