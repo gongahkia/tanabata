@@ -16,29 +16,37 @@ def fetch_nus_dining_data(url):
     errors = []
 
     with sync_playwright() as p:
+
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
         page.goto(url)
-        
+        page.wait_for_selector('div.vc_col-sm-12.vc_gitem-col.vc_gitem-col-align-')
         if page.title() == "":
-            errors.append(f"Failed to retrieve page {url}")
+            errors.append(f"failed to retrieve page {url}")
             browser.close()
             return details_list, errors
-        
+        else:
+            print(f"scraping details from {url}")
+
         listings = page.query_selector_all('div.vc_col-sm-12.vc_gitem-col.vc_gitem-col-align-')
-        
+
         for listing in listings:
-            name_element = listing.query_selector('h3[style="text-align: left"]')
-            details_element = listing.query_selector('div.vc_custom_heading.vc_custom_1534520726761.vc_gitem-post-data.vc_gitem-post-data-source-post_excerpt p')
+
+            # print(listing.inner_text())
+
+            name = listing.query_selector('h3[style="text-align: left"]').inner_text()
+            details = listing.query_selector('p[style="text-align: left"] + p').inner_text() # + p goes one element down walahi
+            print(name)
+            print(details)
+            # details_element = listing.query_selector('div.vc_custom_heading.vc_custom_1534520726761.vc_gitem-post-data.vc_gitem-post-data-source-post_excerpt p')
+            # name = name_element.inner_text().strip() if name_element else ''
+            # details = details_element.inner_text().strip() if details_element else ''
             
-            name = name_element.inner_text().strip() if name_element else ''
-            details = details_element.inner_text().strip() if details_element else ''
-            
-            if name and details:
-                details_list.append({
-                    'name': clean_string(name),
-                    'details': clean_string(details)
-                })
+            # if name and details:
+            #     details_list.append({
+            #         'name': clean_string(name),
+            #         'details': clean_string(details)
+            #     })
         
         browser.close()
     
