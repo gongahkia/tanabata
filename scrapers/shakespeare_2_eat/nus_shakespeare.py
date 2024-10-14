@@ -1,6 +1,18 @@
 import json
 import re
+import os
 from playwright.sync_api import sync_playwright
+
+def delete_file(target_url):
+    """
+    helper function that attempts to 
+    delete a file at the specified url
+    """
+    try:
+        os.remove(target_url)
+        print(f"Deleted file at filepath: {target_url}")
+    except OSError as e:
+        print(f"Error deleting file at filepath: {target_url} due to {e}")
 
 def clean_string(input_string):
     """
@@ -82,10 +94,10 @@ all_details = {}
 
 for url in urls:
     all_locations[url] = fetch_nus_dining_data(url)[0]
-
 all_details["nus"] = all_locations
 
 output_file = "./../output/nus_dining_details.json"
+delete_file(output_file)
 with open(output_file, 'w') as f:
     json.dump(all_details, f, indent=4)
 
