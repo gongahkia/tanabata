@@ -14,7 +14,6 @@
 * need to debug why the script.js and style.css in my ./food/static/food/ folder is not visible when i serve my index.html file
 
 * Sites hardcoded to be scraped :robot:
-    * https://www.sportshub.com.sg/shop-dine
     * https://www.sengkanggrandmall.com.sg/en.html
     * https://www.singpostcentre.com/
     * https://www.vivocity.com.sg/en/dining
@@ -72,9 +71,9 @@
     * https://www.yishun107.com.sg
 
 * Look into alternatives to bs4 and scrapy to enact webscraping
+    * playwright
     * lxml
     * puppeteer
-    * playwright
     * mechanicalsoup
     * requests-html
     * xpath
