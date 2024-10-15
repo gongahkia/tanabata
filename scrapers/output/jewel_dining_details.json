@@ -1,0 +1,1301 @@
+[
+    {
+        "name": "% ARABICA",
+        "location": "#01-K208",
+        "description": "09:00 AM - 11:00 PM, Daily",
+        "category": [
+            "Breakfast",
+            "Cafe",
+            "Drinks"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "7CAF\u00c9",
+        "location": "#B2-221",
+        "description": "07:00 AM - 12:00 AM, Daily",
+        "category": [
+            "Breakfast",
+            "Cafe",
+            "Quick Bites"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "A&W (TEMPORARILY CLOSED)",
+        "location": "#B2-209",
+        "description": "08:00 AM - 12:00 AM (Monday, Tuesday, Wednesday, Thursday, Sunday) 08:00 AM - 01:00 AM (Friday, Saturday)",
+        "category": [
+            "Breakfast",
+            "Late Night",
+            "Fast Food",
+            "Western",
+            "Halal"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "ABURI-EN",
+        "location": "#B2-233",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Reservation",
+            "Restaurant",
+            "Homegrown",
+            "Japanese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "ACTIONCITY CAF\u00c9",
+        "location": "#04-223",
+        "description": "08:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Reservation",
+            "Cafe",
+            "Homegrown",
+            "Western",
+            "Gluten Free Options",
+            "Vegetarian Friendly"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "AN ACAI AFFAIR",
+        "location": "#B2-262",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Quick Bites",
+            "Homegrown",
+            "Gluten Free Options",
+            "Vegetarian Friendly",
+            "Desserts",
+            "Vegan Options"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "ANDERSEN'S OF DENMARK",
+        "location": "#04-218",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Cafe",
+            "Desserts"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "ANTHOLOGY BY COMPENDIUM SPIRITS",
+        "location": "#01-k210",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Pubs & Bars",
+            "Homegrown",
+            "Drinks"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "ARTEASTIQ",
+        "location": "#05-201",
+        "description": "10:00 AM - 11:00 PM (Monday, Tuesday, Wednesday, Thursday, Friday) 10:00 AM - 12:00 AM (Saturday, Sunday)",
+        "category": [
+            "Late Night",
+            "Restaurant",
+            "Homegrown",
+            "Western"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "ARTEASTIQ DEPATIO",
+        "location": "#05-200",
+        "description": "10:00 AM - 11:00 PM (Monday, Tuesday, Wednesday, Thursday, Friday) 10:00 AM - 12:00 AM (Saturday, Sunday)",
+        "category": [
+            "Late Night",
+            "Restaurant",
+            "Homegrown",
+            "Western"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "AUNTIE ANNE'S",
+        "location": "#B2-272",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Quick Bites",
+            "Halal"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "BEAUTY IN THE POT",
+        "location": "#B2-224/225/226",
+        "description": "11:00 AM - 03:00 AM, Daily",
+        "category": [
+            "Late Night",
+            "Restaurant",
+            "Homegrown",
+            "Chinese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "BIRDS OF PARADISE",
+        "location": "#01-254",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Quick Bites",
+            "Homegrown",
+            "Desserts"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "BOOST JUICE BARS",
+        "location": "#B2-261",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Quick Bites",
+            "Drinks"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "BREADFIRST EVERYDAY",
+        "location": "#B2-257",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Breakfast",
+            "Takeaway",
+            "Quick Bites",
+            "Fast Food",
+            "Homegrown",
+            "Western"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "BURGER & LOBSTER",
+        "location": "#05-203",
+        "description": "10:00 AM - 11:00 PM (Monday, Tuesday, Wednesday, Thursday, Friday) 10:00 AM - 12:00 AM (Saturday, Sunday)",
+        "category": [
+            "Reservation",
+            "Restaurant",
+            "Western"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "CHICHA SAN CHEN",
+        "location": "#B2-213",
+        "description": "10:00 AM - 10:00 PM (Monday, Tuesday, Wednesday, Thursday, Sunday) 10:00 AM - 10:30 PM (Friday, Saturday)",
+        "category": [
+            "Cafe",
+            "Gluten Free Options",
+            "Drinks",
+            "Vegetarian Friendly",
+            "Vegan Options"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "CHOW ZAN DESSERT",
+        "location": "#B2-234",
+        "description": "09:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Cafe",
+            "Desserts"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "CINNABON",
+        "location": "#B2-266",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Quick Bites",
+            "Desserts"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "COUCOU HOTPOT.BREW TEA",
+        "location": "#02-208/209",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Reservation",
+            "Restaurant",
+            "Chinese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "DAPUR PENYET",
+        "location": "#B2-241/242",
+        "description": "10:00 AM - 10:00 PM (Monday, Tuesday, Wednesday, Thursday, Sunday) 10:00 AM - 11:00 PM (Friday, Saturday)",
+        "category": [
+            "Quick Bites",
+            "Southeast Asian",
+            "Halal"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "DIAN XIAO ER",
+        "location": "#B2-229",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown",
+            "Chinese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "DIN TAI FUNG",
+        "location": "#03-214/215",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Chinese",
+            "Vegetarian Friendly"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "DUNKIN' DONUTS",
+        "location": "#B2-270",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Quick Bites",
+            "Halal"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "ELFUEGO BY COLLIN'S\u00ae",
+        "location": "#02-216",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown",
+            "Western",
+            "Halal"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "FONG SHENG HAO",
+        "location": "#B2-232",
+        "description": "07:30 AM - 10:00 PM (Monday, Tuesday, Wednesday, Thursday, Friday) 07:30 AM - 11:00 PM (Saturday, Sunday)",
+        "category": [
+            "Breakfast",
+            "Restaurant",
+            "Chinese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "FOOD REPUBLIC",
+        "location": "#B2-238/239/240",
+        "description": "07:30 AM - 10:00 PM (Monday, Tuesday, Wednesday, Thursday, Friday) 07:30 AM - 11:00 PM (Saturday, Sunday)",
+        "category": [
+            "Breakfast",
+            "Food Court",
+            "Homegrown",
+            "Southeast Asian",
+            "Halal"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "FROZEN HEART FRIED ICE CREAM \u51cd\u5fc3\u70b8\u51b0\u6dc7\u6dcb",
+        "location": "#B2-258",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Quick Bites",
+            "Desserts"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "FUN TOAST",
+        "location": "#04-246",
+        "description": "08:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Breakfast",
+            "Cafe",
+            "Homegrown",
+            "Southeast Asian"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "GELATISSIMO",
+        "location": "#03-206",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Quick Bites",
+            "Desserts"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "GOCHI-SO SHOKUDO",
+        "location": "#B1-289",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown",
+            "Japanese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "GREENDOT PLUS",
+        "location": "#B1-297",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "HITOYOSHI IZAKAYA",
+        "location": "#05-205",
+        "description": "10:00 AM - 11:00 PM (Monday, Tuesday, Wednesday, Thursday, Friday) 10:00 AM - 12:00 AM (Saturday, Sunday)",
+        "category": [
+            "Restaurant",
+            "Homegrown",
+            "Japanese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "HOSHINO COFFEE JAPANESE CAF\u00c9 & RESTAURANT",
+        "location": "#B1-249",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Japanese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "HOT TOMATO",
+        "location": "#04-229",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown",
+            "Western"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "IMPERIAL TREASURE SUPER PEKING DUCK",
+        "location": "#01-219/220",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Chinese",
+            "Vegetarian Friendly"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "IPOH TOWN \u6021\u4fdd\u57ce\u8336\u5ba4",
+        "location": "#B1-299",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Southeast Asian"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "ITACHO SUSHI",
+        "location": "#B2-210",
+        "description": "10:00 AM - 11:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Chinese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "JACK'S PLACE",
+        "location": "#04-219",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown",
+            "Western"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "JAPANESE SOBA NOODLES TSUTA",
+        "location": "#02-242",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Japanese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "JINJJA CHICKEN",
+        "location": "#B1-247",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Fast Food",
+            "Homegrown",
+            "Korean",
+            "Halal"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "JOLLIBEAN",
+        "location": "#B2-259",
+        "description": "08:00 AM - 10:00 PM (Monday, Tuesday, Wednesday, Thursday, Sunday) 08:00 AM - 11:00 PM (Friday, Saturday)",
+        "category": [
+            "Breakfast",
+            "Quick Bites",
+            "Homegrown"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "JUMBO SEAFOOD",
+        "location": "#03-202/203/204",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Reservation",
+            "Restaurant",
+            "Homegrown",
+            "Chinese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "KAM'S ROAST",
+        "location": "#02-210",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Chinese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "KANE MOCHI",
+        "location": "#B2-269",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Quick Bites",
+            "Gluten Free Options",
+            "Vegetarian Friendly",
+            "Desserts",
+            "Vegan Options"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "KANTIN",
+        "location": "#05-206/207",
+        "description": "10:00 AM - 11:00 PM (Monday, Tuesday, Wednesday, Thursday, Friday) 10:00 AM - 12:00 AM (Saturday, Sunday)",
+        "category": [
+            "Restaurant",
+            "Southeast Asian"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "KEI KAISENDON",
+        "location": "#03-213",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Japanese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "KENANGAN COFFEE",
+        "location": "#B2-255",
+        "description": "09:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Cafe",
+            "Drinks"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "KEONG SAIK BAKERY",
+        "location": "#01-K214",
+        "description": "08:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Reservation",
+            "Breakfast",
+            "Cafe",
+            "Homegrown"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "KFC",
+        "location": "#B2-275/276/277",
+        "description": "07:30 AM - 10:00 PM (Monday, Tuesday, Wednesday, Thursday, Friday) 07:30 AM - 11:00 PM (Saturday, Sunday)",
+        "category": [
+            "Breakfast",
+            "Fast Food",
+            "Western",
+            "Halal"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "KIWAMI RAMEN & GYOZA BAR",
+        "location": "#01-225",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown",
+            "Japanese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "KKO KKO NARA",
+        "location": "#02-243",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown",
+            "Korean"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "KOI EXPRESS",
+        "location": "#B2-263",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Quick Bites",
+            "Drinks"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "LADY M",
+        "location": "#02-253",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Cafe",
+            "Desserts"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "LENU",
+        "location": "#04-244/245",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown",
+            "Chinese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "LUCKIN COFFEE",
+        "location": "#04-231/232",
+        "description": "09:00 AM - 10:30 PM, Daily",
+        "category": [
+            "Cafe",
+            "Drinks"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "LUKE'S LOBSTER",
+        "location": "#01-K209",
+        "description": "09:00 AM - 11:00 PM, Daily",
+        "category": [
+            "Breakfast",
+            "Restaurant",
+            "Western"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "MAMMA MIA TRATTORIA E CAFF\u00c9",
+        "location": "#04-200",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown",
+            "Halal"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "MCDONALD\u2019S",
+        "location": "#B1-298",
+        "description": "07:00 AM - 12:00 AM, Daily",
+        "category": [
+            "Breakfast",
+            "Fast Food",
+            "Halal"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "MONSTER CURRY",
+        "location": "#03-200",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown",
+            "Japanese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "MOS BURGER",
+        "location": "#B2-211",
+        "description": "08:00 AM - 10:00 PM (Monday, Tuesday, Wednesday, Thursday, Friday) 08:00 AM - 11:00 PM (Saturday, Sunday)",
+        "category": [
+            "Breakfast",
+            "Fast Food",
+            "Japanese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "MR. COCONUT",
+        "location": "#B2-268",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Quick Bites",
+            "Homegrown",
+            "Drinks"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "NAIXUE",
+        "location": "#B1-243",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Cafe",
+            "Drinks"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "NESUTO",
+        "location": "#01-236/237",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Cafe",
+            "Homegrown",
+            "Desserts"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "NINE FRESH",
+        "location": "#B2-244",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Quick Bites",
+            "Homegrown",
+            "Desserts"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "NY CHAR GRILL",
+        "location": "#03-227/228",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown",
+            "Korean"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "O'COFFEE CLUB ROASTERY",
+        "location": "#03-216/218",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Cafe",
+            "Homegrown",
+            "Western"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "OLD CHANG KEE",
+        "location": "#B2-247",
+        "description": "08:00 AM - 10:00 PM (Monday, Tuesday, Wednesday, Thursday, Sunday) 08:00 AM - 11:00 PM (Friday, Saturday)",
+        "category": [
+            "Breakfast",
+            "Quick Bites",
+            "Homegrown",
+            "Halal"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "PARADISE CLASSIC",
+        "location": "#04-244/245",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown",
+            "Chinese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "PARIS BAGUETTE",
+        "location": "#02-200",
+        "description": "08:00 AM - 10:00 PM (Monday, Tuesday, Wednesday, Thursday, Friday) 24 Hours (Saturday, Sunday)",
+        "category": [
+            "Breakfast",
+            "Cafe",
+            "Western"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "PAUL BAKERY & RESTAURANT",
+        "location": "#B1-225",
+        "description": "09:00 AM - 10:00 PM (Monday, Tuesday, Wednesday, Thursday, Sunday) 09:00 AM - 11:00 PM (Friday, Saturday)",
+        "category": [
+            "Breakfast",
+            "Restaurant",
+            "Cafe",
+            "Vegetarian Friendly"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "PIZZAMARU",
+        "location": "#04-222",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Cafe",
+            "Korean"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "POTATO CORNER",
+        "location": "#B2-264",
+        "description": "10:00 AM - 10:00 PM (Monday, Tuesday, Wednesday, Thursday, Sunday) 10:00 AM - 11:00 PM (Friday, Saturday)",
+        "category": [
+            "Quick Bites"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "POULET BIJOU",
+        "location": "#01-227",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown",
+            "Halal"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "PRIV\u00c9",
+        "location": "#05-204",
+        "description": "10:00 AM - 11:00 PM (Monday, Tuesday, Wednesday, Thursday, Friday) 10:00 AM - 12:00 AM (Saturday, Sunday)",
+        "category": [
+            "Reservation",
+            "Restaurant",
+            "Homegrown",
+            "Western",
+            "Gluten Free Options",
+            "Vegetarian Friendly",
+            "Vegan Options"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "PS.CAFE",
+        "location": "#02-244/245",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown",
+            "Western"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "PUTIEN",
+        "location": "#02-249",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown",
+            "Chinese",
+            "Vegetarian Friendly"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "ROYAL HOST",
+        "location": "#03-219",
+        "description": "08:30 AM - 10:00 PM (Monday, Tuesday, Wednesday, Thursday, Sunday) 08:30 AM - 11:00 PM (Friday, Saturday)",
+        "category": [
+            "Restaurant",
+            "Japanese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "SAMPANMAN",
+        "location": "#B1-223",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown",
+            "Southeast Asian",
+            "Halal"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "SANKRANTI",
+        "location": "#03-229",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Indian",
+            "Halal"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "SANOOK KITCHEN",
+        "location": "#03-223/224",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown",
+            "Southeast Asian",
+            "Halal"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "SF FRUITS & JUICES",
+        "location": "#B2-260",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Quick Bites",
+            "Homegrown",
+            "Drinks"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "SHAKE SHACK",
+        "location": "#02-256",
+        "description": "08:30 AM - 10:30 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Western"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "SHIHLIN TAIWAN STREET SNACKS",
+        "location": "#B2-246",
+        "description": "10:00 AM - 10:00 PM (Monday, Tuesday, Wednesday, Thursday, Sunday) 10:00 AM - 11:00 PM (Friday, Saturday)",
+        "category": [
+            "Quick Bites",
+            "Homegrown",
+            "Chinese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "SHIKI HOTOTOGISU RAMEN",
+        "location": "#B1-300",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Japanese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "SO PHO",
+        "location": "#B1-248",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Reservation",
+            "Restaurant",
+            "Homegrown",
+            "Southeast Asian",
+            "Halal",
+            "Vegetarian Friendly"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "SONG FA BAK KUT TEH",
+        "location": "#B2-278/279/280",
+        "description": "10:30 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown",
+            "Chinese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "SOUP RESTAURANT",
+        "location": "#03-201",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown",
+            "Chinese",
+            "Vegetarian Friendly"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "SOURBOMBE ARTISANAL BAKERY",
+        "location": "#02-237",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Cafe",
+            "Homegrown",
+            "Desserts"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "STARBUCKS",
+        "location": "#02-204",
+        "description": "24 Hours, Daily",
+        "category": [
+            "Breakfast",
+            "Late Night",
+            "Cafe"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "SUBWAY",
+        "location": "#B2-245",
+        "description": "08:00 AM - 10:00 PM (Monday, Tuesday, Wednesday, Thursday, Sunday) 08:00 AM - 11:00 PM (Friday, Saturday)",
+        "category": [
+            "Breakfast",
+            "Fast Food",
+            "Halal"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "SUKIYA. GYUDON. CURRY",
+        "location": "#B2-200",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Halal",
+            "Japanese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "SUSHI TEI",
+        "location": "#03-209",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown",
+            "Japanese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "SUSHIRO",
+        "location": "#B2-227/228",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Japanese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "TAI ER SUANCAI & FISH",
+        "location": "#03-208",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Chinese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "TANUKI RAW AND THE WORLD IS FLAT",
+        "location": "#05-202",
+        "description": "10:00 AM - 10:00 PM (Monday, Tuesday, Wednesday, Thursday, Friday) 10:00 AM - 12:00 AM (Saturday, Sunday)",
+        "category": [
+            "Pubs & Bars",
+            "Restaurant",
+            "Homegrown"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "TANYU EXCLUSIVE",
+        "location": "#B2-235/236",
+        "description": "10:00 AM - 11:00 PM, Daily",
+        "category": [
+            "Late Night",
+            "Restaurant",
+            "Chinese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "TEMPURA MAKINO",
+        "location": "#01-223",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Reservation",
+            "Restaurant",
+            "Japanese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "THE ALLEY",
+        "location": "#B2-273",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Quick Bites",
+            "Drinks"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "THE COFFEE BEAN & TEA LEAF",
+        "location": "#01-200",
+        "description": "24 Hours, Daily",
+        "category": [
+            "Breakfast",
+            "24-hrs",
+            "Late Night",
+            "Cafe",
+            "Drinks",
+            "Halal"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "THE HAINAN STORY",
+        "location": "#B2-201/202",
+        "description": "08:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Breakfast",
+            "Restaurant",
+            "Homegrown",
+            "Chinese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "THE ORIGINAL VADAI",
+        "location": "#B2-267",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Quick Bites",
+            "Homegrown",
+            "Indian",
+            "Halal"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "TIM HO WAN",
+        "location": "#02-223",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "TOAST BOX",
+        "location": "#B2-231",
+        "description": "08:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Breakfast",
+            "Cafe",
+            "Homegrown"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "TOKYO MILK CHEESE FACTORY & COW COW KITCHEN",
+        "location": "#B2-265",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Quick Bites",
+            "Desserts"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "TONITO",
+        "location": "#02-248",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "TONKATSU BY MA MAISON",
+        "location": "#02-211",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Japanese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "TREASURES YI DIAN XIN",
+        "location": "#01-221/222",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Chinese",
+            "Vegetarian Friendly"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "TSUI WAH",
+        "location": "#03-230",
+        "description": "08:30 AM - 10:00 PM, Daily",
+        "category": [
+            "Breakfast",
+            "Restaurant",
+            "Chinese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "TUN XIANG HOKKIEN DELIGHTS",
+        "location": "#B1-290",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown",
+            "Chinese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "TWENTY LOAF TOASTIES",
+        "location": "#B2-274",
+        "description": "08:30 AM - 10:00 PM, Daily",
+        "category": [
+            "Homegrown"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "VIOLET OON SINGAPORE",
+        "location": "#01-205/206",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Reservation",
+            "Restaurant",
+            "Homegrown",
+            "Southeast Asian",
+            "Gluten Free Options",
+            "Vegetarian Friendly",
+            "Vegan Options"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "WA-EN WAGYU YAKINIKU",
+        "location": "#01-224",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Reservation",
+            "Restaurant",
+            "Japanese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "WHITE RESTAURANT",
+        "location": "#B1-245/246",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Homegrown",
+            "Chinese",
+            "Vegetarian Friendly"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "YA KUN KAYA TOAST",
+        "location": "#01-K206/207",
+        "description": "07:30 AM - 10:00 PM, Daily",
+        "category": [
+            "Breakfast",
+            "Cafe",
+            "Homegrown"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "YOL\u00c9",
+        "location": "#B2-271",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Quick Bites",
+            "Desserts"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    },
+    {
+        "name": "YUN NANS",
+        "location": "#02-217",
+        "description": "10:00 AM - 10:00 PM, Daily",
+        "category": [
+            "Restaurant",
+            "Chinese"
+        ],
+        "url": "https://www.jewelchangiairport.com/en/dine.html"
+    }
+]
