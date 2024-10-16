@@ -22,9 +22,9 @@ Playwright scrapers currently scrape the following websites.
 
 | Playwright scraper name | Domains scraped | Sites scraped | Status |
 | :--- | :--- | :--- | :--- |
-| `smu_shakespeare` | https://www.smu.edu.sg/ | https://www.smu.edu.sg/campus-life/visiting-smu/food-beverages-listing | :white_check_mark: |
-| `nus_shakespeare` | https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/ | - https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/<br> - https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/<br> - https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages-bukit-timah/ | :white_check_mark: |
-| `ion_orchard_shakespeare` | https://www.ionorchard.com/en/dine.html | - https://www.ionorchard.com/en/dine.html?category=Casual%20Dining%20and%20Takeaways<br> - https://www.ionorchard.com/en/dine.html?category=Restaurants%20and%20Cafes | :white_check_mark: |
+| `smu_shakespeare` | https://www.smu.edu.sg | https://www.smu.edu.sg/campus-life/visiting-smu/food-beverages-listing | :white_check_mark: |
+| `nus_shakespeare` | https://uci.nus.edu.sg/oca | - https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/<br> - https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/<br> - https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages-bukit-timah/ | :white_check_mark: |
+| `ion_orchard_shakespeare` | https://www.ionorchard.com | - https://www.ionorchard.com/en/dine.html?category=Casual%20Dining%20and%20Takeaways<br> - https://www.ionorchard.com/en/dine.html?category=Restaurants%20and%20Cafes | :white_check_mark: |
 | `jewel_shakespeare` | https://www.jewelchangiairport.com | https://www.jewelchangiairport.com/en/dine.html | :white_check_mark: |
 | `singpost_shakespeare` | https://www.singpostcentre.com | https://www.singpostcentre.com/stores?start_with=&s=&category=cafes-restaurants-food-court | :white_check_mark: |
 | `suntec_shakespeare` | https://www.sunteccity.com.sg | https://www.sunteccity.com.sg/store_categories/dining | :white_check_mark: |
