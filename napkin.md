@@ -2,6 +2,8 @@
 
 ## FUA
 
+* add an architecture diagram of how everything works in mermaid code with icons and elements to the README.md once everything is done
+
 * focus on this for now
     * try scraping with playwright, converting existing scraping code to playwright
     * go back to debug capitaland_shakespeare.py to click the 'Load More' event when first obtaining each store's URL, consider using the A-Z boxes at the top of the page to obtain every possible URL instead
@@ -67,6 +69,7 @@
 
 * Sites which couldn't be scraped
     * https://www.sengkanggrandmall.com.sg/en/stores.html *(cannot click and toggle the drop-down menu)*
+    * https://www.vivocity.com.sg/shopping-guide/dining-guide *(site taking an infinite amount of time to load)*
 
 * Look into alternatives to bs4 and scrapy to enact webscraping
     * playwright
