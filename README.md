@@ -7,9 +7,9 @@
 
 *Tako*.  
 
-*Ta*, a web app that helps you decide where to eat. Built on -  
+*Ta*, a web app that helps you decide where to eat.   
 
-*Ko*, a bevy of scrapers that extracts public eating spaces in malls, colleges and other locations.  
+Built on *Ko*, a bevy of [scrapers](./scrapers) that extracts public eating spaces in malls, colleges and other locations.  
 
 ## How to build it
 
