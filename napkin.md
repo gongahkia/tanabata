@@ -17,9 +17,6 @@
 
 * Sites hardcoded to be scraped :robot:
 
-    * https://www.hillionmall.com.sg
-    * https://www.compassone.sg
-    * https://www.thomsonplaza.com.sg
     * https://www.changicitypoint.com.sg
     * https://www.kinex.com.sg/
 
