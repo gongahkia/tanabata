@@ -53,12 +53,17 @@ def scrape_centrepoint_mall(base_url):
             print(f"successfully retrieved page URL: {base_url}")
 
             while True:
+                initial_count = len(page.query_selector_all("div.detail"))
                 try:
                     load_more_button = page.query_selector('a.full-btn.loadmore.loadmore_vtwo')
                     if load_more_button:
                         print("Clicking load more button...")
                         load_more_button.click()
                         page.wait_for_timeout(2000) 
+                        count = len(page.query_selector_all("div.detail"))
+                        if count == initial_count:
+                            print("No more load more button found")
+                            break
                     else:
                         print("No more load more button found")
                         break
@@ -84,7 +89,7 @@ def scrape_centrepoint_mall(base_url):
                     'name': name,
                     'location': location,
                     'description': description,
-                    'category': "",
+                    'category': "Food & Restaurants",
                     'url': f"https://www.thecentrepoint.com.sg{url}"
                 }
                 print(details)
