@@ -47,6 +47,9 @@
     * https://www.hillionmall.com.sg/store-directory/ *(requires clicking a dynamic drop-down that leads to an active map before displaying any stores)*
     * https://www.anchorpoint.com.sg/shops *(there isn't any tangible html to scrape, its just uncontextualised hardcoded html content)*
 
+* Debug for scraping
+    * scraper within frasers_shakespeare.py doesn't handle clicking of the Load More button properly, it doesn't ensure load all is clicked fully and instead appears to load once before beginning extraction
+
 * Look into alternatives to bs4 and scrapy to enact webscraping
     * playwright
     * lxml
