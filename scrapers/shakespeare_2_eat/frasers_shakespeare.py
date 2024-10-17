@@ -74,7 +74,7 @@ def scrape_frasers_mall(base_url):
                     'location': location,
                     'description': description,
                     'category': "Food & Restaurants",
-                    'url': f"https://www.thecentrepoint.com.sg{url}"
+                    'url': f"{base_url.rstrip('/store.php?CategoryFilter=43&FRPointsFilter=&GCFilter=&HalalFilter=&NewStoresFilter=&CalmFilter=&DementiaFilter=&Node=&CategoryID=594')}{url}"
                 }
                 print(details)
                 details_list.append(details)
