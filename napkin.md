@@ -17,19 +17,6 @@
 
 * Sites hardcoded to be scraped :robot:
 
-    * frasers malls --> see the existing code for the centrepoint, might just be able to reuse hehehe
-        * https://www.robertsonwalk.com.sg/
-        * https://www.whitesands.com.sg/
-        * https://www.northpointcity.com.sg
-        * https://www.waterwaypoint.com.sg
-        * https://www.centurysquare.com.sg
-        * https://www.causewaypoint.com.sg/
-        * https://www.eastpoint.sg/
-        * https://www.hougangmall.com.sg/
-        * https://www.tampines1.com.sg
-        * https://www.tiongbahruplaza.com.sg/
-        * https://www.thecentrepoint.com.sg/
-
     * https://www.citylinkmall.com.sg
     * https://www.compasspoint.com.sg
     * https://www.downtowneast.com.sg

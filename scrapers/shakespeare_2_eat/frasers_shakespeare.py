@@ -1,19 +1,3 @@
-"""
-~~~ INTERNAL REFERENCE ~~~
-
-sites to scrape: https://www.thecentrepoint.com.sg/store.php?CategoryFilter=43&FRPointsFilter=&GCFilter=&HalalFilter=&NewStoresFilter=&CalmFilter=&DementiaFilter=&Node=&CategoryID=594
-
-~ HTML DOM STRUCTURE ~
-
-a.full-btn.loadmore.loadmore_vtwo --> click() until cannot be clicked anymore
-
-div.details
-    div.storename a --> href is url, inner_text is name
-    div.col.findus div.info --> inner_text is location
-    div.col.callus div.info --> inner_text is description
-    div.col.openfrom div.info --> inner_text += description
-"""
-
 import json
 import os
 import re
@@ -21,7 +5,7 @@ from playwright.sync_api import sync_playwright
 
 def delete_file(target_url):
     """
-    Helper function that attempts to delete a file at the specified URL.
+    Helper function that attempts to delete a file at the specified URL
     """
     try:
         os.remove(target_url)
@@ -31,15 +15,15 @@ def delete_file(target_url):
 
 def clean_string(input_string):
     """
-    Sanitize a provided string.
+    Sanitize a provided string
     """
     cleaned_string = re.sub(r'\n+', ' ', input_string)
     cleaned_string = re.sub(r'<[^>]+>', '', cleaned_string)
     return cleaned_string.strip()
 
-def scrape_centrepoint_mall(base_url):
+def scrape_frasers_mall(base_url):
     """
-    Scrapes the Centrepoint Mall website for food and beverage details.
+    Scrapes a given Frasers Mall website for food and beverage details
     """
     details_list = []
     errors = []
@@ -100,17 +84,33 @@ def scrape_centrepoint_mall(base_url):
             browser.close()
     return details_list, errors
 
+def scrape_all_frasers_malls():
+    fin = {}
+    FRASER_URL_ARRAY = [
+        "https://www.causewaypoint.com.sg/",
+        "https://www.centurysquare.com.sg/",
+        "https://www.eastpoint.sg/",
+        "https://www.hougangmall.com.sg/",
+        "https://www.northpointcity.com.sg/",
+        "https://www.robertsonwalk.com.sg/",
+        "https://www.tampines1.com.sg/",
+        "https://www.thecentrepoint.com.sg",
+        "https://www.tiongbahruplaza.com.sg/",
+        "https://www.waterwaypoint.com.sg/",
+        "https://www.whitesands.com.sg/"
+    ]
+    URL_AUGMENT = "/store.php?CategoryFilter=43&FRPointsFilter=&GCFilter=&HalalFilter=&NewStoresFilter=&CalmFilter=&DementiaFilter=&Node=&CategoryID=594"
+    for url in FRASER_URL_ARRAY:
+        print(f"scraping {url} now...")
+        result = scrape_frasers_mall(f"{url}{URL_AUGMENT}")
+        fin[url.split(".")[1]] = result[0]
+    return fin
+
 # ----- Execution Code -----
 
-TARGET_URL = "https://www.thecentrepoint.com.sg/store.php?CategoryFilter=43&FRPointsFilter=&GCFilter=&HalalFilter=&NewStoresFilter=&CalmFilter=&DementiaFilter=&Node=&CategoryID=594"
-TARGET_FILEPATH = "./../output/centrepoint_mall_dining_details.json"
-
-details_list, errors = scrape_centrepoint_mall(TARGET_URL)
-
-if errors:
-    print(f"Errors encountered: {errors}")
+TARGET_FILEPATH = "./../output/frasers_store_links.json"
+details_list = scrape_all_frasers_malls()
 print("Scraping complete.")
 delete_file(TARGET_FILEPATH)
-
 with open(TARGET_FILEPATH, 'w') as f:
     json.dump(details_list, f, indent=4)
