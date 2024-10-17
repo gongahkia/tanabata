@@ -16,8 +16,6 @@
 * need to debug why the script.js and style.css in my ./food/static/food/ folder is not visible when i serve my index.html file
 
 * Sites hardcoded to be scraped :robot:
-    * https://www.greatworld.com.sg/dining
-    * https://www.payalebarquarter.com
     * https://www.citysquaremall.com.sg
     * https://www.thestarvista.com
     * https://www.orchardcentral.com.sg/dining

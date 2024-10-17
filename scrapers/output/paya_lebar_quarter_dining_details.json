@@ -1,0 +1,548 @@
+[
+    {
+        "name": "A Beautiful Day Caf\u00e9",
+        "location": "#01-09, PLQ Parkside, Level 1",
+        "description": "Open until 11:59pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/a-beautiful-day-cafe/"
+    },
+    {
+        "name": "Ajumma's",
+        "location": "#B2-26, PLQ Mall, Basement 2",
+        "description": "Open until 9:30pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/ajummas/"
+    },
+    {
+        "name": "Attap House",
+        "location": "#02-28, PLQ Mall, Level 2",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/attap-house/"
+    },
+    {
+        "name": "Auntie Anne's",
+        "location": "#B2-K7, PLQ Mall, Basement 2",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/auntie-annes/"
+    },
+    {
+        "name": "Barcook Bakery",
+        "location": "#B2-07, PLQ Mall, Basement 2",
+        "description": "Open until 9pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/barcook-bakery/"
+    },
+    {
+        "name": "Bonchon",
+        "location": "#02-09, PLQ Mall, Level 2",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/bonchon/"
+    },
+    {
+        "name": "Boost Juice Bars",
+        "location": "#B2-K10, PLQ Mall, Basement 2",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/boost-juice-bars/"
+    },
+    {
+        "name": "BreadTalk",
+        "location": "#B2-19, PLQ Mall, Basement 2",
+        "description": "Open until 9:30pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/breadtalk/"
+    },
+    {
+        "name": "Cedele",
+        "location": "",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/cedele/"
+    },
+    {
+        "name": "CHICHA San Chen",
+        "location": "#02-27, PLQ Mall, Level 2",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/chicha-san-chen/"
+    },
+    {
+        "name": "Chimichanga",
+        "location": "#01-37, PLQ Mall, Level 1",
+        "description": "Open until 11pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/chimichanga/"
+    },
+    {
+        "name": "COLLIN\u2019S\u00ae",
+        "location": "#B1-01, PLQ Mall, Basement 1",
+        "description": "Open until 10:30pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/collins/"
+    },
+    {
+        "name": "Donburi King",
+        "location": "#03-26, PLQ Mall, Level 3",
+        "description": "Open until 3pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/donburi-king/"
+    },
+    {
+        "name": "Eat Pizza",
+        "location": "",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/eat-pizza/"
+    },
+    {
+        "name": "EAT.",
+        "location": "#B2-K2, PLQ Mall, Basement 2",
+        "description": "Open until 9pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/eat/"
+    },
+    {
+        "name": "Edo Shokudo",
+        "location": "#B2-17, PLQ Mall, Basement 2",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/edo-shokudo/"
+    },
+    {
+        "name": "elemen \u5143\u7d20\u2122",
+        "location": "#03-13, PLQ Mall, Level 3",
+        "description": "Open until 3:30pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/elemen/"
+    },
+    {
+        "name": "Fisher King's Grill",
+        "location": "#03-25, PLQ Mall, Level 3",
+        "description": "Open until 3pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/fisher-kings-grill/"
+    },
+    {
+        "name": "Fluff Stack",
+        "location": "#B1-K3, PLQ Mall, Basement 1",
+        "description": "Open until 9:30pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/fluff-stack/"
+    },
+    {
+        "name": "Fong Sheng Hao",
+        "location": "#B2-04, PLQ Mall, Basement 2",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/fong-sheng-hao/"
+    },
+    {
+        "name": "Haidilao Hot Pot",
+        "location": "#03-11/12 & 27, PLQ Mall, Level 3",
+        "description": "Open until 3am today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/haidilao-hot-pot/"
+    },
+    {
+        "name": "Hanis Cafe & Bakery",
+        "location": "#B2-18, PLQ Mall, Basement 2",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/hanis-cafe--bakery/"
+    },
+    {
+        "name": "Henri Charpentier",
+        "location": "#01-07, PLQ Mall, Level 1",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/henri-charpentier/"
+    },
+    {
+        "name": "Hot Tomato Cafe & Grill",
+        "location": "#04-09/29, PLQ Mall, Level 4",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/hot-tomato-cafe-grill/"
+    },
+    {
+        "name": "Huggs Coffee",
+        "location": "#01-03, PLQ 1, Level 1",
+        "description": "Open until 5:30pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/huggs-coffeebar/"
+    },
+    {
+        "name": "Ichikokudo Hokkaido Ramen",
+        "location": "#B1-15/16, PLQ Mall, Basement 1",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/ichikokudo-hokkaido-ramen/"
+    },
+    {
+        "name": "Jimmy Monkey",
+        "location": "#01-10, PLQ Parkside, Level 1",
+        "description": "Open until 9pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/jimmy-monkey/"
+    },
+    {
+        "name": "Joe & Dough",
+        "location": "#02-25/26, PLQ Mall, Level 2",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/joe--dough/"
+    },
+    {
+        "name": "Kanada-Ya",
+        "location": "#03-30, PLQ Mall, Level 3",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/kanada-ya/"
+    },
+    {
+        "name": "KFC\u00ae",
+        "location": "#B1-14, PLQ Mall, Basement 1",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/kfc/"
+    },
+    {
+        "name": "KOI Th\u00e9",
+        "location": "#B1-02, PLQ Mall, Basement 1",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/koi-the/"
+    },
+    {
+        "name": "KopiTime",
+        "location": "#04-11, PLQ Mall, Level 4",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/kopitime/"
+    },
+    {
+        "name": "Krispy Kreme Doughnuts",
+        "location": "#B2-K6, PLQ Mall, Basement 2",
+        "description": "Open until 8:30pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/krispy-kreme-doughnuts/"
+    },
+    {
+        "name": "London Fat Duck",
+        "location": "#B2-25, PLQ Mall, Basement 2",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/london-fat-duck/"
+    },
+    {
+        "name": "luckin coffee",
+        "location": "",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/luckin-coffee/"
+    },
+    {
+        "name": "Maccha House",
+        "location": "#02-20, PLQ Mall, Level 2",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/maccha-house/"
+    },
+    {
+        "name": "Mr Bean",
+        "location": "#B2-16, PLQ Mall, Basement 2",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/mr-bean/"
+    },
+    {
+        "name": "Mr. Coconut",
+        "location": "#B2-K8, PLQ Mall, Basement 2",
+        "description": "Open until 9:45pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/mr-coconut/"
+    },
+    {
+        "name": "Nam Kee Pau",
+        "location": "#B2-K4, PLQ Mall, Basement 2",
+        "description": "Open until 9pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/nam-kee-pau/"
+    },
+    {
+        "name": "Nan Yang Dao",
+        "location": "#B2-33, PLQ Mall, Basement 2",
+        "description": "Open until 9pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/nan-yang-dao/"
+    },
+    {
+        "name": "Nene Neko",
+        "location": "",
+        "description": "Open until 11pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/nene-neko/"
+    },
+    {
+        "name": "NIKUTOSAKE",
+        "location": "#01-38, PLQ Mall, Level 1",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/nikutosake/"
+    },
+    {
+        "name": "Old Chang Kee",
+        "location": "#B2-32, PLQ Mall, Basement 2",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/old-chang-kee/"
+    },
+    {
+        "name": "Old Street Bak Kut Teh",
+        "location": "#B2-02, PLQ Mall, Basement 2",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/old-street-bak-kut-teh/"
+    },
+    {
+        "name": "Papa Ayam",
+        "location": "#B2-K3, PLQ Mall, Basement 2",
+        "description": "Open until 9:30am today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/papa-ayam/"
+    },
+    {
+        "name": "Paradise Dynasty",
+        "location": "#03-08, PLQ Mall, Level 3",
+        "description": "Open until 10:30pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/paradise-dynasty/"
+    },
+    {
+        "name": "Paris Baguette",
+        "location": "#01-03/05/06, PLQ Mall, Level 1",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/paris-baguette/"
+    },
+    {
+        "name": "PlayMade",
+        "location": "#B2-K5, PLQ Mall, Basement 2",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/playmade/"
+    },
+    {
+        "name": "Poke Theory",
+        "location": "#01-04, PLQ Parkside, Level 1",
+        "description": "Open until 9pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/poke-theory/"
+    },
+    {
+        "name": "Cafe Red Ginger",
+        "location": "#B2-31, PLQ Mall, Basement 2",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/cafe-red-ginger/"
+    },
+    {
+        "name": "Rempapa",
+        "location": "#01-01 to 03, PLQ Parkside, Level 1",
+        "description": "Open until 10:30pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/rempapa/"
+    },
+    {
+        "name": "Saizeriya",
+        "location": "#04-13, PLQ Mall, Level 4",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/saizeriya/"
+    },
+    {
+        "name": "Salvo by Pasta Fresca",
+        "location": "#01-05, PLQ 3, #01-05",
+        "description": "Open until 3pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/salvo-by-pasta-fresca/"
+    },
+    {
+        "name": "Sanook Kitchen",
+        "location": "#03-28/29, PLQ Mall, Level 3",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/sanook-kitchen-opening-soon/"
+    },
+    {
+        "name": "Shihlin Taiwan Street Snacks",
+        "location": "#B2-K9, PLQ Mall, Basement 2",
+        "description": "Open until 9:30pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/shihlin-taiwan-street-snacks/"
+    },
+    {
+        "name": "smol",
+        "location": "#01-05, PLQ Parkside, Level 1",
+        "description": "Open until 9:30pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/smol/"
+    },
+    {
+        "name": "Sm\u00f6oy\u2122",
+        "location": "#B2-K1, PLQ Mall, Basement 2",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/smooy/"
+    },
+    {
+        "name": "Starbucks Reserve",
+        "location": "#01-14, PLQ Mall, Level 1",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/starbucks-reserve/"
+    },
+    {
+        "name": "Super Sub",
+        "location": "#01-K2, PLQ Plaza, Level 1",
+        "description": "Open until 9am today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/super-sub/"
+    },
+    {
+        "name": "Sushi Express",
+        "location": "#04-12, PLQ Mall, Level 4",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/sushi-express/"
+    },
+    {
+        "name": "Tai Cheong Bakery",
+        "location": "#B2-08, PLQ Mall, Level B2",
+        "description": "Open until 9pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/tai-cheong-bakery/"
+    },
+    {
+        "name": "Tanglin Cookhouse",
+        "location": "",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/tanglin-cookhouse/"
+    },
+    {
+        "name": "The Bread Club",
+        "location": "#B2-13, PLQ Mall, Basement 2",
+        "description": "Open until 9pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/the-bread-club/"
+    },
+    {
+        "name": "The Providore",
+        "location": "#01-01 (B), PLQ 1, Level 1",
+        "description": "Open until 10:30pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/the-providore/"
+    },
+    {
+        "name": "Tingkat PeraMakan",
+        "location": "#B2-03, PLQ Mall, Basement 2",
+        "description": "Open until 9pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/tingkat-peramakan/"
+    },
+    {
+        "name": "Tipsy Bird Gastrobar",
+        "location": "#01-08 (B), PLQ 2, Level 1",
+        "description": "Open until 1am today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/tipsy-bird-gastrobar/"
+    },
+    {
+        "name": "Toast Box",
+        "location": "#B2-19, PLQ Mall, Basement 2",
+        "description": "Open until 9:30pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/toast-box/"
+    },
+    {
+        "name": "TOMORO COFFEE",
+        "location": "#01-08A, PLQ 3, Level 1",
+        "description": "Open until 8pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/tomoro-coffee/"
+    },
+    {
+        "name": "Tuk Tuk Cha",
+        "location": "#01-K4, PLQ Plaza, Level 1",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/tuk-tuk-cha/"
+    },
+    {
+        "name": "TungLok Seafood",
+        "location": "#03-09 to 10, PLQ Mall, Level 3",
+        "description": "Open until 10:30pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/tunglok-seafood/"
+    },
+    {
+        "name": "Western Mahua Noodles",
+        "location": "#B2-28, PLQ Mall, Basement 2",
+        "description": "Open until 9:15pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/western-mahua-noodles/"
+    },
+    {
+        "name": "Wine Connection",
+        "location": "#01-07 (B), PLQ 2, Level 1",
+        "description": "Open until 10:30pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/wine-connection/"
+    },
+    {
+        "name": "Wursthans Switzerland",
+        "location": "#01-39, PLQ Mall, Level 1",
+        "description": "Open until 9pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/wursthans-switzerland/"
+    },
+    {
+        "name": "Yakiniku Like",
+        "location": "#B1-28, PLQ Mall, Basement 1",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/yakiniku-like/"
+    },
+    {
+        "name": "YM Bakery",
+        "location": "#B2-05, PLQ Mall, Basement 2",
+        "description": "Open until 8:30pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/ym-bakery/"
+    },
+    {
+        "name": "Yum Yum Thai",
+        "location": "#B2-15, PLQ Mall, Basement 2",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/yum-yum-thai/"
+    },
+    {
+        "name": "Zhang Liang Mala Tang",
+        "location": "",
+        "description": "Open until 10pm today PLQ Mall #B2-29",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/zhang-liang-mala-tang/"
+    },
+    {
+        "name": "Zing",
+        "location": "#01-06 to 08 , PLQ Parkside, Level 1",
+        "description": "Open until 10pm today",
+        "category": "Food & Restaurant",
+        "url": "https://www.payalebarquarter.com/directory/mall/zing/"
+    }
+]
