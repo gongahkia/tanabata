@@ -1,0 +1,457 @@
+[
+    {
+        "name": "Astons Specialities",
+        "location": "Astons Specialities #04-14/16",
+        "description": "6634 4755",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/astons-specialities/"
+    },
+    {
+        "name": "BakeInc",
+        "location": "BakeInc #B1-35",
+        "description": "6509 9803",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/mugiya/"
+    },
+    {
+        "name": "Beyond Pancakes",
+        "location": "Beyond Pancakes #02-35/36",
+        "description": "6909 6265",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/beyond-pancakes/"
+    },
+    {
+        "name": "Boost Juice Bars",
+        "location": "Boost Juice Bars #B1-K16",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/boost-juice-bars/"
+    },
+    {
+        "name": "BreadTalk",
+        "location": "BreadTalk #01-41",
+        "description": "6509 4344",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/breadtalk/"
+    },
+    {
+        "name": "Cat & The Fiddle",
+        "location": "Cat & The Fiddle #02-50",
+        "description": "6287 0077",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/cat-the-fiddle/"
+    },
+    {
+        "name": "Cedele Bakery Cafe",
+        "location": "Cedele Bakery Cafe #01-24/25",
+        "description": "6509 9762",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/cedele-bakery-cafe/"
+    },
+    {
+        "name": "Chateraise",
+        "location": "Chateraise #B2-21A",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/chateraise-2/"
+    },
+    {
+        "name": "Chic-A-Boo Fried Chicken",
+        "location": "Chic-A-Boo Fried Chicken #01-30/31/K1/K2",
+        "description": "6634 2723",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/chic-a-boo-fried-chicken/"
+    },
+    {
+        "name": "CocoCane",
+        "location": "CocoCane #B1-K7",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/cococane/"
+    },
+    {
+        "name": "Crave",
+        "location": "Crave #B1-K19",
+        "description": "6341 9470",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/crave/"
+    },
+    {
+        "name": "Dian Xiao Er",
+        "location": "Dian Xiao Er #03-37/38",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/dian-xiao-er/"
+    },
+    {
+        "name": "Din Tai Fung",
+        "location": "Din Tai Fung #01-10/11",
+        "description": "6634 2322",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/din-tai-fung/"
+    },
+    {
+        "name": "Duke Bakery",
+        "location": "Duke Bakery #B2-22",
+        "description": "6908 1561",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/duke-bakery/"
+    },
+    {
+        "name": "Dunkin\u2019 Donuts",
+        "location": "Dunkin\u2019 Donuts #B1-K12",
+        "description": "6636 9072",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/dunkin-donuts/"
+    },
+    {
+        "name": "EAT.",
+        "location": "EAT. #B1-K3",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/eat/"
+    },
+    {
+        "name": "Famous Amos",
+        "location": "Famous Amos #B1-K9",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/famous-amos/"
+    },
+    {
+        "name": "Food Republic",
+        "location": "Food Republic #B3-04",
+        "description": "6636 5941",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/food-republic/"
+    },
+    {
+        "name": "Fragrance Foodstuff",
+        "location": "Fragrance Foodstuff #B2-K6",
+        "description": "6509 4207",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/fragrance-foodstuff/"
+    },
+    {
+        "name": "Genki Sushi",
+        "location": "Genki Sushi #02-37/38",
+        "description": "6974 8040",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/genki-sushi/"
+    },
+    {
+        "name": "Gyu-Kaku Japanese Bbq",
+        "location": "Gyu-Kaku Japanese Bbq #05-05",
+        "description": "6388 4001",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/gyu-kaku-japanese-bbq/"
+    },
+    {
+        "name": "Hummus House by Pita & Olives",
+        "location": "Hummus House by Pita & Olives #B2-K5",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/pita-olives/"
+    },
+    {
+        "name": "Jack\u2019s Place",
+        "location": "Jack\u2019s Place #04-39/40",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/jacks-place/"
+    },
+    {
+        "name": "Jie Traditional Bakery",
+        "location": "Jie Traditional Bakery #B2-K2",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/jie-bakery/"
+    },
+    {
+        "name": "KFC",
+        "location": "KFC #B1-29/30",
+        "description": "6509 1042",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/kfc/"
+    },
+    {
+        "name": "Koi Cafe Express",
+        "location": "Koi Cafe Express #B1-K6",
+        "description": "6634 9361",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/koi-cafe-express/"
+    },
+    {
+        "name": "Kopi & Tarts",
+        "location": "Kopi & Tarts #B1-23",
+        "description": "6203 7926",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/kopi-tarts-by-mayson/"
+    },
+    {
+        "name": "Lai Lai Taiwan Casual Dining",
+        "location": "Lai Lai Taiwan Casual Dining #03-39/40",
+        "description": "6509 5626",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/lai-lai-taiwan-casual-dining/"
+    },
+    {
+        "name": "McDonald\u2019s",
+        "location": "McDonald\u2019s #01-19/23",
+        "description": "6509 6397",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/mcdonalds/"
+    },
+    {
+        "name": "Mei Heong Yuen Dessert",
+        "location": "Mei Heong Yuen Dessert #B3-03",
+        "description": "9796-2424",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/mei-heong-yuen-dessert/"
+    },
+    {
+        "name": "Mos Burger",
+        "location": "Mos Burger #B2-04",
+        "description": "6509 4689",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/mos-burger/"
+    },
+    {
+        "name": "Mr Bean",
+        "location": "Mr Bean #B1-K8",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/mr-bean/"
+    },
+    {
+        "name": "Mr. Coconut",
+        "location": "Mr. Coconut #B2-18A",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/mr-coconut/"
+    },
+    {
+        "name": "Munchi Pancakes",
+        "location": "Munchi Pancakes #B2-K8",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/munchi-pancakes/"
+    },
+    {
+        "name": "Nam Kee Pau",
+        "location": "Nam Kee Pau #B1-K2",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/nam-kee-pau/"
+    },
+    {
+        "name": "Old Chang Kee",
+        "location": "Old Chang Kee #B1-K5",
+        "description": "6509 6281",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/old-chang-kee/"
+    },
+    {
+        "name": "Ordinary Burgers",
+        "location": "Ordinary Burgers #B1-K11/K13",
+        "description": "9800 5878",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/ordinary-burgers/"
+    },
+    {
+        "name": "PastaMania",
+        "location": "PastaMania #02-21/22",
+        "description": "6634 8935",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/pastamania/"
+    },
+    {
+        "name": "PlayMade",
+        "location": "PlayMade #B2-K10",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/playmade/"
+    },
+    {
+        "name": "Ramen Hitoyoshi",
+        "location": "Ramen Hitoyoshi #03-21/22",
+        "description": "6509 9168",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/ramen-hitoyoshi/"
+    },
+    {
+        "name": "Rich & Good Cake Shop",
+        "location": "Rich & Good Cake Shop #B2-21",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/rich-good-cake-shop/"
+    },
+    {
+        "name": "Saizeriya Ristorante E Caffe",
+        "location": "Saizeriya Ristorante E Caffe #B2-55/56",
+        "description": "6834 4877",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/saizeriya-italian-restaurant/"
+    },
+    {
+        "name": "Saute-san",
+        "location": "Saute-san #03-23/24",
+        "description": "8788 4284",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/saute-san/"
+    },
+    {
+        "name": "Shi Li Fang",
+        "location": "Shi Li Fang #02-53/54",
+        "description": "6636 7899",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/shi-li-fang/"
+    },
+    {
+        "name": "Shihlin Taiwan Street Snacks",
+        "location": "Shihlin Taiwan Street Snacks #B1-27",
+        "description": "6100 1218",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/shihlin-taiwan-street-snacks/"
+    },
+    {
+        "name": "SnacKing",
+        "location": "SnacKing #B1-K15",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/snacking/"
+    },
+    {
+        "name": "Souper Salad",
+        "location": "Souper Salad #B2-K4",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/souper-salad/"
+    },
+    {
+        "name": "Starbucks",
+        "location": "Starbucks #01-38",
+        "description": "6910 1275",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/starbucks/"
+    },
+    {
+        "name": "Streats Cafe",
+        "location": "Streats Cafe #01-01/03",
+        "description": "6509 3902",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/streats-hong-kong-cafe/"
+    },
+    {
+        "name": "Stuff\u2019d",
+        "location": "Stuff\u2019d #B1-K1",
+        "description": "6634 3258",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/stuffd/"
+    },
+    {
+        "name": "Subway",
+        "location": "Subway #B3-02",
+        "description": "6509 6354",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/subway/"
+    },
+    {
+        "name": "Sukiya",
+        "location": "Sukiya #B1-31/32",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/sukiya/"
+    },
+    {
+        "name": "Super Dario Lasagne Cafe",
+        "location": "Super Dario Lasagne Cafe #04-17",
+        "description": "9151 2196",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/super-dario-lasagne-cafe/"
+    },
+    {
+        "name": "Talad Thai Banana",
+        "location": "Talad Thai Banana #B2-K7",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/talad-thai-banana/"
+    },
+    {
+        "name": "Tamjai Samgor Mixian",
+        "location": "Tamjai Samgor Mixian #B2-53/54",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/tamjai-samgor-mixian/"
+    },
+    {
+        "name": "Taning",
+        "location": "Taning #B2-K9",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/taning/"
+    },
+    {
+        "name": "The Cake Shop",
+        "location": "The Cake Shop #B2-K22",
+        "description": "65703033",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/the-cake-shop/"
+    },
+    {
+        "name": "Toast Box",
+        "location": "Toast Box #01-42/43",
+        "description": "6509 8340",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/toast-box/"
+    },
+    {
+        "name": "Tokyo Shokudo",
+        "location": "Tokyo Shokudo #02-39/40",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/tokyo-shokudo/"
+    },
+    {
+        "name": "Towkay Fried Chicken",
+        "location": "Towkay Fried Chicken #B2-K3",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/towkay-fried-chicken/"
+    },
+    {
+        "name": "Watami Japanese Dining",
+        "location": "Watami Japanese Dining #03-53/55",
+        "description": "6634 7954",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/watami-japanese-dining/"
+    },
+    {
+        "name": "Wingstop",
+        "location": "Wingstop #B1-33/34",
+        "description": "6509 6571",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/wingstop/"
+    },
+    {
+        "name": "Wok Hey",
+        "location": "Wok Hey #B1-36",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/wok-hey/"
+    },
+    {
+        "name": "Wok Master",
+        "location": "Wok Master #02-51/52",
+        "description": "6835 9096",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/wok-master/"
+    },
+    {
+        "name": "Ya Kun Kaya Toast",
+        "location": "Ya Kun Kaya Toast #B1-K18",
+        "description": "",
+        "category": "Food & Beverage",
+        "url": "https://www.citysquaremall.com.sg/shops/shop-list/ya-kun-kaya-toast/"
+    }
+]
