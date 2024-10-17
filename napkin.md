@@ -49,6 +49,7 @@
 
 * Debug for scraping
     * scraper within frasers_shakespeare.py doesn't handle clicking of the Load More button properly, it doesn't ensure load all is clicked fully and instead appears to load once before beginning extraction
+    * scraper within frasers_shakespeare.py doesn't handle the generation of the repsective urls properly, need to ensure the relative link in combination with the absolute link works out
 
 * Look into alternatives to bs4 and scrapy to enact webscraping
     * playwright
