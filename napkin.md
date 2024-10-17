@@ -16,16 +16,23 @@
 * need to debug why the script.js and style.css in my ./food/static/food/ folder is not visible when i serve my index.html file
 
 * Sites hardcoded to be scraped :robot:
-    * https://www.robertsonwalk.com.sg/
-    * https://www.whitesands.com.sg/
-    * https://www.northpointcity.com.sg
-    * https://www.bedokpoint.com.sg
+
     * https://www.hillionmall.com.sg
     * https://www.compassone.sg
-    * https://www.waterwaypoint.com.sg
-    * https://www.centurysquare.com.sg
-    * https://www.anchorpoint.com.sg
-    * https://www.bishannorth.com.sg
+    * https://www.thomsonplaza.com.sg
+
+    * frasers malls --> see the existing code for the centrepoint, might just be able to reuse hehehe
+        * https://www.robertsonwalk.com.sg/
+        * https://www.whitesands.com.sg/
+        * https://www.northpointcity.com.sg
+        * https://www.waterwaypoint.com.sg
+        * https://www.centurysquare.com.sg
+        * https://www.causewaypoint.com.sg/
+        * https://www.eastpoint.sg/
+        * https://www.hougangmall.com.sg/
+        * https://www.tampines1.com.sg
+        * https://www.tiongbahruplaza.com.sg/
+
     * https://www.bukitbatokhillside.com
     * https://www.changicitypoint.com.sg
     * https://www.citylinkmall.com.sg
@@ -38,25 +45,17 @@
     * https://www.theseletarmall.com
     * https://www.theclementimall.com.sg
     * https://www.theglen.com.sg
-    * https://www.causewaypoint.com.sg/
     * https://www.woodlandsciviccentre.com
-    * https://www.hougangmall.com.sg/
     * https://www.thomsonplaza.com.sg
-    * https://www.tiongbahruplaza.com.sg/
     * https://www.westmall.com.sg
     * https://www.amkhub.com.sg
     * https://www.brasbasahcomplex.com.sg
-    * https://www.eastpoint.sg/
     * https://www.fareastplaza.com.sg
     * https://www.harbourfrontcentre.com
     * https://www.jurongpoint.com.sg
     * https://www.nex.com.sg
     * https://www.onekm.com.sg
-    * https://www.payalebarquarter.com
     * https://www.plazasingapura.com
-    * https://www.tampines1.com.sg
-    * https://www.thomsonplaza.com.sg
-    * https://www.yishun107.com.sg
 
 * Sites which couldn't be scraped
     * https://www.sengkanggrandmall.com.sg/en/stores.html *(cannot click and toggle the drop-down menu)*
@@ -65,6 +64,7 @@
     * https://thestarvista.sg/stores *(must click the Restaraunt / Cafe option in the initial loading dropdown menu)*
     * https://www.cathay.com.sg *(currently undergoing renovations till end of 2024)*
     * https://www.orchardcentral.com.sg/dining *(requires clicking through an additional drop-down that specifies Restaraunts, Cafes & Desserts)*
+    * https://www.anchorpoint.com.sg/shops *(there isn't any tangible html to scrape, its just uncontextualised hardcoded html content)*
 
 * Look into alternatives to bs4 and scrapy to enact webscraping
     * playwright
