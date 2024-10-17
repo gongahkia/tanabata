@@ -5,7 +5,11 @@
     <br>ランチに何を食べたい？
 </p>
 
-Tako, a web app that helps you decide where to eat *(within walking distance)*.
+*Tako*.  
+
+*Ta*, a web app that helps you decide where to eat. Built on -  
+
+*Ko*, a bevy of scrapers that extracts public eating spaces in malls, colleges and other locations.  
 
 ## How to build it
 

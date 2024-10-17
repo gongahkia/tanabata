@@ -1,0 +1,366 @@
+[
+    {
+        "name": "Ajisen Ramen",
+        "location": "#02-38",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/ajisen-ramen/"
+    },
+    {
+        "name": "Bonchon",
+        "location": "#01-14/15",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/bonchon/"
+    },
+    {
+        "name": "Boon Tong Kee",
+        "location": "#01-34",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/boon-tong-kee/"
+    },
+    {
+        "name": "Burger King",
+        "location": "#B1-14/14A",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/burger-king/"
+    },
+    {
+        "name": "Canton Paradise",
+        "location": "#03-14",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/canton-paradise/"
+    },
+    {
+        "name": "Cedele",
+        "location": "#01-43",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/cedele/"
+    },
+    {
+        "name": "Chateraise",
+        "location": "#03-39/40/41",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/chateraise/"
+    },
+    {
+        "name": "Chicken Hotpot",
+        "location": "#B1-34",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/chicken-hotpot-2/"
+    },
+    {
+        "name": "Crave",
+        "location": "#B1-02/03",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/crave/"
+    },
+    {
+        "name": "Din Tai Fung",
+        "location": "#02-11/12/13",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/dintaifung-2/"
+    },
+    {
+        "name": "Eat 3 Bowls",
+        "location": "#B1-17",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/eat-3-bowls/"
+    },
+    {
+        "name": "EAT.",
+        "location": "#B1-40",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/eat/"
+    },
+    {
+        "name": "Encik Tan",
+        "location": "#02-29",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/encik-tan/"
+    },
+    {
+        "name": "Genki Sushi",
+        "location": "#01-12",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/genkisushi/"
+    },
+    {
+        "name": "Ichiban Sushi",
+        "location": "#01-13",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/ichiban-sushi/"
+    },
+    {
+        "name": "Jack\u2019s Place",
+        "location": "#04-07",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/jacks-place/"
+    },
+    {
+        "name": "Kenangan Coffee",
+        "location": "#01-01",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/kenangan-coffee/"
+    },
+    {
+        "name": "KFC",
+        "location": "#B1-15",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/kfc-pizza-hut/"
+    },
+    {
+        "name": "LeNu",
+        "location": "#03-05",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/lenu/"
+    },
+    {
+        "name": "Maki-San",
+        "location": "#01-45",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/maki-san/"
+    },
+    {
+        "name": "McDonald\u2019s",
+        "location": "#B1-13",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/mcdonalds/"
+    },
+    {
+        "name": "Milan Shokudo",
+        "location": "#02-39",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/milan-shokudo/"
+    },
+    {
+        "name": "Mos Burger",
+        "location": "#01-09",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/mos-burger/"
+    },
+    {
+        "name": "Nakhon Kitchen",
+        "location": "#02-30",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/nakhon-kitchen/"
+    },
+    {
+        "name": "Nuodle",
+        "location": "#01-36",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/nuodle/"
+    },
+    {
+        "name": "Paradise Hotpot",
+        "location": "#03-05",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/paradise-hotpot-lenu/"
+    },
+    {
+        "name": "Penang Culture",
+        "location": "#03-13",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/penang-culture/"
+    },
+    {
+        "name": "Pepper Lunch",
+        "location": "#B1-01",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/pepper-lunch/"
+    },
+    {
+        "name": "PEZZO",
+        "location": "#B1-02/03",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/pezzo-3/"
+    },
+    {
+        "name": "Pizza Hut",
+        "location": "#B1-15",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/pizza-hut/"
+    },
+    {
+        "name": "POCHA! Korean Street Dining",
+        "location": "#02-42/43",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/pocha/"
+    },
+    {
+        "name": "Popeyes Famous Louisiana Chicken",
+        "location": "#02-29",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/popeyes-famous-louisiana-chicken/"
+    },
+    {
+        "name": "Sally\u2019s",
+        "location": "#01-25",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/sallys/"
+    },
+    {
+        "name": "Seorae",
+        "location": "#02-36",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/seorae/"
+    },
+    {
+        "name": "Shabu Sai",
+        "location": "#02-31",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/shabu-sai/"
+    },
+    {
+        "name": "Shan Cheng (Ipoh Delicacies)",
+        "location": "#02-28/32",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/shan-cheng-ipoh-delicacies/"
+    },
+    {
+        "name": "Shi Li Fang Hot Pot",
+        "location": "#02-40/41",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/shilifang/"
+    },
+    {
+        "name": "Shiok Burger",
+        "location": "#01-36",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/shiok-burger/"
+    },
+    {
+        "name": "Soup Restaurant",
+        "location": "#03-12",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/soup-restaurant/"
+    },
+    {
+        "name": "Starbucks",
+        "location": "#01-06",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/starbucks/"
+    },
+    {
+        "name": "Stuff\u2019d",
+        "location": "#B1-02/03",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/stuffd/"
+    },
+    {
+        "name": "Subway",
+        "location": "#01-20",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/subway/"
+    },
+    {
+        "name": "Swensen\u2019s",
+        "location": "#B1-16",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/swensens/"
+    },
+    {
+        "name": "The Coffee Bean & Tea Leaf",
+        "location": "#01-23",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/the-coffee-bean-tea-leaf-3/"
+    },
+    {
+        "name": "Toast Box",
+        "location": "#B1-35",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/toastbox/"
+    },
+    {
+        "name": "Tori-Q",
+        "location": "#B1-47/48",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/tori-q/"
+    },
+    {
+        "name": "Tuk Tuk Cha Treasures",
+        "location": "#01-47",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/tuk-tuk-cha-treasures/"
+    },
+    {
+        "name": "Umisushi",
+        "location": "#01-24",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/umisushi/"
+    },
+    {
+        "name": "Woke Ramen",
+        "location": "#03-13",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/woke-ramen/"
+    },
+    {
+        "name": "Ya Kun Kaya Toast",
+        "location": "#01-37",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/ya-kun-kaya-toast/"
+    },
+    {
+        "name": "Yakiniku Like",
+        "location": "#04-06",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/yakinikulike/"
+    },
+    {
+        "name": "Yoshinoya",
+        "location": "#01-35",
+        "category": "Restaurant, Cafe & Fast Food",
+        "description": "",
+        "url": "https://compassone.sg/yoshinoya/"
+    }
+]
