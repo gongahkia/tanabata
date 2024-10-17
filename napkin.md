@@ -18,7 +18,6 @@
 * Sites hardcoded to be scraped :robot:
 
     * https://www.changicitypoint.com.sg
-    * https://www.kinex.com.sg/
 
     * frasers malls --> see the existing code for the centrepoint, might just be able to reuse hehehe
         * https://www.robertsonwalk.com.sg/
