@@ -15,11 +15,10 @@
 
 * need to debug why the script.js and style.css in my ./food/static/food/ folder is not visible when i serve my index.html file
 
+* include support for all other major unis in singapore including sutd, sim
+
 * Sites hardcoded to be scraped :robot:
 
-    * https://www.kallangwavemall.com
-
-    * https://www.lotusatjoochiat.com
     * https://www.parkwayparade.com.sg
     * https://www.theseletarmall.com
     * https://www.theclementimall.com.sg
@@ -43,6 +42,7 @@
     * https://www.orchardcentral.com.sg/dining *(requires clicking through an additional drop-down that specifies Restaraunts, Cafes & Desserts)*
     * https://www.hillionmall.com.sg/store-directory/ *(requires clicking a dynamic drop-down that leads to an active map before displaying any stores)*
     * https://www.anchorpoint.com.sg/shops *(there isn't any tangible html to scrape, its just uncontextualised hardcoded html content)*
+    * https://www.sportshub.com.sg/shop-dine/stores?store_id=181&venue=All&payment_methods=All&combine=&custom_az_filter=character_asca *(despite everything seeming normal, unable to scrape the specified details that i want to scrape)*
 
 * Debug for scraping
     * scraper within frasers_shakespeare.py doesn't handle clicking of the Load More button properly, it doesn't ensure load all is clicked fully and instead appears to load once before beginning extraction
