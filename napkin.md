@@ -19,14 +19,6 @@
 
 * Sites hardcoded to be scraped :robot:
 
-    * https://www.theseletarmall.com
-    * https://www.theclementimall.com.sg
-    * https://www.theglen.com.sg
-    * https://www.woodlandsciviccentre.com
-    * https://www.thomsonplaza.com.sg
-    * https://www.westmall.com.sg
-    * https://www.amkhub.com.sg
-    * https://www.brasbasahcomplex.com.sg
     * https://www.fareastplaza.com.sg
     * https://www.harbourfrontcentre.com
     * https://www.jurongpoint.com.sg
@@ -36,12 +28,15 @@
     * https://www.sengkanggrandmall.com.sg/en/stores.html *(cannot click and toggle the drop-down menu)*
     * https://www.vivocity.com.sg/shopping-guide/dining-guide *(site taking an infinite amount of time to load)*
     * https://www.ngeeanncity.com.sg/shopdirectory/index.html *(can't be scraped for some odd reason, might be an issue with loading and should try an alternative to playwright)*
+    * https://www.amkhub.com.sg/store-directory/?level=&cate=Food+%26+Beverage *(table is used here without tangible identifiers, consider using bs4 instead of playwright)*
     * https://thestarvista.sg/stores *(must click the Restaraunt / Cafe option in the initial loading dropdown menu)*
     * https://www.cathay.com.sg *(currently undergoing renovations till end of 2024)*
     * https://www.orchardcentral.com.sg/dining *(requires clicking through an additional drop-down that specifies Restaraunts, Cafes & Desserts)*
     * https://www.hillionmall.com.sg/store-directory/ *(requires clicking a dynamic drop-down that leads to an active map before displaying any stores)*
     * https://www.anchorpoint.com.sg/shops *(there isn't any tangible html to scrape, its just uncontextualised hardcoded html content)*
     * https://www.sportshub.com.sg/shop-dine/stores?store_id=181&venue=All&payment_methods=All&combine=&custom_az_filter=character_asca *(despite everything seeming normal, unable to scrape the specified details that i want to scrape)*
+    * https://www.theclementimall.com/stores *(requires clicking of a js-dynamically powered dropdown, need to iron out logic)*
+    * https://www.westmall.com.sg/stores *(same issue as clementi mall)*
 
 * Debug for scraping
     * scraper within frasers_shakespeare.py doesn't handle clicking of the Load More button properly, it doesn't ensure load all is clicked fully and instead appears to load once before beginning extraction
