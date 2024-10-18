@@ -54,7 +54,7 @@ def scrape_citylink_mall(base_url):
                 name = clean_string(name_element.inner_text()) if name_element else ""
                 location = clean_string(location_element.inner_text()) if location_element else ""
                 details = {
-                    'name': name,
+                    'name': name.rstrip(location).strip(),
                     'location': location,
                     'description': "",
                     'category': "Restaurants & Cafes",

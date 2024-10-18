@@ -17,11 +17,8 @@
 
 * Sites hardcoded to be scraped :robot:
 
-    * https://www.citylinkmall.com.sg
-    * https://www.compasspoint.com.sg
-    * https://www.downtowneast.com.sg
-    * https://www.jcube.com.sg
     * https://www.kallangwavemall.com
+
     * https://www.lotusatjoochiat.com
     * https://www.parkwayparade.com.sg
     * https://www.theseletarmall.com
