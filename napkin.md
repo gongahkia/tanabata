@@ -17,10 +17,6 @@
 
 * include support for all other major unis in singapore including sutd, sim
 
-* Sites hardcoded to be scraped :robot:
-
-    * https://www.nex.com.sg
-
 * Sites which couldn't be scraped
     * https://www.sengkanggrandmall.com.sg/en/stores.html *(cannot click and toggle the drop-down menu)*
     * https://www.vivocity.com.sg/shopping-guide/dining-guide *(site taking an infinite amount of time to load)*
