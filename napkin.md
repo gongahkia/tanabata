@@ -19,7 +19,6 @@
 
 * Sites hardcoded to be scraped :robot:
 
-    * https://www.parkwayparade.com.sg
     * https://www.theseletarmall.com
     * https://www.theclementimall.com.sg
     * https://www.theglen.com.sg

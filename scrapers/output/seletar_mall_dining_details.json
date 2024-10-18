@@ -1,0 +1,368 @@
+[
+    {
+        "name": "BAE.GAL BY SWEE HENG",
+        "location": "B1 \t #B1-19",
+        "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
+        "url": "https://theseletarmall.com.sg/shop/bae-gal-by-swee-heng/"
+    },
+    {
+        "name": "BENGAWAN SOLO",
+        "location": "B2 \t #B2-K4",
+        "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
+        "url": "https://theseletarmall.com.sg/shop/bengawan-solo/"
+    },
+    {
+        "name": "BOOST JUICE BARS",
+        "location": "B2 \t #B2-21",
+        "category": "TAKEAWAYS & FOOD COURT",
+        "url": "https://theseletarmall.com.sg/shop/boost-juice-bars/"
+    },
+    {
+        "name": "BURGER KING",
+        "location": "LEVEL 1 \t #01-09 TO 14",
+        "category": "BISTROS, CAFES & CASUAL DINING",
+        "url": "https://theseletarmall.com.sg/shop/burger-king/"
+    },
+    {
+        "name": "CELLARBRATION",
+        "location": "LEVEL 1 \t #01-48",
+        "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
+        "url": "https://theseletarmall.com.sg/shop/cellarbration/"
+    },
+    {
+        "name": "CHATERAISE",
+        "location": "B2 \t #B2-19/20",
+        "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
+        "url": "https://theseletarmall.com.sg/shop/chateraise/"
+    },
+    {
+        "name": "COLLIN\u2019S\u00ae",
+        "location": "LEVEL 2 \t #02-14 TO 16",
+        "category": "RESTAURANTS",
+        "url": "https://theseletarmall.com.sg/shop/collins/"
+    },
+    {
+        "name": "COTTI COFFEE",
+        "location": "LEVEL 2 \t #02-13",
+        "category": "BISTROS, CAFES & CASUAL DINING",
+        "url": "https://theseletarmall.com.sg/shop/cotti-coffee/"
+    },
+    {
+        "name": "CROLO BY SWEE HENG",
+        "location": "B1 \t #B1-24",
+        "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
+        "url": "https://theseletarmall.com.sg/shop/crolo-by-swee-heng/"
+    },
+    {
+        "name": "DIN TAI FUNG",
+        "location": "LEVEL 2 \t #02-07 TO 10",
+        "category": "RESTAURANTS",
+        "url": "https://theseletarmall.com.sg/shop/din-tai-fung/"
+    },
+    {
+        "name": "DODO",
+        "location": "B2 \t #B2-K5/K6",
+        "category": "TAKEAWAYS & FOOD COURT",
+        "url": "https://theseletarmall.com.sg/shop/dodo/"
+    },
+    {
+        "name": "FISH MART SAKURAYA",
+        "location": "LEVEL 2 \t #02-01/02",
+        "category": "RESTAURANTS",
+        "url": "https://theseletarmall.com.sg/shop/fish-mart-sakuraya/"
+    },
+    {
+        "name": "FOUR LEAVES",
+        "location": "B1 \t #B1-15/16",
+        "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
+        "url": "https://theseletarmall.com.sg/shop/four-leaves/"
+    },
+    {
+        "name": "FRAGRANCE BAK KWA",
+        "location": "B2 \t #B2-K7",
+        "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
+        "url": "https://theseletarmall.com.sg/shop/fragrance-bak-kwa/"
+    },
+    {
+        "name": "GOCHI-SO SHOKUDO",
+        "location": "LEVEL 1 \t #01-34 TO 36",
+        "category": "RESTAURANTS",
+        "url": "https://theseletarmall.com.sg/shop/gochi-so-shokudo/"
+    },
+    {
+        "name": "GONG YUAN MA LA TANG",
+        "location": "LEVEL 2 \t #02-K7",
+        "category": "BISTROS, CAFES & CASUAL DINING",
+        "url": "https://theseletarmall.com.sg/shop/gong-yuan-ma-la-tang/"
+    },
+    {
+        "name": "HA-JUN KOREAN",
+        "location": "B1 \t #B1-02/03",
+        "category": "BISTROS, CAFES & CASUAL DINING",
+        "url": "https://theseletarmall.com.sg/shop/ha-jun-korean/"
+    },
+    {
+        "name": "HAI DI LAO HOT POT",
+        "location": "LEVEL 3 \t #03-36/37",
+        "category": "RESTAURANTS",
+        "url": "https://theseletarmall.com.sg/shop/hai-di-lao-hot-pot/"
+    },
+    {
+        "name": "HAN\u2019S CAF\u00c9",
+        "location": "B2 \t #B2-03/04",
+        "category": "BISTROS, CAFES & CASUAL DINING",
+        "url": "https://theseletarmall.com.sg/shop/hans-cafe/"
+    },
+    {
+        "name": "JUEWEI \u7edd\u5473",
+        "location": "B1 \t #B1-K10",
+        "category": "TAKEAWAYS & FOOD COURT",
+        "url": "https://theseletarmall.com.sg/shop/juewei-%e7%bb%9d%e5%91%b3/"
+    },
+    {
+        "name": "JUICE FARM",
+        "location": "B1 \t #B1-K11",
+        "category": "TAKEAWAYS & FOOD COURT",
+        "url": "https://theseletarmall.com.sg/shop/juice-farm/"
+    },
+    {
+        "name": "KOI EXPRESS",
+        "location": "B1 \t #B1-K6",
+        "category": "TAKEAWAYS & FOOD COURT",
+        "url": "https://theseletarmall.com.sg/shop/koi-express/"
+    },
+    {
+        "name": "LAO HUO TANG",
+        "location": "B1 \t #B1-28/29",
+        "category": "RESTAURANTS",
+        "url": "https://theseletarmall.com.sg/shop/lao-huo-tang/"
+    },
+    {
+        "name": "LET\u2019S EAT",
+        "location": "B2 \t #B2-05/06",
+        "category": "TAKEAWAYS & FOOD COURT",
+        "url": "https://theseletarmall.com.sg/shop/lets-eat/"
+    },
+    {
+        "name": "LIHO@CAFE",
+        "location": "B1 \t #B1-27",
+        "category": "TAKEAWAYS & FOOD COURT",
+        "url": "https://theseletarmall.com.sg/shop/lihocafe/"
+    },
+    {
+        "name": "MCDONALD\u2019S",
+        "location": "LEVEL 1 \t #01-01 TO 06",
+        "category": "BISTROS, CAFES & CASUAL DINING",
+        "url": "https://theseletarmall.com.sg/shop/mcdonalds/"
+    },
+    {
+        "name": "MIX.STORE",
+        "location": "B1 \t #B1-23",
+        "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
+        "url": "https://theseletarmall.com.sg/shop/mix-store/"
+    },
+    {
+        "name": "MOS BURGER",
+        "location": "LEVEL 1 \t #01-46/47",
+        "category": "BISTROS, CAFES & CASUAL DINING",
+        "url": "https://theseletarmall.com.sg/shop/mos-burger/"
+    },
+    {
+        "name": "MR COCONUT",
+        "location": "B1 \t #B1-22",
+        "category": "TAKEAWAYS & FOOD COURT",
+        "url": "https://theseletarmall.com.sg/shop/mr-coconut/"
+    },
+    {
+        "name": "MY KAMPUNG",
+        "location": "B2 \t #B2-07",
+        "category": "BISTROS, CAFES & CASUAL DINING",
+        "url": "https://theseletarmall.com.sg/shop/my-kampung/"
+    },
+    {
+        "name": "NINE FRESH",
+        "location": "B1 \t #B1-K3",
+        "category": "TAKEAWAYS & FOOD COURT",
+        "url": "https://theseletarmall.com.sg/shop/nine-fresh/"
+    },
+    {
+        "name": "PLAYGROUND BY PLAYMADE",
+        "location": "LEVEL 3 \t #03-K3",
+        "category": "TAKEAWAYS & FOOD COURT",
+        "url": "https://theseletarmall.com.sg/shop/playground-by-playmade/"
+    },
+    {
+        "name": "POLAR PUFFS & CAKES",
+        "location": "B2 \t #B2-K3",
+        "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
+        "url": "https://theseletarmall.com.sg/shop/polar-puffs-cakes/"
+    },
+    {
+        "name": "PONTIAN WANTON NOODLE",
+        "location": "B1 \t #B1-K4/K5 & B1-K9",
+        "category": "BISTROS, CAFES & CASUAL DINING",
+        "url": "https://theseletarmall.com.sg/shop/pontian-wanton-noodle/"
+    },
+    {
+        "name": "POPEYES FAMOUS LOUISIANA CHICKEN",
+        "location": "LEVEL 1 \t #01-31 TO 33",
+        "category": "BISTROS, CAFES & CASUAL DINING",
+        "url": "https://theseletarmall.com.sg/shop/popeyes-famous-louisiana-chicken/"
+    },
+    {
+        "name": "POTATO CORNER",
+        "location": "B1 \t #B1-K12",
+        "category": "TAKEAWAYS & FOOD COURT",
+        "url": "https://theseletarmall.com.sg/shop/potato-corner/"
+    },
+    {
+        "name": "RAMEN HITOYOSHI",
+        "location": "LEVEL 2 \t #02-K6",
+        "category": "RESTAURANTS",
+        "url": "https://theseletarmall.com.sg/shop/ramen-hitoyoshi/"
+    },
+    {
+        "name": "SAIZERIYA",
+        "location": "LEVEL 2 \t #02-K1 TO K3",
+        "category": "BISTROS, CAFES & CASUAL DINING",
+        "url": "https://theseletarmall.com.sg/shop/saizeriya/"
+    },
+    {
+        "name": "SAKON THAI VILLAGE",
+        "location": "LEVEL 1 \t #01-54 TO 56",
+        "category": "RESTAURANTS",
+        "url": "https://theseletarmall.com.sg/shop/sakon-thai-village/"
+    },
+    {
+        "name": "SAN.WICH BY SWEE HENG",
+        "location": "B2 \t #B2-K1",
+        "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
+        "url": "https://theseletarmall.com.sg/shop/san-wich-by-swee-heng/"
+    },
+    {
+        "name": "SHIHLIN TAIWAN STREET SNACKS",
+        "location": "B1 \t #B1-K2",
+        "category": "TAKEAWAYS & FOOD COURT",
+        "url": "https://theseletarmall.com.sg/shop/shihlin-taiwan-street-snacks/"
+    },
+    {
+        "name": "SINGAPURA HERITAGE",
+        "location": "LEVEL 3 \t #03-10 TO 12",
+        "category": "TAKEAWAYS & FOOD COURT",
+        "url": "https://theseletarmall.com.sg/shop/singapura-heritage/"
+    },
+    {
+        "name": "SOI 47",
+        "location": "LEVEL 3 \t #03-22 & K4/K5",
+        "category": "RESTAURANTS",
+        "url": "https://theseletarmall.com.sg/shop/soi-47/"
+    },
+    {
+        "name": "SONG FA BAK KUT TEH",
+        "location": "LEVEL 1 \t #01-39 TO 41",
+        "category": "RESTAURANTS",
+        "url": "https://theseletarmall.com.sg/shop/song-fa-bak-kut-teh/"
+    },
+    {
+        "name": "STARBUCKS COFFEE",
+        "location": "LEVEL 1 \t #01-15/16",
+        "category": "BISTROS, CAFES & CASUAL DINING",
+        "url": "https://theseletarmall.com.sg/shop/starbucks-coffee/"
+    },
+    {
+        "name": "STUFF\u2019D",
+        "location": "B2 \t #B2-22/23",
+        "category": "TAKEAWAYS & FOOD COURT",
+        "url": "https://theseletarmall.com.sg/shop/stuffd/"
+    },
+    {
+        "name": "SUBWAY",
+        "location": "B1 \t #B1-08",
+        "category": "BISTROS, CAFES & CASUAL DINING",
+        "url": "https://theseletarmall.com.sg/shop/subway/"
+    },
+    {
+        "name": "SUKIYA",
+        "location": "LEVEL 1 \t #01-28 TO 30",
+        "category": "BISTROS, CAFES & CASUAL DINING",
+        "url": "https://theseletarmall.com.sg/shop/sukiya/"
+    },
+    {
+        "name": "SUSHI EXPRESS",
+        "location": "LEVEL 2 \t #02-K4/K5",
+        "category": "RESTAURANTS",
+        "url": "https://theseletarmall.com.sg/shop/sushi-express/"
+    },
+    {
+        "name": "SWEE HENG 1989 CLASSIC",
+        "location": "B1 \t #B1-K7 TO K9",
+        "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
+        "url": "https://theseletarmall.com.sg/shop/swee-heng-1989-classic/"
+    },
+    {
+        "name": "TAMJAI SAMGOR MIXIAN",
+        "location": "B1 \t #B1-01",
+        "category": "BISTROS, CAFES & CASUAL DINING",
+        "url": "https://theseletarmall.com.sg/shop/tamjai-samgor-mixian/"
+    },
+    {
+        "name": "TEN POINTS PORRIDGE",
+        "location": "B1 \t #B1-26",
+        "category": "BISTROS, CAFES & CASUAL DINING",
+        "url": "https://theseletarmall.com.sg/shop/ten-points-porridge/"
+    },
+    {
+        "name": "TEXAS CHICKEN",
+        "location": "B1 \t #B1-06/07",
+        "category": "BISTROS, CAFES & CASUAL DINING",
+        "url": "https://theseletarmall.com.sg/shop/texas-chicken/"
+    },
+    {
+        "name": "TIONG BAHRU JIAN BO SHUI KWEH",
+        "location": "B2 \t #B2-K2",
+        "category": "TAKEAWAYS & FOOD COURT",
+        "url": "https://theseletarmall.com.sg/shop/tiong-bahru-jian-bo-shui-kweh/"
+    },
+    {
+        "name": "TOAST BOX",
+        "location": "LEVEL 1 \t #01-07/08",
+        "category": "BISTROS, CAFES & CASUAL DINING",
+        "url": "https://theseletarmall.com.sg/shop/toast-box/"
+    },
+    {
+        "name": "UMISUSHI",
+        "location": "B1 \t #B1-09",
+        "category": "BISTROS, CAFES & CASUAL DINING",
+        "url": "https://theseletarmall.com.sg/shop/umisushi/"
+    },
+    {
+        "name": "WOOWFLES",
+        "location": "B1 \t #B1-K1",
+        "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
+        "url": "https://theseletarmall.com.sg/shop/woowfles/"
+    },
+    {
+        "name": "XIANG XIANG HUNAN CUISINE",
+        "location": "LEVEL 2 \t #02-11/12",
+        "category": "RESTAURANTS",
+        "url": "https://theseletarmall.com.sg/shop/xiang-xiang-hunan-cuisine/"
+    },
+    {
+        "name": "YA KUN KAYA TOAST",
+        "location": "B1 \t #B1-20/21",
+        "category": "BISTROS, CAFES & CASUAL DINING",
+        "url": "https://theseletarmall.com.sg/shop/ya-kun-kaya-toast/"
+    },
+    {
+        "name": "YAKINIKU-GO",
+        "location": "LEVEL 1 \t #01-49 TO 53",
+        "category": "RESTAURANTS",
+        "url": "https://theseletarmall.com.sg/shop/yakiniku-go/"
+    },
+    {
+        "name": "YEW KEE SPECIALTIES",
+        "location": "B2 \t #B2-13/14",
+        "category": "BISTROS, CAFES & CASUAL DINING",
+        "url": "https://theseletarmall.com.sg/shop/yew-kee-specialties/"
+    }
+]
