@@ -1,4 +1,4 @@
-# `napkin.md`
+# `NAPKIN.md`
 
 ## FUA
 
