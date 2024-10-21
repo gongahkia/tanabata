@@ -1,450 +1,450 @@
 [
     {
         "name": "ABURI-EN",
+        "location": "#01-36",
         "description": "11am-10pm, 6538 8012",
         "category": "Food & Beverages",
-        "location": "#01-36",
         "url": "https://changicitypoint.com.sg/store/aburi-en-and-tamago-en/"
     },
     {
         "name": "AMPS TEA",
+        "location": "#B1-04",
         "description": "11am-9.30pm, 8211 9600",
         "category": "Food & Beverages",
-        "location": "#B1-04",
         "url": "https://changicitypoint.com.sg/store/chagee/"
     },
     {
         "name": "ANDES BY ASTONS",
+        "location": "#02-02A",
         "description": "11.30am-10pm, 6320 0734",
         "category": "Food & Beverages",
-        "location": "#02-02A",
         "url": "https://changicitypoint.com.sg/store/andes-by-astons/"
     },
     {
         "name": "BEN\u2019S COOKIES",
+        "location": "#01-20",
         "description": "10.30am-8pm, 83210342",
         "category": "Food & Beverages",
-        "location": "#01-20",
         "url": "https://changicitypoint.com.sg/store/bens-cookies/"
     },
     {
         "name": "BLVD",
+        "location": "#01-72 TO 73",
         "description": "11am-10pm, 9105 6782",
         "category": "Food & Beverages",
-        "location": "#01-72 TO 73",
         "url": "https://changicitypoint.com.sg/store/blvd/"
     },
     {
         "name": "BOOST",
+        "location": "#01-42",
         "description": "11am-10pm, 8484 2494",
         "category": "Food & Beverages",
-        "location": "#01-42",
         "url": "https://changicitypoint.com.sg/store/boost/"
     },
     {
         "name": "BURGER KING",
+        "location": "#01-30/31",
         "description": "8am-10pm, 6969 7551",
         "category": "Food & Beverages",
-        "location": "#01-30/31",
         "url": "https://changicitypoint.com.sg/store/burger-king-2/"
     },
     {
         "name": "BUTAO & KAGURAZAKA SARYO",
+        "location": "#B1-34",
         "description": "11.30am-10pm, 6244 8760",
         "category": "Food & Beverages",
-        "location": "#B1-34",
         "url": "https://changicitypoint.com.sg/store/butao-kagurazaka-saryo/"
     },
     {
         "name": "CANOPY",
+        "location": "#01-70 TO 71",
         "description": "11am-10pm, 6556 1533",
         "category": "Food & Beverages",
-        "location": "#01-70 TO 71",
         "url": "https://changicitypoint.com.sg/store/canopy/"
     },
     {
         "name": "DELIFRANCE",
+        "location": "#01-45/46",
         "description": "8am-9pm, 6443 0970",
         "category": "Food & Beverages",
-        "location": "#01-45/46",
         "url": "https://changicitypoint.com.sg/store/delifrance/"
     },
     {
         "name": "DOUGH CULTURE",
+        "location": "#B1-K3",
         "description": "9am-9pm, 6636 3356",
         "category": "Food & Beverages",
-        "location": "#B1-K3",
         "url": "https://changicitypoint.com.sg/store/dough-culture/"
     },
     {
         "name": "FRAGRANCE",
+        "location": "#B1-19",
         "description": "10am-9pm, 6694 8229",
         "category": "Food & Beverages",
-        "location": "#B1-19",
         "url": "https://changicitypoint.com.sg/store/fragrance/"
     },
     {
         "name": "GIN KHAO",
+        "location": "",
         "description": "11am-9:30pm, Food & Beverages",
         "category": "#B1-36",
-        "location": "",
         "url": "https://changicitypoint.com.sg/store/gin-khao-coming-soon/"
     },
     {
         "name": "GODAIME \u4e94\u4ee3\u76ee",
+        "location": "#01-48",
         "description": "11am-10pm, 6443 0334",
         "category": "Food & Beverages",
-        "location": "#01-48",
         "url": "https://changicitypoint.com.sg/store/godaime-%e4%ba%94%e4%bb%a3%e7%9b%ae/"
     },
     {
         "name": "GONG YUAN MA LA TANG",
+        "location": "#B1-51/52",
         "description": "11am-9.30pm, 6203 2407",
         "category": "Food & Beverages",
-        "location": "#B1-51/52",
         "url": "https://changicitypoint.com.sg/store/gong-yuan-ma-la-tang/"
     },
     {
         "name": "HAN\u2019S",
+        "location": "#01-51/52/53",
         "description": "Mon-Thur, Sun: 7.30am-9.30pm Fri & Sat: 7.30am-10pm, 6708 6752",
         "category": "Food & Beverages",
-        "location": "#01-51/52/53",
         "url": "https://changicitypoint.com.sg/store/hans/"
     },
     {
         "name": "HEY LONG CHA",
+        "location": "#01-K20",
         "description": "10.30am-9.30pm, 6604 6887",
         "category": "Food & Beverages",
-        "location": "#01-K20",
         "url": "https://changicitypoint.com.sg/store/hey-long-cha/"
     },
     {
         "name": "HUGGS COFFEE",
+        "location": "#01-50",
         "description": "Mon-Fri: 8am-8pm Sat & Sun: 9am-9pm, 9816 9066",
         "category": "Food & Beverages",
-        "location": "#01-50",
         "url": "https://changicitypoint.com.sg/store/huggs-coffee/"
     },
     {
         "name": "ICHIBAN SUSHI AND IDATEN UDON",
+        "location": "#B1-12/13",
         "description": "11.30am-10pm, 6636 1638 / 6636 1736",
         "category": "Food & Beverages",
-        "location": "#B1-12/13",
         "url": "https://changicitypoint.com.sg/store/ichiban-sushi-and-idaten-udon/"
     },
     {
         "name": "JOLLIBEE",
+        "location": "#01-37 TO 38",
         "description": "10am-10pm, 8207 7195",
         "category": "Food & Beverages",
-        "location": "#01-37 TO 38",
         "url": "https://changicitypoint.com.sg/store/jollibee/"
     },
     {
         "name": "KOI EXPRESS",
+        "location": "#B1-18",
         "description": "11am-9.30pm, 6636 0347",
         "category": "Food & Beverages",
-        "location": "#B1-18",
         "url": "https://changicitypoint.com.sg/store/koi-express/"
     },
     {
         "name": "KRISPY KREME",
+        "location": "",
         "description": "10am-8pm, Food & Beverages",
         "category": "#01-20",
-        "location": "",
         "url": "https://changicitypoint.com.sg/store/krispy-kreme/"
     },
     {
         "name": "LI XIN TEOCHEW FISHBALL NOODLES",
+        "location": "#B1-50",
         "description": "9.30am-8.30pm, 6257 8700",
         "category": "Food & Beverages",
-        "location": "#B1-50",
         "url": "https://changicitypoint.com.sg/store/li-xin-teochew-fishball-noodles/"
     },
     {
         "name": "LIHO TEA",
+        "location": "#B1-41",
         "description": "10am-10pm, 6027 5797",
         "category": "Food & Beverages",
-        "location": "#B1-41",
         "url": "https://changicitypoint.com.sg/store/liho/"
     },
     {
         "name": "LLAOLLAO",
+        "location": "",
         "description": "Mon-Fri: 11am-8pm Sat & Sun: 11am-9pm, Food & Beverages",
         "category": "#01-20",
-        "location": "",
         "url": "https://changicitypoint.com.sg/store/llaollao/"
     },
     {
         "name": "MCDONALD\u2019S",
+        "location": "#01-10/11",
         "description": "7.30am-10pm, 6636 0681",
         "category": "Food & Beverages",
-        "location": "#01-10/11",
         "url": "https://changicitypoint.com.sg/store/mcdonalds/"
     },
     {
         "name": "MIX.STORE",
+        "location": "#01-24",
         "description": "10am-10pm, 8853 8692",
         "category": "Food & Beverages",
-        "location": "#01-24",
         "url": "https://changicitypoint.com.sg/store/mix-store/"
     },
     {
         "name": "MONSTER CHILI GRILLED FISH & MALA HOTPOT",
+        "location": "#01-43",
         "description": "11am-10pm, 8132 8757",
         "category": "Food & Beverages",
-        "location": "#01-43",
         "url": "https://changicitypoint.com.sg/store/monster-chili-grilled-fish-mala-hotpot/"
     },
     {
         "name": "MOS BURGER",
+        "location": "#B1-35A",
         "description": "10am-10pm, 6443 6088",
         "category": "Food & Beverages",
-        "location": "#B1-35A",
         "url": "https://changicitypoint.com.sg/store/mos-burger/"
     },
     {
         "name": "MR BEAN",
+        "location": "#B1-21",
         "description": "7am-9pm, 8167 0610",
         "category": "Food & Beverages",
-        "location": "#B1-21",
         "url": "https://changicitypoint.com.sg/store/mr-bean/"
     },
     {
         "name": "Mr. Coconut",
+        "location": "#01-k21",
         "description": "11am-9.45pm, 6015 0328",
         "category": "Food & Beverages",
-        "location": "#01-k21",
         "url": "https://changicitypoint.com.sg/store/mr-coconut-coming-soon/"
     },
     {
         "name": "MY KAMPUNG",
+        "location": "#02-01",
         "description": "8am-9.30pm, 6555 6992",
         "category": "Food & Beverages",
-        "location": "#02-01",
         "url": "https://changicitypoint.com.sg/store/my-kampung/"
     },
     {
         "name": "OLD CHANG KEE",
+        "location": "#B1-K2",
         "description": "10am-9pm, 6636 3216",
         "category": "Food & Beverages",
-        "location": "#B1-K2",
         "url": "https://changicitypoint.com.sg/store/old-chang-kee/"
     },
     {
         "name": "OLD TEA HUT",
+        "location": "#01-K6",
         "description": "Mon-Fri: 7.30am-8pm Sat & Sun: 8.30am-8.30pm, 9187 0461",
         "category": "Food & Beverages",
-        "location": "#01-K6",
         "url": "https://changicitypoint.com.sg/store/old-tea-hut/"
     },
     {
         "name": "PAPER RICE",
+        "location": "#B1-26 TO 27",
         "description": "11.30am-10pm, 6443 1261",
         "category": "Food & Beverages",
-        "location": "#B1-26 TO 27",
         "url": "https://changicitypoint.com.sg/store/paper-rice/"
     },
     {
         "name": "PRIMA DELI",
+        "location": "#B1-05",
         "description": "11.30am-8.30pm, 6444 2453",
         "category": "Food & Beverages",
-        "location": "#B1-05",
         "url": "https://changicitypoint.com.sg/store/prima-deli/"
     },
     {
         "name": "PROOFER BAKERY & PIZZERIA",
+        "location": "#B1-39",
         "description": "10am-10pm, 6636 0366",
         "category": "Food & Beverages",
-        "location": "#B1-39",
         "url": "https://changicitypoint.com.sg/store/proofer-bakery-pizzeria-2/"
     },
     {
         "name": "ROLL GAADI",
+        "location": "#B1-06",
         "description": "11am-9:30pm, 9455 2421",
         "category": "Food & Beverages",
-        "location": "#B1-06",
         "url": "https://changicitypoint.com.sg/store/roll-gaadi/"
     },
     {
         "name": "SAIZERIYA",
+        "location": "#B1-44/45",
         "description": "11am-10pm, 6443 8567",
         "category": "Food & Beverages",
-        "location": "#B1-44/45",
         "url": "https://changicitypoint.com.sg/store/saizeriya/"
     },
     {
         "name": "SALMON WARRIOR EXPRESS",
+        "location": "#B1-37",
         "description": "11am-9pm, 6962 2553",
         "category": "Food & Beverages",
-        "location": "#B1-37",
         "url": "https://changicitypoint.com.sg/store/salmon-warrior-express/"
     },
     {
         "name": "SEOUL GARDEN HOTPOT",
+        "location": "#01-18/19",
         "description": "11am-9.30pm, 6444 6339",
         "category": "Food & Beverages",
-        "location": "#01-18/19",
         "url": "https://changicitypoint.com.sg/store/seoul-garden-hotpot/"
     },
     {
         "name": "SF FRUITS & JUICES",
+        "location": "",
         "description": "11am-9pm, Food & Beverages",
         "category": "#B1-38",
-        "location": "",
         "url": "https://changicitypoint.com.sg/store/sf/"
     },
     {
         "name": "SHABU SAI",
+        "location": "#B1-28/29",
         "description": "11.30am-10pm, 6444 9569",
         "category": "Food & Beverages",
-        "location": "#B1-28/29",
         "url": "https://changicitypoint.com.sg/store/shabu-sai/"
     },
     {
         "name": "SNACKZ IT!",
+        "location": "#B1-40",
         "description": "11am-9pm, 8360 0113",
         "category": "Food & Beverages",
-        "location": "#B1-40",
         "url": "https://changicitypoint.com.sg/store/snackz-it/"
     },
     {
         "name": "STARBUCKS COFFEE",
+        "location": "#01-25",
         "description": "Mon-Fri: 7.30am-10pm Sat & Sun: 8am-10pm, 6910 1143",
         "category": "Food & Beverages",
-        "location": "#01-25",
         "url": "https://changicitypoint.com.sg/store/starbucks-coffee/"
     },
     {
         "name": "STUFF\u2019D",
+        "location": "#B1-20",
         "description": "10am-8pm, 9766 9332",
         "category": "Food & Beverages",
-        "location": "#B1-20",
         "url": "https://changicitypoint.com.sg/store/stuffd/"
     },
     {
         "name": "SUKIYA",
+        "location": "#01-12",
         "description": "10am-10pm, 8281 8965",
         "category": "Food & Beverages",
-        "location": "#01-12",
         "url": "https://changicitypoint.com.sg/store/sukiya/"
     },
     {
         "name": "TANING",
+        "location": "B1-K6",
         "description": "11am - 9pm, 9724 5233",
         "category": "Food & Beverages",
-        "location": "B1-K6",
         "url": "https://changicitypoint.com.sg/store/taning/"
     },
     {
         "name": "THE COFFEE BEAN & TEA LEAF",
+        "location": "#01-41",
         "description": "7.30am-10pm, 6636 1244",
         "category": "Food & Beverages",
-        "location": "#01-41",
         "url": "https://changicitypoint.com.sg/store/the-coffee-bean-tea-leaf/"
     },
     {
         "name": "THE DIM SUM PLACE",
+        "location": "#B1-30/31",
         "description": "Mon-Thur: 10.30am-9.30pm Fri-Sun: 10am-10pm, 6592 8815",
         "category": "Food & Beverages",
-        "location": "#B1-30/31",
         "url": "https://changicitypoint.com.sg/store/the-dim-sum-place/"
     },
     {
         "name": "THE ORIGINAL BOAT NOODLE",
+        "location": "#B1-34A",
         "description": "11.30am-9pm, 6787 8134",
         "category": "Food & Beverages",
-        "location": "#B1-34A",
         "url": "https://changicitypoint.com.sg/store/the-original-boat-noodle/"
     },
     {
         "name": "THE SOUP SPOON UNION",
+        "location": "#B1-24/25",
         "description": "11am-9.30pm, 8990 2170",
         "category": "Food & Beverages",
-        "location": "#B1-24/25",
         "url": "https://changicitypoint.com.sg/store/the-soup-spoon-union/"
     },
     {
         "name": "THE WHITE TIFFIN",
+        "location": "#01-44",
         "description": "11am-9pm, 8309 4349",
         "category": "Food & Beverages",
-        "location": "#01-44",
         "url": "https://changicitypoint.com.sg/store/the-white-tiffin/"
     },
     {
         "name": "TOASTBOX",
+        "location": "#01-K7",
         "description": "7.30am-9.30pm, 6443 0103",
         "category": "Food & Beverages",
-        "location": "#01-K7",
         "url": "https://changicitypoint.com.sg/store/toastbox/"
     },
     {
         "name": "TONKATSU ENBITON",
+        "location": "#01-35",
         "description": "11am-10pm, 6538 8003",
         "category": "Food & Beverages",
-        "location": "#01-35",
         "url": "https://changicitypoint.com.sg/store/tonkatsu-enbiton/"
     },
     {
         "name": "TORORI",
+        "location": "#01-K8",
         "description": "10am-9pm, 6901 7758",
         "category": "Food & Beverages",
-        "location": "#01-K8",
         "url": "https://changicitypoint.com.sg/store/fruit-paradise-tokyo-cafe/"
     },
     {
         "name": "TWELVE CUPCAKES",
+        "location": "#B1-K4",
         "description": "10am-9.45pm, 6636 4546",
         "category": "Food & Beverages",
-        "location": "#B1-K4",
         "url": "https://changicitypoint.com.sg/store/bens-cookies-3-2/"
     },
     {
         "name": "UNCLE JOHN\u2019S MAKAN PLACE",
+        "location": "",
         "description": "11am-9:30pm, Food & Beverages",
         "category": "#B1-35",
-        "location": "",
         "url": ""
     },
     {
         "name": "VIVA LOCA",
+        "location": "#01-68/69",
         "description": "11am-12am, 8322 5626",
         "category": "Food & Beverages",
-        "location": "#01-68/69",
         "url": "https://changicitypoint.com.sg/store/viva-loca/"
     },
     {
         "name": "VIVA LOCA INTERNATIONAL",
+        "location": "#01-66/67",
         "description": "11am-12am, 8322 5626",
         "category": "Food & Beverages",
-        "location": "#01-66/67",
         "url": "https://changicitypoint.com.sg/store/viva-loca-international/"
     },
     {
         "name": "WOK HEY",
+        "location": "#B1-07",
         "description": "10.30am-10pm, 8440 8407",
         "category": "Food & Beverages",
-        "location": "#B1-07",
         "url": "https://changicitypoint.com.sg/store/wok-hey/"
     },
     {
         "name": "WOK MASTER",
+        "location": "#01-28",
         "description": "10am-10pm, 6909 3144",
         "category": "Food & Beverages",
-        "location": "#01-28",
         "url": "https://changicitypoint.com.sg/store/wok-master/"
     },
     {
         "name": "YA KUN KAYA TOAST",
+        "location": "#B1-K1",
         "description": "7.30am-5.30pm, 8057 0329",
         "category": "Food & Beverages",
-        "location": "#B1-K1",
         "url": "https://changicitypoint.com.sg/store/ya-kun-kaya-toast/"
     },
     {
         "name": "YAKINIKU SHOKUDO",
+        "location": "#B1-32/33",
         "description": "11.30am-10pm, 6444 0911",
         "category": "Food & Beverages",
-        "location": "#B1-32/33",
         "url": "https://changicitypoint.com.sg/store/yakiniku-shokudo-2/"
     }
 ]

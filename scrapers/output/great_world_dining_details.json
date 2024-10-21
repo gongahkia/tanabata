@@ -1,553 +1,666 @@
 [
     {
+        "name": "NONG GENG JI HUNAN HOME-STYLE CUISINE (OPENING IN NOVEMBER)",
+        "location": "",
+        "description": "",
+        "category": "",
+        "url": "https://shop.greatworld.com.sg/shop/nong-geng-ji-hunan-home-style-cuisine-opening-in-november/"
+    },
+    {
+        "name": "RITZ APPLE STRUDEL",
+        "location": "",
+        "description": "",
+        "category": "",
+        "url": "https://shop.greatworld.com.sg/shop/ritz-apple-strudel/"
+    },
+    {
+        "name": "SUKIYA",
+        "location": "",
+        "description": "",
+        "category": "",
+        "url": "https://shop.greatworld.com.sg/shop/sukiya/"
+    },
+    {
         "name": "1A HERITAGE",
         "location": "#B1-K128",
+        "description": "",
         "category": "TAKEAWAYS & FOOD COURT",
         "url": "https://shop.greatworld.com.sg/shop/1a-heritage/"
     },
     {
         "name": "365 JUICES BAR",
         "location": "#B1-K112",
+        "description": "",
         "category": "TAKEAWAYS & FOOD COURT",
         "url": "https://shop.greatworld.com.sg/shop/365-juices-bar/"
     },
     {
         "name": "8 BY BOTTLES & BOTTLES",
         "location": "#01-K101",
+        "description": "",
         "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
         "url": "https://shop.greatworld.com.sg/shop/8-by-bottles-bottles/"
     },
     {
         "name": "AWFULLY CHOCOLATE CAF\u00c9",
         "location": "#01-K102",
+        "description": "",
         "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
         "url": "https://shop.greatworld.com.sg/shop/awfully-chocolate-cafe/"
     },
     {
         "name": "B FOR BAGEL",
         "location": "#B1-K122",
+        "description": "",
         "category": "TAKEAWAYS & FOOD COURT",
         "url": "https://shop.greatworld.com.sg/shop/b-for-bagel/"
     },
     {
         "name": "BAKER\u2019S BREW",
         "location": "#B1-K103",
+        "description": "",
         "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
         "url": "https://shop.greatworld.com.sg/shop/bakers-brew/"
     },
     {
         "name": "BANGKOK JAM",
         "location": "#02-127",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/bangkok-jam/"
     },
     {
         "name": "BEARD PAPA\u2019S",
         "location": "#B1-K126",
+        "description": "",
         "category": "TAKEAWAYS & FOOD COURT",
         "url": "https://shop.greatworld.com.sg/shop/beard-papas/"
     },
     {
         "name": "BEE CHENG HIANG",
         "location": "#B1-130",
+        "description": "",
         "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
         "url": "https://shop.greatworld.com.sg/shop/bee-cheng-hiang/"
     },
     {
         "name": "BOOST JUICE BARS",
         "location": "#B1-K127",
+        "description": "",
         "category": "TAKEAWAYS & FOOD COURT",
         "url": "https://shop.greatworld.com.sg/shop/boost-juice-bars/"
     },
     {
         "name": "BREADTALK",
         "location": "#B1-105",
+        "description": "",
         "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
         "url": "https://shop.greatworld.com.sg/shop/breadtalk/"
     },
     {
         "name": "CEDELE ALL-DAY DINING",
         "location": "#B1-K116",
+        "description": "",
         "category": "BISTROS, CAFES & CASUAL DINING",
         "url": "https://shop.greatworld.com.sg/shop/cedele-all-day-dining/"
     },
     {
         "name": "CHIN SIN HUAN \u632f\u65b0\u56ed",
         "location": "#B1-K102",
+        "description": "",
         "category": "TAKEAWAYS & FOOD COURT",
         "url": "https://shop.greatworld.com.sg/shop/chin-sin-huan-%e6%8c%af%e6%96%b0%e5%9b%ad/"
     },
     {
         "name": "COLLIN\u2019S\u00ae",
         "location": "#B1-106/107",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/collins/"
     },
     {
         "name": "CRYSTAL JADE HONG KONG KITCHEN",
         "location": "#03-127",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/crystal-jade-hong-kong-kitchen/"
     },
     {
         "name": "DA PAOLO GASTRONOMIA",
         "location": "#01-163",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/da-paolo-gastronomia/"
     },
     {
         "name": "DIAN XIAO ER (OPENING IN DECEMBER)",
         "location": "#01-140",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/dian-xiao-er-opening-in-december/"
     },
     {
         "name": "DIN TAI FUNG",
         "location": "#01-138",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/din-tai-fung/"
     },
     {
         "name": "FOOD JUNCTION",
         "location": "#03-116",
+        "description": "",
         "category": "TAKEAWAYS & FOOD COURT",
         "url": "https://shop.greatworld.com.sg/shop/food-junction/"
     },
     {
         "name": "FUTORU",
         "location": "#B1-K123",
+        "description": "",
         "category": "TAKEAWAYS & FOOD COURT",
         "url": "https://shop.greatworld.com.sg/shop/futoru/"
     },
     {
         "name": "GINZA ANZU",
         "location": "#01-113/114",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/ginza-anzu/"
     },
     {
         "name": "GOKOKU JAPANESE BAKERY",
         "location": "#B1-136",
+        "description": "",
         "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
         "url": "https://shop.greatworld.com.sg/shop/gokoku-japanese-bakery/"
     },
     {
         "name": "GONG CHA",
         "location": "#B1-K104",
+        "description": "",
         "category": "TAKEAWAYS & FOOD COURT",
         "url": "https://shop.greatworld.com.sg/shop/gong-cha/"
     },
     {
         "name": "GONG YUAN MA LA TANG",
         "location": "#01-141",
+        "description": "",
         "category": "BISTROS, CAFES & CASUAL DINING",
         "url": "https://shop.greatworld.com.sg/shop/gong-yuan-ma-la-tang/"
     },
     {
         "name": "GREYBOX COFFEE (OPENING IN NOVEMBER)",
         "location": "#01-K108 / #01-K109",
+        "description": "",
         "category": "BISTROS, CAFES & CASUAL DINING",
         "url": "https://shop.greatworld.com.sg/shop/greybox-coffee-opening-in-november/"
     },
     {
         "name": "GUZMAN Y GOMEZ (OPENING IN NOVEMBER)",
         "location": "#B1-K119 & B1-K135",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/guzman-y-gomez-opening-in-november/"
     },
     {
         "name": "HAKU SUSHI",
         "location": "#B1-135",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/haku-sushi/"
     },
     {
         "name": "HENRI CHARPENTIER",
         "location": "#01-K103",
+        "description": "",
         "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
         "url": "https://shop.greatworld.com.sg/shop/henri-charpentier/"
     },
     {
         "name": "HOKKAIDO DOSANKO PLAZA MEIDI-YA",
         "location": "#B2-101/107",
+        "description": "",
         "category": "BISTROS, CAFES & CASUAL DINING",
         "url": "https://shop.greatworld.com.sg/shop/hokkaido-dosanko-plaza-meidi-ya/"
     },
     {
         "name": "HONEYWORLD\u00ae",
         "location": "#B1-K108",
+        "description": "",
         "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
         "url": "https://shop.greatworld.com.sg/shop/honeyworld/"
     },
     {
         "name": "HONG KONG EGGLET",
         "location": "#B1-K101",
+        "description": "",
         "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
         "url": "https://shop.greatworld.com.sg/shop/hong-kong-egglet/"
     },
     {
         "name": "HOTOTOGISU RAMEN",
         "location": "#01-143",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/hototogisu-ramen/"
     },
     {
         "name": "ICHIBAN BOSHI",
         "location": "#B1-131",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/ichiban-boshi/"
     },
     {
         "name": "IMPERIAL TREASURE BAR + GRILL",
         "location": "#02-111/112",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/imperial-treasure-bar-grill/"
     },
     {
         "name": "IMPERIAL TREASURE CANTONESE CUISINE",
         "location": "#02-111/112",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/imperial-treasure-cantonese-cuisine/"
     },
     {
         "name": "ISSHO IZAKAYA",
         "location": "#01-123",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/issho-izakaya/"
     },
     {
         "name": "JI XIANG KUEH (OPENING IN OCTOBER)",
         "location": "#B1-K111",
+        "description": "",
         "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
         "url": "https://shop.greatworld.com.sg/shop/ji-xiang-kueh-opening-in-october/"
     },
     {
         "name": "KEDAIKUEKUE",
         "location": "#B1-K107",
+        "description": "",
         "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
         "url": "https://shop.greatworld.com.sg/shop/kedaikuekue/"
     },
     {
         "name": "KEI KAISENDON",
         "location": "#B1-129",
+        "description": "",
         "category": "BISTROS, CAFES & CASUAL DINING",
         "url": "https://shop.greatworld.com.sg/shop/kei-kaisendon/"
     },
     {
         "name": "KIND KONES",
         "location": "#01-K107",
+        "description": "",
         "category": "BISTROS, CAFES & CASUAL DINING",
         "url": "https://shop.greatworld.com.sg/shop/kind-kones/"
     },
     {
         "name": "KING OF BRAISE \u7edd\u5473",
         "location": "#B1-K113",
+        "description": "",
         "category": "TAKEAWAYS & FOOD COURT",
         "url": "https://shop.greatworld.com.sg/shop/king-of-braise-%e7%bb%9d%e5%91%b3/"
     },
     {
         "name": "KITH CAF\u00c9",
         "location": "#02-152/153",
+        "description": "",
         "category": "BISTROS, CAFES & CASUAL DINING",
         "url": "https://shop.greatworld.com.sg/shop/kith-cafe/"
     },
     {
         "name": "KOI TH\u00c9",
         "location": "#01-125",
+        "description": "",
         "category": "TAKEAWAYS & FOOD COURT",
         "url": "https://shop.greatworld.com.sg/shop/koi-the/"
     },
     {
         "name": "KOU TEPPAN",
         "location": "#B1-134",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/kou-teppan/"
     },
     {
         "name": "KRISPY KREME",
         "location": "#B1-K110",
+        "description": "",
         "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
         "url": "https://shop.greatworld.com.sg/shop/krispy-kreme/"
     },
     {
         "name": "KURIYA DINING",
         "location": "#01-127",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/kuriya-dining/"
     },
     {
         "name": "KURIYA JAPANESE MARKET",
         "location": "#B1-132",
+        "description": "",
         "category": "BISTROS, CAFES & CASUAL DINING",
         "url": "https://shop.greatworld.com.sg/shop/kuriya-japanese-market/"
     },
     {
         "name": "LENU CHEF WAI\u2019S NOODLE BAR",
         "location": "#01-112",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/lenu-chef-wais-noodle-bar/"
     },
     {
         "name": "LLAOLLAO",
         "location": "#B1-K125",
+        "description": "",
         "category": "TAKEAWAYS & FOOD COURT",
         "url": "https://shop.greatworld.com.sg/shop/llaollao/"
     },
     {
         "name": "M&S FOOD",
         "location": "#B1-142",
+        "description": "",
         "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
         "url": "https://shop.greatworld.com.sg/shop/ms-food/"
     },
     {
         "name": "MALAYSIA BOLEH!",
         "location": "#B1-102/103",
+        "description": "",
         "category": "TAKEAWAYS & FOOD COURT",
         "url": "https://shop.greatworld.com.sg/shop/malaysia-boleh/"
     },
     {
         "name": "MAVRX COFFEE",
         "location": "#01-129",
+        "description": "",
         "category": "BISTROS, CAFES & CASUAL DINING",
         "url": "https://shop.greatworld.com.sg/shop/mavrx-coffee/"
     },
     {
         "name": "MCDONALD\u2019S",
         "location": "#01-124",
+        "description": "",
         "category": "BISTROS, CAFES & CASUAL DINING",
         "url": "https://shop.greatworld.com.sg/shop/mcdonalds/"
     },
     {
         "name": "MOON JUICE KOMBUCHA",
         "location": "#B1-K105",
+        "description": "",
         "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
         "url": "https://shop.greatworld.com.sg/shop/moon-juice-kombucha/"
     },
     {
         "name": "MR. COCONUT",
         "location": "#B1-K115",
+        "description": "",
         "category": "TAKEAWAYS & FOOD COURT",
         "url": "https://shop.greatworld.com.sg/shop/mr-coconut/"
     },
     {
         "name": "NONG GENG JI HUNAN HOME-STYLE CUISINE (OPENING IN NOVEMBER)",
         "location": "#01-115/116",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/nong-geng-ji-hunan-home-style-cuisine-opening-in-november/"
     },
     {
         "name": "OKINAWAN DINER NIRAI-KANAI",
         "location": "#01-107/108",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/okinawan-diner-nirai-kanai/"
     },
     {
         "name": "PS.CAFE",
         "location": "#01-155/156",
+        "description": "",
         "category": "BISTROS, CAFES & CASUAL DINING",
         "url": "https://shop.greatworld.com.sg/shop/ps-cafe/"
     },
     {
         "name": "PUTIEN",
         "location": "#02-149/150",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/putien/"
     },
     {
         "name": "RE.JUVE",
         "location": "#01-K112",
+        "description": "",
         "category": "TAKEAWAYS & FOOD COURT",
         "url": "https://shop.greatworld.com.sg/shop/re-juve/"
     },
     {
         "name": "RITZ APPLE STRUDEL",
         "location": "B1-K129",
+        "description": "",
         "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
         "url": "https://shop.greatworld.com.sg/shop/ritz-apple-strudel/"
     },
     {
         "name": "ROLLGAADI",
         "location": "#B1-K109",
+        "description": "",
         "category": "TAKEAWAYS & FOOD COURT",
         "url": "https://shop.greatworld.com.sg/shop/rollgaadi/"
     },
     {
         "name": "RYAN\u2019S GROCERY",
         "location": "#B1-144/145",
+        "description": "",
         "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
         "url": "https://shop.greatworld.com.sg/shop/ryans-grocery/"
     },
     {
         "name": "RYAN\u2019S KITCHEN",
         "location": "#B1-146",
+        "description": "",
         "category": "BISTROS, CAFES & CASUAL DINING",
         "url": "https://shop.greatworld.com.sg/shop/ryans-kitchen/"
     },
     {
         "name": "SALADSTOP!",
         "location": "#B1-128",
+        "description": "",
         "category": "BISTROS, CAFES & CASUAL DINING",
         "url": "https://shop.greatworld.com.sg/shop/saladstop/"
     },
     {
         "name": "SCOOP WHOLEFOODS AUSTRALIA",
         "location": "#01-148",
+        "description": "",
         "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
         "url": "https://shop.greatworld.com.sg/shop/scoop-wholefoods-australia/"
     },
     {
         "name": "SHAKE SHACK",
         "location": "#01-101",
+        "description": "",
         "category": "BISTROS, CAFES & CASUAL DINING",
         "url": "https://shop.greatworld.com.sg/shop/shake-shack/"
     },
     {
         "name": "SKY SKY FRIED CHICKEN (OPENING IN OCTOBER)",
         "location": "#B1-K124",
+        "description": "",
         "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
         "url": "https://shop.greatworld.com.sg/shop/sky-sky-fried-chicken-opening-in-october/"
     },
     {
         "name": "STARBUCKS COFFEE",
         "location": "#02-K104/106",
+        "description": "",
         "category": "BISTROS, CAFES & CASUAL DINING",
         "url": "https://shop.greatworld.com.sg/shop/starbucks-coffee/"
     },
     {
         "name": "STUFF\u2019D",
         "location": "#B1-K121",
+        "description": "",
         "category": "TAKEAWAYS & FOOD COURT",
         "url": "https://shop.greatworld.com.sg/shop/stuffd/"
     },
     {
         "name": "SUBWAY\u00ae",
         "location": "#01-142",
+        "description": "",
         "category": "BISTROS, CAFES & CASUAL DINING",
         "url": "https://shop.greatworld.com.sg/shop/subway/"
     },
     {
         "name": "SUKIYA",
         "location": "#01-111",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/sukiya/"
     },
     {
         "name": "TAI ER",
         "location": "#01-122",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/tai-er/"
     },
     {
         "name": "TAJIMAYA YAKINIKU",
         "location": "#B1-115",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/tajimaya-yakiniku/"
     },
     {
         "name": "TAMBUAH MAS INDONESIAN RESTAURANT",
         "location": "#B1-110/111",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/tambuah-mas-indonesian-restaurant/"
     },
     {
         "name": "TCC \u2013 THE CONNOISSEUR CONCERTO",
         "location": "#01-119",
+        "description": "",
         "category": "BISTROS, CAFES & CASUAL DINING",
         "url": "https://shop.greatworld.com.sg/shop/tcc-the-connoisseur-concerto/"
     },
     {
         "name": "TEMPURA MAKINO",
         "location": "#B1-112/113",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/tempura-makino/"
     },
     {
         "name": "THAT SKEWER BAR",
         "location": "#B1-K106",
+        "description": "",
         "category": "TAKEAWAYS & FOOD COURT",
         "url": "https://shop.greatworld.com.sg/shop/that-skewer-bar/"
     },
     {
         "name": "THE BLUE GINGER",
         "location": "#01-106",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/the-blue-ginger/"
     },
     {
         "name": "THE COFFEE BEAN & TEA LEAF",
         "location": "#02-K101/102",
+        "description": "",
         "category": "BISTROS, CAFES & CASUAL DINING",
         "url": "https://shop.greatworld.com.sg/shop/the-coffee-bean-tea-leaf/"
     },
     {
         "name": "THE DARK GALLERY",
         "location": "#01-117/118",
+        "description": "",
         "category": "BISTROS, CAFES & CASUAL DINING",
         "url": "https://shop.greatworld.com.sg/shop/the-dark-gallery/"
     },
     {
         "name": "THE OAKS CELLARS",
         "location": "#B2-108/110",
+        "description": "",
         "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
         "url": "https://shop.greatworld.com.sg/shop/the-oaks-cellars/"
     },
     {
         "name": "THE WHISKY DISTILLERY",
         "location": "#01-176",
+        "description": "",
         "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
         "url": "https://shop.greatworld.com.sg/shop/the-whisky-distillery/"
     },
     {
         "name": "TIM HO WAN",
         "location": "#01-139",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/tim-ho-wan/"
     },
     {
         "name": "TOAST BOX",
         "location": "#B1-104/105",
+        "description": "",
         "category": "BISTROS, CAFES & CASUAL DINING",
         "url": "https://shop.greatworld.com.sg/shop/toast-box/"
     },
     {
         "name": "TORI SANWA",
         "location": "#B1-K117",
+        "description": "",
         "category": "BISTROS, CAFES & CASUAL DINING",
         "url": "https://shop.greatworld.com.sg/shop/tori-sanwa/"
     },
     {
         "name": "TORI-Q",
         "location": "#B1-K118",
+        "description": "",
         "category": "TAKEAWAYS & FOOD COURT",
         "url": "https://shop.greatworld.com.sg/shop/tori-q/"
     },
     {
         "name": "TWELVE CUPCAKES",
         "location": "#B1-K120",
+        "description": "",
         "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
         "url": "https://shop.greatworld.com.sg/shop/twelve-cupcakes/"
     },
     {
         "name": "UNCLE FONG HOT POT RESTAURANT \u2f45\u53d4\u53d4\u91cd\u6176\u2f7c\u2f55\u934b",
         "location": "#B1-108/109",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/uncle-fong-hot-pot-restaurant-%e2%bd%85%e5%8f%94%e5%8f%94%e9%87%8d%e6%85%b6%e2%bd%bc%e2%bd%95%e9%8d%8b/"
     },
     {
         "name": "WINDOWSILL PIES",
         "location": "#B1-K114",
+        "description": "",
         "category": "CONFECTIONERY, DELI & SPECIALTY FOOD",
         "url": "https://shop.greatworld.com.sg/shop/windowsill-pies/"
     },
     {
         "name": "YA KUN KAYA TOAST",
         "location": "#01-135",
+        "description": "",
         "category": "BISTROS, CAFES & CASUAL DINING",
         "url": "https://shop.greatworld.com.sg/shop/ya-kun-kaya-toast/"
     },
     {
         "name": "ZAFFRON KITCHEN",
         "location": "#01-153",
+        "description": "",
         "category": "RESTAURANTS",
         "url": "https://shop.greatworld.com.sg/shop/zaffron-kitchen/"
     }
