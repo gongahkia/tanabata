@@ -38,3 +38,7 @@ For testing purposes.
 $ make config
 $ make
 ```
+
+## Contribute
+
+Tako is open-source. Contribution guidelines are found at [`CONTRIBUTING.md`](./admin/CONTRIBUTING.md).
