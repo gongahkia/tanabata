@@ -2,7 +2,7 @@
 
 ## FUA
 
-* add an architecture diagram of how everything works in mermaid code with icons and elements to the README.md once everything is done
+* debug why https://www.theclementimall.com/stores doesn't seem to be loading and debug the clementi_mall_shakespeare.py
 
 * focus on this for now
     * try scraping with playwright, converting existing scraping code to playwright
@@ -30,7 +30,6 @@
     * https://www.hillionmall.com.sg/store-directory/ *(requires clicking a dynamic drop-down that leads to an active map before displaying any stores)*
     * https://www.anchorpoint.com.sg/shops *(there isn't any tangible html to scrape, its just uncontextualised hardcoded html content)*
     * https://www.sportshub.com.sg/shop-dine/stores?store_id=181&venue=All&payment_methods=All&combine=&custom_az_filter=character_asca *(despite everything seeming normal, unable to scrape the specified details that i want to scrape)*
-    * https://www.theclementimall.com/stores *(requires clicking of a js-dynamically powered dropdown, need to iron out logic)*
     * https://www.westmall.com.sg/stores *(same issue as clementi mall)*
     * https://www.fareastplaza.com.sg/categories *(this page is just frozen, might need to try rescraping this in the future)*
 
