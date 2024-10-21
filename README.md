@@ -16,7 +16,7 @@
 
 Don't. Access the web app [here](addalinkherelater.com).
 
-### Architecture
+### Design
 
 ```mermaid
 flowchart TB
