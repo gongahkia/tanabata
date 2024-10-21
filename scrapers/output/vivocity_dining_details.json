@@ -1,0 +1,1003 @@
+[
+    {
+        "name": "4 Fingers Crispy Chicken",
+        "location": "#02-120",
+        "description": "",
+        "category": "Casual, Halal",
+        "url": "https://www.vivocity.com.sg/stores/4-fingers-crispy-chicken-2/"
+    },
+    {
+        "name": "Aburi-En",
+        "location": "#01-159",
+        "description": "",
+        "category": "Casual, Family",
+        "url": "https://www.vivocity.com.sg/stores/aburi-en-2/"
+    },
+    {
+        "name": "Ah Mah Homemade Cake",
+        "location": "#B2-K7",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Quick Bites, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/ah-mah-homemade-cake/"
+    },
+    {
+        "name": "Alijiang Silk Road Cuisine",
+        "location": "#03-11",
+        "description": "",
+        "category": "Family",
+        "url": "https://www.vivocity.com.sg/stores/alijiang-silk-road-cuisine-2/"
+    },
+    {
+        "name": "Astons Specialities",
+        "location": "#02-113",
+        "description": "",
+        "category": "Casual",
+        "url": "https://www.vivocity.com.sg/stores/astons-specialities-2/"
+    },
+    {
+        "name": "Auntie Anne\u2019s",
+        "location": "#B2-K6",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Halal, Quick Bites",
+        "url": "https://www.vivocity.com.sg/stores/auntie-annes/"
+    },
+    {
+        "name": "Avocadoria",
+        "location": "#B2-K3",
+        "description": "",
+        "category": "Desserts",
+        "url": "https://www.vivocity.com.sg/stores/avocadoria/"
+    },
+    {
+        "name": "Awfully Chocolate",
+        "location": "#01-155",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Dates, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/awfully-chocolate-2/"
+    },
+    {
+        "name": "Ayam Penyet President",
+        "location": "#B2-23F",
+        "description": "",
+        "category": "Casual, Halal",
+        "url": "https://www.vivocity.com.sg/stores/ayam-penyet-president/"
+    },
+    {
+        "name": "Barossa Bar & Grill",
+        "location": "#01-161",
+        "description": "",
+        "category": "Al Fresco, Business, Dates, Family",
+        "url": "https://www.vivocity.com.sg/stores/barossa-bar-grill/"
+    },
+    {
+        "name": "Battercatch",
+        "location": "#01-171",
+        "description": "",
+        "category": "Business, Family, Casual",
+        "url": "https://www.vivocity.com.sg/stores/battercatch/"
+    },
+    {
+        "name": "BEARS",
+        "location": "#B2-05",
+        "description": "",
+        "category": "Desserts",
+        "url": "https://www.vivocity.com.sg/stores/bears-2/"
+    },
+    {
+        "name": "Beauty In The Pot",
+        "location": "#03-08A",
+        "description": "",
+        "category": "Casual, Family",
+        "url": "https://www.vivocity.com.sg/stores/beauty-in-the-pot/"
+    },
+    {
+        "name": "Belle-Ville Pancake & Coffee",
+        "location": "#01-188A",
+        "description": "",
+        "category": "Casual, Coffee & Tea Breaks, Dates, Family, Quick Bites, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/belle-ville-pancake-coffee-2/"
+    },
+    {
+        "name": "Ben & Jerry\u2019s",
+        "location": "#02-K1",
+        "description": "",
+        "category": "Desserts",
+        "url": "https://www.vivocity.com.sg/stores/ben-jerrys-2/"
+    },
+    {
+        "name": "Bliss Nest Capsules",
+        "location": "#01-91",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Dates, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/bliss-nest-capsules-2/"
+    },
+    {
+        "name": "Boost Express",
+        "location": "#B2-K8",
+        "description": "",
+        "category": "Desserts",
+        "url": "https://www.vivocity.com.sg/stores/boost-express-2/"
+    },
+    {
+        "name": "Boost Juice",
+        "location": "#02-134",
+        "description": "",
+        "category": "Desserts",
+        "url": "https://www.vivocity.com.sg/stores/boost-juice/"
+    },
+    {
+        "name": "Bornga",
+        "location": "#02-123",
+        "description": "",
+        "category": "Business, Casual, Family",
+        "url": "https://www.vivocity.com.sg/stores/bornga/"
+    },
+    {
+        "name": "BreadTalk",
+        "location": "#B2-34",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Quick Bites",
+        "url": "https://www.vivocity.com.sg/stores/breadtalk/"
+    },
+    {
+        "name": "Brotzeit German Bier Bar & Restaurant",
+        "location": "#01-149",
+        "description": "",
+        "category": "Al Fresco",
+        "url": "https://www.vivocity.com.sg/stores/brotzeit-german-bier-bar-restaurant/"
+    },
+    {
+        "name": "Bulgogi Syo",
+        "location": "#B2-29",
+        "description": "",
+        "category": "Casual, Dates, Family",
+        "url": "https://www.vivocity.com.sg/stores/bulgogi-syo-2/"
+    },
+    {
+        "name": "Burger King",
+        "location": "#02-80",
+        "description": "",
+        "category": "Halal",
+        "url": "https://www.vivocity.com.sg/stores/burger-king-2/"
+    },
+    {
+        "name": "Candy Empire",
+        "location": "#B2-03",
+        "description": "",
+        "category": "Desserts",
+        "url": "https://www.vivocity.com.sg/stores/candy-empire-2/"
+    },
+    {
+        "name": "Cedele",
+        "location": "#01-113",
+        "description": "",
+        "category": "Casual",
+        "url": "https://www.vivocity.com.sg/stores/cedele-2/"
+    },
+    {
+        "name": "Central Hong Kong Cafe",
+        "location": "#B2-13",
+        "description": "",
+        "category": "Casual, Family",
+        "url": "https://www.vivocity.com.sg/stores/central-hong-kong-cafe/"
+    },
+    {
+        "name": "Chateraise",
+        "location": "#02-119",
+        "description": "",
+        "category": "Desserts",
+        "url": "https://www.vivocity.com.sg/stores/chateraise-2/"
+    },
+    {
+        "name": "Chimichanga",
+        "location": "#01-157",
+        "description": "",
+        "category": "Al Fresco, Business, Casual, Coffee & Tea Breaks, Dates, Family",
+        "url": "https://www.vivocity.com.sg/stores/chimichanga/"
+    },
+    {
+        "name": "Chou Niang Jiu Niang",
+        "location": "#B2-K1",
+        "description": "",
+        "category": "Quick Bites",
+        "url": "https://www.vivocity.com.sg/stores/chou-niang-jiu-niang/"
+    },
+    {
+        "name": "COLLIN\u2019S",
+        "location": "#01-52A",
+        "description": "",
+        "category": "Business, Casual, Family",
+        "url": "https://www.vivocity.com.sg/stores/collins-2/"
+    },
+    {
+        "name": "Crazy Street Thai caf\u00e9",
+        "location": "#B1-02",
+        "description": "",
+        "category": "Casual, Coffee & Tea Breaks",
+        "url": "https://www.vivocity.com.sg/stores/crazy-street-thai-cafe/"
+    },
+    {
+        "name": "Crystal Jade Pavilion",
+        "location": "#01-112",
+        "description": "",
+        "category": "Business, Family",
+        "url": "https://www.vivocity.com.sg/stores/crystal-jade-pavilion-5/"
+    },
+    {
+        "name": "Da Paolo Gastronomia",
+        "location": "#01-108",
+        "description": "",
+        "category": "Business, Casual, Coffee & Tea Breaks, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/da-paolo-gastronomia-2/"
+    },
+    {
+        "name": "Dancing Crab",
+        "location": "#03-10",
+        "description": "",
+        "category": "Business, Casual, Dates",
+        "url": "https://www.vivocity.com.sg/stores/dancing-crab/"
+    },
+    {
+        "name": "DaXi",
+        "location": "#02-83",
+        "description": "",
+        "category": "Casual, Dates, Family",
+        "url": "https://www.vivocity.com.sg/stores/daxi-2/"
+    },
+    {
+        "name": "Dian Xiao Er \u5e97\u5c0f\u4e8c (\u65b0\u52a0\u5761\u836f\u6750\u70e4\u9e2d)",
+        "location": "#02-138",
+        "description": "",
+        "category": "Business, Casual, Family",
+        "url": "https://www.vivocity.com.sg/stores/dian-xiao-er-3/"
+    },
+    {
+        "name": "DipnDip",
+        "location": "#01-51",
+        "description": "",
+        "category": "Casual, Coffee & Tea Breaks, Dates, Family, Quick Bites, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/dipndip-2/"
+    },
+    {
+        "name": "ENChanko Hotpot & Kamameshi",
+        "location": "#01-52",
+        "description": "",
+        "category": "Business, Casual, Dates, Family",
+        "url": "https://www.vivocity.com.sg/stores/enchanko-hotpot-kamameshi-2/"
+    },
+    {
+        "name": "Encik Tan",
+        "location": "#B2-37",
+        "description": "",
+        "category": "Breakfast, Casual, Coffee & Tea Breaks, Halal",
+        "url": "https://www.vivocity.com.sg/stores/encik-tan-2/"
+    },
+    {
+        "name": "Fish & Co.",
+        "location": "#02-116",
+        "description": "",
+        "category": "Al Fresco, Halal",
+        "url": "https://www.vivocity.com.sg/stores/fish-co/"
+    },
+    {
+        "name": "Food Republic (Closed for Renovation)",
+        "location": "#03-01",
+        "description": "",
+        "category": "Casual",
+        "url": "https://www.vivocity.com.sg/stores/food-republic/"
+    },
+    {
+        "name": "Fragrance (Closed for Renovation)",
+        "location": "#B2-K20",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Family, Quick Bites",
+        "url": "https://www.vivocity.com.sg/stores/fragrance-2/"
+    },
+    {
+        "name": "Fruit Paradise",
+        "location": "#01-59",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Dates, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/fruit-paradise/"
+    },
+    {
+        "name": "Garrett Popcorn Shops",
+        "location": "#02-63",
+        "description": "",
+        "category": "Desserts",
+        "url": "https://www.vivocity.com.sg/stores/garrett-popcorn-shops/"
+    },
+    {
+        "name": "Genki Sushi",
+        "location": "#02-65",
+        "description": "",
+        "category": "Casual, Dates, Family",
+        "url": "https://www.vivocity.com.sg/stores/genki-sushi/"
+    },
+    {
+        "name": "Go Noodle House",
+        "location": "#B2-24",
+        "description": "",
+        "category": "Casual",
+        "url": "https://www.vivocity.com.sg/stores/go-noodle-house-2/"
+    },
+    {
+        "name": "Go-Ang Pratunam Chicken Rice",
+        "location": "#B2-30",
+        "description": "",
+        "category": "Casual, Family, Halal",
+        "url": "https://www.vivocity.com.sg/stores/go-ang-pratunam-chicken-rice-2/"
+    },
+    {
+        "name": "Gokoku Japanese Bakery",
+        "location": "#B2-09",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Quick Bites",
+        "url": "https://www.vivocity.com.sg/stores/gokoku-japanese-bakery-2/"
+    },
+    {
+        "name": "Gong Yuan Ma La Tang",
+        "location": "#B2-31",
+        "description": "",
+        "category": "Casual",
+        "url": "https://www.vivocity.com.sg/stores/gong-yuan-ma-la-tang-2/"
+    },
+    {
+        "name": "GUZMAN Y GOMEZ",
+        "location": "#B2-33A",
+        "description": "",
+        "category": "Breakfast, Casual",
+        "url": "https://www.vivocity.com.sg/stores/guzman-y-gomez/"
+    },
+    {
+        "name": "Gyogyo",
+        "location": "#02-48",
+        "description": "",
+        "category": "Casual, Family, Halal",
+        "url": "https://www.vivocity.com.sg/stores/gyogyo-2/"
+    },
+    {
+        "name": "Gyu-Kaku",
+        "location": "#02-01/02",
+        "description": "",
+        "category": "Casual, Dates, Family",
+        "url": "https://www.vivocity.com.sg/stores/gyu-kaku-2/"
+    },
+    {
+        "name": "HaiDiLao HotPot",
+        "location": "#03-09",
+        "description": "",
+        "category": "Casual",
+        "url": "https://www.vivocity.com.sg/stores/haidilao-hotpot-2/"
+    },
+    {
+        "name": "HANS IM GL\u00dcCK",
+        "location": "#01-57",
+        "description": "",
+        "category": "Al Fresco, Business, Casual, Dates, Family",
+        "url": "https://www.vivocity.com.sg/stores/hans-im-gluck/"
+    },
+    {
+        "name": "Har Har Chicken",
+        "location": "#B2-K14",
+        "description": "",
+        "category": "Quick Bites",
+        "url": "https://www.vivocity.com.sg/stores/har-har-chicken/"
+    },
+    {
+        "name": "Henri Charpentier",
+        "location": "#02-K4",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/henri-charpentier/"
+    },
+    {
+        "name": "HEYTEA",
+        "location": "#01-111",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/heytea/"
+    },
+    {
+        "name": "Hokkaido-Ya",
+        "location": "#02-153",
+        "description": "",
+        "category": "Business, Casual",
+        "url": "https://www.vivocity.com.sg/stores/hokkaido-ya-2/"
+    },
+    {
+        "name": "Hoshino Coffee \u2013 Japanese caf\u00e9 and restaurant",
+        "location": "#01-165",
+        "description": "",
+        "category": "Breakfast, Business, Casual, Coffee & Tea Breaks, Dates, Family, Quick Bites, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/hoshino-coffee-japanese-cafe-and-restaurant/"
+    },
+    {
+        "name": "Jia Xiang Sarawak Kuching Kolomee",
+        "location": "#B2-38",
+        "description": "",
+        "category": "Casual",
+        "url": "https://www.vivocity.com.sg/stores/jia-xiang-sarawak-kuching-kolomee-2/"
+    },
+    {
+        "name": "Jjigae Jjigae",
+        "location": "#B2-26A",
+        "description": "",
+        "category": "Casual",
+        "url": "https://www.vivocity.com.sg/stores/jjigae-jjigae/"
+    },
+    {
+        "name": "Jollibee",
+        "location": "#02-50",
+        "description": "",
+        "category": "Family, Halal",
+        "url": "https://www.vivocity.com.sg/stores/jollibee-2/"
+    },
+    {
+        "name": "Kazo (Closed for Renovation)",
+        "location": "#B2-K9",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Halal, Quick Bites, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/kazo-2/"
+    },
+    {
+        "name": "Kei Kaisendon",
+        "location": "#02-136",
+        "description": "",
+        "category": "Casual",
+        "url": "https://www.vivocity.com.sg/stores/kei-kaisendon/"
+    },
+    {
+        "name": "Kenangan Coffee",
+        "location": "#02-98A",
+        "description": "",
+        "category": "Coffee & Tea Breaks",
+        "url": "https://www.vivocity.com.sg/stores/kenangan-coffee-2/"
+    },
+    {
+        "name": "KFC",
+        "location": "#B2-32",
+        "description": "",
+        "category": "Breakfast, Casual, Family, Halal, Quick Bites",
+        "url": "https://www.vivocity.com.sg/stores/kfc/"
+    },
+    {
+        "name": "Koi Th\u00e9",
+        "location": "#B2-06B",
+        "description": "",
+        "category": "Coffee & Tea Breaks",
+        "url": "https://www.vivocity.com.sg/stores/koi-the/"
+    },
+    {
+        "name": "Kopitiam",
+        "location": "#B2-39",
+        "description": "",
+        "category": "Breakfast, Casual, Coffee & Tea Breaks, Quick Bites",
+        "url": "https://www.vivocity.com.sg/stores/kopitiam/"
+    },
+    {
+        "name": "Krispy Kreme",
+        "location": "#B2-K2",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Halal, Quick Bites, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/krispy-kreme/"
+    },
+    {
+        "name": "Le Shrimp Ramen",
+        "location": "#B2-25",
+        "description": "",
+        "category": "Business, Casual, Family",
+        "url": "https://www.vivocity.com.sg/stores/le-shrimp-ramen/"
+    },
+    {
+        "name": "LeNu Chef Wai\u2019s Noodle Bar",
+        "location": "#02-91",
+        "description": "",
+        "category": "Business, Casual",
+        "url": "https://www.vivocity.com.sg/stores/lenu-chef-wais-noodle-bar-2/"
+    },
+    {
+        "name": "LiHO TEA",
+        "location": "#02-95",
+        "description": "",
+        "category": "Coffee & Tea Breaks",
+        "url": "https://www.vivocity.com.sg/stores/liho-tea-2/"
+    },
+    {
+        "name": "Mamma Mia! Trattoria E Caffe",
+        "location": "#01-116",
+        "description": "",
+        "category": "Al Fresco, Business, Casual, Coffee & Tea Breaks, Dates, Family, Halal",
+        "url": "https://www.vivocity.com.sg/stores/mamma-mia-trattoria-e-caffe-2/"
+    },
+    {
+        "name": "March\u00e9 M\u00f6venpick",
+        "location": "#03-14",
+        "description": "",
+        "category": "Casual",
+        "url": "https://www.vivocity.com.sg/stores/marche-movenpick/"
+    },
+    {
+        "name": "McDonald\u2019s",
+        "location": "#B2-40",
+        "description": "",
+        "category": "Breakfast, Family, Halal",
+        "url": "https://www.vivocity.com.sg/stores/mcdonalds/"
+    },
+    {
+        "name": "Meow BBQ \u732b\u6293\u70e4\u8089",
+        "location": "#02-156/157",
+        "description": "",
+        "category": "Casual, Family",
+        "url": "https://www.vivocity.com.sg/stores/meow-bbq/"
+    },
+    {
+        "name": "Mighty Soya Tea",
+        "location": "#02-135",
+        "description": "",
+        "category": "Quick Bites",
+        "url": "https://www.vivocity.com.sg/stores/mighty-soya-tea-2/"
+    },
+    {
+        "name": "Milan Tei",
+        "location": "#01-167",
+        "description": "",
+        "category": "Casual, Dates, Family, Halal",
+        "url": "https://www.vivocity.com.sg/stores/milan-tei-2/"
+    },
+    {
+        "name": "Monster Curry",
+        "location": "#02-126",
+        "description": "",
+        "category": "Casual, Family",
+        "url": "https://www.vivocity.com.sg/stores/monster-curry/"
+    },
+    {
+        "name": "Mr. Coconut",
+        "location": "#02-112",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/mr-coconut-2/"
+    },
+    {
+        "name": "Mr.Onigiri",
+        "location": "#B2-23D",
+        "description": "",
+        "category": "Quick Bites",
+        "url": "https://www.vivocity.com.sg/stores/mronigiri-2/"
+    },
+    {
+        "name": "Nam Kee JB Handmade Pau (Closed for Renovation)",
+        "location": "#B2-K17",
+        "description": "",
+        "category": "Breakfast, Coffee & Tea Breaks, Quick Bites",
+        "url": "https://www.vivocity.com.sg/stores/nam-kee-jb-handmade-pau/"
+    },
+    {
+        "name": "Nasty Cookie",
+        "location": "#02-51",
+        "description": "",
+        "category": "Halal, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/nasty-cookie-3/"
+    },
+    {
+        "name": "Old Chang Kee",
+        "location": "#B2-K15",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Halal, Quick Bites",
+        "url": "https://www.vivocity.com.sg/stores/old-chang-kee/"
+    },
+    {
+        "name": "Paik\u2019s Bibim",
+        "location": "#02-125",
+        "description": "",
+        "category": "Casual",
+        "url": "https://www.vivocity.com.sg/stores/paiks-bibim-3/"
+    },
+    {
+        "name": "Papa Ayam",
+        "location": "#B2-23B",
+        "description": "",
+        "category": "Casual",
+        "url": "https://www.vivocity.com.sg/stores/papa-ayam/"
+    },
+    {
+        "name": "Paradise Dynasty",
+        "location": "#02-128",
+        "description": "",
+        "category": "Business, Casual, Family",
+        "url": "https://www.vivocity.com.sg/stores/paradise-dynasty-2/"
+    },
+    {
+        "name": "Penang Culture",
+        "location": "#B2-23E",
+        "description": "",
+        "category": "Business, Casual, Family, Halal",
+        "url": "https://www.vivocity.com.sg/stores/penang-culture-4/"
+    },
+    {
+        "name": "PlayMade",
+        "location": "#02-118",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/playmade/"
+    },
+    {
+        "name": "Polar Puffs & Cakes",
+        "location": "#B2-K4",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Halal, Quick Bites, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/polar-puffs-cakes-2/"
+    },
+    {
+        "name": "Poul\u00e9t",
+        "location": "#01-175",
+        "description": "",
+        "category": "Business, Casual, Dates, Family, Halal",
+        "url": "https://www.vivocity.com.sg/stores/poulet/"
+    },
+    {
+        "name": "Project Acai",
+        "location": "#01-92",
+        "description": "",
+        "category": "Dates, Family",
+        "url": "https://www.vivocity.com.sg/stores/project-acai-2/"
+    },
+    {
+        "name": "PUTIEN",
+        "location": "#02-131",
+        "description": "",
+        "category": "Business, Family",
+        "url": "https://www.vivocity.com.sg/stores/putien-2/"
+    },
+    {
+        "name": "Rive Gauche Patisserie",
+        "location": "#B2-K5",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Quick Bites, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/rive-gauche-patisserie-2/"
+    },
+    {
+        "name": "Riverside Canton Claypot Cuisine",
+        "location": "#02-85",
+        "description": "",
+        "category": "Casual, Family",
+        "url": "https://www.vivocity.com.sg/stores/riverside-canton-claypot-cuisine/"
+    },
+    {
+        "name": "Rollney",
+        "location": "#02-133",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/rollney-2/"
+    },
+    {
+        "name": "Saboten",
+        "location": "#02-49",
+        "description": "",
+        "category": "Casual",
+        "url": "https://www.vivocity.com.sg/stores/saboten/"
+    },
+    {
+        "name": "Sanook Kitchen",
+        "location": "#B2-23C",
+        "description": "",
+        "category": "Family, Halal",
+        "url": "https://www.vivocity.com.sg/stores/sanook-kitchen/"
+    },
+    {
+        "name": "Seafood Paradise",
+        "location": "#01-53",
+        "description": "",
+        "category": "Business, Family",
+        "url": "https://www.vivocity.com.sg/stores/seafood-paradise/"
+    },
+    {
+        "name": "Seremban Kee Mei Siew Pow",
+        "location": "#B2-K12",
+        "description": "",
+        "category": "Breakfast, Coffee & Tea Breaks, Quick Bites",
+        "url": "https://www.vivocity.com.sg/stores/seremban-kee-mei-siew-pow/"
+    },
+    {
+        "name": "SF Juice",
+        "location": "#B2-05A",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Quick Bites",
+        "url": "https://www.vivocity.com.sg/stores/sf-juice-2/"
+    },
+    {
+        "name": "Shake Shack",
+        "location": "#01-163",
+        "description": "",
+        "category": "Al Fresco, Coffee & Tea Breaks, Family, Quick Bites",
+        "url": "https://www.vivocity.com.sg/stores/shake-shack/"
+    },
+    {
+        "name": "Soup Restaurant",
+        "location": "#02-141",
+        "description": "",
+        "category": "Business, Casual, Family",
+        "url": "https://www.vivocity.com.sg/stores/soup-restaurant-3/"
+    },
+    {
+        "name": "Starbucks Coffee",
+        "location": "#01-43",
+        "description": "",
+        "category": "Breakfast, Coffee & Tea Breaks",
+        "url": "https://www.vivocity.com.sg/stores/starbucks-coffee/"
+    },
+    {
+        "name": "Stuff\u2019d (Closed for Renovation)",
+        "location": "#B2-K18",
+        "description": "",
+        "category": "Casual, Halal, Quick Bites",
+        "url": "https://www.vivocity.com.sg/stores/stuffd-2/"
+    },
+    {
+        "name": "Sushi Tei",
+        "location": "#02-152",
+        "description": "",
+        "category": "Business, Casual, Dates, Family",
+        "url": "https://www.vivocity.com.sg/stores/sushi-tei-2/"
+    },
+    {
+        "name": "Sushi-Go",
+        "location": "#B2-07/08",
+        "description": "",
+        "category": "Casual, Dates, Family",
+        "url": "https://www.vivocity.com.sg/stores/sushi-go/"
+    },
+    {
+        "name": "Tai Cheong Bakery",
+        "location": "#B2-02",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Quick Bites, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/tai-cheong-bakery-2/"
+    },
+    {
+        "name": "Tajimaya Yakiniku / Suki-Ya KIN / MASH",
+        "location": "#01-102",
+        "description": "",
+        "category": "Al Fresco",
+        "url": "https://www.vivocity.com.sg/stores/tajimaya-yakiniku-suki-ya-kin-mash-2/"
+    },
+    {
+        "name": "TALAD THAI BANANA \u0e15\u0e25\u0e32\u0e14\u0e44\u0e17\u0e22",
+        "location": "#B2-K13",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Quick Bites, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/talad-thai-banana/"
+    },
+    {
+        "name": "Tamjai Samgor Mixian \u8b5a\u4ed4\u4e09\u54e5\u7c73\u7f10",
+        "location": "#B2-28",
+        "description": "",
+        "category": "Business, Casual, Dates, Family",
+        "url": "https://www.vivocity.com.sg/stores/tamjai-samgor-mixian-2/"
+    },
+    {
+        "name": "TANYU \u63a2\u9c7c",
+        "location": "#01-169",
+        "description": "",
+        "category": "Business, Casual, Dates, Family",
+        "url": "https://www.vivocity.com.sg/stores/tanyu-2/"
+    },
+    {
+        "name": "TCC \u2013 The Connoisseur Concerto",
+        "location": "#02-149",
+        "description": "",
+        "category": "Business, Casual, Coffee & Tea Breaks, Dates, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/tcc-the-connoisseur-concerto/"
+    },
+    {
+        "name": "Tempura Makino",
+        "location": "#02-111",
+        "description": "",
+        "category": "Casual",
+        "url": "https://www.vivocity.com.sg/stores/tempura-makino/"
+    },
+    {
+        "name": "Thai Accent",
+        "location": "#02-143",
+        "description": "",
+        "category": "Family",
+        "url": "https://www.vivocity.com.sg/stores/thai-accent-2/"
+    },
+    {
+        "name": "The Coffee Bean & Tea Leaf",
+        "location": "#02-04",
+        "description": "",
+        "category": "Casual, Coffee & Tea Breaks, Halal, Quick Bites, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/the-coffee-bean-tea-leaf-2/"
+    },
+    {
+        "name": "The French American Bakery",
+        "location": "#B2-K10",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Desserts, Quick Bites",
+        "url": "https://www.vivocity.com.sg/stores/the-french-american-bakery/"
+    },
+    {
+        "name": "The Original Beach Road Scissors Cut Curry Rice Since 1930",
+        "location": "#B2-23A",
+        "description": "",
+        "category": "Casual",
+        "url": "https://www.vivocity.com.sg/stores/the-original-beach-road-scissors-cut-curry-rice-since-1930/"
+    },
+    {
+        "name": "The Original Boat Noodle",
+        "location": "#02-150",
+        "description": "",
+        "category": "Casual, Halal",
+        "url": "https://www.vivocity.com.sg/stores/the-original-boat-noodle/"
+    },
+    {
+        "name": "The Providore",
+        "location": "#01-188",
+        "description": "",
+        "category": "Al Fresco, Breakfast, Business, Casual, Coffee & Tea Breaks, Dates, Family, Quick Bites",
+        "url": "https://www.vivocity.com.sg/stores/the-providore-2/"
+    },
+    {
+        "name": "The Queen & Mangosteen",
+        "location": "#01-106",
+        "description": "",
+        "category": "Al Fresco, Business, Dates, Family",
+        "url": "https://www.vivocity.com.sg/stores/the-queen-mangosteen/"
+    },
+    {
+        "name": "TheJellyHearts",
+        "location": "#B2-06A",
+        "description": "",
+        "category": "Desserts",
+        "url": "https://www.vivocity.com.sg/stores/thejellyhearts/"
+    },
+    {
+        "name": "Tim Hortons",
+        "location": "#01-207",
+        "description": "",
+        "category": "Breakfast, Casual, Coffee & Tea Breaks, Dates, Family, Quick Bites, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/tim-hortons/"
+    },
+    {
+        "name": "Tiong Bahru Bakery",
+        "location": "#01-188B",
+        "description": "",
+        "category": "Breakfast, Business, Casual, Coffee & Tea Breaks, Dates, Family",
+        "url": "https://www.vivocity.com.sg/stores/tiong-bahru-bakery/"
+    },
+    {
+        "name": "Toast Box",
+        "location": "#B2-34",
+        "description": "",
+        "category": "Breakfast, Coffee & Tea Breaks, Quick Bites, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/toast-box-2/"
+    },
+    {
+        "name": "Tokyo Shokudo",
+        "location": "#01-54",
+        "description": "",
+        "category": "Casual, Family, Halal",
+        "url": "https://www.vivocity.com.sg/stores/tokyo-shokudo-2/"
+    },
+    {
+        "name": "Tonkatsu ENbiton",
+        "location": "#B2-27/27A",
+        "description": "",
+        "category": "Casual, Family",
+        "url": "https://www.vivocity.com.sg/stores/tonkatsu-enbiton/"
+    },
+    {
+        "name": "Tori Sanwa",
+        "location": "#01-104",
+        "description": "",
+        "category": "Business, Casual, Dates, Family",
+        "url": "https://www.vivocity.com.sg/stores/tori-sanwa/"
+    },
+    {
+        "name": "Twelve Cupcakes",
+        "location": "#B2-K11",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Quick Bites, Desserts",
+        "url": "https://www.vivocity.com.sg/stores/twelve-cupcakes/"
+    },
+    {
+        "name": "Una Una",
+        "location": "#02-94",
+        "description": "",
+        "category": "Casual",
+        "url": "https://www.vivocity.com.sg/stores/una-una-2/"
+    },
+    {
+        "name": "VietSmith",
+        "location": "#02-108",
+        "description": "",
+        "category": "Business, Casual, Family",
+        "url": "https://www.vivocity.com.sg/stores/vietsmith/"
+    },
+    {
+        "name": "Waa Cow!",
+        "location": "#01-188C",
+        "description": "",
+        "category": "Business, Casual, Dates, Family",
+        "url": "https://www.vivocity.com.sg/stores/waa-cow-2/"
+    },
+    {
+        "name": "Western Mahua",
+        "location": "#03-11",
+        "description": "",
+        "category": "Family",
+        "url": "https://www.vivocity.com.sg/stores/western-mahua/"
+    },
+    {
+        "name": "WHITE \u4e09\u5df4\u65fa\u767d\u7c73\u7c89",
+        "location": "#02-121",
+        "description": "",
+        "category": "Casual",
+        "url": "https://www.vivocity.com.sg/stores/white-2/"
+    },
+    {
+        "name": "Wine Connection",
+        "location": "#01-152",
+        "description": "",
+        "category": "Al Fresco",
+        "url": "https://www.vivocity.com.sg/stores/wine-connection-2/"
+    },
+    {
+        "name": "WOK HEY (Closed for Renovation)",
+        "location": "#B2-K23",
+        "description": "",
+        "category": "Halal, Quick Bites",
+        "url": "https://www.vivocity.com.sg/stores/wok-hey/"
+    },
+    {
+        "name": "Ya Kun Kaya Toast",
+        "location": "#B2-26",
+        "description": "",
+        "category": "Breakfast, Coffee & Tea Breaks, Quick Bites",
+        "url": "https://www.vivocity.com.sg/stores/ya-kun-kaya-toast-2/"
+    },
+    {
+        "name": "Yakiniku Like",
+        "location": "#02-60",
+        "description": "",
+        "category": "Casual, Dates, Family",
+        "url": "https://www.vivocity.com.sg/stores/yakiniku-like-2/"
+    },
+    {
+        "name": "Yamazaki",
+        "location": "#B2-10",
+        "description": "",
+        "category": "Coffee & Tea Breaks, Quick Bites",
+        "url": "https://www.vivocity.com.sg/stores/yamazaki/"
+    },
+    {
+        "name": "YANG MING SEAFOOD (KELONG)",
+        "location": "#02-158/159",
+        "description": "",
+        "category": "Family",
+        "url": "https://www.vivocity.com.sg/stores/yang-ming-seafood-kelong_draft_1717666565/"
+    },
+    {
+        "name": "Yao Yao Chinese Sauerkraut Fish",
+        "location": "#02-145",
+        "description": "",
+        "category": "Family",
+        "url": "https://www.vivocity.com.sg/stores/yao-yao-chinese-sauerkraut-fish-2/"
+    },
+    {
+        "name": "Yappari Steak",
+        "location": "#02-110",
+        "description": "",
+        "category": "Dates, Family",
+        "url": "https://www.vivocity.com.sg/stores/yappari-steak/"
+    },
+    {
+        "name": "\u519c\u8015\u8bb0 Nong Geng Ji",
+        "location": "#01-51A",
+        "description": "",
+        "category": "Business, Casual, Dates, Family",
+        "url": "https://www.vivocity.com.sg/stores/nong-geng-ji-2/"
+    }
+]
