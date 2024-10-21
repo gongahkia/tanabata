@@ -21,7 +21,6 @@
 
 * Sites which couldn't be scraped
     * https://www.sengkanggrandmall.com.sg/en/stores.html *(cannot click and toggle the drop-down menu)*
-    * https://www.vivocity.com.sg/shopping-guide/dining-guide *(site taking an infinite amount of time to load)*
     * https://www.ngeeanncity.com.sg/shopdirectory/index.html *(can't be scraped for some odd reason, might be an issue with loading and should try an alternative to playwright)*
     * https://www.amkhub.com.sg/store-directory/?level=&cate=Food+%26+Beverage *(table is used here without tangible identifiers, consider using bs4 instead of playwright)*
     * https://www.jurongpoint.com.sg/store-directory/ *(similar to amkhub, table is used here without tangible identifiers, consider using bs4 instead of playwright)*
