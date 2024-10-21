@@ -67,6 +67,7 @@ def scrape_seletar_mall(base_url):
                     details = {
                         'name': name,
                         'location': location,
+                        'description': "",
                         'category': category,
                         'url': url
                     }

@@ -62,8 +62,8 @@ def scrape_compass_one(base_url):
                     details = {
                         'name': name,
                         'location': location,
-                        'category': "Restaurant, Cafe & Fast Food",
                         'description': "", 
+                        'category': "Restaurant, Cafe & Fast Food",
                         'url': url
                     }
                     print(details)

@@ -56,8 +56,8 @@ def scrape_kinex_dining(base_url):
                 url = url_element.get_attribute('href') if url_element else ""
                 details = {
                     'name': name,
-                    'description': "",
                     'location': location,
+                    'description': "",
                     'category': "Dining",
                     'url': url
                 }

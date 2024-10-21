@@ -54,7 +54,7 @@ def scrape_ion_orchard(base_urls):
                         # print(name)
                         # print(location)
                         description = "" 
-                        category = ""
+                        category = "Casual Dining and Takeaways, Restaurants and Cafes"
                         vendor_url = base_url 
                         details = {
                             'name': name,

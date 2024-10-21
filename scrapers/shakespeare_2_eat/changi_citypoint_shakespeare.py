@@ -64,9 +64,9 @@ def scrape_changi_city_point(base_url):
                     location = clean_string(description_elements[3].inner_text()) if len(description_elements) > 3 else ""
                     details = {
                         'name': name,
+                        'location': location,
                         'description': description,
                         'category': category,
-                        'location': location,
                         'url': url
                     }
                     print(details)

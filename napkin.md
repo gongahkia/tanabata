@@ -8,6 +8,8 @@
     * try scraping with playwright, converting existing scraping code to playwright
     * go back to debug capitaland_shakespeare.py to click the 'Load More' event when first obtaining each store's URL, consider using the A-Z boxes at the top of the page to obtain every possible URL instead
 
+* add further specficiation for JSON structure in my napkin.md or readme.md
+
 * do I want to expose the API script to make `tako` an API wrapper that exposes food places in colleges and malls? if so add that in the README.md and learn how to write a wrapper for an API
     * API is available here http://127.0.0.1:8000/api/food-places/?format=json
     * reformat the final API for each location's food being scraped to be consistent, then define it in another file called API.md

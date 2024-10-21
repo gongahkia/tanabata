@@ -81,9 +81,9 @@ def scrape_thomson_plaza(base_url):
                 url = url_element.get_attribute('href') if url_element else ""
                 details = {
                     'name': name,
-                    'category': category,
                     'location': location,
                     'description': description,
+                    'category': category,
                     'url': url
                 }
                 print(details)

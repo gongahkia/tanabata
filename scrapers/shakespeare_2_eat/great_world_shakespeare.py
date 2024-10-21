@@ -66,6 +66,7 @@ def scrape_great_world_dining(base_url):
                     details = {
                         'name': name,
                         'location': location,
+                        'description': "",
                         'category': category,
                         'url': url
                     }
