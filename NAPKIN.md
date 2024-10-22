@@ -1,9 +1,6 @@
 # `NAPKIN.md`
 
 ## FUA
-
-* include scraping support for all other major unis in singapore 
-    * https://www.sutd.edu.sg/Campus-Life/F-B-and-services 
     
 * include scraping support for all polys in singapore
     * nanyang polytechnic (nyp)

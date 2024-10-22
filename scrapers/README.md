@@ -60,6 +60,7 @@ Sites which cannot be scraped.
 | https://www.orchardcentral.com.sg/dining | unable to select the drop-down option that specifies Restaraunts, Cafes & Desserts | :x: |
 | https://www.hillionmall.com.sg/store-directory/ | unable to select from the dynamic drop-down that leads to an active map before displaying any stores | :x: |
 | https://www.anchorpoint.com.sg/shops | - uncontextualised hardcoded html content<br> - consider using bs4 instead of playwright | :x: |
+| https://www.sutd.edu.sg/Campus-Life/F-B-and-services | - uncontextualised hardcoded html content<br> - consider using bs4 instead of playwright | :x: |
 | https://www.sportshub.com.sg/shop-dine/stores?store_id=181&venue=All&payment_methods=All&combine=&custom_az_filter=character_asca | - despite everything seeming normal, unable to scrape the specified details<br> - considering using bs4 instead of playwright | :x: |
 | https://www.theclementimall.com/stores | playwright is unable to load the site when it is not already open in a local browser | :x: |
 | https://www.westmall.com.sg/stores | playwright is unable to load the site when it is not already open in a local browser | :x: |
