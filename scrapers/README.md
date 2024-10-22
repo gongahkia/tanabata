@@ -56,6 +56,7 @@ Sites which cannot be scraped.
 | https://www.ngeeanncity.com.sg/shopdirectory/index.html | - HTML table without any css identifiers<br> - consider using bs4 instead of playwright | :x: |
 | https://www.amkhub.com.sg/store-directory/?level=&cate=Food+%26+Beverage | - HTML table without any css identifiers<br> - consider using bs4 instead of playwright | :x: |
 | https://www.jurongpoint.com.sg/store-directory/ | - HTML table is used here without any css identifers<br> - consider using bs4 instead of playwright | :x: |
+| https://www.sp.edu.sg/sp/about-sp/facilities/retail-dining | - HTML table is used here without any css identifers<br> - consider using bs4 instead of playwright | :x: |
 | https://thestarvista.sg/stores | unable to select the Restaurant/Cafe option in the category dropdown menu | :x: |
 | https://www.orchardcentral.com.sg/dining | unable to select the drop-down option that specifies Restaraunts, Cafes & Desserts | :x: |
 | https://www.hillionmall.com.sg/store-directory/ | unable to select from the dynamic drop-down that leads to an active map before displaying any stores | :x: |
