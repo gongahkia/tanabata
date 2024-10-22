@@ -2,6 +2,21 @@
 
 ## FUA
 
+* include scraping support for all other major unis in singapore 
+    * sim
+    * sit
+    * sutd
+    * suss
+    * laselle
+    * nafa
+    
+* include scraping support for all polys in singapore
+    * nanyang polytechnic (nyp)
+    * ngee ann polytechnic (np)
+    * republic polytechnic (rp)
+    * singapore polytechnic (sp)
+    * temasek polytechnic (tp)
+
 * focus on this for now
     * try scraping with playwright, converting existing scraping code to playwright
     * go back to debug capitaland_shakespeare.py to click the 'Load More' event when first obtaining each store's URL, consider using the A-Z boxes at the top of the page to obtain every possible URL instead
@@ -14,8 +29,6 @@
     * standardise the API wrapper if I decide to expose it for public use at any time
 
 * need to debug why the script.js and style.css in my ./food/static/food/ folder is not visible when i serve my index.html file
-
-* include support for all other major unis in singapore including sutd, sim
 
 * Debug for scraping
     * scraper within frasers_shakespeare.py doesn't handle clicking of the Load More button properly, it doesn't ensure load all is clicked fully and instead appears to load once before beginning extraction
