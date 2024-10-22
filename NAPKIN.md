@@ -3,12 +3,7 @@
 ## FUA
 
 * include scraping support for all other major unis in singapore 
-    * sim
-    * sit
-    * sutd
-    * suss
-    * laselle
-    * nafa
+    * https://www.sutd.edu.sg/Campus-Life/F-B-and-services 
     
 * include scraping support for all polys in singapore
     * nanyang polytechnic (nyp)
