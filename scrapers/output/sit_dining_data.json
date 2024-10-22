@@ -1,0 +1,1841 @@
+[
+    {
+        "name": "The Crowded Bowl (SIT@ Dover)",
+        "location": "Foodgle Canteen, 10 Dover Dr, SG 138683",
+        "descriptions": [
+            "62m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Vegetarian",
+            "Healthy Food Restaurants",
+            "Bowl"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/the-crowded-bowl-sit-dover/"
+    },
+    {
+        "name": "Hainan Lady Hainanese Chicken Rice",
+        "location": "34 Dover Road #01-59, Singapore 130034",
+        "descriptions": [
+            "381m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken Rice",
+            "Local Delights",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hainan-lady-hainanese-chicken-rice/"
+    },
+    {
+        "name": "Grill Werkz (Dover)",
+        "location": "28 Dover Crescent 7 Stars Coffeeshop, Singapore 130028",
+        "descriptions": [
+            "426m",
+            "S$5 - S$15",
+            "+65 9424 4425"
+        ],
+        "category": [
+            "Hawker Food",
+            "Cheap",
+            "Western",
+            "Carbonara",
+            "Cheese Fries",
+            "Chicken Burger",
+            "Chicken Chop",
+            "Chicken Cutlet",
+            "Fried Rice",
+            "Potato Wedges",
+            "Seafood Aglio Olio",
+            "Spring Chicken",
+            "Truffle Fries"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/grill-werkz/"
+    },
+    {
+        "name": "Bao Mei Boneless Chicken rice",
+        "location": "5 Dover Crescent, Singapore 130005",
+        "descriptions": [
+            "429m",
+            "S$5 - S$10",
+            "+65 9380 6584"
+        ],
+        "category": [
+            "Chicken Rice",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/bao-mei-boneless-chicken-rice/"
+    },
+    {
+        "name": "Dover Coffee House (Pinfen Dover Cafeteria)",
+        "location": "34 Dover Road #01-159, Singapore 130034",
+        "descriptions": [
+            "440m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food",
+            "Cafes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/dover-coffee-house-pinfen-dover-cafeteria/"
+    },
+    {
+        "name": "Dover Village XO Fish Head Bee Hoon",
+        "location": "5 Dover Crescent, Singapore 130005",
+        "descriptions": [
+            "441m",
+            "+65 6352 1227"
+        ],
+        "category": [
+            "Kopitiam",
+            "Seafood",
+            "Zi Char"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/dover-village-xo-fish-head-bee-hoon/"
+    },
+    {
+        "name": "SRP Indian Muslim Food",
+        "location": "Blk 28 Dover Crescent #01-97, SG 130028",
+        "descriptions": [
+            "450m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Indian Restaurants",
+            "Banana Prata",
+            "Butter Prata",
+            "Cheese Prata",
+            "Cheese Thosai",
+            "Chicken Murtabak",
+            "Coin Prata",
+            "Double Egg Prata",
+            "Egg Onion Thosai",
+            "Egg Thosai",
+            "Ghee Thosai",
+            "Maggi Goreng",
+            "Masala Thosai",
+            "Mee Goreng",
+            "Mushroom Prata",
+            "Mutton Murtabak",
+            "Nasi Goreng",
+            "Onion Prata"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/srp-indian-muslim-food/"
+    },
+    {
+        "name": "Xing Le Mala Hotpot (Dover)",
+        "location": "28 Dover Crescent 01-97, SG 130028",
+        "descriptions": [
+            "452m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Chinese Restaurants",
+            "Fried Egg"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/xing-le-mala-hotpot-dover/"
+    },
+    {
+        "name": "Deli' Delight",
+        "location": "28 Dover Crescent, Singapore 130028",
+        "descriptions": [
+            "452m",
+            "S$5 - S$15",
+            "+65 9690 3935"
+        ],
+        "category": [
+            "Delivery",
+            "Western Restaurants",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/deli-delight/"
+    },
+    {
+        "name": "7 Stars Coffeeshop (Dover)",
+        "location": "28 Dover Crescent, Singapore 130028",
+        "descriptions": [
+            "457m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food",
+            "Cafes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/7-stars-coffeeshop-dover/"
+    },
+    {
+        "name": "Penang Kway Teow Kia",
+        "location": "7 Stars Coffeeshop Blk 28 Dover Crescent, SG 130028",
+        "descriptions": [
+            "457m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/penang-kway-teow-kia/"
+    },
+    {
+        "name": "Arise and Shine (NUS Science)",
+        "location": "6 Science Drive 2 National University of Singapore Block S16, Singapore 117546",
+        "descriptions": [
+            "462m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Desserts"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/arise-and-shine-nus-science/"
+    },
+    {
+        "name": "Platypus Food Bar (NUS Faculty of Science)",
+        "location": "16 Science Drive 2 Science Block S16 National University Of Singapore, Singapore 117546",
+        "descriptions": [
+            "480m",
+            "S$5 - S$15",
+            "+65 6778 9104"
+        ],
+        "category": [
+            "Healthy Food Restaurants",
+            "Salads",
+            "Western Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/platypus-food-bar-nus-faculty-of-science/"
+    },
+    {
+        "name": "NUS Frontier Japanese stall",
+        "location": "21 Lower Kent Ridge Road, NUS Frontier Canteen,Stall 6, SG 119077",
+        "descriptions": [
+            "481m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Japanese Restaurants",
+            "Chicken Chop",
+            "Chicken Cutlet",
+            "Mashed Potato",
+            "Omelette",
+            "Teriyaki Chicken",
+            "Tori Karaage"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/nus-frontier-japanese-stall/"
+    },
+    {
+        "name": "Spinelli Coffee Company (NUS University Hall)",
+        "location": "21 Kent Ridge Road UHT-01-05 University Hall, Singapore 119077",
+        "descriptions": [
+            "508m",
+            "S$5 - S$15",
+            "+65 6777 5025"
+        ],
+        "category": [
+            "Cafes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/spinelli-coffee-company-nus-university-hall/"
+    },
+    {
+        "name": "The Tea Party (National University of Singapore)",
+        "location": "2 Sports Drive 1 #03-03, Singapore 117561",
+        "descriptions": [
+            "513m",
+            "S$5 - S$15",
+            "+65 9180 9691"
+        ],
+        "category": [
+            "Pasta",
+            "Cheap",
+            "Western"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/the-tea-party-national-university-of-singapore/"
+    },
+    {
+        "name": "Hougang Fish Ball Minced Meat Noodles",
+        "location": "21 Lower Kent Ridge Road NUS Faculty of Engineering Techno Edge, Singapore 119077",
+        "descriptions": [
+            "519m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hougang-fish-ball-minced-meat-noodles/"
+    },
+    {
+        "name": "Taiwan Ichiban (NUS Science Canteen)",
+        "location": "12 Science Drive 2 NUS The Frontier, Singapore 117549",
+        "descriptions": [
+            "524m",
+            "S$5 - S$10",
+            "+65 9855 5793"
+        ],
+        "category": [
+            "Taiwanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/taiwan-ichiban-nus-science-canteen/"
+    },
+    {
+        "name": "Fiesta Restaurant \u798f\u4e50\u6c47",
+        "location": "30 Lower Kent Ridge Road NUS Staff Club, Singapore 119075",
+        "descriptions": [
+            "536m",
+            "S$10 - S$20",
+            "+65 6266 2708"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Black Pepper Beef",
+            "Braised Egg"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/fiesta-restaurant-/"
+    },
+    {
+        "name": "KeiTaku Mazesoba (Tanglin Mall)",
+        "location": "163 Tanglin Rd B1-129, Singapore 247933",
+        "descriptions": [
+            "537m",
+            "S$10 - S$30"
+        ],
+        "category": [
+            "Ramen",
+            "Burpple Beyond Deals",
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/keitaku-mazesoba-tanglin-mall/"
+    },
+    {
+        "name": "Starbucks (NUS Wet Science Building)",
+        "location": "4 Science Drive 2 National University of Singapore Wet Science Building Faculty Of Science, Singapore 117544",
+        "descriptions": [
+            "552m",
+            "S$5 - S$15",
+            "+65 6816 0981"
+        ],
+        "category": [
+            "Cafes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/starbucks-nus-wet-science-building/"
+    },
+    {
+        "name": "The Daily Bowl - NUS",
+        "location": "3 Science Drive 2, Queenstown, SG 117543",
+        "descriptions": [
+            "576m"
+        ],
+        "category": [
+            "Healthy Food Restaurants",
+            "Singaporean"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/the-daily-bowl-nus/"
+    },
+    {
+        "name": "Dong Xue Minipot Noodle \u51ac\u96ea\u5c0f\u9505\u9762",
+        "location": "1 Fusionopolis Place #B1-18 Connexis, Singapore 138632",
+        "descriptions": [
+            "591m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/dong-xue-minipot-noodle-/"
+    },
+    {
+        "name": "Jewel Coffee (NUS)",
+        "location": "10 Medical Drive #01-40 Yong Loo Lin School of Medicine, Singapore 117597",
+        "descriptions": [
+            "594m",
+            "S$5 - S$15",
+            "+65 6264 7893"
+        ],
+        "category": [
+            "Desserts",
+            "Cafes",
+            "Hawaiian Pizza",
+            "Margherita",
+            "Margherita Pizza",
+            "Pepperoni Pizza",
+            "Seafood Marinara",
+            "Tandoori chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/jewel-coffee-nus/"
+    },
+    {
+        "name": "Burnt Cones Gelato (NUS MD11)",
+        "location": "10 Medical Drive, MD11 #01-40 Yong Loo Lin School of Medicine, Singapore 117597",
+        "descriptions": [
+            "602m",
+            "+65 9711 1097"
+        ],
+        "category": [
+            "Ice Cream"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/burnt-cones-gelato-nus-md11/"
+    },
+    {
+        "name": "Pasta Express",
+        "location": "12 Science Drive 2, SG 117549",
+        "descriptions": [
+            "605m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Meat",
+            "Vegetarian",
+            "Italian Restaurants",
+            "Carbonara"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/pasta-express/"
+    },
+    {
+        "name": "Chinese Noodles",
+        "location": "12 Science Drive 2, Singapore 117549, SG 117549",
+        "descriptions": [
+            "605m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Asian"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/chinese-noodles/"
+    },
+    {
+        "name": "Moo's Thai Street Kitchen",
+        "location": "12 science drive 2 Stall 7, Phase two Singapore 117549, SG 117549",
+        "descriptions": [
+            "605m",
+            "S$8 - S$18"
+        ],
+        "category": [
+            "Singaporean",
+            "Thai",
+            "Fried Chicken",
+            "Seafood Soup"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/moos-thai-street-kitchen/"
+    },
+    {
+        "name": "The Frontier (NUS Science Canteen)",
+        "location": "12 Science Drive 2 National University of Singapore Faculty of Science, Singapore 117549",
+        "descriptions": [
+            "608m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Local Delights",
+            "Hawker Food",
+            "Cheap"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/the-frontier-nus-science-canteen/"
+    },
+    {
+        "name": "Uncle Penyet (NUS Science Canteen)",
+        "location": "12 Science Drive 2 NUS The Frontier, Singapore 117549",
+        "descriptions": [
+            "608m",
+            "S$5 - S$10",
+            "+65 6684 6627"
+        ],
+        "category": [
+            "Cheap Food Restaurants",
+            "Indonesian Restaurants",
+            "Halal Restaurants",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/uncle-penyet-nus-science-canteen/"
+    },
+    {
+        "name": "Li Ji Coffee House",
+        "location": "12 Science Drive 2 NUS Science Canteen, Singapore 117549",
+        "descriptions": [
+            "608m",
+            "S$5 - S$10",
+            "+65 9227 4495"
+        ],
+        "category": [
+            "Hawker Food",
+            "Chinese Tea",
+            "Fried Rice",
+            "Truffle Fries"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/li-ji-coffee-house/"
+    },
+    {
+        "name": "Pasta Express (NUS)",
+        "location": "12 Science Drive 2 National University of Singapore Frontier, Singapore 117549",
+        "descriptions": [
+            "608m",
+            "S$5 - S$15",
+            "+65 9025 8148"
+        ],
+        "category": [
+            "Pasta",
+            "Western Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/pasta-express-nus/"
+    },
+    {
+        "name": "Gong Cha (NUS Science Canteen)",
+        "location": "12 Science Drive 2 The Frontier, Singapore 117549",
+        "descriptions": [
+            "608m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Desserts"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/gong-cha-nus-science-canteen/"
+    },
+    {
+        "name": "Old Chang Kee (Yusof Ishak House)",
+        "location": "10 Kent Ridge Crescent #01-05, Singapore 119260",
+        "descriptions": [
+            "627m",
+            "S$5 - S$10",
+            "+65 6774 6227"
+        ],
+        "category": [
+            "Local Delights",
+            "Halal Restaurants",
+            "Fast Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/old-chang-kee-yusof-ishak-house/"
+    },
+    {
+        "name": "Thai Cuisine (Pasir Panjang)",
+        "location": "21 Kent Ridge Road Central Square Yusof Ishak Canteen Stall 1, SG 119077",
+        "descriptions": [
+            "628m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Thai Restaurants",
+            "Thai",
+            "",
+            "Chicken Rice",
+            "Curry Chicken",
+            "Fried Rice",
+            "Olive Fried Rice",
+            "Pineapple Fried Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/thai-cuisine-pasir-panjang/"
+    },
+    {
+        "name": "My Kampung Chicken Rice (Clementi)",
+        "location": "NUS, 31 Lower Kent Ridge Rd, Central Square, Yusof Ishak House Level 2, SG 119078",
+        "descriptions": [
+            "637m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Halal Restaurants",
+            "Chinese Restaurants",
+            "Chicken Rice",
+            "Chicken",
+            "Braised Egg",
+            "Char Siew Rice",
+            "Chicken Cutlet"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/my-kampung-chicken-rice-clementi/"
+    },
+    {
+        "name": "Ba Wei Ban Mian",
+        "location": "31 Lower Kent Ridge Road, Yusof Ishak House Level 2, SG 119078",
+        "descriptions": [
+            "637m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Asian",
+            "Seafood Soup",
+            "Sliced Fish Soup"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ba-wei-ban-mian/"
+    },
+    {
+        "name": "Eureka Taste",
+        "location": "14 Medical Drive #01-03 MD6, Singapore 117599",
+        "descriptions": [
+            "640m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Local Delights",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/eureka-taste/"
+    },
+    {
+        "name": "Flash Coffee (NUS)",
+        "location": "31 Lower Kent Ridge Road #01-04 Yusof Ishak House, Singapore 119078",
+        "descriptions": [
+            "649m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "1-for-1 Deals",
+            "Cafes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/flash-coffee-nus/"
+    },
+    {
+        "name": "Central Square",
+        "location": "31 Lower Kent Ridge Road Level 2 Yusof Ishak House, Singapore 119078",
+        "descriptions": [
+            "649m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Kopitiam"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/food-junction-nus-yusof-ishak-house/"
+    },
+    {
+        "name": "Central Square",
+        "location": "31 Lower Kent Ridge Road Level 2 Yusof Ishak House, Singapore 119078",
+        "descriptions": [
+            "649m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/central-square/"
+    },
+    {
+        "name": "Subway (Yusof Ishak House)",
+        "location": "31 Kent Ridge Road National University of Singapore, Singapore 119078",
+        "descriptions": [
+            "649m",
+            "S$5 - S$15",
+            "+65 6339 7367"
+        ],
+        "category": [
+            "subway"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/subway-yusof-ishak-house/"
+    },
+    {
+        "name": "Mr Bean (National University Centre for Oral Health)",
+        "location": "9 Lower Kent Ridge Road #01-01 National University Centre for Oral Health, Singapore 119085",
+        "descriptions": [
+            "649m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Ice Cream",
+            "Desserts",
+            "Healthy Food Restaurants",
+            "Chicken Rice",
+            "Teriyaki Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/mr-bean-national-university-centre-for-oral-health/"
+    },
+    {
+        "name": "CRAVE Nasi Lemak (NUS Yusof Ishak House)",
+        "location": "31 Lower Kent Ridge Road #01-04 NUS Yusof Ishak House, Singapore 119078",
+        "descriptions": [
+            "649m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Hawker Food",
+            "Malay Restaurants",
+            "Nasi Lemak",
+            "Halal Restaurants",
+            "Chicken Cutlet",
+            "Curry Chicken",
+            "Fried Egg"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/crave-nasi-lemak-nus-yusof-ishak-house/"
+    },
+    {
+        "name": "Threepointtwo",
+        "location": "14 Medical Drive #01-03 MD6 Eureka Cafe, Singapore 117599",
+        "descriptions": [
+            "650m",
+            "S$5 - S$15",
+            "+65 8366 9952"
+        ],
+        "category": [
+            "Ice Cream",
+            "Desserts",
+            "Waffles",
+            "Cafes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/threepointtwo/"
+    },
+    {
+        "name": "Old Chang Juicy Pan Fried Bun \u8001\u5f20\u704c\u6c64\u751f\u714e",
+        "location": "14 Medical Drive #01-03, Singapore 117599",
+        "descriptions": [
+            "670m",
+            "+65 9660 4222"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Bakery"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/old-chang-juicy-pan-fried-bun-/"
+    },
+    {
+        "name": "Spice Table by Pines",
+        "location": "1 Create Way #01-12 National University of Singapore Town Plaza, Singapore 138602",
+        "descriptions": [
+            "697m",
+            "+65 6339 9912"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Halal Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/spice-table-by-pines/"
+    },
+    {
+        "name": "Goruden",
+        "location": "31 Lower Kent Ridge Rd, Yusof Ishak House, Central Square Level 2, NUH, Bukit Timah, Buona Vista, SG 119078",
+        "descriptions": [
+            "700m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Meat",
+            "Mediterranean Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/goruden/"
+    },
+    {
+        "name": "Gyudonya by The Gyu Co (NUH)",
+        "location": "5 Lower Kent Ridge Road #01-01 National University Hospital Kopitiam, Singapore 119074",
+        "descriptions": [
+            "716m",
+            "S$5 - S$15",
+            "+65 8233 9138"
+        ],
+        "category": [
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/gyudonya-by-the-gyu-co-nuh/"
+    },
+    {
+        "name": "Udon Don Bar",
+        "location": "1 Create Way #01-12 NUS Town Plaza, Singapore 138602",
+        "descriptions": [
+            "717m",
+            "S$5 - S$15",
+            "+65 6694 6240"
+        ],
+        "category": [
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/udon-don-bar/"
+    },
+    {
+        "name": "Chop Chop by Putien",
+        "location": "1 Create Way #01-02 NUS UTown, Singapore 138602",
+        "descriptions": [
+            "717m",
+            "S$5 - S$15",
+            "+65 6334 0201"
+        ],
+        "category": [
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/chop-chop-by-putien/"
+    },
+    {
+        "name": "Hwang's Korean Restaurant (NUS University Town)",
+        "location": "1 Create Way #01-09 NUS University Town, Singapore 138602",
+        "descriptions": [
+            "723m",
+            "S$5 - S$15",
+            "+65 9833 0603"
+        ],
+        "category": [
+            "Korean"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hwangs-korean-restaurant-nus-university-town/"
+    },
+    {
+        "name": "Nano Partea (NUS UTown)",
+        "location": "1 Create Way #01-04 NUS UTown, Singapore 138602",
+        "descriptions": [
+            "723m",
+            "S$5 - S$10",
+            "+65 8693 6372"
+        ],
+        "category": [
+            "Fruit Tea",
+            "1-for-1 Deals",
+            "Desserts",
+            "Bubble Tea"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/nano-partea-nus-utown/"
+    },
+    {
+        "name": "Mr Bean (National University Hospital)",
+        "location": "5 Kent Ridge Road #01-12 NUH Main Building, Singapore 119074",
+        "descriptions": [
+            "742m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Ice Cream",
+            "Healthy",
+            "Desserts"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/mr-bean-national-university-hospital/"
+    },
+    {
+        "name": "QQ Rice (NUH)",
+        "location": "5 Lower Kent Ridge Road #01-02 NUH Medical Centre, Singapore 119074",
+        "descriptions": [
+            "742m",
+            "S$5 - S$10",
+            "+65 6734 2182"
+        ],
+        "category": [
+            "Healthy"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/qq-rice-nuh/"
+    },
+    {
+        "name": "umisushi (National University Hospital)",
+        "location": "1 Lower Kent Ridge #01-18, Singapore 119074",
+        "descriptions": [
+            "742m",
+            "S$5 - S$15",
+            "+65 6339 1829"
+        ],
+        "category": [
+            "Sushi",
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/umisushi-national-university-hospital/"
+    },
+    {
+        "name": "Fitra Chicken Rice (Kopitiam - NUH)",
+        "location": "5 Lower Kent Ridge Road Stall 5 #01-01 National University Hospital, SG 119074",
+        "descriptions": [
+            "761m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Singaporean",
+            "Chicken Rice",
+            "Braised Egg"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/fitra-chicken-rice-kopitiam-nuh/"
+    },
+    {
+        "name": "Japanese Food @ Kopitiam NUH",
+        "location": "5 Lower Kent Ridge Road #01-01 NUH Main Building, S119074, SG 119074",
+        "descriptions": [
+            "761m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Meat",
+            "Halal Restaurants",
+            "Teriyaki Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/japanese-food-kopitiam-nuh/"
+    },
+    {
+        "name": "Mini Wok @ On The Ridge by Kopitiam",
+        "location": "1 Lower Ken Ridge Rd National University Hospital Medical Centre #05-01, S119074, SG 119074",
+        "descriptions": [
+            "761m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Asian",
+            "Black Pepper Beef",
+            "Fried Rice",
+            "Hor Fun"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/mini-wok-on-the-ridge-by-kopitiam/"
+    },
+    {
+        "name": "SEABAY DELIGHTS (Kopitiam NUH)",
+        "location": "5 LOWER KENT RIDGE ROAD #01-01, NUH MAIN BUILDING LOBBY-LEVEL 1, Kopitiam Stall No 14, SG 119074",
+        "descriptions": [
+            "761m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Asian",
+            "Carrot Cake",
+            "Fried Chicken",
+            "Fried Rice",
+            "Hokkien Mee",
+            "Mee Goreng",
+            "Salted Fish Fried Rice",
+            "Sambal Fried Rice",
+            "Yang Zhou Fried Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/seabay-delights-kopitiam-nuh/"
+    },
+    {
+        "name": "Fishball Noodle @ Kopitam NUH",
+        "location": "5 Lower Kent Ridge Road #01-01 NUH Main Building, S119074, SG 119074",
+        "descriptions": [
+            "761m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Singaporean",
+            "Laksa"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/fishball-noodle-kopitam-nuh/"
+    },
+    {
+        "name": "Indian Cuisine @ On The Ridge by Kopitiam",
+        "location": "1 Lower Ken Ridge Rd National University Hospital Medical Centre #05-01, S119074, SG 119074",
+        "descriptions": [
+            "761m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Indian Restaurants",
+            "",
+            "Butter Chicken",
+            "Chicken Curry",
+            "Tandoori chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/indian-cuisine-on-the-ridge-by-kopitiam/"
+    },
+    {
+        "name": "Fishball Noodle @ On The Ridge by Kopitiam",
+        "location": "1 Lower Ken Ridge Rd National University Hospital Medical Centre #05-01, S119074, SG 119074",
+        "descriptions": [
+            "761m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Singaporean"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/fishball-noodle-on-the-ridge-by-kopitiam/"
+    },
+    {
+        "name": "The Royals Bistro (National University of Singapore)",
+        "location": "1 Create Way #01-03 NUS UTown Create Tower, Singapore 138602",
+        "descriptions": [
+            "771m",
+            "S$10 - S$20",
+            "+65 9777 1353"
+        ],
+        "category": [
+            "Cafes",
+            "Cakes",
+            "Desserts",
+            "Halal Restaurants",
+            "Caesar Salad",
+            "Carbonara",
+            "Chicken Burger",
+            "Chicken Chop",
+            "Chicken Cutlet",
+            "Chicken Wings",
+            "Earl Grey Tea",
+            "English Breakfast Tea",
+            "Garlic Bread",
+            "Mee Siam",
+            "Samosa",
+            "Smoked Salmon",
+            "Soup of the Day"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/the-royals-bistro-national-university-of-singapore/"
+    },
+    {
+        "name": "Thyme @ Rochester",
+        "location": "44 Rochester Park, Buona Vista, Bukit Timah, SG 139248",
+        "descriptions": [
+            "773m",
+            "S$9 - S$19"
+        ],
+        "category": [
+            "Pizza",
+            "Western Restaurants",
+            "European Restaurants",
+            "Carbonara",
+            "Carrot Cake",
+            "Chicken Burger",
+            "Potato Wedges"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/thyme-rochester/"
+    },
+    {
+        "name": "Xiao Man Spicy Soup",
+        "location": "1 Fusionopolis Place, #01-26, Galaxis, 138522, SG 138522",
+        "descriptions": [
+            "774m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/xiao-man-spicy-soup/"
+    },
+    {
+        "name": "The Royals Cafe - NUS",
+        "location": "01-03, NUS - University Town, 1 Create Way, Buona Vista, SG 138602",
+        "descriptions": [
+            "786m"
+        ],
+        "category": [
+            "Italian Restaurants",
+            "Sandwiches",
+            "European Restaurants",
+            "Burgers",
+            "Rice Dishes",
+            "Western Restaurants",
+            "Caesar Salad",
+            "Carbonara",
+            "Chicken Chop",
+            "Chicken Cutlet",
+            "Chicken Wings",
+            "Curry Chicken",
+            "Earl Grey Tea",
+            "English Breakfast Tea",
+            "Garlic Bread",
+            "Mee Siam",
+            "Samosa",
+            "Smoked Salmon"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/the-royals-cafe-nus/"
+    },
+    {
+        "name": "Picotin Brewhaus (Rochester)",
+        "location": "39 Rochester Drive Rochester Mall, Singapore 138641",
+        "descriptions": [
+            "796m",
+            "S$20 - S$40",
+            "+65 6777 0184"
+        ],
+        "category": [
+            "Pizza",
+            "Bars",
+            "Craft Beer",
+            "Late Night Restaurants",
+            "Cocktails",
+            "Dinner with Drinks"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/picotin-brewhaus-rochester/"
+    },
+    {
+        "name": "Fine Food (NUS University Town)",
+        "location": "1 Create Way #01-04 NUS UTown, Singapore 138602",
+        "descriptions": [
+            "796m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/fine-food-nus-university-town/"
+    },
+    {
+        "name": "HUI Restaurant",
+        "location": "10B Rochester Park, Singapore 139228",
+        "descriptions": [
+            "796m",
+            "S$70 - S$120",
+            "+65 6530 3977"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Date Night Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hui-restaurant/"
+    },
+    {
+        "name": "Moberly Caf\u00e9 (Singapore Polytechnic)",
+        "location": "500 Dover Road T11 Moberly Block, Singapore 139651",
+        "descriptions": [
+            "796m"
+        ],
+        "category": [
+            "Western Restaurants",
+            "Cafes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/moberly-cafe-singapore-polytechnic/"
+    },
+    {
+        "name": "Sapore Italian Restaurant",
+        "location": "1 Create Way #01-06 NUS University Town, Singapore 138602",
+        "descriptions": [
+            "798m",
+            "S$10 - S$20",
+            "+65 6262 0287"
+        ],
+        "category": [
+            "Italian",
+            "Western",
+            "Carbonara",
+            "Tiramisu"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/sapore-italiano/"
+    },
+    {
+        "name": "XO Minced Meat Noodle (Clementi)",
+        "location": "Fine Food, National University of Singapore, 1 Create way, Town Plaza, SG 138602",
+        "descriptions": [
+            "798m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Meat",
+            "Laksa"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/xo-minced-meat-noodle-clementi/"
+    },
+    {
+        "name": "Koufu (Singapore Polytechnic)",
+        "location": "500 Dover Road Singapore Polytechnic Foodcourt 4 AeroHub (AE106), Singapore 139651",
+        "descriptions": [
+            "807m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/koufu-singapore-polytechnic/"
+    },
+    {
+        "name": "Singapore Polytechnic Food Court 6",
+        "location": "500 Dover Road Level 2 T19 Singapore Polytechnic, Singapore 139651",
+        "descriptions": [
+            "807m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/singapore-polytechnic-food-court-6/"
+    },
+    {
+        "name": "SuuKee Coffee",
+        "location": "9 Ayer Rajah Avenue #B2-03 One-North MRT, Singapore 138647",
+        "descriptions": [
+            "807m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Local Delights",
+            "Cafes",
+            "Breakfast"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/suukee-coffee/"
+    },
+    {
+        "name": "foodnode (Singapore Polytechnic)",
+        "location": "500 Dover Road Level 2 Design School Building Singapore Polytechnic, Singapore 139651",
+        "descriptions": [
+            "807m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/foodnode-singapore-polytechnic/"
+    },
+    {
+        "name": "Sunny Korean Cuisine (One@KentRidge)",
+        "location": "1 Lower Kent Ridge Road #01-12 One@KentRidge, Singapore 119074",
+        "descriptions": [
+            "814m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Korean"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/sunny-korean-cuisine-onekentridge/"
+    },
+    {
+        "name": "Sedap! (Fusionopolis)",
+        "location": "1 Fusionopolis Place #01-20 Galaxis, Singapore 138522",
+        "descriptions": [
+            "814m",
+            "S$5 - S$10",
+            "+65 9733 4265"
+        ],
+        "category": [
+            "Hawker Food",
+            "Malay Restaurants",
+            "Nasi Lemak"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/sedap-fusionopolis/"
+    },
+    {
+        "name": "Yum Zaab",
+        "location": "01-04 Town Plaza, 1 Create Way, National University Of Singapore,Buona Vista, Bukit Timah, SG 138602",
+        "descriptions": [
+            "816m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Thai Restaurants",
+            "Chicken Rice",
+            "Curry Chicken",
+            "Fried Rice",
+            "Mango Salad",
+            "Omelette",
+            "Pineapple Fried Rice",
+            "Seafood Soup",
+            "Tom Yum Fried Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/yum-zaab/"
+    },
+    {
+        "name": "roots@onenorth",
+        "location": "3 Fusionopolis Place #01-50 Galaxis, Singapore 138523",
+        "descriptions": [
+            "817m",
+            "S$28 - S$48",
+            "+65 8040 5140"
+        ],
+        "category": [
+            "Italian Restaurants",
+            "French Restaurants",
+            "Steak",
+            "Dinner with Drinks",
+            "Date Night Restaurants",
+            "Caesar Salad",
+            "Carbonara",
+            "Margherita",
+            "Smoked Salmon",
+            "Soup of the Day",
+            "Tiramisu"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/rootsonenorth/"
+    },
+    {
+        "name": "Mr Bean (one-north MRT)",
+        "location": "9 Ayer Rajah Avenue #B2-02 One-North MRT Station, Singapore 138647",
+        "descriptions": [
+            "822m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Desserts",
+            "Healthy Food Restaurants",
+            "Chicken Rice",
+            "Teriyaki Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/mr-bean-one-north-mrt/"
+    },
+    {
+        "name": "Subway (One-North)",
+        "location": "9 Ayer Rajah Avenue #B2-04 One-North MRT Station, Singapore 138647",
+        "descriptions": [
+            "822m",
+            "S$5 - S$15",
+            "+65 6777 8234"
+        ],
+        "category": [
+            "subway"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/subway-one-north/"
+    },
+    {
+        "name": "Mom's Touch - Kent Ridge (NUH)",
+        "location": "1 Lower Kent Ridge Road #04-19/20 One @ Kentridge, SG 119082",
+        "descriptions": [
+            "823m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Burgers",
+            "Fast Food",
+            "Cheese Fries",
+            "Chicken Burger",
+            "Chicken Nuggets",
+            "English Breakfast Tea",
+            "Fried Chicken",
+            "Popcorn Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/moms-touch-kent-ridge-nuh/"
+    },
+    {
+        "name": "Bakery Cuisine (Connexis)",
+        "location": "1 Fusionopolis Way #01-11 Connexis, Singapore 138632",
+        "descriptions": [
+            "843m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Bread"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/bakery-cuisine-connexis/"
+    },
+    {
+        "name": "HAFUDOG",
+        "location": "1 Fusionopolis Way #02-03 Connexis, Singapore 138632",
+        "descriptions": [
+            "846m",
+            "S$5 - S$15",
+            "+65 6513 1812"
+        ],
+        "category": [
+            "Western",
+            "Coleslaw",
+            "Earl Grey Tea",
+            "English Breakfast Tea",
+            "Soup of the Day",
+            "Sweet Potato Fries"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hafudog/"
+    },
+    {
+        "name": "Urban Loaf Factory",
+        "location": "1 Fusionopolis Way #02-13 Connexis, Singapore 138632",
+        "descriptions": [
+            "846m",
+            "S$5 - S$15",
+            "+65 9655 0715"
+        ],
+        "category": [
+            "Bread",
+            "Desserts"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/urban-loaf-factory/"
+    },
+    {
+        "name": "Sloppy B",
+        "location": "1 Fusionopolis Place #01-20 Galaxis, Singapore 138522",
+        "descriptions": [
+            "848m",
+            "S$5 - S$15",
+            "+65 9109 7929"
+        ],
+        "category": [
+            "Sandwiches",
+            "Halal Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/sloppy-b/"
+    },
+    {
+        "name": "GelatiAmo",
+        "location": "1 Fusionopolis Way #B1-11 Connexis, Singapore 138632",
+        "descriptions": [
+            "851m",
+            "S$5 - S$15",
+            "+65 9232 6645"
+        ],
+        "category": [
+            "Ice Cream",
+            "Waffles",
+            "Desserts",
+            "Cafes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/gelatiamo/"
+    },
+    {
+        "name": "Chicky Fun Cafe (Fusionopolis)",
+        "location": "1 Fusionopolis Way #B1-24, Singapore 138632",
+        "descriptions": [
+            "851m",
+            "S$5 - S$10",
+            "+65 6338 2162"
+        ],
+        "category": [
+            "Chicken Rice",
+            "Malay Restaurants",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/chicky-fun-cafe-fusionopolis/"
+    },
+    {
+        "name": "One Fattened Calf",
+        "location": "1 Fusionopolis Place #01-31 Galaxis, Singapore 138522",
+        "descriptions": [
+            "852m",
+            "S$10 - S$30"
+        ],
+        "category": [
+            "Fast Food",
+            "Burgers",
+            "Western Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/one-fattened-calf/"
+    },
+    {
+        "name": "Starbucks (Fusionopolis)",
+        "location": "1 Fusionopolis Way #01-120 Fusionopolis, Singapore 138632",
+        "descriptions": [
+            "852m",
+            "S$5 - S$15",
+            "+65 6469 8761"
+        ],
+        "category": [
+            "Cafes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/starbucks-fusionopolis/"
+    },
+    {
+        "name": "The Soup Spoon (Fusionopolis)",
+        "location": "1 Fusionopolis Way #B2-10 Fusionopolis, Singapore 138632",
+        "descriptions": [
+            "852m",
+            "S$5 - S$15",
+            "+65 6463 2003"
+        ],
+        "category": [
+            "Soup",
+            "Salads",
+            "Healthy Food Restaurants",
+            "Sandwiches"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/the-soup-spoon-fusionopolis/"
+    },
+    {
+        "name": "Rong Hua Bak Kut Teh (Fusionpolis)",
+        "location": "#B1-13, 1 Fusionopolis Way, Buona Vista, Bukit Timah, SG 138632",
+        "descriptions": [
+            "852m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Meat",
+            "Seafood",
+            "Asian",
+            "Bak Kut Teh",
+            "Chicken Cutlet",
+            "Sliced Fish Soup"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/rong-hua-bak-kut-teh-fusionpolis/"
+    },
+    {
+        "name": "Directly",
+        "location": "1 FUSIONOPOLIS WAY, CONNEXIS #02-04, S138632, SG 138632",
+        "descriptions": [
+            "852m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Asian",
+            "Fried Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/directly/"
+    },
+    {
+        "name": "Shin Nichi Japanese Restaurant (Fusionopolis)",
+        "location": "1 Fusionopolis Way #02-20/21 Connexis Tower, Singapore 138632",
+        "descriptions": [
+            "852m",
+            "S$10 - S$30",
+            "+65 6466 3511"
+        ],
+        "category": [
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/shin-nichi-japanese-restaurant-fusionopolis/"
+    },
+    {
+        "name": "Bread Yard",
+        "location": "1 Fusionopolis Place #01-23/24 Galaxis, Singapore 138522",
+        "descriptions": [
+            "856m",
+            "S$10 - S$30",
+            "+65 9773 5318"
+        ],
+        "category": [
+            "Cafes",
+            "Bread",
+            "Breakfast",
+            "Sandwiches",
+            "Carbonara",
+            "Smoked Salmon"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/bread-yard/"
+    },
+    {
+        "name": "Ha-Jun Korean (One North)",
+        "location": "B1-23, 1 Fusionpolis Way, Connexis, Buona Vista, Bukit Timah, SG 138632",
+        "descriptions": [
+            "858m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Meat",
+            "Seafood",
+            "Singaporean",
+            "Fried Rice",
+            "Omelette",
+            "Teriyaki Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ha-jun-korean-one-north/"
+    },
+    {
+        "name": "AJ Delights (Fusionopolis)",
+        "location": "1 Fusionopolis Way B1-22, Singapore 138632",
+        "descriptions": [
+            "859m",
+            "+65 8821 2157"
+        ],
+        "category": [
+            "Bread Pastry Cake",
+            "Dessert",
+            "Bakery"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/aj-delights-fusionopolis/"
+    },
+    {
+        "name": "TANDOORI KEBABS & CURRIES",
+        "location": "UNIT NO 01-32 73 A AYER RAJAH CRESCENT, SG 139957",
+        "descriptions": [
+            "860m",
+            "S$9 - S$19"
+        ],
+        "category": [
+            "Chicken",
+            "Indian Restaurants",
+            "Meat",
+            "Seafood",
+            "Butter Chicken",
+            "Butter Naan",
+            "Cheese Naan",
+            "Chicken Fried Rice",
+            "Chicken Tikka Masala",
+            "Egg Fried Rice",
+            "Garlic Naan",
+            "Mutton Masala",
+            "Palak Paneer",
+            "Plain Naan",
+            "Samosa",
+            "Tandoori chicken",
+            "Tandoori Roti",
+            "Vegetable Fried Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/tandoori-kebabs-curries/"
+    },
+    {
+        "name": "Ya Kun Toastwich (Fusionopolis)",
+        "location": "1 Fusionopolis Way #01-12 Connexis, Singapore 138632",
+        "descriptions": [
+            "861m",
+            "S$5 - S$10",
+            "+65 6463 8836"
+        ],
+        "category": [
+            "Local Delights",
+            "Cafes",
+            "Bread"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ya-kun-toastwich-fusionopolis/"
+    },
+    {
+        "name": "Yi Pin Tang Mala Hotpot (Koufu @ Fusionpolis)",
+        "location": "1 Fusionopolis Way #B2-02, SG 138577",
+        "descriptions": [
+            "861m",
+            "S$9 - S$19"
+        ],
+        "category": [
+            "Meat",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/yi-pin-tang-mala-hotpot-koufu-fusionpolis/"
+    },
+    {
+        "name": "Na Na Homemade Curry (Dover Crescent)",
+        "location": "19A Dover Crescent #01-05, Singapore 131019",
+        "descriptions": [
+            "862m",
+            "S$5 - S$10",
+            "+65 9296 0454"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/na-na-homemade-curry-dover-crescent/"
+    },
+    {
+        "name": "S2 Fish Soup",
+        "location": "19A Dover Crescent, Singapore 131019",
+        "descriptions": [
+            "862m",
+            "S$5 - S$10",
+            "+65 9126 2293"
+        ],
+        "category": [
+            "Soup",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/s2-fish-soup/"
+    },
+    {
+        "name": "Zha Cai Fan Mixed Rice \u4ec0\u83dc\u8d29",
+        "location": "19A Dover Crescent, SG 131019",
+        "descriptions": [
+            "863m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Meat",
+            "Singaporean",
+            "Curry Chicken",
+            "Sweet & Sour Pork"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/zha-cai-fan-mixed-rice-/"
+    },
+    {
+        "name": "Holland Village XO Fish Head Bee Hun Restaurant (Dover)",
+        "location": "19A Dover Rise #01-05 Jumbo Coffee Hub, Singapore 131019",
+        "descriptions": [
+            "864m",
+            "S$5 - S$15",
+            "+65 6778 3691"
+        ],
+        "category": [
+            "Zi Char",
+            "Seafood",
+            "Good For Groups Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/holland-village-xo-fish-head-bee-hun-restaurant-dover/"
+    },
+    {
+        "name": "Jumbo Coffee Hub",
+        "location": "19A Dover Crescent #01-05, Singapore 131019",
+        "descriptions": [
+            "864m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food",
+            "Cafes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/jumbo-coffee-hub/"
+    },
+    {
+        "name": "Wenjie Nasi Lemak",
+        "location": "19A Dover Cres, SG 131019",
+        "descriptions": [
+            "864m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Dessert",
+            "Singaporean",
+            "Nasi Lemak"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/wenjie-nasi-lemak/"
+    },
+    {
+        "name": "Dover Roti Prata Specialist (indian Muslim Food)",
+        "location": "19A Dover Crescent #01-05, S131019, SG 131019",
+        "descriptions": [
+            "864m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Meat",
+            "Indian Restaurants",
+            "Banana Prata",
+            "Bee Hoon Goreng",
+            "Cheese Prata",
+            "Cheese Thosai",
+            "Egg Onion Prata",
+            "Egg Onion Thosai",
+            "Egg Prata",
+            "Egg Thosai",
+            "Fish Briyani",
+            "Masala Thosai",
+            "Mee Goreng",
+            "Nasi Goreng",
+            "Omelette",
+            "Plain Prata",
+            "Plain Thosai",
+            "Roti John Chicken",
+            "Roti John Mutton"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/dover-roti-prata-specialist-indian-muslim-food/"
+    },
+    {
+        "name": "Wooshi (Fusionopolis)",
+        "location": "2 Fusionopolis Way #01-03 Connexis, Singapore 138632",
+        "descriptions": [
+            "865m",
+            "S$5 - S$15",
+            "+65 6974 9135"
+        ],
+        "category": [
+            "Sushi",
+            "1-for-1 Deals",
+            "Japanese Restaurants",
+            "Salads",
+            "Healthy Food Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/wooshi-fusionopolis/"
+    },
+    {
+        "name": "Heybo (Fusionopolis)",
+        "location": "1 Fusionopolis Way #01-03 Connexis, Singapore 138632",
+        "descriptions": [
+            "865m",
+            "S$10 - S$20",
+            "+65 6957 3348"
+        ],
+        "category": [
+            "Healthy Deals",
+            "Delivery",
+            "Salads"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/heybo-fusionopolis/"
+    },
+    {
+        "name": "Uncle Louis Hainanese Chicken Rice (Dover)",
+        "location": "19A Dover Crescent, Singapore 131019",
+        "descriptions": [
+            "865m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken Rice",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/uncle-louis-hainanese-chicken-rice-dover/"
+    },
+    {
+        "name": "Takagi Ramen (One North)",
+        "location": "1 Fusionopolis Way #B1-12 Connexis, Singapore 138632",
+        "descriptions": [
+            "866m",
+            "S$5 - S$15",
+            "+65 9170 7870"
+        ],
+        "category": [
+            "Ramen",
+            "Cheap Food Restaurants",
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/takagi-ramen-one-north/"
+    },
+    {
+        "name": "The Coffee Bean & Tea Leaf (National University Hospital)",
+        "location": "5 Lower Kent Ridge Road #01-10 Main Building, Singapore 119074",
+        "descriptions": [
+            "866m",
+            "+65 6777 2873"
+        ],
+        "category": [
+            "Cafes",
+            "Halal",
+            "Carrot Cake",
+            "Earl Grey Tea",
+            "English Breakfast Tea",
+            "Smoked Salmon",
+            "Tiramisu"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/the-coffee-bean-tea-leaf-national-university-hospital/"
+    },
+    {
+        "name": "Dim Sum (Koufu @ Fusionpolis)",
+        "location": "1 Fusionopolis Way #B2-02, SG 138577",
+        "descriptions": [
+            "866m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Asian",
+            "Chinese Restaurants",
+            "Mee Rebus",
+            "Mee Siam"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/dim-sum-koufu-fusionpolis/"
+    },
+    {
+        "name": "Sunbo Rice Noodle (Koufu Fusionopolis)",
+        "location": "Koufu Food Court 1 Fusionopolis Way, B2-02, SG 138632",
+        "descriptions": [
+            "866m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Singaporean",
+            "Asian",
+            "Seafood Soup"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/sunbo-rice-noodle-koufu-fusionopolis/"
+    },
+    {
+        "name": "Eureka Taste Cafe",
+        "location": "14 Medical Drive Unit 01-03 MD6 NUS, SG 117599",
+        "descriptions": [
+            "866m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Singaporean",
+            "Chinese Tea"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/eureka-taste-cafe/"
+    },
+    {
+        "name": "Desserts (Koufu @ Fusionpolis)",
+        "location": "1 Fusionopolis Way #B2-02, SG 138577",
+        "descriptions": [
+            "867m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Dessert"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/desserts-koufu-fusionpolis/"
+    },
+    {
+        "name": "Thai Cuisine (Koufu @ Fusionopolis)",
+        "location": "1 Fusionopolis Way #B2-02, SG 138577",
+        "descriptions": [
+            "867m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Meat",
+            "Thai Restaurants",
+            "Thai",
+            "",
+            "Chicken Rice",
+            "Fried Rice",
+            "Olive Fried Rice",
+            "Omelette",
+            "Pineapple Fried Rice",
+            "Salted Fish Fried Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/thai-cuisine-koufu-fusionopolis/"
+    },
+    {
+        "name": "Traditional Sarawak Kolo Mee (Clementi)",
+        "location": "1 Fusionopolis Way #B1-14, SG 138632",
+        "descriptions": [
+            "868m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Chicken Cutlet",
+            "Curry Chicken",
+            "Fried Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/traditional-sarawak-kolo-mee-clementi/"
+    }
+]

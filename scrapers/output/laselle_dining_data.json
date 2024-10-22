@@ -1,0 +1,1894 @@
+[
+    {
+        "name": "73@Lowercase",
+        "location": "1 McNally Street, Singapore 187940",
+        "descriptions": [
+            "24m",
+            "S$10 - S$20",
+            "+65 6337 5581"
+        ],
+        "category": [
+            "Burgers",
+            "Breakfast",
+            "Western Restaurants",
+            "Black Pepper Chicken",
+            "Chicken Burger",
+            "Mashed Potato",
+            "Mushroom Soup",
+            "Truffle Fries"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/73hillcrest/"
+    },
+    {
+        "name": "Hungry Chimps",
+        "location": "64A Prinsep Street #02-01, Singapore 188667",
+        "descriptions": [
+            "27m",
+            "S$10 - S$30",
+            "+65 6338 1389"
+        ],
+        "category": [
+            "Western"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hungry-chimps/"
+    },
+    {
+        "name": "Lowercase",
+        "location": "1 McNally Street #01-01 Block D, Singapore 187940",
+        "descriptions": [
+            "40m",
+            "S$10 - S$20",
+            "+65 6337 5581"
+        ],
+        "category": [
+            "Cafes",
+            "Western Restaurants",
+            "Breakfast",
+            "Chicken Nuggets",
+            "Hawaiian Pizza",
+            "Margherita",
+            "Margherita Pizza",
+            "Truffle Fries"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/lowercase/"
+    },
+    {
+        "name": "Geisha Specialty Coffee",
+        "location": "175 Bencoolen Street #01-57A Burlington Square, Singapore 189649",
+        "descriptions": [
+            "44m",
+            "S$5 - S$15",
+            "+65 9062 5726"
+        ],
+        "category": [
+            "Cafes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/geisha-specialty-coffee/"
+    },
+    {
+        "name": "Hao Lai Wu (Burlington Square)",
+        "location": "175B Bencoolen Street Burlington Square #01-57, SG 189649",
+        "descriptions": [
+            "66m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Chicken Chop",
+            "Chicken Nuggets",
+            "Chicken Rice",
+            "Chicken Wings",
+            "Egg Fried Rice",
+            "French Fries",
+            "Fried Chicken",
+            "Fried Egg",
+            "Onion Rings",
+            "Seafood Fried Rice",
+            "Yang Zhou Fried Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hao-lai-wu-burlington-square/"
+    },
+    {
+        "name": "Zheng Swee Kee Hainanese Chicken Rice",
+        "location": "175 Bencoolen Street #01-34 Burlington Square, Singapore 189649",
+        "descriptions": [
+            "77m",
+            "S$5 - S$15",
+            "+65 6336 1042"
+        ],
+        "category": [
+            "Chicken Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/zheng-swee-kee-hainanese-chicken-rice/"
+    },
+    {
+        "name": "Gagahoho Ox Bone Soup",
+        "location": "175 Bencoolen Street 01-57A, Singapore 189649",
+        "descriptions": [
+            "77m",
+            "+65 6518 4157"
+        ],
+        "category": [
+            "Asian"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/gagahoho-ox-bone-soup/"
+    },
+    {
+        "name": "Beans & Cream (Burlington Square)",
+        "location": "175 Bencoolen Street #01-55 Burlington Square, Singapore 189649",
+        "descriptions": [
+            "77m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Desserts",
+            "Ice Cream",
+            "Waffles",
+            "Cafes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/beans-cream-burlington-square/"
+    },
+    {
+        "name": "Songtan Army Stew",
+        "location": "175 Bencoolen Street #01-57A Burlington Square, Singapore 189649",
+        "descriptions": [
+            "77m",
+            "S$15 - S$35",
+            "+65 6518 4157"
+        ],
+        "category": [
+            "Hot Pot",
+            "Korean"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/songtan-army-stew/"
+    },
+    {
+        "name": "Hot Spot Cafe Restaurant",
+        "location": "175 Bencoolen Street #01-34 Burlington Square, Singapore 189649",
+        "descriptions": [
+            "88m",
+            "S$5 - S$10",
+            "+65 6835 7752"
+        ],
+        "category": [
+            "Thai Restaurants",
+            "Zi Char",
+            "Cafes",
+            "Good For Groups Restaurants",
+            "Cheap Food Restaurants",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hot-spot-cafe-restaurant/"
+    },
+    {
+        "name": "Wing Seong Fatty's Restaurant",
+        "location": "175 Bencoolen Street #01-31 Burlington Square, Singapore 189649",
+        "descriptions": [
+            "89m",
+            "S$10 - S$30",
+            "+65 6338 1087"
+        ],
+        "category": [
+            "Zi Char"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/wing-seong-fattys-restaurant/"
+    },
+    {
+        "name": "Shake Coffee",
+        "location": "128 Prinsep Street #01-01 Sin Thai Hin Building, Singapore 188655",
+        "descriptions": [
+            "90m",
+            "S$5 - S$15",
+            "+65 9457 0070"
+        ],
+        "category": [
+            "Cocktails",
+            "Bars",
+            "Cafes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/shake-coffee/"
+    },
+    {
+        "name": "ThaiPan Restaurant",
+        "location": "175 Albert Street #01-02 ibis Styles Singapore Albert, Singapore 189970",
+        "descriptions": [
+            "96m",
+            "S$10 - S$30",
+            "+65 8869 4272"
+        ],
+        "category": [
+            "Zi Char",
+            "Chinese Restaurants",
+            "Seafood",
+            "Good For Groups Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/thaipan-restaurant/"
+    },
+    {
+        "name": "Nightshift Bistro & Bar",
+        "location": "175 Bencoolen Street #01-33 Burlington Square, Singapore 189649",
+        "descriptions": [
+            "99m",
+            "S$10 - S$20",
+            "+65 9057 7280"
+        ],
+        "category": [
+            "Craft Beer",
+            "Western Restaurants",
+            "Bars",
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/nightshift-bistro-bar/"
+    },
+    {
+        "name": "Uncle Siam Thai Bistro",
+        "location": "175 BENCOOLEN STREET #01-49 BURLINGTON SQUARE SINGAPORE 189649, SG 189649",
+        "descriptions": [
+            "108m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Meat",
+            "Thai Restaurants",
+            "Thai",
+            "Chicken Cutlet",
+            "Chicken Nuggets",
+            "Chicken Rice",
+            "Chicken Wings",
+            "French Fries",
+            "Fried Chicken",
+            "Fried Rice",
+            "Omelette",
+            "Potato Wedges",
+            "Tom Yum Fried Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/uncle-siam-thai-bistro/"
+    },
+    {
+        "name": "Lao Si Chuan (Middle Road)",
+        "location": "9 Selegie Road #01-31, Singapore 180009",
+        "descriptions": [
+            "109m",
+            "S$10 - S$30",
+            "+65 9395 6808"
+        ],
+        "category": [
+            "Chinese"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/lao-si-chuan-middle-road/"
+    },
+    {
+        "name": "Hong Yun Cafe",
+        "location": "9 Selegie Road #01-19, Singapore 180009",
+        "descriptions": [
+            "109m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hong-yun-cafe/"
+    },
+    {
+        "name": "Local Delights @ Hong Yun Cafe",
+        "location": "9 Selegie Road, #01-19, SG 180009",
+        "descriptions": [
+            "109m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Meat",
+            "Chinese Restaurants",
+            "Chicken Cutlet",
+            "Chicken Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/local-delights-hong-yun-cafe/"
+    },
+    {
+        "name": "Basic Kneads",
+        "location": "9 Selegie Road #01-28, Singapore 180009",
+        "descriptions": [
+            "109m"
+        ],
+        "category": [
+            "Cafe"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/basic-kneads/"
+    },
+    {
+        "name": "Taste Good \u597d\u5473\u5c0f\u53a8",
+        "location": "1 Rochor Canal Road #02-04, Singapore 188504",
+        "descriptions": [
+            "111m",
+            "+65 6336 6298"
+        ],
+        "category": [],
+        "url": "https://www.foodadvisor.com.sg/restaurant/taste-good-/"
+    },
+    {
+        "name": "Feng Cha",
+        "location": "175 Bencoolen Street #01-56 Burlington Square, Singapore 189649",
+        "descriptions": [
+            "115m",
+            "S$5 - S$10",
+            "+65 6732 0816"
+        ],
+        "category": [
+            "Bubble Tea"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/feng-cha/"
+    },
+    {
+        "name": "Fun Toast (Rochor)",
+        "location": "11 Rochor Canal Road, Rochor MRT Station, #B1-02, SG 188505",
+        "descriptions": [
+            "127m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Sandwiches",
+            "Singaporean",
+            "Curry Chicken",
+            "Laksa",
+            "Mee Siam"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/fun-toast-rochor/"
+    },
+    {
+        "name": "Hao Lai Wu Steamboat & BBQ (Burlington Square)",
+        "location": "175 Bencoolen Street #01-57 Burlington Square, Singapore 186649",
+        "descriptions": [
+            "130m",
+            "S$15 - S$35",
+            "+65 6732 0816"
+        ],
+        "category": [
+            "Steamboat",
+            "Buffets",
+            "Supper Restaurants",
+            "BBQ",
+            "Late Night Restaurants",
+            "Fried \u00a0Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hao-lai-wu/"
+    },
+    {
+        "name": "LiHO (Burlington Square)",
+        "location": "175 Bencoolen Street #01-53 Burlington Square, Singapore 189649",
+        "descriptions": [
+            "130m",
+            "S$5 - S$10",
+            "+65 6884 8933"
+        ],
+        "category": [
+            "Desserts"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/liho-burlington-square/"
+    },
+    {
+        "name": "Shiraz Pattisserie",
+        "location": "175 Bencoolen Street #01-33 Burlington Square, SG 189649",
+        "descriptions": [
+            "130m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Pizza",
+            "Sandwiches",
+            "Western Restaurants",
+            "BBQ Chicken",
+            "Carbonara",
+            "Chicken Biryani",
+            "Chinese Tea",
+            "English Breakfast Tea",
+            "Omelette",
+            "Popcorn Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/shiraz-pattisserie/"
+    },
+    {
+        "name": "Sing Ho Hainan Chicken Rice",
+        "location": "1A Short Street #01-04, Singapore 188210",
+        "descriptions": [
+            "135m",
+            "S$5 - S$10",
+            "+65 6336 7579"
+        ],
+        "category": [
+            "Chicken Rice",
+            "Hawker Food",
+            "Chicken",
+            "Calamari Rings",
+            "Omelette",
+            "Onion Omelette",
+            "Prawn Omelette",
+            "Salted Egg Prawn",
+            "Sambal Kang Kong",
+            "Sweet and Sour Pork"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/sing-ho-hainan-chicken-rice-/"
+    },
+    {
+        "name": "Na Xie Nian BBQ",
+        "location": "1A Short Street, Singapore 188210",
+        "descriptions": [
+            "135m",
+            "S$10 - S$30",
+            "+65 9127 9385"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "BBQ"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/those-years-bbq-bar/"
+    },
+    {
+        "name": "Quarter Life Coffee",
+        "location": "120A Prinsep Street, Singapore 187537",
+        "descriptions": [
+            "136m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Cafes",
+            "Cakes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/quarter-life-coffee/"
+    },
+    {
+        "name": "Qu\u00e1n C\u00f4 Ba (Sim Lim Square)",
+        "location": "1 Rochor Canal Road #B1-13 Sim Lim Square Broadway, Singapore 188504",
+        "descriptions": [
+            "140m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Vietnamese Restaurants",
+            "Cheap Food Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/quan-co-ba-sim-lim-square/"
+    },
+    {
+        "name": "Zeppelin & Co.",
+        "location": "1 Rochor Canal Road #02-78 Sim Lim Square, Singapore 188504",
+        "descriptions": [
+            "140m",
+            "S$5 - S$10",
+            "+65 9337 9655"
+        ],
+        "category": [
+            "Cafes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/zeppelin-co/"
+    },
+    {
+        "name": "Broadway (Sim Lim Square)",
+        "location": "1 Rochor Canal Road #B1-08/26 Sim Lim Square, Singapore 188504",
+        "descriptions": [
+            "140m",
+            "S$5 - S$15",
+            "+65 9838 5218"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/broadway-sim-lim-square/"
+    },
+    {
+        "name": "Soi Aroy",
+        "location": "1 Rochor Canal Road #02-08 Sim Lim Square, Singapore 188504",
+        "descriptions": [
+            "140m",
+            "S$5 - S$15",
+            "+65 9641 8988"
+        ],
+        "category": [
+            "Thai Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/soi-aroy/"
+    },
+    {
+        "name": "3 Meals a Day",
+        "location": "1 Rochor Canal Road #02-01 Sim Lim Square, Singapore 188504",
+        "descriptions": [
+            "140m",
+            "S$5 - S$10",
+            "+65 9670 6520"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/3-meals-a-day/"
+    },
+    {
+        "name": "Boat Noodle Express (Sim Lim Square)",
+        "location": "1 Rochor Canal Road #01-06 Sim Lim Square, Singapore 188504",
+        "descriptions": [
+            "140m",
+            "S$5 - S$15",
+            "+65 9068 8060"
+        ],
+        "category": [
+            "Thai Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/boat-noodle-express-sim-lim-square/"
+    },
+    {
+        "name": "Route6 (Sim Lim Square)",
+        "location": "1 Rochor Canal Road #06-12 Sim Lim Square, Singapore 188504",
+        "descriptions": [
+            "140m",
+            "S$10 - S$30",
+            "+65 8389 8548"
+        ],
+        "category": [
+            "Thai Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/route6-sim-lim-square/"
+    },
+    {
+        "name": "Kim's Prawn Mee Cafe",
+        "location": "1 Rochor Canal Road Sim Lim Square, Singapore 188504",
+        "descriptions": [
+            "140m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/kims-prawn-mee-cafe/"
+    },
+    {
+        "name": "iEat Mini Wok (Bugis/City Hall)",
+        "location": "1 Rochor Canal Road #B1-08 (Sim Lim Square), SG 188504",
+        "descriptions": [
+            "140m",
+            "S$6 - S$16"
+        ],
+        "category": [
+            "Meat",
+            "Chinese Restaurants",
+            "Black Pepper Beef",
+            "Black Pepper Chicken",
+            "Butter Chicken",
+            "Chicken Cutlet",
+            "Chicken Rice",
+            "Chilli Chicken",
+            "Curry Chicken",
+            "Fried Rice",
+            "Omelette",
+            "Salted Egg Chicken",
+            "Sambal Fried Rice",
+            "Sambal Sotong",
+            "Sweet & Sour Pork"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ieat-mini-wok-bugiscity-hall/"
+    },
+    {
+        "name": "Hotpot Korean Cuisine",
+        "location": "1 Rochor Canal Rd, Sim Lim Square Basement Stall 14, SG 188504",
+        "descriptions": [
+            "140m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Meat",
+            "Korean",
+            "",
+            "BBQ Chicken",
+            "Fried Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hotpot-korean-cuisine/"
+    },
+    {
+        "name": "Wan Jia Mala Xiang Guo",
+        "location": "1 Rochor Canal Road #B1-08, #B1-26, #B1-39, Sim Lim Square, SG 188504",
+        "descriptions": [
+            "140m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/wan-jia-mala-xiang-guo/"
+    },
+    {
+        "name": "Yi Ping Xiang Popiah (Hougang)",
+        "location": "Food Court B1, 1 Rochor Canal Road, Sim Lim Square, SG 188504",
+        "descriptions": [
+            "140m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Asian"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/yi-ping-xiang-popiah-hougang/"
+    },
+    {
+        "name": "Wok King (Sim Lim Square)",
+        "location": "1 Rochor Canal Road #B1-08/26 Sim Lim Square Broadway, Singapore 188504",
+        "descriptions": [
+            "140m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/wok-king-sim-lim-square/"
+    },
+    {
+        "name": "Fish & More (Sim Lim Square)",
+        "location": "1 Rochor Canal Road #B1-08/26 Sim Lim Square Broadway, Singapore 188504",
+        "descriptions": [
+            "140m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food",
+            "Fish",
+            "Seafood Soup"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/fish-more-sim-lim-square/"
+    },
+    {
+        "name": "Geylang Abalone Chilli Noodles",
+        "location": "1 Rochor Canal Road #B1-08/26, Singapore 188504",
+        "descriptions": [
+            "140m",
+            "+65 6589 8494"
+        ],
+        "category": [
+            "Hawker/Kopitiam",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/geylang-abalone-chilli-noodles/"
+    },
+    {
+        "name": "Rung Reuxng Thai Food",
+        "location": "1 Rochor Canal Road #B1-08/26 Sim Lim Square Broadway, Singapore 188504",
+        "descriptions": [
+            "140m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Thai Restaurants",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/rung-reuxng-thai-food/"
+    },
+    {
+        "name": "New Hong Kong Roast (Sim Lim Square)",
+        "location": "1 Rochor Canal Road, Sim Lim Square #B1-08/26, SG 188504",
+        "descriptions": [
+            "141m"
+        ],
+        "category": [
+            "Asian",
+            "Meat",
+            "Chicken",
+            "Noodles",
+            "Rice Dishes",
+            "Singaporean",
+            "South East Asian",
+            "Braised Egg",
+            "Char Siew Rice",
+            "Chicken Rice",
+            "Hor Fun"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/new-hong-kong-roast-sim-lim-square/"
+    },
+    {
+        "name": "17 Turkish Doner Kebab",
+        "location": "1 Rochor Canal Road #B1-08/26 Sim Lim Square Broadway, Singapore 188504",
+        "descriptions": [
+            "141m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Turkish Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/17-turkish-doner-kebab/"
+    },
+    {
+        "name": "Burger King (Burlington Square)",
+        "location": "175 Bencoolen Street #01-01 Burlington Square, Singapore 189649",
+        "descriptions": [
+            "150m",
+            "S$5 - S$15",
+            "+65 6336 3435"
+        ],
+        "category": [
+            "Burgers",
+            "Halal Restaurants",
+            "Fast Food",
+            "Fried Chicken",
+            "Nuggets",
+            "Onion Rings"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/burger-king-burlington-square/"
+    },
+    {
+        "name": "Da Ma Restoran",
+        "location": "173 Bencoolen Street Level 1 Summerview Hotel, Singapore 189642",
+        "descriptions": [
+            "151m",
+            "S$10 - S$20"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Cafes",
+            "Local Delights"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/da-ma-restoran/"
+    },
+    {
+        "name": "Killiney Kopitiam (Sim Lim Square)",
+        "location": "1 Rochor Canal Road #02-10 Sim Lim Square, Singapore 188504",
+        "descriptions": [
+            "154m",
+            "S$5 - S$15",
+            "+65 6338 9472"
+        ],
+        "category": [
+            "Local Delights",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/killiney-kopitiam-sim-lim-square/"
+    },
+    {
+        "name": "Hospoda Microbrewery",
+        "location": "180 Albert Street #01-19 Albert Court, Singapore 189971",
+        "descriptions": [
+            "159m",
+            "+65 8118 4677"
+        ],
+        "category": [
+            "Bars",
+            "Dinner with Drinks"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hospoda-microbrewery/"
+    },
+    {
+        "name": "Yi Qi Pin Lao SiChuan Restaurant",
+        "location": "268 Middle Road, Bugis/City Hall, Lower Central, SG 188992",
+        "descriptions": [
+            "160m",
+            "S$12 - S$22"
+        ],
+        "category": [
+            "Asian",
+            "Chinese Restaurants",
+            "Edamame",
+            "Egg Fried Rice",
+            "Fried Chicken",
+            "Fried Egg",
+            "Laksa",
+            "Sliced Fish Soup"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/yi-qi-pin-lao-sichuan-restaurant/"
+    },
+    {
+        "name": "Subway (Sim Lim Square)",
+        "location": "1 Rochor Canal Road, #B1-27/28 Sim Lim Square, SG 188504",
+        "descriptions": [
+            "166m",
+            "S$6 - S$16"
+        ],
+        "category": [
+            "subway",
+            "Chicken Cutlet"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/subway-sim-lim-square/"
+    },
+    {
+        "name": "TIAN XIN GU TANG MIAN",
+        "location": "1 ROCHOR CANAL ROAD #02-02 SIM LIM SQUARE SINGAPORE 188504, SG 188504",
+        "descriptions": [
+            "166m",
+            "S$8 - S$18"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Braised Egg"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/tian-xin-gu-tang-mian/"
+    },
+    {
+        "name": "Hundred Flavours Desserts (Sim Lim Square)",
+        "location": "1 Rochor Canal Road, Sim Lim Square #B1-08/26, SG 188504",
+        "descriptions": [
+            "166m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Dessert"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hundred-flavours-desserts-sim-lim-square/"
+    },
+    {
+        "name": "Castro's Western Grill",
+        "location": "1 Rochor Canal Road, Sim Lim Square, #B1- 08/26, Singapore 188504, SG 188504",
+        "descriptions": [
+            "166m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Chicken",
+            "Seafood",
+            "Western Restaurants",
+            "Western",
+            "Caesar Salad",
+            "Carbonara",
+            "Cheese Fries",
+            "Chicken Chop",
+            "Chicken Cutlet",
+            "Chicken Fried Rice",
+            "Chicken Nuggets",
+            "French Fries",
+            "Potato Wedges",
+            "Seafood Marinara"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/castros-western-grill/"
+    },
+    {
+        "name": "Ryan's Bistro",
+        "location": "1 ROCHOR CANAL ROAD, #04-02F, SIM LIM SQUARE, Singapore 188504, SG 188504",
+        "descriptions": [
+            "166m",
+            "S$11 - S$21"
+        ],
+        "category": [
+            "Beverages",
+            "Meat",
+            "Chicken",
+            "International",
+            "Carbonara",
+            "Cheese Fries",
+            "Chicken Chop",
+            "Chicken Cutlet",
+            "Chicken Wings",
+            "Mutton Briyani",
+            "Nuggets",
+            "Samosa",
+            "Spring Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ryans-bistro/"
+    },
+    {
+        "name": "Soon Soon Local Delights \u8c6a\u534e\u7f8e\u98df",
+        "location": "1 Rochor Canal #02-43, S188504, SG 188504",
+        "descriptions": [
+            "166m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Asian",
+            "Char Siew Rice",
+            "Chicken Cutlet",
+            "Chicken Rice",
+            "Fried Chicken",
+            "Hokkien Mee"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/soon-soon-local-delights-/"
+    },
+    {
+        "name": "38 Bubble Tea Waffle (Sim Lim Square)",
+        "location": "1 Rochor Canal Road #02-59 Sim Lim Square, Singapore 188504",
+        "descriptions": [
+            "166m",
+            "+65 8927 0718"
+        ],
+        "category": [
+            "Bubble Tea",
+            "Waffles"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/38-bubble-tea-waffle-sim-lim-square/"
+    },
+    {
+        "name": "Yishidai Cafe \u58f9\u98df\u4ee3\u9910\u5385",
+        "location": "1 Rochor Canal #02-43 Sim Lim Square, S188504, SG 188504",
+        "descriptions": [
+            "166m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Asian",
+            "Beverages",
+            "Chicken",
+            "Meat",
+            "Chinese Tea"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/yishidai-cafe-/"
+    },
+    {
+        "name": "Lao Sichuan Restaurant (Selegie) \u8001\u56db\u5ddd \u5927\u9152\u697c (\u5b9e\u5229\u57fa)",
+        "location": "9 Selegie Road #01-31, Singapore 180009",
+        "descriptions": [
+            "167m",
+            "+65 9395 6808"
+        ],
+        "category": [],
+        "url": "https://www.foodadvisor.com.sg/restaurant/lao-sichuan-restaurant-selegie-/"
+    },
+    {
+        "name": "Feng Sheng Chicken Rice & Steamboat",
+        "location": "4 Short Street, Singapore 188212",
+        "descriptions": [
+            "171m",
+            "+65 8796 7640"
+        ],
+        "category": [
+            "Chicken Rice",
+            "Hot Pot",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/feng-sheng-chicken-rice-steamboat/"
+    },
+    {
+        "name": "The Red Crab Singapore",
+        "location": "180 Albert Street Unit 01-09 Village hotel, Albert Court, SG 189971",
+        "descriptions": [
+            "172m",
+            "S$40 - S$68"
+        ],
+        "category": [
+            "Seafood"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/the-red-crab-singapore/"
+    },
+    {
+        "name": "Red Crab",
+        "location": "180 Albert Street #01-09 Village Hotel Albert Court, Singapore 189971",
+        "descriptions": [
+            "176m",
+            "S$46 - S$78",
+            "+65 8709 9002"
+        ],
+        "category": [
+            "Seafood",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/red-crab/"
+    },
+    {
+        "name": "Nickel Cafe",
+        "location": "258 Middle Road #01-01, Singapore 188987",
+        "descriptions": [
+            "177m",
+            "+65 8854 9649"
+        ],
+        "category": [
+            "French Restaurants",
+            "Cafes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/nickel-cafe/"
+    },
+    {
+        "name": "Shish Mahal Restaurant & Pub",
+        "location": "180 Albert Street #01-20 Village Hotel Albert Court, Singapore 189971",
+        "descriptions": [
+            "181m",
+            "S$15 - S$35",
+            "+65 6837 3480"
+        ],
+        "category": [
+            "Indian",
+            "Middle Eastern",
+            "Butter Chicken",
+            "Butter Naan",
+            "Cheese Naan",
+            "Chicken Chop",
+            "Chicken Curry",
+            "Chicken Fried Rice",
+            "Chicken Tikka Masala",
+            "Chicken Wings",
+            "Egg Fried Rice",
+            "French Fries",
+            "Garlic Naan",
+            "Mutton Masala",
+            "Plain Naan",
+            "Samosa",
+            "Tandoori chicken",
+            "Tandoori Roti"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/shish-mahal-restaurant-pub/"
+    },
+    {
+        "name": "Mt. Wu Noodles",
+        "location": "180 Albert Street, #01-17, SG 189971",
+        "descriptions": [
+            "182m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Dessert",
+            "Chinese Restaurants",
+            "Noodles"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/mt--wu-noodles/"
+    },
+    {
+        "name": "Wine Bonanza",
+        "location": "180 Albert Street #01-09 Village Albert Court, Singapore 189971",
+        "descriptions": [
+            "182m",
+            "+65 6909 3828"
+        ],
+        "category": [
+            "Cocktails",
+            "Dinner with Drinks",
+            "Western Restaurants",
+            "Late Night Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/wine-bonanza/"
+    },
+    {
+        "name": "Wine BOS",
+        "location": "180 Albert Street #01-09 Village Hotel Albert Court, Singapore 189971",
+        "descriptions": [
+            "183m",
+            "S$15 - S$35",
+            "+65 6265 8581"
+        ],
+        "category": [
+            "Steak",
+            "Dinner with Drinks",
+            "Western Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/wine-bos/"
+    },
+    {
+        "name": "Mangiamo",
+        "location": "180 Albert Court Village Hotel #01-19B 189971, SG 189971",
+        "descriptions": [
+            "183m",
+            "S$10 - S$20"
+        ],
+        "category": [
+            "Italian Restaurants",
+            "Carbonara",
+            "Hawaiian Pizza",
+            "Margherita",
+            "Margherita Pizza",
+            "Pepperoni Pizza"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/mangiamo/"
+    },
+    {
+        "name": "The Ramen House",
+        "location": "6 Short Street, Singapore 188213",
+        "descriptions": [
+            "186m",
+            "+65 6734 9294"
+        ],
+        "category": [
+            "Sushi",
+            "Ramen",
+            "Supper Restaurants",
+            "Japanese Restaurants",
+            "Chicken Wings",
+            "Edamame",
+            "Fried Chicken",
+            "Miso soup",
+            "Potato Salad"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/the-ramen-house/"
+    },
+    {
+        "name": "Roasted Story ____ (David Elias Building)",
+        "location": "264 Middle Road #01-01 Elias Building, Singapore 188990",
+        "descriptions": [
+            "191m",
+            "S$10 - S$20",
+            "+65 8742 9492"
+        ],
+        "category": [
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/roasted-story-____-david-elias-building/"
+    },
+    {
+        "name": "Rochor Original Beancurd (Short Street)",
+        "location": "2 Short Street, Singapore 188211",
+        "descriptions": [
+            "192m",
+            "S$5 - S$10",
+            "+65 6334 1138"
+        ],
+        "category": [
+            "Local Delights",
+            "Supper Restaurants",
+            "Desserts"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/rochor-original-beancurd-short-street/"
+    },
+    {
+        "name": "Apartment Coffee",
+        "location": "139 Selegie Road #01-01, Singapore 188309",
+        "descriptions": [
+            "195m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Cafes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/apartment-coffee/"
+    },
+    {
+        "name": "Taste Good (Sim Lim Square)",
+        "location": "1 Rochor Canal Road #02-04 Sim Lim Square, Singapore 188504",
+        "descriptions": [
+            "195m",
+            "S$5 - S$15",
+            "+65 6336 6298"
+        ],
+        "category": [
+            "Hawker Food",
+            "Cheap Food Restaurants",
+            "Chicken Rice",
+            "Salted Egg Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/taste-good-sim-lim-square/"
+    },
+    {
+        "name": "Princess Apinya Royal Thai Cuisine",
+        "location": "171 Selegie Rd, #01-01, SG 188323",
+        "descriptions": [
+            "195m",
+            "S$10 - S$20"
+        ],
+        "category": [
+            "Asian",
+            "Thai Restaurants",
+            "Thai",
+            "",
+            "Chicken Curry",
+            "Omelette",
+            "Seafood Soup"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/princess-apinya-royal-thai-cuisine/"
+    },
+    {
+        "name": "1001 of Arabia",
+        "location": "23 Baghdad St, Singapore 199662",
+        "descriptions": [
+            "195m",
+            "S$10 - S$30"
+        ],
+        "category": [
+            "Late Night Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/1001-of-arabia/"
+    },
+    {
+        "name": "LeBar @ ibis Singapore on Bencoolen",
+        "location": "170 Bencoolen Street ibis Singapore on Bencoolen, Singapore 189657",
+        "descriptions": [
+            "202m",
+            "S$20 - S$40",
+            "+65 6593 2888"
+        ],
+        "category": [],
+        "url": "https://www.foodadvisor.com.sg/restaurant/lebar-ibis-singapore-on-bencoolen/"
+    },
+    {
+        "name": "Oc Mai Vietnamese & Western Cuisines",
+        "location": "180 Bencoolen Street #01-07 The Bencoolen, Singapore 189646",
+        "descriptions": [
+            "203m",
+            "S$5 - S$15",
+            "+65 9695 2605"
+        ],
+        "category": [
+            "Vietnamese Restaurants",
+            "Western Restaurants",
+            "Vietnamese",
+            "",
+            "Fried Rice",
+            "Laksa",
+            "Mango Salad",
+            "Seafood Soup"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/oc-mai-vietnamese-western-cuisines/"
+    },
+    {
+        "name": "Kemono Healthy Japanese Roast Chicken",
+        "location": "171 Selegie Road 01-01, Bugis/City Hall, Lower Central, SG 188323",
+        "descriptions": [
+            "203m",
+            "S$26 - S$46"
+        ],
+        "category": [
+            "Healthy Food Restaurants",
+            "Western Restaurants",
+            "Japanese Restaurants",
+            "Japanese",
+            "Chicken",
+            "Chicken Curry",
+            "Chicken Nuggets",
+            "Edamame",
+            "Mashed Potato",
+            "Mushroom Soup",
+            "Teriyaki Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/kemono-healthy-japanese-roast-chicken/"
+    },
+    {
+        "name": "May's Kafe (The Bencoolen)",
+        "location": "180 Bencoolen Street #01-02 The Bencoolen, Singapore 189646",
+        "descriptions": [
+            "203m",
+            "S$5 - S$10",
+            "+65 9358 2990"
+        ],
+        "category": [
+            "Hawker Food",
+            "Local Delights"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/mays-kafe-the-bencoolen/"
+    },
+    {
+        "name": "Aroy Dee Thai Kitchen (Middle Road)",
+        "location": "262 Middle Road Elias Building, Singapore 188989",
+        "descriptions": [
+            "204m",
+            "S$10 - S$20",
+            "+65 6336 8812"
+        ],
+        "category": [
+            "Thai Restaurants",
+            "Supper Restaurants",
+            "Good For Groups Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/aroy-dee-thai-kitchen-middle-road/"
+    },
+    {
+        "name": "Tittle Tattle",
+        "location": "183 Selegie Road #01-03, Singapore 188329",
+        "descriptions": [
+            "208m",
+            "S$20 - S$40",
+            "+65 9488 7035"
+        ],
+        "category": [
+            "Pasta",
+            "Bars",
+            "Good For Groups Restaurants",
+            "1-for-1 Deals",
+            "Cafes",
+            "Late Night Restaurants",
+            "Western Restaurants",
+            "Desserts",
+            "Waffles",
+            "Breakfast"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/tittle-tattle/"
+    },
+    {
+        "name": "House of Bak Kut Teh",
+        "location": "266 Middle Road, Singapore 188991",
+        "descriptions": [
+            "210m",
+            "S$5 - S$15",
+            "+65 6336 7570"
+        ],
+        "category": [
+            "Bak Kut Teh",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/house-of-bak-kut-teh/"
+    },
+    {
+        "name": "Taste Restaurant (ibis Singapore on Bencoolen)",
+        "location": "170 Bencoolen Street ibis Singapore on Bencoolen, Singapore 189657",
+        "descriptions": [
+            "211m",
+            "S$20 - S$40",
+            "+65 6593 2886"
+        ],
+        "category": [
+            "Local Delights",
+            "Chinese Restaurants",
+            "Black Pepper Beef",
+            "Mashed Potato"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/taste-restaurant-ibis-singapore-on-bencoolen/"
+    },
+    {
+        "name": "Good Vibes",
+        "location": "171 Selegie Road, Singapore 188323",
+        "descriptions": [
+            "212m"
+        ],
+        "category": [
+            "Cafe"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/good-vibes/"
+    },
+    {
+        "name": "Ah Ma Jok",
+        "location": "171 Selegie Road #01-01, Singapore 188323",
+        "descriptions": [
+            "212m",
+            "S$5 - S$10",
+            "+65 9320 1407"
+        ],
+        "category": [
+            "Desserts",
+            "Local Delights",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ah-ma-jok/"
+    },
+    {
+        "name": "Chinese fast food \u4e2d\u5f0f\u5feb\u9910",
+        "location": "131 Bencoolen Street 01-01 01-01, SG 189639",
+        "descriptions": [
+            "213m",
+            "S$11 - S$21"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Chinese",
+            "Black Pepper Beef",
+            "Black Pepper Chicken",
+            "Cereal Prawn",
+            "Chicken Chop",
+            "Chicken Rice",
+            "Chicken Wings",
+            "Curry Fish Head",
+            "Fried Chicken",
+            "Fried Egg",
+            "Fried Rice",
+            "Mushroom Soup",
+            "Sweet & Sour Pork"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/chinese-fast-food-/"
+    },
+    {
+        "name": "Ng Kuan Chilli Pan Mee (Bencoolen)",
+        "location": "131 Bencoolen Street, Singapore 189639",
+        "descriptions": [
+            "216m",
+            "S$5 - S$10",
+            "+65 8157 8344"
+        ],
+        "category": [
+            "Hawker Food",
+            "Supper Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ng-kuan-chilli-pan-mee-bencoolen/"
+    },
+    {
+        "name": "Nest Hovoh Cafe",
+        "location": "157 Rochor Road, Singapore 188432",
+        "descriptions": [
+            "218m",
+            "S$15 - S$35",
+            "+65 6908 6465"
+        ],
+        "category": [
+            "French Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/nest-hovoh-cafe/"
+    },
+    {
+        "name": "Rui Xiang Mei Shi",
+        "location": "131 Bencoolen Street, Bugis, City Hall, Lower Central, SG 189639",
+        "descriptions": [
+            "220m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Meat",
+            "Chinese Restaurants",
+            "Black Pepper Beef",
+            "Cereal Prawn",
+            "Chicken Chop",
+            "Chicken Rice",
+            "Chicken Wings",
+            "Curry Fish Head",
+            "Fried Chicken",
+            "Fried Egg",
+            "Fried Rice",
+            "Mushroom Soup",
+            "Salted Egg Chicken",
+            "Sweet and Sour Pork"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/rui-xiang-mei-shi/"
+    },
+    {
+        "name": "Singapore Fast Food",
+        "location": "131 Bencoolen Street, Bugis, City Hall, Lower Central, SG 189639",
+        "descriptions": [
+            "220m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Meat",
+            "Chinese Restaurants",
+            "Black Pepper Beef",
+            "Cereal Prawn",
+            "Chicken Chop",
+            "Chicken Rice",
+            "Chicken Wings",
+            "Curry Fish Head",
+            "Fried Chicken",
+            "Fried Egg",
+            "Fried Rice",
+            "Mushroom Soup",
+            "Salted Egg Chicken",
+            "Sweet and Sour Pork"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/singapore-fast-food/"
+    },
+    {
+        "name": "Impian Wahyu",
+        "location": "Block 462 Crawford Lane #01-29, Singapore 190462",
+        "descriptions": [
+            "221m",
+            "S$5 - S$15",
+            "+65 8120 7192"
+        ],
+        "category": [
+            "Hidden Gem Restaurants",
+            "Hawker Food",
+            "Indonesian Restaurants",
+            "Halal Restaurants",
+            "Malay Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/impian-wahyu/"
+    },
+    {
+        "name": "Al-Jilani Restaurant",
+        "location": "127 Bencoolen Street, Singapore 189637",
+        "descriptions": [
+            "221m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Supper",
+            "Hawker Food",
+            "Malay",
+            "Chicken Curry",
+            "Chinese Tea",
+            "Fried Chicken",
+            "Mee Goreng",
+            "Mutton Steak",
+            "Nasi Goreng",
+            "Nasi Goreng Ayam",
+            "Nasi Goreng Ikan Bilis",
+            "Omelette",
+            "Onion Omelette",
+            "Roti John Chicken",
+            "Roti John Mutton"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/al-jilani-restaurant/"
+    },
+    {
+        "name": "Barcook Bakery (OG Albert Complex)",
+        "location": "60 Albert Street #01-03/04 OG Albert Complex, Singapore 189969",
+        "descriptions": [
+            "222m",
+            "S$5 - S$10",
+            "+65 6336 6588"
+        ],
+        "category": [
+            "Cakes",
+            "Bread",
+            "Desserts",
+            "Carrot Cake"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/barcook-bakery-og-albert-complex/"
+    },
+    {
+        "name": "Original Taste Foods",
+        "location": "180 Bencoolen Street #01-04 The Bencoolen, Singapore 189646",
+        "descriptions": [
+            "222m",
+            "S$5 - S$10",
+            "+65 8822 4878"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/original-taste-foods/"
+    },
+    {
+        "name": "Ginett Restaurant & Wine Bar",
+        "location": "200 Middle Road, Singapore 188980",
+        "descriptions": [
+            "223m",
+            "S$35 - S$60",
+            "+65 6809 7989"
+        ],
+        "category": [
+            "French Restaurants",
+            "Breakfast",
+            "Dinner with Drinks",
+            "Date Night Restaurants",
+            "European Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ginett-restaurant-wine-bar/"
+    },
+    {
+        "name": "Wan Wan Thai Cafe",
+        "location": "127A Bencoolen Street 02-127, Singapore 189637",
+        "descriptions": [
+            "224m",
+            "S$10 - S$20",
+            "+65 6336 8812"
+        ],
+        "category": [
+            "Ice Cream",
+            "Thai Restaurants",
+            "Supper Restaurants",
+            "Cafes",
+            "Desserts"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/wan-wan-thai-cafe/"
+    },
+    {
+        "name": "Aroy-Dee Thai Kitchen (Bencoolen Street)",
+        "location": "127 Bencoolen Street, SG 189637",
+        "descriptions": [
+            "224m",
+            "S$6 - S$16"
+        ],
+        "category": [
+            "Seafood",
+            "Thai",
+            "Chinese Tea",
+            "English Breakfast Tea",
+            "Fried Egg",
+            "Fried Rice",
+            "Hor Fun",
+            "Mango Salad",
+            "Omelette",
+            "Pineapple Fried Rice",
+            "Thai Milk Tea",
+            "Tom Yum Fried Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/aroy-dee-thai-kitchen-bencoolen-street/"
+    },
+    {
+        "name": "Herbivore",
+        "location": "190 Middle Road #01-13/14 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "226m",
+            "S$15 - S$35",
+            "+65 6333 1612"
+        ],
+        "category": [
+            "Sushi",
+            "Vegetarian",
+            "Healthy Food Restaurants",
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/herbivore/"
+    },
+    {
+        "name": "New Hawa Restaurant (Selegie Road)",
+        "location": "211/213 Selegie Road, Singapore 188336",
+        "descriptions": [
+            "226m",
+            "S$5 - S$15",
+            "+65 6338 4020"
+        ],
+        "category": [
+            "Zi Char",
+            "Halal Restaurants",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/new-hawa-restaurant-selegie-road/"
+    },
+    {
+        "name": "EPIKebabs",
+        "location": "8 Wilkie Road #01-17 Wilkie Edge, Singapore 228095",
+        "descriptions": [
+            "230m",
+            "S$5 - S$10",
+            "+65 8575 6393"
+        ],
+        "category": [
+            "Middle Eastern Restaurants",
+            "Halal Restaurants",
+            "Sandwiches"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/epikebabs/"
+    },
+    {
+        "name": "Mu Mu Tang Guo \u6728\u6728\u6c64\u9505 (Bugis)",
+        "location": "268 Middle Road, Singapore 188992",
+        "descriptions": [
+            "231m",
+            "+65 8500 3313"
+        ],
+        "category": [
+            "Steamboat",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/mu-mu-tang-guo-bugis/"
+    },
+    {
+        "name": "Restaurant Barakath",
+        "location": "11 Dalhousie Lane, Singapore 209680",
+        "descriptions": [
+            "231m",
+            "S$5 - S$15",
+            "+65 6392 0422"
+        ],
+        "category": [
+            "Indian Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/restaurant-barakath/"
+    },
+    {
+        "name": "25 Degrees Singapore",
+        "location": "200 Middle Road Hotel G Singapore, Singapore 188980",
+        "descriptions": [
+            "233m",
+            "S$10 - S$30",
+            "+65 6809 7990"
+        ],
+        "category": [
+            "Supper Restaurants",
+            "Burgers",
+            "Western Restaurants",
+            "Dinner with Drinks",
+            "Late Night Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/25-degrees-singapore/"
+    },
+    {
+        "name": "Han's (Wilkie Edge)",
+        "location": "8 Wilkie Road #01-23/24 Wilkie Edge, Singapore 228095",
+        "descriptions": [
+            "238m",
+            "S$10 - S$20",
+            "+65 6708 6770"
+        ],
+        "category": [
+            "Local Delights",
+            "Cafes",
+            "Halal Restaurants",
+            "Western Restaurants",
+            "Beef Hor Fun",
+            "Black Pepper Chicken",
+            "Carbonara",
+            "Chicken Chop",
+            "Chicken Curry",
+            "Chicken Fried Rice",
+            "Fish and Chips",
+            "French Fries",
+            "Fried Chicken",
+            "Fried Egg",
+            "Omelette",
+            "Sweet & Sour Pork"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hanis-wilkie-edge/"
+    },
+    {
+        "name": "\u0100TO (Wilkie Edge)",
+        "location": "8 Wilkie Road #01-22 Wilkie Edge, Singapore 228095",
+        "descriptions": [
+            "238m",
+            "S$10 - S$20",
+            "+65 6974 2053"
+        ],
+        "category": [
+            "Ramen",
+            "Japanese Restaurants",
+            "Edamame"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ato/"
+    },
+    {
+        "name": "XO Minced Meat Noodle (Wilkie Edge)",
+        "location": "8 Wilkie Road #01-16 Wilkie Edge, Singapore 228095",
+        "descriptions": [
+            "238m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food",
+            "Meat",
+            "Laksa"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/xo-minced-meat-noodle-wilkie-edge/"
+    },
+    {
+        "name": "Oh Some Bowls",
+        "location": "8 Wilkie Road #01-04 Wilkie Edge, Singapore 228095",
+        "descriptions": [
+            "238m",
+            "S$5 - S$15",
+            "+65 6509 6066"
+        ],
+        "category": [
+            "Healthy Food Restaurants",
+            "Japanese Restaurants",
+            "Salads",
+            "Teriyaki Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/oh-some-bowls/"
+    },
+    {
+        "name": "Sushi Don",
+        "location": "8 Wilkie Road #01-16 Wilkie Edge, Singapore 228095",
+        "descriptions": [
+            "238m",
+            "S$10 - S$30",
+            "+65 9731 7837"
+        ],
+        "category": [
+            "Chirashi",
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/sushi-don/"
+    },
+    {
+        "name": "Tan Xiang Yuan",
+        "location": "1 Dickson Road #01-01, Singapore 209493",
+        "descriptions": [
+            "239m",
+            "S$28 - S$48",
+            "+65 8058 5527"
+        ],
+        "category": [
+            "Seafood",
+            "Hot Pot",
+            "Chinese Restaurants",
+            "Good For Groups Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/tan-xiang-yuan/"
+    },
+    {
+        "name": "Rui Xiang Restaurant",
+        "location": "131 Bencoolen Street #01-01, Singapore 189639",
+        "descriptions": [
+            "240m",
+            "S$5 - S$10",
+            "+65 6338 5388"
+        ],
+        "category": [
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/rui-xiang-restaurant/"
+    },
+    {
+        "name": "Cotti Coffee \u5e93\u8fea\u5496\u5561 (Bugis MRT)",
+        "location": "191 Rochor Road #B2-07B DTL Bugis Station, Singapore 188476",
+        "descriptions": [
+            "241m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Beyond Exclusive Deals",
+            "Burpple Beyond Deals",
+            "Delivery",
+            "Coffee"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/cotti-coffee-bugis-mrt/"
+    },
+    {
+        "name": "328 Katong Laksa (OG Albert Complex)",
+        "location": "60 Albert Street #01-02 OG Albert Complex, Singapore 189969",
+        "descriptions": [
+            "241m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Local Delights",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/328-katong-laksa-og-albert-complex/"
+    },
+    {
+        "name": "Izakaya Yoppi",
+        "location": "8 Wilkie Road #01-22 Wilkie Edge, Singapore 228095",
+        "descriptions": [
+            "243m",
+            "S$15 - S$35",
+            "+65 8031 3933"
+        ],
+        "category": [
+            "Sushi",
+            "Bars",
+            "Seafood",
+            "Late Night Restaurants",
+            "Japanese Restaurants",
+            "Grill & BBQ"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/izakaya-yoppi/"
+    },
+    {
+        "name": "Daebak Korean Restaurant",
+        "location": "8 Wilkie Road #01-18 Wilkie Edge, Singapore 228095",
+        "descriptions": [
+            "244m",
+            "+65 6884 4620"
+        ],
+        "category": [
+            "Korean",
+            "BBQ Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/daebak-korean-restaurant/"
+    },
+    {
+        "name": "Yat Ka Yan Dessert (Fortune Centre)",
+        "location": "190 Middle Road #02-08 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "244m",
+            "+65 8798 9292"
+        ],
+        "category": [
+            "Dessert",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/yat-ka-yan-dessert-fortune-centre/"
+    },
+    {
+        "name": "Libertea (Wilkie Edge)",
+        "location": "8 Wilkie Road #01-06 Wilkie Edge, Singapore 228095",
+        "descriptions": [
+            "245m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Desserts",
+            "Fruit Tea",
+            "Bubble Tea"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/libertea-wilkie-edge/"
+    },
+    {
+        "name": "Granny's Secret",
+        "location": "60 Albert Street #02-07 OG Albert Complex, Singapore 189969",
+        "descriptions": [
+            "246m",
+            "S$5 - S$15",
+            "+65 6336 7785"
+        ],
+        "category": [
+            "Local Delights",
+            "Hawker Food",
+            "Chinese"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/grannys-secret/"
+    },
+    {
+        "name": "Nanyang Culinary Club",
+        "location": "8 Perak Road, Singapore 208129",
+        "descriptions": [
+            "246m",
+            "S$5 - S$15",
+            "+65 9786 8019"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Local Delights"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/nanyang-culinary-club/"
+    },
+    {
+        "name": "Pokpok Keh Pink Salt Chicken",
+        "location": "8 Perak Road Nanyang Culinary Club, Singapore 208129",
+        "descriptions": [
+            "246m",
+            "S$10 - S$20",
+            "+65 9617 3700"
+        ],
+        "category": [
+            "Islandwide Delivery",
+            "Local Delights",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/pokpok-keh-pink-salt-chicken/"
+    }
+]

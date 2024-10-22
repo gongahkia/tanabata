@@ -1,0 +1,1871 @@
+[
+    {
+        "name": "Hang Out Caf\u00e9 (NAFA)",
+        "location": "80 Bencoolen Street #01-15 NAFA Campus 1, Singapore 189655",
+        "descriptions": [
+            "19m",
+            "S$10 - S$30",
+            "+65 6456 3376"
+        ],
+        "category": [
+            "Cafes",
+            "Desserts",
+            "Breakfast",
+            "Good For Groups",
+            "Western"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hang-out-cafe-nafa/"
+    },
+    {
+        "name": "SKOSH",
+        "location": "80 Bencoolen Street #01-15, Singapore 189655",
+        "descriptions": [
+            "39m",
+            "+65 8025 6578"
+        ],
+        "category": [
+            "Bread & Pastries"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/skosh/"
+    },
+    {
+        "name": "Toast Box (NAFA)",
+        "location": "80 Bencoolen Street #B1-17 Campus 1, Singapore 189655",
+        "descriptions": [
+            "39m",
+            "S$5 - S$15",
+            "+65 6338 9740"
+        ],
+        "category": [
+            "Local Delights",
+            "Bread",
+            "Breakfast",
+            "Cafes",
+            "Curry Chicken",
+            "Fried Chicken",
+            "Fried Egg",
+            "Fried Rice",
+            "Mee Goreng",
+            "Mee Rebus",
+            "Mee Siam"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/toast-box-nafa/"
+    },
+    {
+        "name": "Cluck Cluck",
+        "location": "80 Bencoolen Street #01-15 NAFA Campus 1 Wing A, Singapore 189655",
+        "descriptions": [
+            "51m",
+            "S$5 - S$15",
+            "+65 9198 2673"
+        ],
+        "category": [
+            "1-for-1 Deals",
+            "Western Restaurants",
+            "Waffles",
+            "Chicken Nuggets",
+            "Coleslaw",
+            "Earl Grey Tea",
+            "English Breakfast Tea",
+            "Mashed Potato",
+            "Onion Rings",
+            "Popcorn Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/cluck-cluck/"
+    },
+    {
+        "name": "Wildfire Chicken & Burgers",
+        "location": "80 Bencoolen Street #01-15 NAFA Campus 1, Singapore 189655",
+        "descriptions": [
+            "51m",
+            "S$10 - S$20",
+            "+65 8772 5669"
+        ],
+        "category": [
+            "Burgers",
+            "Western Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/wildfire-chicken-burgers/"
+    },
+    {
+        "name": "Thai Gold Food",
+        "location": "91 Bencoolen Street #01-14 Sunshine Plaza, Singapore 189652",
+        "descriptions": [
+            "53m",
+            "S$5 - S$15",
+            "+65 6883 1575"
+        ],
+        "category": [
+            "Thai Restaurants",
+            "Supper Restaurants",
+            "Good For Groups Restaurants",
+            "Cheap Food Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/thai-gold-food/"
+    },
+    {
+        "name": "Burgers Cafe Grill Fukuyoshi",
+        "location": "01-54, 91 Bencoolen Street, Sunshine Plaza, Bugis, City Hall, Lower Central, Central, SG 189652",
+        "descriptions": [
+            "56m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "American",
+            "Burgers",
+            "Fast Food",
+            "Meat",
+            "Japanese Restaurants",
+            "Caesar Salad",
+            "French Fries",
+            "Potato Salad"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/burgers-cafe-grill-fukuyoshi/"
+    },
+    {
+        "name": "Tonkatsu Kagura",
+        "location": "01-54, 91 Bencoolen Street, Sunshine Plaza, Bugis, City Hall, Lower Central, SG 189652",
+        "descriptions": [
+            "56m",
+            "S$18 - S$38"
+        ],
+        "category": [
+            "Asian",
+            "Fast Food",
+            "Meat",
+            "Seafood",
+            "Japanese Restaurants",
+            "Caesar Salad",
+            "French Fries",
+            "Onion Rings",
+            "Potato Salad"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/tonkatsu-kagura/"
+    },
+    {
+        "name": "Yellow Gourmet Omurice Cafe",
+        "location": "01-54, 91 Bencoolen Street, Sunshine Plaza, Lower Central, Bugis/City Hall, SG 189652",
+        "descriptions": [
+            "56m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Asian",
+            "Fast Food",
+            "Western Restaurants",
+            "Japanese Restaurants",
+            "Caesar Salad",
+            "French Fries",
+            "Potato Salad"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/yellow-gourmet-omurice-cafe/"
+    },
+    {
+        "name": "Torokeru Hamburg Fukuyoshi",
+        "location": "01-54, 91 Bencoolen Street, Sunshine Plaza, Bugis, City Hall, Lower Central, SG 189652",
+        "descriptions": [
+            "56m",
+            "S$7 - S$17"
+        ],
+        "category": [
+            "Asian",
+            "Fast Food",
+            "Meat",
+            "Western Restaurants",
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/torokeru-hamburg-fukuyoshi/"
+    },
+    {
+        "name": "Jukusei Yakiniku Kogiya",
+        "location": "01-54, 91 Bencoolen Street, Sunshine Plaza, Bugis/City Hall, Lower Central, Central, SG 189652",
+        "descriptions": [
+            "56m",
+            "S$10 - S$30"
+        ],
+        "category": [
+            "Chicken",
+            "Fast Food",
+            "Japanese Restaurants",
+            "Meat",
+            "Korean",
+            "Caesar Salad",
+            "French Fries",
+            "Potato Salad"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/jukusei-yakiniku-kogiya/"
+    },
+    {
+        "name": "Hakata Black Curry BistroRYU",
+        "location": "01-54, 91 Bencoolen Street, Sunshine Plaza, Bugis/City Hall, Lower Central, SG 189652",
+        "descriptions": [
+            "56m",
+            "S$13 - S$23"
+        ],
+        "category": [
+            "Chicken",
+            "Fast Food",
+            "Meat",
+            "Japanese Restaurants",
+            "Curry",
+            "Chicken Curry",
+            "French Fries",
+            "Omelette",
+            "Potato Salad"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hakata-black-curry-bistroryu/"
+    },
+    {
+        "name": "Jimbocho Beef",
+        "location": "01-54, 91 Bencooleen Street, Sunshine Plaza, Bugis, City Hall, Lower Central, Central, SG 189652",
+        "descriptions": [
+            "56m",
+            "S$15 - S$35"
+        ],
+        "category": [
+            "Asian",
+            "Fast Food",
+            "Meat",
+            "Japanese Restaurants",
+            "Caesar Salad",
+            "French Fries",
+            "Potato Salad"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/jimbocho-beef/"
+    },
+    {
+        "name": "Gyutan Senri",
+        "location": "01-54, 91 Bencoolen Street, Sunshine Plaza, Bugis, City Hall, Lower Central, Central, SG 189652",
+        "descriptions": [
+            "56m",
+            "S$10 - S$20"
+        ],
+        "category": [
+            "Asian",
+            "Beverages",
+            "Fast Food",
+            "Meat",
+            "Japanese Restaurants",
+            "Caesar Salad",
+            "French Fries",
+            "Potato Salad"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/gyutan-senri/"
+    },
+    {
+        "name": "Shibaura Genghis Khan",
+        "location": "01-54, 91 Bencoolen Street, Sunshine Plaza, Lower Central, Bugis, City Hall, SG 189652",
+        "descriptions": [
+            "56m",
+            "S$6 - S$16"
+        ],
+        "category": [
+            "Asian",
+            "Fast Food",
+            "Meat",
+            "Japanese Restaurants",
+            "Caesar Salad",
+            "French Fries",
+            "Potato Salad"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/shibaura-genghis-khan/"
+    },
+    {
+        "name": "Gyukatsu Kurobeko",
+        "location": "01-54, 91 Bencoolen Street, Sunshine Plaza, Bugis, City Hall, Lower Central, Central, SG 189652",
+        "descriptions": [
+            "56m",
+            "S$19 - S$39"
+        ],
+        "category": [
+            "Asian",
+            "Beverages",
+            "Fast Food",
+            "Meat",
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/gyukatsu-kurobeko/"
+    },
+    {
+        "name": "Ichitei Japanese Dining",
+        "location": "91 Bencoolen Street, Sunshine Plaza, #01-51, SG 189652",
+        "descriptions": [
+            "56m",
+            "S$15 - S$35"
+        ],
+        "category": [
+            "Chicken",
+            "Japanese Restaurants",
+            "Chicken Curry"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ichitei-japanese-dining/"
+    },
+    {
+        "name": "Neh Neh Pop",
+        "location": "161 Middle Road Artichoke, Singapore 188978",
+        "descriptions": [
+            "63m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Ice Cream",
+            "Desserts"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/neh-neh-pop/"
+    },
+    {
+        "name": "Small's",
+        "location": "161 Middle Road, Singapore 188978",
+        "descriptions": [
+            "69m",
+            "S$154 - S$264"
+        ],
+        "category": [
+            "Pizza"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/smallspizza-bar/"
+    },
+    {
+        "name": "Ya Kun Kaya Toast (Fortune Centre)",
+        "location": "190 Middle Road #01-09 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "79m",
+            "S$5 - S$10",
+            "+65 6337 0486"
+        ],
+        "category": [
+            "Local Delights",
+            "Bread",
+            "Breakfast",
+            "Cafes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ya-kun-kaya-toast-fortune-centre/"
+    },
+    {
+        "name": "Victor's Kitchen (Sunshine Plaza)",
+        "location": "91 Bencoolen Street #01-49 Sunshine Plaza, Singapore 189652",
+        "descriptions": [
+            "83m",
+            "S$10 - S$20",
+            "+65 9838 2851"
+        ],
+        "category": [
+            "Dim Sum"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/victors-kitchen-sunshine-plaza/"
+    },
+    {
+        "name": "Hong Kong Dim Sum Shop",
+        "location": "190 Middle Road #01-06 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "83m",
+            "S$10 - S$20",
+            "+65 8482 8881"
+        ],
+        "category": [],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hong-kong-dim-sum-shop/"
+    },
+    {
+        "name": "Syam Corners Muslim Food",
+        "location": "190 Middle Road #01-08 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "84m",
+            "S$5 - S$10",
+            "+65 6339 6759"
+        ],
+        "category": [
+            "Hawker Food",
+            "Halal",
+            "Malay"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/syam-corners-muslim-food/"
+    },
+    {
+        "name": "Zenso",
+        "location": "91 Bencoolen Street #01-16 Sunshine Plaza, Singapore 189652",
+        "descriptions": [
+            "84m",
+            "S$10 - S$20",
+            "+65 6884 9660"
+        ],
+        "category": [
+            "Thai",
+            "Japanese",
+            "Chicken Cutlet",
+            "Chicken Fried Rice",
+            "Chicken Wings",
+            "Curry Chicken",
+            "Hor Fun",
+            "Mango Salad",
+            "Mee Goreng",
+            "Olive Fried Rice",
+            "Omelette",
+            "Pineapple Fried Rice",
+            "Seafood Soup",
+            "Thai Milk Tea",
+            "Tom Yum Fried Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/zenso/"
+    },
+    {
+        "name": "Sherry's Cake",
+        "location": "31 Bencoolen Street #B2-03 Bencoolen MRT, Singapore 189658",
+        "descriptions": [
+            "84m",
+            "S$5 - S$10",
+            "+65 9015 1765"
+        ],
+        "category": [
+            "Cakes",
+            "Desserts"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/sherrys-cake/"
+    },
+    {
+        "name": "Mrs. Hen (Sunshine Plaza)",
+        "location": "91 Bencoolen Street #01-55 Sunshine Plaza, Singapore 189652",
+        "descriptions": [
+            "84m"
+        ],
+        "category": [
+            "Indonesian Restaurants",
+            "Halal Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/mrs--hen-sunshine-plaza/"
+    },
+    {
+        "name": "Bray Battered Fish & Crisp",
+        "location": "91 Bencoolen Street, #01-56 Sunshine Plaza, S189652, SG 189652",
+        "descriptions": [
+            "84m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Beverages",
+            "Chicken",
+            "Western Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/bray-battered-fish-crisp/"
+    },
+    {
+        "name": "Teng Bespoke Vegetarian Dining",
+        "location": "91 Bencoolen Street #01-50 Sunshine Plaza, Singapore 189652",
+        "descriptions": [
+            "87m",
+            "S$15 - S$35",
+            "+65 92961579/8428 7136"
+        ],
+        "category": [
+            "Vegetarian",
+            "Healthy Food Restaurants",
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/teng-bespoke-vegetarian-dining/"
+    },
+    {
+        "name": "Japanese Fried Chicken Karamasa",
+        "location": "91 Bencoolen St,#01-54 Sunshine Plaza, SG 189652",
+        "descriptions": [
+            "90m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/japanese-fried-chicken-karamasa/"
+    },
+    {
+        "name": "Tsushima Izahara",
+        "location": "91 Bencoolen Street, Sunshine Plaza, #01-54, SG 189652",
+        "descriptions": [
+            "90m",
+            "S$13 - S$23"
+        ],
+        "category": [
+            "Meat",
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/tsushima-izahara/"
+    },
+    {
+        "name": "Nobu-ya",
+        "location": "190 Middle Road #01-05 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "93m",
+            "S$20 - S$40",
+            "+65 6338 3450"
+        ],
+        "category": [
+            "Fine Dining",
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/nobu-ya/"
+    },
+    {
+        "name": "Feng Shui Tang",
+        "location": "190 Middle Road, 01-37, Fortune Center, SG 188979",
+        "descriptions": [
+            "94m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Beverages"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/feng-shui-tang/"
+    },
+    {
+        "name": "The Big Cheese",
+        "location": "91 Bencoolen Street #01-59 Sunshine Plaza, Singapore 189652",
+        "descriptions": [
+            "95m",
+            "S$5 - S$15",
+            "+65 8147 0485"
+        ],
+        "category": [
+            "Western Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/the-big-cheese/"
+    },
+    {
+        "name": "Ichi Tei",
+        "location": "91 Bencoolen Street #01-51 Sunshine Plaza, Singapore 189652",
+        "descriptions": [
+            "95m",
+            "S$10 - S$20",
+            "+65 9139 1746"
+        ],
+        "category": [
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ichi-tei/"
+    },
+    {
+        "name": "ONE 2 ONE",
+        "location": "91 Bencoolen Street #01-21 Sunshine Plaza, Singapore 189652",
+        "descriptions": [
+            "95m",
+            "S$5 - S$10",
+            "+65 9736 6376"
+        ],
+        "category": [
+            "Local Delights",
+            "Desserts"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/one2one/"
+    },
+    {
+        "name": "Thai bistro",
+        "location": "91 Bencoolen St, #01-14/22 Sunshine Plaza, SG 189652",
+        "descriptions": [
+            "96m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Thai Restaurants",
+            "Thai",
+            "Chicken Cutlet",
+            "Chicken Karaage",
+            "Thai Milk Tea"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/thai-bistro/"
+    },
+    {
+        "name": "25 Degrees Singapore",
+        "location": "200 Middle Road Hotel G Singapore, Singapore 188980",
+        "descriptions": [
+            "97m",
+            "S$10 - S$30",
+            "+65 6809 7990"
+        ],
+        "category": [
+            "Supper Restaurants",
+            "Burgers",
+            "Western Restaurants",
+            "Dinner with Drinks",
+            "Late Night Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/25-degrees-singapore/"
+    },
+    {
+        "name": "Deli's Kitchen - Japan Grill Delicacy",
+        "location": "91 Bencoolen Street #01-54 Sunshine Plaza, Singapore 189652",
+        "descriptions": [
+            "98m",
+            "S$15 - S$35",
+            "+65 6926 6176"
+        ],
+        "category": [
+            "Steak",
+            "Japanese Restaurants",
+            "Burgers",
+            "Sandwiches",
+            "Chicken Curry",
+            "Fried Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/delis-kitchen/"
+    },
+    {
+        "name": "Steakville",
+        "location": "91 Bencoolen Street #01-56 Sunshine Plaza, Singapore 189652",
+        "descriptions": [
+            "98m",
+            "S$10 - S$30",
+            "+65 9233 5142"
+        ],
+        "category": [
+            "Steak",
+            "Truffle Fries"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/steakville/"
+    },
+    {
+        "name": "Pratunam Market Place & Bar",
+        "location": "91 Bencoolen Street #01-17 Sunshine Plaza, Singapore 189652",
+        "descriptions": [
+            "98m",
+            "S$20 - S$40",
+            "+65 8168 1524"
+        ],
+        "category": [
+            "Thai Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/pratunam-market-place-bar/"
+    },
+    {
+        "name": "UOUO",
+        "location": "91 Bencoolen Street #01-18/19/20 Sunshine Plaza, Singapore 189652",
+        "descriptions": [
+            "98m",
+            "S$5 - S$15",
+            "+65 6970 5359"
+        ],
+        "category": [
+            "Japanese Restaurants",
+            "Chicken Curry",
+            "Fried Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/uouo/"
+    },
+    {
+        "name": "Freshio Gelato",
+        "location": "91 Bencoolen Street #01-60 Sunshine Plaza, Singapore 189652",
+        "descriptions": [
+            "98m",
+            "S$5 - S$10",
+            "+65 6970 0358"
+        ],
+        "category": [
+            "Desserts",
+            "Ice Cream",
+            "Waffles"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/freshio-gelato/"
+    },
+    {
+        "name": "Sapporo Ramen",
+        "location": "91 Bencoolen Street #01-23 Sunshine Plaza, Singapore 189652",
+        "descriptions": [
+            "98m",
+            "S$5 - S$15",
+            "+65 8168 1473"
+        ],
+        "category": [
+            "Ramen",
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/sapporo-ramen/"
+    },
+    {
+        "name": "New Green Pasture Cafe",
+        "location": "190 Middle Road #04-22 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "100m",
+            "S$5 - S$15",
+            "+65 6336 8755"
+        ],
+        "category": [
+            "Local Delights",
+            "Vegetarian",
+            "Healthy Food Restaurants",
+            "Cafes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/new-green-pasture-cafe/"
+    },
+    {
+        "name": "Su Shi Piao Xiang Vegetarian Food",
+        "location": "190 Middle Road #01-01 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "100m",
+            "S$5 - S$15",
+            "+65 6337 7178"
+        ],
+        "category": [
+            "Vegetarian",
+            "Zi Char",
+            "Fried Rice",
+            "Hor Fun",
+            "Laksa",
+            "Mee Goreng",
+            "Olive Fried Rice",
+            "Pineapple Fried Rice",
+            "Sambal Fried Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/su-shi-piao-xiang-vegetarian-food/"
+    },
+    {
+        "name": "Parklane Zha Yun Tun Mee House",
+        "location": "91 Bencoolen Street #01-53 Sunshine Plaza, Singapore 189652",
+        "descriptions": [
+            "101m",
+            "S$5 - S$10",
+            "+65 6835 9212"
+        ],
+        "category": [
+            "Hawker Food",
+            "Char Siew Rice",
+            "Chicken Rice",
+            "Fried Chicken",
+            "Hor Fun"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/parklane-zha-yun-tun-mee-house/"
+    },
+    {
+        "name": "Chirashi King Kong (Sunshine Plaza)",
+        "location": "91 Bencoolen Street #01-52 Sunshine Plaza, Singapore 189652",
+        "descriptions": [
+            "101m",
+            "S$10 - S$20",
+            "+65 8932 3465"
+        ],
+        "category": [
+            "Chirashi",
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/chirashi-king-kong-sunshine-plaza/"
+    },
+    {
+        "name": "Milky Way (Bugis/City Hall)",
+        "location": "1 Anchorvale Street 01-36, Jewel Coffee (Sengkang General & Community Hospital), SG 544835",
+        "descriptions": [
+            "102m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Beverages"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/milky-way-bugiscity-hall/"
+    },
+    {
+        "name": "Japanese Curry Express",
+        "location": "190 Middle Road #03-04 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "103m",
+            "S$5 - S$15",
+            "+65 9689 6314"
+        ],
+        "category": [
+            "Sushi",
+            "Cheap Food Restaurants",
+            "Japanese Restaurants",
+            "Curry"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/japanese-curry-express/"
+    },
+    {
+        "name": "Kappou Japanese Sushi Tapas Bar",
+        "location": "190 Middle Road #02-10A Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "103m",
+            "S$56 - S$96",
+            "+65 9170 4583"
+        ],
+        "category": [
+            "Sushi",
+            "Hidden Gem Restaurants",
+            "Seafood",
+            "Dinner with Drinks",
+            "Japanese Restaurants",
+            "Date Night Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/kappou-japanese-sushi-tapas-bar/"
+    },
+    {
+        "name": "Pine Tree Cafe",
+        "location": "190 Middle Road #02-09/13 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "103m",
+            "S$5 - S$15",
+            "+65 9681 5457"
+        ],
+        "category": [
+            "Local Delights",
+            "Vegetarian",
+            "Healthy Food Restaurants",
+            "Cafes",
+            "Chicken Cutlet",
+            "Chicken Rice",
+            "Curry Fish Head",
+            "Fried Rice",
+            "Pineapple Fried Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/pine-tree-cafe/"
+    },
+    {
+        "name": "Hangawi Korean Food",
+        "location": "190 Middle Road #02-18 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "103m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Cheap Food Restaurants",
+            "Korean"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/korean-food-fortune-centre/"
+    },
+    {
+        "name": "Four Season Coffee Bread",
+        "location": "190 Middle Road #01-02 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "103m",
+            "S$5 - S$10",
+            "+65 9009 8559"
+        ],
+        "category": [
+            "Kopitiam",
+            "Cafes",
+            "Bread"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/four-season-coffee-bread/"
+    },
+    {
+        "name": "Bodhi Deli",
+        "location": "190 Middle Road #03-26A Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "103m",
+            "S$5 - S$10",
+            "+65 8339 5400"
+        ],
+        "category": [
+            "Local Delights",
+            "Vegetarian",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/bodhi-deli/"
+    },
+    {
+        "name": "EN Seeds - Bowl of Gratitude",
+        "location": "190 Middle Road #02-03 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "103m",
+            "+65 9757 6289"
+        ],
+        "category": [
+            "Mediterranean Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/en-seeds-bowl-of-gratitude/"
+    },
+    {
+        "name": "Izakaya Hikari",
+        "location": "190 Middle Road #03-01 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "105m",
+            "S$35 - S$60"
+        ],
+        "category": [
+            "Japanese Restaurants",
+            "1-for-1 Deals",
+            "Chicken Karaage",
+            "Edamame",
+            "French Fries",
+            "Miso soup",
+            "Potato Salad"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/izakaya-hikari/"
+    },
+    {
+        "name": "Yat Ka Yan",
+        "location": "190 Middle Road #02-08 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "105m",
+            "S$5 - S$10",
+            "+65 9631 2359"
+        ],
+        "category": [
+            "Desserts"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/yat-ka-yan/"
+    },
+    {
+        "name": "Yatkayan Dessert",
+        "location": "190 Middle Road #02-08 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "105m",
+            "S$5 - S$10",
+            "+65 9631 2359"
+        ],
+        "category": [
+            "Local Delights",
+            "Desserts",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/yatkayan-dessert/"
+    },
+    {
+        "name": "Create Healthy Lifestyle",
+        "location": "190 Middle Road #02-06 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "105m",
+            "S$5 - S$15",
+            "+65 6336 4355"
+        ],
+        "category": [
+            "Local Delights",
+            "Vegetarian",
+            "Healthy Food Restaurants",
+            "Fried Rice",
+            "Pineapple Fried Rice",
+            "Vegetable Fried Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/create-healthy-lifestyle/"
+    },
+    {
+        "name": "Xing Hua Vegetarian Restaurant",
+        "location": "190 Middle Road #01-11 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "105m",
+            "S$5 - S$15",
+            "+65 9732 2733"
+        ],
+        "category": [
+            "Vegetarian",
+            "Chinese",
+            "Black Pepper Chicken",
+            "Cereal Prawn",
+            "Chicken Chop",
+            "Chilli Chicken",
+            "Fish and Chips",
+            "Fried Rice",
+            "Hor Fun",
+            "Laksa",
+            "Mee Goreng",
+            "Mee Rebus",
+            "Pineapple Fried Rice",
+            "Sambal Kang Kong",
+            "Vegetable Fried Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/xing-hua-vegetarian-restaurant/"
+    },
+    {
+        "name": "A9 Noodle Dumpling",
+        "location": "190 Middle Road #03-17 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "105m",
+            "S$5 - S$10",
+            "+65 6348 1577"
+        ],
+        "category": [
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/a9-noodle-dumpling/"
+    },
+    {
+        "name": "Vege Pot",
+        "location": "190 Middle Road #02-31 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "105m",
+            "S$5 - S$10",
+            "+65 9732 5917"
+        ],
+        "category": [
+            "Laksa"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/vege-pot/"
+    },
+    {
+        "name": "Atas Turkish Kebab",
+        "location": "190 Middle Road #01-10 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "105m",
+            "S$5 - S$15",
+            "+65 8138 6491"
+        ],
+        "category": [
+            "Turkish Restaurants",
+            "Middle Eastern Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/atas-turkish-kebab/"
+    },
+    {
+        "name": "Ume San 100",
+        "location": "190 Middle Road #02-07 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "105m",
+            "S$28 - S$48",
+            "+65 8897 4575"
+        ],
+        "category": [
+            "Bars",
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ume-san-100/"
+    },
+    {
+        "name": "Gyosen (Fortune Centre)",
+        "location": "190 Middle Road #03-16 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "105m",
+            "+65 8764 2749"
+        ],
+        "category": [
+            "Chirashi",
+            "Sushi",
+            "Seafood",
+            "Fine Dining",
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/gyosen-fortune-centre/"
+    },
+    {
+        "name": "Crescent Waffle & Sandwich Shop",
+        "location": "190 Middle Road Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "105m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Desserts",
+            "Cafes",
+            "Sandwiches",
+            "Waffles"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/crescent-waffle-sandwich-shop/"
+    },
+    {
+        "name": "Green Bliss Habitat",
+        "location": "190 Middle Road #02-01 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "105m",
+            "S$5 - S$10",
+            "+65 6917 0946"
+        ],
+        "category": [
+            "Vegetarian",
+            "Local Delights"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/green-bliss-habitat/"
+    },
+    {
+        "name": "Tian Yuan Healthy Vegetarian Food Paradise",
+        "location": "190 Middle Road #01-16 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "105m",
+            "S$5 - S$10",
+            "+65 6336 0058"
+        ],
+        "category": [
+            "Healthy Food Restaurants",
+            "Local Delights",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/tian-yuan-healthy-vegetarian-food-paradise/"
+    },
+    {
+        "name": "New Station Rice Bar",
+        "location": "190 Middle Road 03-04, Singapore 188979",
+        "descriptions": [
+            "105m",
+            "+65 8817 5572"
+        ],
+        "category": [
+            "Asian"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/new-station-rice-bar/"
+    },
+    {
+        "name": "Mu Mu Tang Guo \u6728\u6728\u6c64\u9505 (Bugis)",
+        "location": "268 Middle Road, Singapore 188992",
+        "descriptions": [
+            "105m",
+            "+65 8500 3313"
+        ],
+        "category": [
+            "Steamboat",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/mu-mu-tang-guo-bugis/"
+    },
+    {
+        "name": "La Teh Cafe (Fortune Centre)",
+        "location": "190 Middle Road #02-18A Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "105m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Local Delights",
+            "Cafes",
+            "BBQ Chicken",
+            "Chicken Burger",
+            "Chicken Nuggets",
+            "Chicken Rice",
+            "French Fries",
+            "Teriyaki Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/la-teh-cafe-fortune-centre/"
+    },
+    {
+        "name": "Miss Saigon (Fortune Centre)",
+        "location": "190 Middle Road 04-14, Singapore 188979",
+        "descriptions": [
+            "105m",
+            "+65 8904 9399"
+        ],
+        "category": [
+            "Vietnamese Restaurants",
+            "Asian"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/miss-saigon-fortune-centre/"
+    },
+    {
+        "name": "Yat Ka Yan Dessert (Fortune Centre)",
+        "location": "190 Middle Road #02-08 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "105m",
+            "+65 8798 9292"
+        ],
+        "category": [
+            "Dessert",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/yat-ka-yan-dessert-fortune-centre/"
+    },
+    {
+        "name": "Ginett Restaurant & Wine Bar",
+        "location": "200 Middle Road, Singapore 188980",
+        "descriptions": [
+            "108m",
+            "S$35 - S$60",
+            "+65 6809 7989"
+        ],
+        "category": [
+            "French Restaurants",
+            "Breakfast",
+            "Dinner with Drinks",
+            "Date Night Restaurants",
+            "European Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ginett-restaurant-wine-bar/"
+    },
+    {
+        "name": "Wan Wan Thai Cafe",
+        "location": "127A Bencoolen Street 02-127, Singapore 189637",
+        "descriptions": [
+            "109m",
+            "S$10 - S$20",
+            "+65 6336 8812"
+        ],
+        "category": [
+            "Ice Cream",
+            "Thai Restaurants",
+            "Supper Restaurants",
+            "Cafes",
+            "Desserts"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/wan-wan-thai-cafe/"
+    },
+    {
+        "name": "piu M",
+        "location": "190 Middle Road #02-29 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "109m",
+            "S$25 - S$45",
+            "+65 9456 2204"
+        ],
+        "category": [
+            "Italian Restaurants",
+            "Pasta",
+            "Japanese Restaurants",
+            "Dinner with Drinks"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/piu-m/"
+    },
+    {
+        "name": "The Asia 2019",
+        "location": "190 Middle Road #02-05 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "109m",
+            "S$5 - S$15",
+            "+65 9181 0244"
+        ],
+        "category": [
+            "Korean"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/the-asia-2019/"
+    },
+    {
+        "name": "Kaisen 8 BAR",
+        "location": "190 Middle Road #03-16 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "109m",
+            "+65 9859 2225"
+        ],
+        "category": [
+            "Bars",
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/kaisen-8-bar/"
+    },
+    {
+        "name": "Red Apple Veggie Cafe (Fortune Centre)",
+        "location": "190 Middle Road, #01-32, Rochor, 188979, Singapore",
+        "descriptions": [
+            "109m"
+        ],
+        "category": [
+            "Asian",
+            "Chicken",
+            "Noodles",
+            "Rice Dishes",
+            "Singaporean"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/red-apple-veggie-cafe-fortune-centre/"
+    },
+    {
+        "name": "Aroy-Dee Thai Kitchen (Bencoolen Street)",
+        "location": "127 Bencoolen Street, SG 189637",
+        "descriptions": [
+            "109m",
+            "S$6 - S$16"
+        ],
+        "category": [
+            "Seafood",
+            "Thai",
+            "Chinese Tea",
+            "English Breakfast Tea",
+            "Fried Egg",
+            "Fried Rice",
+            "Hor Fun",
+            "Mango Salad",
+            "Omelette",
+            "Pineapple Fried Rice",
+            "Thai Milk Tea",
+            "Tom Yum Fried Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/aroy-dee-thai-kitchen-bencoolen-street/"
+    },
+    {
+        "name": "Blooming Sprouts",
+        "location": "190 Middle Road #03-03 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "109m",
+            "S$10 - S$20",
+            "+65 8926 1077"
+        ],
+        "category": [
+            "Vegan",
+            "Pasta",
+            "Pizza",
+            "Healthy Food Restaurants",
+            "Burgers",
+            "Vegetarian"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/blooming-sprouts/"
+    },
+    {
+        "name": "Diner's Shack",
+        "location": "Middle Road 02-31, Singapore 188979",
+        "descriptions": [
+            "109m",
+            "+65 8891 2160"
+        ],
+        "category": [
+            "Western Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/diners-shack/"
+    },
+    {
+        "name": "Al-Jilani Restaurant",
+        "location": "127 Bencoolen Street, Singapore 189637",
+        "descriptions": [
+            "110m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Supper",
+            "Hawker Food",
+            "Malay",
+            "Chicken Curry",
+            "Chinese Tea",
+            "Fried Chicken",
+            "Mee Goreng",
+            "Mutton Steak",
+            "Nasi Goreng",
+            "Nasi Goreng Ayam",
+            "Nasi Goreng Ikan Bilis",
+            "Omelette",
+            "Onion Omelette",
+            "Roti John Chicken",
+            "Roti John Mutton"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/al-jilani-restaurant/"
+    },
+    {
+        "name": "Duke Dessert",
+        "location": "190 Middle Road #02-06, Singapore 188979",
+        "descriptions": [
+            "110m"
+        ],
+        "category": [
+            "Desserts"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/duke-dessert/"
+    },
+    {
+        "name": "Miyabi Don",
+        "location": "190 Middle Road #02-29 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "110m",
+            "S$10 - S$30",
+            "+65 9456 2204"
+        ],
+        "category": [
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/miyabi-don/"
+    },
+    {
+        "name": "Lago Mala Tang",
+        "location": "190 Middle Road #01-18, Singapore 188979",
+        "descriptions": [
+            "110m"
+        ],
+        "category": [
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/lago-mala-tang/"
+    },
+    {
+        "name": "Fortune Centre",
+        "location": "190 Middle Road Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "115m"
+        ],
+        "category": [
+            "Kopitiam",
+            "Vegetarian"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/fortune-centre/"
+    },
+    {
+        "name": "Izakaya Katsuki",
+        "location": "190 Middle Road #02-14, Singapore 188979",
+        "descriptions": [
+            "116m"
+        ],
+        "category": [
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/izakaya-katsuki/"
+    },
+    {
+        "name": "Rui Xiang Mei Shi",
+        "location": "131 Bencoolen Street, Bugis, City Hall, Lower Central, SG 189639",
+        "descriptions": [
+            "116m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Meat",
+            "Chinese Restaurants",
+            "Black Pepper Beef",
+            "Cereal Prawn",
+            "Chicken Chop",
+            "Chicken Rice",
+            "Chicken Wings",
+            "Curry Fish Head",
+            "Fried Chicken",
+            "Fried Egg",
+            "Fried Rice",
+            "Mushroom Soup",
+            "Salted Egg Chicken",
+            "Sweet and Sour Pork"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/rui-xiang-mei-shi/"
+    },
+    {
+        "name": "Singapore Fast Food",
+        "location": "131 Bencoolen Street, Bugis, City Hall, Lower Central, SG 189639",
+        "descriptions": [
+            "116m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Meat",
+            "Chinese Restaurants",
+            "Black Pepper Beef",
+            "Cereal Prawn",
+            "Chicken Chop",
+            "Chicken Rice",
+            "Chicken Wings",
+            "Curry Fish Head",
+            "Fried Chicken",
+            "Fried Egg",
+            "Fried Rice",
+            "Mushroom Soup",
+            "Salted Egg Chicken",
+            "Sweet and Sour Pork"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/singapore-fast-food/"
+    },
+    {
+        "name": "Gokul Vegetarian Restaurant (Fortune Centre)",
+        "location": "190 Middle Road #01-07 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "118m",
+            "S$5 - S$15",
+            "+65 6337 4811"
+        ],
+        "category": [
+            "Indian",
+            "Vegetarian"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/gokul-vegetarian-restaurant-fortune-centre/"
+    },
+    {
+        "name": "Ng Kuan Chilli Pan Mee (Bencoolen)",
+        "location": "131 Bencoolen Street, Singapore 189639",
+        "descriptions": [
+            "119m",
+            "S$5 - S$10",
+            "+65 8157 8344"
+        ],
+        "category": [
+            "Hawker Food",
+            "Supper Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ng-kuan-chilli-pan-mee-bencoolen/"
+    },
+    {
+        "name": "Kurasu",
+        "location": "261 Waterloo Street #01-24, Singapore 180261",
+        "descriptions": [
+            "121m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Cafes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/kurasu/"
+    },
+    {
+        "name": "American Taproom",
+        "location": "261 Waterloo Street #01-23, Singapore 180261",
+        "descriptions": [
+            "121m",
+            "+65 9632 1570"
+        ],
+        "category": [
+            "Bars",
+            "Steak",
+            "Western Restaurants",
+            "American",
+            "Chicken Wings",
+            "Fried Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/american-taproom/"
+    },
+    {
+        "name": "Happy Congee (Waterloo Centre)",
+        "location": "261 Waterloo Street #01-29 Waterloo Centre, Singapore 180261",
+        "descriptions": [
+            "121m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/happy-congee-waterloo-centre/"
+    },
+    {
+        "name": "Tic Tac Toast",
+        "location": "10 Prinsep Link #01-59 Sunshine Plaza, Singapore 187948",
+        "descriptions": [
+            "121m"
+        ],
+        "category": [
+            "Bread",
+            "Desserts"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/tic-tac-toast/"
+    },
+    {
+        "name": "Sabeena's",
+        "location": "261 Waterloo Street #01-29 Chang Cheng Mee Wah, Singapore 180261",
+        "descriptions": [
+            "121m",
+            "S$5 - S$10",
+            "+65 8139 5647"
+        ],
+        "category": [],
+        "url": "https://www.foodadvisor.com.sg/restaurant/sabeenas/"
+    },
+    {
+        "name": "Liang Ji (The Marketplace @ 58)",
+        "location": "261 Waterloo Street #01-29 Waterloo Centre, Singapore 180261",
+        "descriptions": [
+            "121m",
+            "S$5 - S$15",
+            "+65 8226 5585"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/liang-ji-the-marketplace-58/"
+    },
+    {
+        "name": "Herbivore",
+        "location": "190 Middle Road #01-13/14 Fortune Centre, Singapore 188979",
+        "descriptions": [
+            "124m",
+            "S$15 - S$35",
+            "+65 6333 1612"
+        ],
+        "category": [
+            "Sushi",
+            "Vegetarian",
+            "Healthy Food Restaurants",
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/herbivore/"
+    },
+    {
+        "name": "Tai Ho Soon Mala Xiang Guo (Waterloo Centre)",
+        "location": "261 Waterloo Street Waterloo Centre Chang Cheng, SG 180261",
+        "descriptions": [
+            "124m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/tai-ho-soon-mala-xiang-guo-waterloo-centre/"
+    },
+    {
+        "name": "Chinese fast food \u4e2d\u5f0f\u5feb\u9910",
+        "location": "131 Bencoolen Street 01-01 01-01, SG 189639",
+        "descriptions": [
+            "124m",
+            "S$11 - S$21"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Chinese",
+            "Black Pepper Beef",
+            "Black Pepper Chicken",
+            "Cereal Prawn",
+            "Chicken Chop",
+            "Chicken Rice",
+            "Chicken Wings",
+            "Curry Fish Head",
+            "Fried Chicken",
+            "Fried Egg",
+            "Fried Rice",
+            "Mushroom Soup",
+            "Sweet & Sour Pork"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/chinese-fast-food-/"
+    },
+    {
+        "name": "Papa's Kitchen",
+        "location": "01-02, 48 Bencoolen St, V Hotel, Bugis, City Hall, Lower Central, SG 189627",
+        "descriptions": [
+            "130m",
+            "S$7 - S$17"
+        ],
+        "category": [
+            "Burgers",
+            "Meat",
+            "Singaporean",
+            "Chicken Burger",
+            "Fried Rice",
+            "Mushroom Soup",
+            "Seafood Aglio Olio",
+            "Seafood Marinara"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/papas-kitchen/"
+    },
+    {
+        "name": "Yuugo",
+        "location": "48 Bencoolen Street #01-02 V Hotel Bencoolen, Singapore 189627",
+        "descriptions": [
+            "133m",
+            "S$10 - S$30",
+            "+65 6261 7966"
+        ],
+        "category": [
+            "Pasta",
+            "Western Restaurants",
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/yuugo/"
+    },
+    {
+        "name": "Waterloo Coffee Shop",
+        "location": "262 Waterloo Street, Singapore 180262",
+        "descriptions": [
+            "138m"
+        ],
+        "category": [],
+        "url": "https://www.foodadvisor.com.sg/restaurant/waterloo-coffee-shop/"
+    },
+    {
+        "name": "Rui Xiang Restaurant",
+        "location": "131 Bencoolen Street #01-01, Singapore 189639",
+        "descriptions": [
+            "140m",
+            "S$5 - S$10",
+            "+65 6338 5388"
+        ],
+        "category": [
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/rui-xiang-restaurant/"
+    },
+    {
+        "name": "Clap Cafe",
+        "location": "261 Waterloo Street #01-28, Singapore 180261",
+        "descriptions": [
+            "145m",
+            "S$5 - S$15",
+            "+65 6980 6392"
+        ],
+        "category": [
+            "Cakes",
+            "Cafes",
+            "Desserts"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/clap-cafe/"
+    },
+    {
+        "name": "Chang Cheng Mee Wah (Waterloo Street)",
+        "location": "261 Waterloo Street #01-29, Singapore 180261",
+        "descriptions": [
+            "145m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/food-summons-waterloo-street/"
+    },
+    {
+        "name": "King Grouper Fish Soup (Waterloo)",
+        "location": "261 Waterloo Street #01-29, Singapore 180261",
+        "descriptions": [
+            "149m",
+            "+65 8222 6824"
+        ],
+        "category": [
+            "Seafood",
+            "Soup",
+            "Asian"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/king-grouper-fish-soup-waterloo/"
+    },
+    {
+        "name": "Wonder Gelato",
+        "location": "261 Waterloo Street #01-30 Waterloo Centre, Singapore 180261",
+        "descriptions": [
+            "150m",
+            "S$5 - S$10",
+            "+65 9631 7377"
+        ],
+        "category": [
+            "Ice Cream",
+            "Desserts",
+            "Waffles"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/wonder-gelato/"
+    },
+    {
+        "name": "Crossings Caf\u00e9",
+        "location": "55 Waterloo Street, Singapore 187954",
+        "descriptions": [
+            "152m",
+            "S$10 - S$30",
+            "+65 6338 2669"
+        ],
+        "category": [
+            "Pasta",
+            "Cafes",
+            "Desserts",
+            "Breakfast"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/crossings-cafe/"
+    },
+    {
+        "name": "Breadxbirds By Platypus",
+        "location": "01-90/91 80 Middle Road, Bugis Junction, Lower Central, Bugis/City Hall, SG 188966",
+        "descriptions": [
+            "152m",
+            "S$6 - S$16"
+        ],
+        "category": [
+            "Sandwiches",
+            "Western Restaurants",
+            "Truffle Fries"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/breadxbirds-by-platypus/"
+    },
+    {
+        "name": "1001 of Arabia",
+        "location": "23 Baghdad St, Singapore 199662",
+        "descriptions": [
+            "156m",
+            "S$10 - S$30"
+        ],
+        "category": [
+            "Late Night Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/1001-of-arabia/"
+    },
+    {
+        "name": "Back to Eden",
+        "location": "64 Prinsep Street, Singapore 188667",
+        "descriptions": [
+            "163m",
+            "S$15 - S$35",
+            "+65 6238 1068"
+        ],
+        "category": [
+            "Breakfast",
+            "Cafes",
+            "Bread & Pastries"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/back-to-eden/"
+    },
+    {
+        "name": "Leong Yeow Famous Waterloo St. Hainanese Chicken Rice",
+        "location": "261 Waterloo Street #01-29, Singapore 180261",
+        "descriptions": [
+            "165m",
+            "S$5 - S$10",
+            "+65 6334 3989"
+        ],
+        "category": [
+            "Chicken Rice",
+            "Hawker Food",
+            "Cheap"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/leong-yeow-famous-waterloo-st.-hainanese-chicken-rice/"
+    },
+    {
+        "name": "Stack",
+        "location": "155 Waterloo St #01-07 Stamford Arts Centre, Singapore 187962",
+        "descriptions": [
+            "168m",
+            "S$10 - S$20"
+        ],
+        "category": [
+            "Sandwiches",
+            "Halal Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/stack/"
+    },
+    {
+        "name": "Tipo Pizzeria e Trattoria",
+        "location": "155 Waterloo Street #01-08 Stamford Arts Centre, Singapore 187962",
+        "descriptions": [
+            "168m",
+            "S$20 - S$40",
+            "+65 8693 8311"
+        ],
+        "category": [
+            "Italian Restaurants",
+            "Pasta",
+            "Pizza",
+            "Halal Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/tipo-pizzeria-e-trattoria/"
+    },
+    {
+        "name": "Local Restaurant & Bar",
+        "location": "30 Bencoolen Street 30 Bencoolen, Singapore 189621",
+        "descriptions": [
+            "168m",
+            "S$20 - S$40",
+            "+65 6337 2882"
+        ],
+        "category": [
+            "Local Delights"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/local-restaurant-bar/"
+    },
+    {
+        "name": "Communal Coffee",
+        "location": "60 Prinsep Street, Singapore 188664",
+        "descriptions": [
+            "169m",
+            "S$15 - S$35",
+            "+65 9664 1141"
+        ],
+        "category": [
+            "Cafes",
+            "Desserts",
+            "Waffles",
+            "Breakfast",
+            "Carbonara",
+            "Earl Grey Tea",
+            "English Breakfast Tea",
+            "Omelette",
+            "Smoked Salmon"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/communal-coffee/"
+    },
+    {
+        "name": "STAGE",
+        "location": "60 Prinsep Street, Singapore 188664",
+        "descriptions": [
+            "169m",
+            "S$20 - S$40",
+            "+65 6333 0689"
+        ],
+        "category": [
+            "Bars",
+            "Pizza",
+            "Pasta",
+            "1-for-1 Deals",
+            "Western Restaurants",
+            "Good For Groups Restaurants",
+            "BBQ Chicken",
+            "Black Pepper Beef",
+            "Caesar Salad",
+            "Calamari Rings",
+            "Carbonara",
+            "Garlic Bread",
+            "Laksa",
+            "Prawn Aglio Olio",
+            "Smoked Salmon",
+            "Truffle Fries"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/stage/"
+    },
+    {
+        "name": "Song Garden",
+        "location": "122 Middle Road Level 2 Mercure Singapore Bugis, Singapore 188973",
+        "descriptions": [
+            "174m",
+            "S$42 - S$72",
+            "+65 6521 9299"
+        ],
+        "category": [
+            "Dim Sum",
+            "Good For Groups Restaurants",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/song-garden/"
+    }
+]
