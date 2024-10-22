@@ -1,0 +1,1864 @@
+[
+    {
+        "name": "Karaked Thai Cuisine",
+        "location": "180 Amk Ave 8, Nanyang Polytechnic , BLK E - Stall 7, SG 569830",
+        "descriptions": [
+            "102m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Thai Restaurants",
+            "Thai",
+            "",
+            "Curry Chicken",
+            "Fried Rice",
+            "Omelette",
+            "Seafood Fried Rice",
+            "Seafood Soup"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/karaked-thai-cuisine/"
+    },
+    {
+        "name": "Coal 3606",
+        "location": "Nanyang Polytechnic, 180 AMK AVE 8, Blk E Stall 6, SG 569830",
+        "descriptions": [
+            "109m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Western Restaurants",
+            "Chicken Chop",
+            "Coleslaw",
+            "Omelette",
+            "Onion Rings",
+            "Potato Salad",
+            "Potato Wedges"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/coal-3606/"
+    },
+    {
+        "name": "Mega Indian Cuisine",
+        "location": "Nanyang Polytechnic, 180 AMK AVE 8, Blk E Stall 10, SG 569830",
+        "descriptions": [
+            "109m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Indian Restaurants",
+            "",
+            "Bee Hoon Goreng",
+            "Butter Prata",
+            "Cheese Prata",
+            "Chicken Biryani",
+            "Chicken Murtabak",
+            "Egg Prata",
+            "Egg Thosai",
+            "Masala Thosai",
+            "Mee Goreng",
+            "Mutton Murtabak",
+            "Nasi Goreng",
+            "Onion Thosai",
+            "Plain Prata",
+            "Sardine Murtabak"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/mega-indian-cuisine/"
+    },
+    {
+        "name": "Need Cuisine",
+        "location": "180 Amk Ave 8, Nanyang Polytechnic , BLK E - Stall 7, SG 569830",
+        "descriptions": [
+            "112m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Thai Restaurants",
+            "",
+            "Chicken Wings",
+            "Curry Chicken",
+            "Fried Rice",
+            "Omelette",
+            "Seafood Fried Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/need-cuisine/"
+    },
+    {
+        "name": "Koufu (Nanyang Polytechnic)",
+        "location": "180 Ang Mo Kio Avenue 8 Level 2 Nanyang Polytechnic Block A, Singapore 569830",
+        "descriptions": [
+            "129m",
+            "S$5 - S$10",
+            "+65 6455 5421"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/koufu-nanyang-polytechnic/"
+    },
+    {
+        "name": "SUMO Japanese Food",
+        "location": "180 Ang Mo Kio Avenue 8 Level 2 Nanyang Polytechnic Block A Koufu, Singapore 569830",
+        "descriptions": [
+            "166m",
+            "S$5 - S$10",
+            "+65 8328 1510"
+        ],
+        "category": [
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/sumo-japanese-food/"
+    },
+    {
+        "name": "Royal Fresh",
+        "location": "180 Ang Mo Kio Avenue 8 Nanyang Polytechnic Foodgle Hub, Singapore 569830",
+        "descriptions": [
+            "166m",
+            "+65 9389 1408"
+        ],
+        "category": [
+            "Taiwanese Restaurants",
+            "Desserts"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/royal-fresh/"
+    },
+    {
+        "name": "Imperial Court Restaurant \u51f0\u73cd\u9601",
+        "location": "190 Ang Mo Kio Avenue 8 #03-01 The Grassroots\u2019 Club, Singapore 568046",
+        "descriptions": [
+            "168m",
+            "S$28 - S$48",
+            "+65 6553 2777"
+        ],
+        "category": [
+            "Dim Sum",
+            "Good For Groups",
+            "Chinese"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/imperial-court-restaurant-/"
+    },
+    {
+        "name": "Muslim Delights (Ang Mo Kio)",
+        "location": "01-02, The Grassroots' Club, 190 Ang Mo Kio Avenue 8, SG 568046",
+        "descriptions": [
+            "169m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Meat",
+            "Seafood",
+            "Singaporean",
+            "Mee Goreng",
+            "Nasi Goreng",
+            "Sambal Sotong"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/muslim-delights-ang-mo-kio/"
+    },
+    {
+        "name": "Common Folks (Ang Mo Kio)",
+        "location": "190 Ang Mo Kio Ave 8, SG 568046",
+        "descriptions": [
+            "176m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Pizza",
+            "Italian Restaurants",
+            "Carbonara",
+            "Chicken Nuggets",
+            "Margherita"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/common-folks-ang-mo-kio/"
+    },
+    {
+        "name": "Eternal Garden Restaurant",
+        "location": "190 Ang Mo Kio Avenue 8 The Grassroots' Club, Singapore 568046",
+        "descriptions": [
+            "176m",
+            "S$35 - S$60",
+            "+65 6970 0002"
+        ],
+        "category": [
+            "Buffets",
+            "Seafood",
+            "Good For Groups Restaurants",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/eternal-garden-restaurant/"
+    },
+    {
+        "name": "L'Rez (Nanyang Polytechnic)",
+        "location": "180 Ang Mo Kio Avenue 8 Level 3 Block F Nanyang Polytechnic, Singapore 569830",
+        "descriptions": [
+            "223m",
+            "S$10 - S$20",
+            "+65 6451 4384"
+        ],
+        "category": [
+            "Cheap",
+            "Western"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/lrez-nanyang-polytechnic/"
+    },
+    {
+        "name": "Lok Lok Dip",
+        "location": "180 Ang Mo Kio Avenue 8 Blk A, Level 2, Nanyang Polytechnic, Singapore 569830",
+        "descriptions": [
+            "223m"
+        ],
+        "category": [
+            "Kopitiam"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/lok-lok-dip/"
+    },
+    {
+        "name": "South Canteen (Nanyang Polytechnic)",
+        "location": "180 Ang Mo Kio Avenue 8 Level 2 Nanyang Polytechnic Block P, Singapore 569830",
+        "descriptions": [
+            "232m",
+            "+65 6457 0246"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/south-canteen-nanyang-polytechnic/"
+    },
+    {
+        "name": "North Canteen (Nanyang Polytechnic)",
+        "location": "180 Ang Mo Kio Avenue 8 Level 2 Block E Nanyang Polytechnic, Singapore 569830",
+        "descriptions": [
+            "232m",
+            "+65 6459 0152"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/north-canteen-nanyang-polytechnic/"
+    },
+    {
+        "name": "Xiao Jiang Lv \u5c0f\u9171\u9a74",
+        "location": "180 Ang Mo Kio Ave 8 Block A Level 2 Unit 253 Stall 1, SG 569830",
+        "descriptions": [
+            "232m"
+        ],
+        "category": [
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/xiao-jiang-lv-/"
+    },
+    {
+        "name": "Curry Rice (Koufu NYP)",
+        "location": "180 Ang Mo Kio Ave 8 Block A Level 2 Unit 253 Stall 5 Singapore, SG 569830",
+        "descriptions": [
+            "232m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Asian",
+            "Curry",
+            "Chicken Curry",
+            "Chicken Nuggets",
+            "Tori Karaage"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/curry-rice-koufu-nyp/"
+    },
+    {
+        "name": "Western Food (Koufu NYP)",
+        "location": "180 Ang Mo Kio Ave 8 Block A, Level 2 Unit 253 Stall 8, SG 569830",
+        "descriptions": [
+            "232m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Western Restaurants",
+            "Cheese Fries",
+            "Chicken Chop",
+            "Chicken Cutlet",
+            "French Fries",
+            "Mashed Potato"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/western-food-koufu-nyp/"
+    },
+    {
+        "name": "Sumo Japanese Food (Koufu NYP)",
+        "location": "180 Ang Mo Kio Ave 8 Block A, Level 2 Unit 253 Stall 12, SG 569830",
+        "descriptions": [
+            "232m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Japanese Restaurants",
+            "Black Pepper Beef",
+            "Black Pepper Chicken",
+            "Curry Chicken",
+            "Teriyaki Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/sumo-japanese-food-koufu-nyp/"
+    },
+    {
+        "name": "Korean Cuisine (Koufu NYP)",
+        "location": "180 Ang Mo Kio Ave 8 Block A Level 2 Unit 253, SG 569830",
+        "descriptions": [
+            "232m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Korean",
+            ""
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/korean-cuisine-koufu-nyp/"
+    },
+    {
+        "name": "Monster Peng Japanese Food (Foodgle South Canteen)",
+        "location": "180 Ang Mo Kio Ave 8, Nanyang Polytechnic - Block P, Level 2 South Canteen Stall 7, SG 569830",
+        "descriptions": [
+            "232m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Japanese Restaurants",
+            "Chicken Curry",
+            "Tori Karaage"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/monster-peng-japanese-food-foodgle-south-canteen/"
+    },
+    {
+        "name": "Thai Cuisine (Koufu NYP)",
+        "location": "180 Ang Mo Kio Ave 8 Block A, Level 2 Unit 253 stall 10, SG 569830",
+        "descriptions": [
+            "232m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Thai Restaurants",
+            "Thai",
+            "",
+            "Black Pepper Beef",
+            "Black Pepper Chicken",
+            "Curry Chicken",
+            "Fried Rice",
+            "Pineapple Fried Rice",
+            "Seafood Fried Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/thai-cuisine-koufu-nyp/"
+    },
+    {
+        "name": "Nasi Padang (Koufu NYP)",
+        "location": "180 Ang Mo Kio Ave 8 Block A, Level 2 Unit 253 stall 9, SG 569830",
+        "descriptions": [
+            "232m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Malay Restaurants",
+            "Fried Chicken",
+            "Fried Rice",
+            "Mee Goreng",
+            "Mee Rebus",
+            "Nasi Goreng"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/nasi-padang-koufu-nyp/"
+    },
+    {
+        "name": "Turkish Kebab (Koufu NYP)",
+        "location": "180 Ang Mo Kio Ave 8 Block A, Level 2 Unit 253, SG 569830",
+        "descriptions": [
+            "232m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Turkish Restaurants",
+            "Cheese Fries",
+            "French Fries",
+            "Samosa",
+            "Sweet Potato Fries"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/turkish-kebab-koufu-nyp/"
+    },
+    {
+        "name": "Eight Immortal Vegetarian (Koufu NYP)",
+        "location": "180 Ang Mo Kio Ave 8 Block A Level 2 Unit 253, SG 569830",
+        "descriptions": [
+            "232m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Vegetarian",
+            "Fried Rice",
+            "Hor Fun",
+            "Mee Goreng",
+            "Olive Fried Rice",
+            "Sambal Fried Rice",
+            "Vegetable Fried Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/eight-immortal-vegetarian-koufu-nyp/"
+    },
+    {
+        "name": "Beverages (Koufu NYP)",
+        "location": "180 Ang Mo Kio Ave 8 Block A Level 2 Unit 253 Stall 11, SG 569830",
+        "descriptions": [
+            "232m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Beverages"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/beverages-koufu-nyp/"
+    },
+    {
+        "name": "Fishball Noodles (Koufu NYP)",
+        "location": "180 Ang Mo Kio Ave 8 Block A, Level 2 Unit 253, SG 569830",
+        "descriptions": [
+            "232m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Singaporean",
+            "Laksa",
+            "Mushroom Soup"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/fishball-noodles-koufu-nyp/"
+    },
+    {
+        "name": "Yong Tau Foo (Koufu NYP)",
+        "location": "180 Ang Mo Kio Ave 8 Block A Level 2 Unit 253, SG 569830",
+        "descriptions": [
+            "232m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Asian"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/yong-tau-foo-koufu-nyp/"
+    },
+    {
+        "name": "Fruit Juice & Desserts (Koufu NYP)",
+        "location": "180 Ang Mo Kio Ave 8 Block A Level 2 Unit 253 Stall 13, SG 569830",
+        "descriptions": [
+            "232m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Dessert",
+            "Fruit"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/fruit-juice-desserts-koufu-nyp/"
+    },
+    {
+        "name": "Foodgle Hub (Nanyang Polytechnic)",
+        "location": "180 Ang Mo Kio Avenue 8 Basement Nanyang Polytechnic Block P1, Singapore 569830",
+        "descriptions": [
+            "233m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/foodgle-hub-nanyang-polytechnic/"
+    },
+    {
+        "name": "Manna Cafe (Nanyang Polytechnic)",
+        "location": "180 Ang Mo Kio Avenue 8 Level 2 Block A Nanyang Polytechnic, Singapore 569830",
+        "descriptions": [
+            "233m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Burgers",
+            "Western Restaurants",
+            "Cafes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/manna-cafe-nanyang-polytechnic/"
+    },
+    {
+        "name": "Each a Cup (Nanyang Polytechnic)",
+        "location": "180 Ang Mo Kio Avenue 8 Block P Nanyang Polytechnic, Singapore 569830",
+        "descriptions": [
+            "299m",
+            "S$5 - S$10",
+            "+65 9816 3863"
+        ],
+        "category": [
+            "Desserts"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/each-a-cup-nanyang-polytechnic/"
+    },
+    {
+        "name": "Lee Chan Ban Mian Fish Soup (Foodgle South Canteen)",
+        "location": "180 Ang Mo Kio Ave 8, Nanyang Polytechnic - Block P, Level 2 South Canteen Stall 8, SG 569830",
+        "descriptions": [
+            "305m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Soup",
+            "Fish"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/lee-chan-ban-mian-fish-soup-foodgle-south-canteen/"
+    },
+    {
+        "name": "Muslim Food",
+        "location": "180 Ang Mo Kio Ave 8 Block P Level 2 Foodgle South Canteen, S569830, SG 569830",
+        "descriptions": [
+            "316m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Malay Restaurants",
+            "Fried Egg",
+            "Mee Goreng",
+            "Mee Rebus",
+            "Mee Siam",
+            "Nasi Goreng",
+            "Nuggets"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/muslim-food/"
+    },
+    {
+        "name": "Doncha",
+        "location": "2 Ang Mo Kio Ave 8, Nanyang Polytechnic - Block P Level 2, SG 569830",
+        "descriptions": [
+            "316m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Beverages",
+            "Earl Grey Tea"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/doncha/"
+    },
+    {
+        "name": "Takoyaki & Pancakes",
+        "location": "180 Ang Mo Kio Avenue 8, Nanyang Polytechnic Block P South Canteen Level 2, SG 569830",
+        "descriptions": [
+            "316m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Dessert",
+            "Singaporean"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/takoyaki-pancakes/"
+    },
+    {
+        "name": "Al Zouq Foods & Caterer",
+        "location": "727 Ang Mo Kio Avenue 5 #01-4264, Singapore 560727",
+        "descriptions": [
+            "578m",
+            "S$5 - S$15",
+            "+65 9146 6294"
+        ],
+        "category": [
+            "Indian Restaurants",
+            "Bee Hoon Goreng",
+            "Black Pepper Chicken",
+            "Butter Chicken",
+            "Butter Naan",
+            "Cheese Naan",
+            "Chicken Tikka Masala",
+            "Curry Chicken",
+            "Fish Briyani",
+            "Fried Chicken",
+            "Garlic Naan",
+            "Kway Teow Goreng",
+            "Mee Goreng",
+            "Mutton Briyani",
+            "Nasi Goreng",
+            "Palak Paneer",
+            "Plain Naan"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/al-zouq-foods/"
+    },
+    {
+        "name": "Sulthan Curry",
+        "location": "3 Link@AMK, AMK Street 62, Singapore 569139, SG 569139",
+        "descriptions": [
+            "625m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Indian Restaurants",
+            "Curry",
+            "Chicken Murtabak",
+            "Coin Prata",
+            "Fish Briyani",
+            "Mutton Briyani",
+            "Mutton Murtabak",
+            "Plain Prata"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/sulthan-curry/"
+    },
+    {
+        "name": "B\u00e1nh M\u00ec Saigon",
+        "location": "505 Ang Mo Kio Avenue 8 #01-2668, Singapore 560505",
+        "descriptions": [
+            "634m",
+            "S$5 - S$15",
+            "+65 9726 1368"
+        ],
+        "category": [
+            "Vietnamese Restaurants",
+            "Sandwiches"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/banh-mi-saigon/"
+    },
+    {
+        "name": "Kow Loon (Ang Mo Kio Avenue 8)",
+        "location": "Blk 505 AMK Ave 8 #01-2688, SG 560505",
+        "descriptions": [
+            "641m",
+            "S$8 - S$18"
+        ],
+        "category": [
+            "Meat",
+            "Chinese Restaurants",
+            "Char Siew Rice",
+            "Chicken Rice",
+            "Hor Fun"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/kow-loon-ang-mo-kio-avenue-8/"
+    },
+    {
+        "name": "Xin Li Wan Zhou Pin",
+        "location": "505 Ang Mo Kio Ave 8 #01-2688, SG 560505",
+        "descriptions": [
+            "645m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Meat",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/xin-li-wan-zhou-pin/"
+    },
+    {
+        "name": "Mama Prata",
+        "location": "Block 505, 505 Ang Mo Kio Ave 8, North, SG 560505",
+        "descriptions": [
+            "645m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Malay Restaurants",
+            "Indian Restaurants",
+            "Banana Prata",
+            "Bee Hoon Goreng",
+            "Cheese Prata",
+            "Chicken Biryani",
+            "Chicken Murtabak",
+            "Coin Prata",
+            "Egg Prata",
+            "Kway Teow Goreng",
+            "Mee Goreng",
+            "Mushroom Prata",
+            "Mutton Murtabak",
+            "Nasi Goreng",
+            "Nasi Goreng Ikan Bilis",
+            "Onion Prata",
+            "Plain Prata"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/mama-prata/"
+    },
+    {
+        "name": "1 Hotplate Western",
+        "location": "Blk 505, Ang Mo Kio Street 53, Singapore 560505",
+        "descriptions": [
+            "647m"
+        ],
+        "category": [
+            "Seafood",
+            "Western Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/1-hotplate-western/"
+    },
+    {
+        "name": "Good Thyme Bistro",
+        "location": "505 Ang Mo Kio Avenue 8 #01-2674, Singapore 560505",
+        "descriptions": [
+            "649m",
+            "S$10 - S$30",
+            "+65 6452 9741"
+        ],
+        "category": [
+            "Pasta",
+            "Cafes",
+            "Waffles",
+            "Western Restaurants",
+            "Chicken Chop",
+            "Chicken Cutlet",
+            "Coleslaw",
+            "Fish and Chips",
+            "Garlic Bread",
+            "Laksa",
+            "Mushroom Soup",
+            "Salted Egg Chicken",
+            "Soup of the Day",
+            "Truffle Fries"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/good-thyme-bistro/"
+    },
+    {
+        "name": "Station 1",
+        "location": "505 Ang Mo Kio Avenue 8 #01-2688, SG 560505",
+        "descriptions": [
+            "651m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Western Restaurants",
+            "Carbonara",
+            "Cheese Fries",
+            "Chicken Chop",
+            "Chicken Cutlet",
+            "Coleslaw",
+            "Mushroom Soup",
+            "Nuggets",
+            "Onion Rings",
+            "Spring Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/station-1/"
+    },
+    {
+        "name": "Rong Cheng Rou Gu Cha (Ang Mo Kio)",
+        "location": "505 Ang Mo Kio Avenue 8 #01-2688, Singapore 560505",
+        "descriptions": [
+            "651m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Bak Kut Teh",
+            "Hawker Food",
+            "Local Delights"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/rong-cheng-rou-gu-cha-ang-mo-kio/"
+    },
+    {
+        "name": "Fatty Bom Bom (Ang Mo Kio)",
+        "location": "505 Ang Mo Kio Avenue 8, Singapore 560505",
+        "descriptions": [
+            "651m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Hawker Food",
+            "Western Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/fatty-bom-bom-ang-mo-kio/"
+    },
+    {
+        "name": "Ju Bao Xuan Mala Hotpot (Ang Mo Kio)",
+        "location": "505 Ang Mo Kio Avenue 8 #01-2688, Singapore 560505",
+        "descriptions": [
+            "652m",
+            "S$10 - S$20",
+            "+65 8896 0359"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Hot Pot"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ju-bao-xuan-mala-hotpot-ang-mo-kio/"
+    },
+    {
+        "name": "Ashraf Restaurant",
+        "location": "505 Ang Mo Kio Avenue 8 #01-2678, Singapore 560505",
+        "descriptions": [
+            "652m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Indian Restaurants",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ashraf-restaurant/"
+    },
+    {
+        "name": "KSL Western",
+        "location": "505 Ang Mo Kio Street 53 #01-2688, Singapore 560505",
+        "descriptions": [
+            "670m",
+            "S$5 - S$15",
+            "+65 8182 5505"
+        ],
+        "category": [
+            "Western Restaurants",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ksl-western/"
+    },
+    {
+        "name": "Jin Hock Seafood (Ang Mo Kio)",
+        "location": "505 Ang Mo Kio Avenue 8, Singapore 560505",
+        "descriptions": [
+            "673m",
+            "S$10 - S$20",
+            "+65 6455 7274"
+        ],
+        "category": [
+            "Zi Char",
+            "Seafood"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/jin-hock-seafood-ang-mo-kio/"
+    },
+    {
+        "name": "D.I.G Dining in Garden (Ang Mo Kio Public Library)",
+        "location": "4300 Ang Mo Kio Avenue 6 Ang Mo Kio Public Library, Singapore 569842",
+        "descriptions": [
+            "674m",
+            "S$5 - S$15",
+            "+65 8495 9606"
+        ],
+        "category": [
+            "1-for-1 Deals",
+            "Western Restaurants",
+            "Halal Restaurants",
+            "BBQ Chicken",
+            "Carbonara",
+            "Cheese Fries",
+            "Chicken Chop",
+            "Chicken Rice",
+            "Chinese Tea",
+            "Fish and Chips",
+            "French Fries",
+            "Mushroom Soup",
+            "Seafood Marinara",
+            "Seafood Soup"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/d-i-g-dining-in-garden-ang-mo-kio-public-library/"
+    },
+    {
+        "name": "Mazz Nasi Padang",
+        "location": "3 Ang Mo Kio Street 62, Link @ AMK Orange Point Coffee Shop, Unit 01-02, SG 569139",
+        "descriptions": [
+            "686m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Malaysian",
+            "Bee Hoon Goreng",
+            "Mee Goreng",
+            "Mee Rebus",
+            "Mee Siam",
+            "Nasi Goreng",
+            "Nasi Goreng Ayam",
+            "Nasi Goreng Ikan Bilis",
+            "Nasi Goreng Pattaya"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/mazz-nasi-padang/"
+    },
+    {
+        "name": "Orange Point Kopitiam",
+        "location": "3 Ang Mo Kio Street 62 #01-38, Singapore 569139",
+        "descriptions": [
+            "689m",
+            "S$5 - S$15",
+            "+65 6250 2238"
+        ],
+        "category": [
+            "Kopitiam"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/orange-point-kopitiam/"
+    },
+    {
+        "name": "Bedok 418 Coffee Shop",
+        "location": "418 Bedok North Avenue 2 #01-55, Singapore 460418",
+        "descriptions": [
+            "717m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food",
+            "Cafes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/bedok-418-coffee-shop/"
+    },
+    {
+        "name": "Yun Seafood Fish Head Steamboat",
+        "location": "Block 632 Ang Mo Kio Avenue 4 01-948, SG 560632",
+        "descriptions": [
+            "729m",
+            "S$13 - S$23"
+        ],
+        "category": [
+            "Seafood",
+            "Fish",
+            "Black Pepper Beef",
+            "Cereal Prawn",
+            "Chicken Rice",
+            "Chilli Chicken",
+            "Curry Chicken",
+            "Fried Chicken",
+            "Fried Egg",
+            "Fried Rice",
+            "Hor Fun",
+            "Mee Goreng",
+            "Salted Egg Prawn",
+            "Sambal Sotong",
+            "Seafood Soup",
+            "Sliced Fish Soup",
+            "Sweet & Sour Pork"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/yun-seafood-fish-head-steamboat/"
+    },
+    {
+        "name": "Mad Charcoal",
+        "location": "3 Ang Mo Kio Street 62 #01-38 Orange Point Kopitiam, Singapore 569139",
+        "descriptions": [
+            "742m",
+            "S$10 - S$20",
+            "+65 8500 5951"
+        ],
+        "category": [
+            "Hawker Food",
+            "Western Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/mad-charcoal/"
+    },
+    {
+        "name": "Fu Chan F&B (Ang Mo Kio)",
+        "location": "632 Ang Mo Kio Avenue 4 #01-948, Singapore 560632",
+        "descriptions": [
+            "743m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/fu-chan-fb-ang-mo-kio/"
+    },
+    {
+        "name": "Yun Seafood Fishhead Steamboat",
+        "location": "632 Ang Mo Kio Avenue 4 #01-948, Singapore 560632",
+        "descriptions": [
+            "743m",
+            "S$10 - S$20",
+            "+65 8112 8352"
+        ],
+        "category": [
+            "Steamboat",
+            "Zi Char",
+            "Seafood"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/yun-seafood-fishhead-steamboat/"
+    },
+    {
+        "name": "Al Ameen Kampung Seafood Restaurant (Ang Mo Kio)",
+        "location": "BLK 632, ANG MO KIO AVE 4, #01-948, SG 560632",
+        "descriptions": [
+            "743m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Singaporean",
+            "Bee Hoon Goreng",
+            "Cheese Thosai",
+            "Chicken Murtabak",
+            "Curry Chicken",
+            "Egg Onion Thosai",
+            "Egg Thosai",
+            "Fried Chicken",
+            "Ghee Thosai",
+            "Kway Teow Goreng",
+            "Maggi Goreng",
+            "Masala Thosai",
+            "Mee Goreng",
+            "Mutton Murtabak",
+            "Nasi Goreng",
+            "Nasi Goreng Ikan Bilis",
+            "Nasi Goreng Pattaya"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/al-ameen-kampung-seafood-restaurant-ang-mo-kio/"
+    },
+    {
+        "name": "Liang Seng Huat Private Limited",
+        "location": "632 Ang Mo Kio Avenue 4 #01-948, Singapore 560632",
+        "descriptions": [
+            "744m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/liang-seng-huat-private-limited/"
+    },
+    {
+        "name": "Coffee Express 2000 (Ang Mo Kio)",
+        "location": "630 Ang Mo Kio Avenue 4 #01-75, Singapore 560630",
+        "descriptions": [
+            "769m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food",
+            "Cafes",
+            "Black Pepper Chicken",
+            "Carbonara",
+            "Cheese Fries",
+            "Chicken Burger",
+            "Chicken Chop",
+            "Chicken Wings",
+            "Coleslaw",
+            "Fish and Chips",
+            "French Fries",
+            "Fried Chicken",
+            "Fried Rice",
+            "Garlic Bread",
+            "Mashed Potato",
+            "Mushroom Soup",
+            "Nuggets",
+            "Onion Rings",
+            "Potato Salad"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/coffee-express-2000-ang-mo-kio/"
+    },
+    {
+        "name": "Pancake King (Ang Mo Kio 630)",
+        "location": "630 Ang Mo Kio Avenue 4 #01-972, Singapore 560630",
+        "descriptions": [
+            "777m",
+            "S$5 - S$10",
+            "+65 6846 8231"
+        ],
+        "category": [
+            "Local Delights",
+            "Cheap Food Restaurants",
+            "Cakes",
+            "Desserts"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/pancake-king-ang-mo-kio-630/"
+    },
+    {
+        "name": "Yummy Yummy",
+        "location": "628 Ang Mo Kio Street 61 #01-94 AMK 628 Market, Singapore 560628",
+        "descriptions": [
+            "792m"
+        ],
+        "category": [
+            "Hawker/Kopitiam"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/yummy-yummy/"
+    },
+    {
+        "name": "Zhen Xin Vegetarian",
+        "location": "630 ANG MO KIO Ave 4 #01-972 560630, SG 560630",
+        "descriptions": [
+            "799m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Vegetarian",
+            "Laksa"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/zhen-xin-vegetarian/"
+    },
+    {
+        "name": "Meixi's Kitchen (Ang Mo Kio)",
+        "location": "630 Ang Mo Kio Avenue 4 #01-972, Singapore 560630",
+        "descriptions": [
+            "800m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/meixis-kitchen-ang-mo-kio/"
+    },
+    {
+        "name": "Jack's Place (Ang Mo Kio)",
+        "location": "730 Ang Mo Kio Avenue 6 #01-4274, Singapore 560730",
+        "descriptions": [
+            "804m",
+            "S$15 - S$35",
+            "+65 6452 0142"
+        ],
+        "category": [
+            "Steak",
+            "Good For Groups",
+            "Western",
+            "BBQ Chicken",
+            "Caesar Salad",
+            "Chicken Cutlet",
+            "Chicken Steak",
+            "Fried Rice",
+            "Onion Rings",
+            "Popcorn Chicken",
+            "Seafood Marinara",
+            "Spring Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/jacks-place-ang-mo-kio/"
+    },
+    {
+        "name": "Ho-Ree Roasted Food (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-84 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "808m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ho-ree-roasted-food-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "Hoe Ping Cook Food \u548c\u5e73\u719f\u98df (Ang Mo Kio 628)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-53 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "813m"
+        ],
+        "category": [
+            "Hawker Food",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hoe-ping-cook-food-ang-mo-kio-628/"
+    },
+    {
+        "name": "JWS Grille Factory (AMK Ave 4)",
+        "location": "01-906, Blk 631 Ang Mo Kio Avenue 4, SG 560631",
+        "descriptions": [
+            "814m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Burgers",
+            "Chicken",
+            "Western Restaurants",
+            "Black Pepper Chicken",
+            "Cheese Fries",
+            "Chicken Burger",
+            "Chicken Cutlet",
+            "Chicken Nuggets",
+            "Coleslaw",
+            "French Fries",
+            "Fried Rice",
+            "Mashed Potato",
+            "Onion Rings",
+            "Popcorn Chicken",
+            "Spring Chicken",
+            "Sweet Potato Fries"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/jws-grille-factory-amk-ave-4/"
+    },
+    {
+        "name": "Konomi Zen (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-59 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "819m",
+            "S$5 - S$10",
+            "+65 9734 8875"
+        ],
+        "category": [
+            "Japanese Restaurants",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/konomi-zen-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "Yuan Seafood White Bee Hoon (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-49 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "820m",
+            "S$5 - S$15",
+            "+65 8408 8526"
+        ],
+        "category": [
+            "Seafood",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/yuan-seafood-white-bee-hoon-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "Sumo Fried Hokkien Prawn Mee (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-76 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "820m",
+            "S$5 - S$10",
+            "+65 9299 2621"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/sumo-fried-hokkien-prawn-mee-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "Sing Soon Lee Hainanese Boneless Chicken Rice (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-93 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "820m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken Rice",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/sing-soon-lee-hainanese-boneless-chicken-rice-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "Hup Cheong Roasted Delights\u5408\u4f17\u70e7\u814a",
+        "location": "628 Ang Mo Kio Ave 4 #01-150, SG 560628",
+        "descriptions": [
+            "820m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Meat",
+            "Singaporean"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hup-cheong-roasted-delights/"
+    },
+    {
+        "name": "The House Recipe of Western Cuisine (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-71 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "820m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Western Restaurants",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/the-house-recipe-of-western-cuisine-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "Lai Seng Dessert (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-73 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "820m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Desserts",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/lai-seng-dessert-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "Xiang Ji Porridge \u9999\u8bb0\u7ca5\u54c1 (Ang Mo Kio)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-81 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "820m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/xiang-ji-porridge-ang-mo-kio/"
+    },
+    {
+        "name": "Traditional Pancake (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-69 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "820m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Desserts",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/traditional-pancake-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "Foy Yin Vegetarian Food (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-70 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "820m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/foy-yin-vegetarian-food-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "Da Jia Lai Chee Cheong Fun (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-85 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "820m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/da-jia-lai-chee-cheong-fun-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "Qiong Mei Yuan (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-57 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "820m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/qiong-mei-yuan-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "Hup Lee Hainan Curry Rice (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-48 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "820m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hup-lee-hainan-curry-rice-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "Water Lilies Drinks (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-79 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "820m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Desserts",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/water-lilies-drinks-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "Rosnah's Family Kitchen (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-97 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "820m",
+            "S$5 - S$10",
+            "+65 8855 4247"
+        ],
+        "category": [
+            "Malay Restaurants",
+            "Hawker Food",
+            "Halal Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/rosnahs-family-kitchen-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "Yit Thong Mushroom Minced Meat Noodle (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-83 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "820m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/yit-thong-mushroom-minced-meat-noodle-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "Hhir Indian Muslim Food (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-98 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "820m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Indian Restaurants",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hhir-indian-muslim-food-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "Hock Tai Noodle Stall (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-90 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "820m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hock-tai-noodle-stall-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "Nasi Lemak (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-77 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "820m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Nasi Lemak",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/nasi-lemak-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "Teochew Fish Porridge & Food Stall (Ang Mo Kio 631)",
+        "location": "Blk 631 Ang Mo Kio Avenue 4 #01-906 Stall 2, SG 560631",
+        "descriptions": [
+            "822m",
+            "S$6 - S$16"
+        ],
+        "category": [
+            "Seafood",
+            "Chinese Restaurants",
+            "Fish"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/teochew-fish-porridge-food-stall-ang-mo-kio-631/"
+    },
+    {
+        "name": "Yishun 925 Chicken Rice (Ang Mo Kio)",
+        "location": "631 ang mo kio avenue 4 #01-906, SG 560631",
+        "descriptions": [
+            "823m",
+            "S$6 - S$16"
+        ],
+        "category": [
+            "Singaporean",
+            "Chicken Rice",
+            "Chicken",
+            "Chicken Wings",
+            "Curry Chicken",
+            "Hor Fun"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/yishun-925-chicken-rice-ang-mo-kio/"
+    },
+    {
+        "name": "\u597d\u6e05\u9999 (Ang Mo Kio 628)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-74 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "823m"
+        ],
+        "category": [
+            "Hawker Food",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/-ang-mo-kio-628/"
+    },
+    {
+        "name": "Song Heng Fishball Minced Meat Noodle (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-75 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "826m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/song-heng-fishball-minced-meat-noodle-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "CS DESSERT \u660c\u665f\u7cd6\u6c34",
+        "location": "631 Ang Mo Kio Avenue 4 #01-908, Singapore 560631",
+        "descriptions": [
+            "826m"
+        ],
+        "category": [
+            "Dessert"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/cs-dessert-/"
+    },
+    {
+        "name": "Sumo Big Prawn Noodle (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-72 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "829m",
+            "S$5 - S$15",
+            "+65 9299 2621"
+        ],
+        "category": [
+            "Seafood",
+            "Soup",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/sumo-big-prawn-noodle-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "Zhen Jie Spinach Soup (Ang Mo Kio)",
+        "location": "Blk 628 Ang Mo Kio Ave 4, #01-82, Singapore, 560628, SG 560628",
+        "descriptions": [
+            "829m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Soup",
+            "Seafood Soup"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/zhen-jie-spinach-soup-ang-mo-kio/"
+    },
+    {
+        "name": "Solace On Us",
+        "location": "727 Ang Mo Kio Avenue 6 #01-4236 Broadway, Singapore 560727",
+        "descriptions": [
+            "829m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Hawker Food",
+            "Pizza",
+            "Western Restaurants",
+            "Pasta"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/solace-on-us/"
+    },
+    {
+        "name": "Happy Duck (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-50 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "830m",
+            "S$5 - S$10",
+            "+65 9067 6670"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/happy-duck-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "628 Soya Sauce Chicken (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-69 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "830m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/628-soya-sauce-chicken-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "\u9762\u714e\u7cbfPancake",
+        "location": "628 Ang Mo Kio Avenue 4 #01-69, Singapore 560628",
+        "descriptions": [
+            "830m"
+        ],
+        "category": [
+            "Local Delights",
+            "Hawker Food",
+            "Cheap Food Restaurants",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/pancake/"
+    },
+    {
+        "name": "Khao Hom by Rung Mama",
+        "location": "5 Ang Mo Kio Central 2 #01-06 Djitsun Mall, Singapore 569663",
+        "descriptions": [
+            "832m",
+            "S$10 - S$20",
+            "+65 8202 2512"
+        ],
+        "category": [
+            "Thai Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/khao-hom-by-rung-mama/"
+    },
+    {
+        "name": "Buddy Hoagies (Djitsun Mall)",
+        "location": "5 Ang Mo Kio Central 2 #01-08/09 Djitsun Mall, Singapore 569663",
+        "descriptions": [
+            "832m",
+            "S$10 - S$20",
+            "+65 6752 8722"
+        ],
+        "category": [
+            "Western"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/buddy-hoagies-djitsun-mall/"
+    },
+    {
+        "name": "Korfe Korean Bakery (Djitsun Mall)",
+        "location": "5 Ang Mo Kio Central 2 #01-10 Djitsun Mall, Singapore 569663",
+        "descriptions": [
+            "832m",
+            "S$5 - S$10",
+            "+65 9106 1385"
+        ],
+        "category": [
+            "Cafes",
+            "Desserts",
+            "Cakes",
+            "Bread & Pastries",
+            "Korean"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/korfe-korean-bakery-djitsun-mall/"
+    },
+    {
+        "name": "Ang Mo Kio 628 Market & Food Centre",
+        "location": "628 Ang Mo Kio Avenue 4, Singapore 560628",
+        "descriptions": [
+            "836m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "Da Jia Lai Hainanese Chicken Rice (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-85 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "836m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken Rice",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/da-jia-lai-hainanese-chicken-rice-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "Meng Kee (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-87 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "836m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken Rice",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/meng-kee-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "Hao Qing Xiang AMK 628 (Ang Mo Kio 628 Market & Food Centre)",
+        "location": "628 Ang Mo Kio Avenue 4 #01-74 Ang Mo Kio 628 Market & Food Centre, Singapore 560628",
+        "descriptions": [
+            "836m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hao-qing-xiang-amk-628-ang-mo-kio-628-market-food-centre/"
+    },
+    {
+        "name": "Shanghai Ren Jia (Ang Mo Kio)",
+        "location": "151 Ang Mo Kio Avenue 5 #01-3046, Singapore 560151",
+        "descriptions": [
+            "838m",
+            "S$10 - S$20",
+            "+65 6368 6927"
+        ],
+        "category": [
+            "Dim Sum",
+            "Good For Groups Restaurants",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/shanghai-ren-jia-ang-mo-kio/"
+    },
+    {
+        "name": "Wei Ji Braised Duck (Ang Mo Kio 628 Market)",
+        "location": "628 Ang Mo Kio Avenue 4, Singapore 560628",
+        "descriptions": [
+            "839m",
+            "+65 8749 3515"
+        ],
+        "category": [
+            "Kopitiam",
+            "Asian"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/wei-ji-braised-duck-ang-mo-kio-628-market/"
+    },
+    {
+        "name": "Pancake King (Ang Mo Kio Central)",
+        "location": "727 Ang Mo Kio Avenue 6 #01-4236 Fu Chan Coffee Shop, Singapore 560727",
+        "descriptions": [
+            "841m",
+            "S$5 - S$10",
+            "+65 9137 7911"
+        ],
+        "category": [
+            "Local Delights",
+            "Cheap Food Restaurants",
+            "Cakes",
+            "Desserts"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/pancake-king-ang-mo-kio-central/"
+    },
+    {
+        "name": "Long Xing Noodle House",
+        "location": "151 Ang Mo Kio Avenue 5 #01-3030, Singapore 560151",
+        "descriptions": [
+            "841m",
+            "S$5 - S$10",
+            "+65 9617 7965"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/long-xing-noodle-house/"
+    },
+    {
+        "name": "Fulee Seafood \u5bcc\u4fd0\u6d77\u9c9c (Ang Mo Kio)",
+        "location": "Blk 631 #01-906, Ang Mo Kio Avenue 4, SG 560631",
+        "descriptions": [
+            "845m",
+            "S$8 - S$18",
+            "+65 68625 631"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Zi Char",
+            "Local Delights",
+            "Seafood",
+            "Cereal Prawn",
+            "Chicken Chop",
+            "Chilli Chicken",
+            "Curry Chicken",
+            "Curry Fish Head",
+            "Fried Rice",
+            "Hokkien Mee",
+            "Hor Fun",
+            "Mango Salad",
+            "Mee Goreng",
+            "Omelette",
+            "Onion Omelette",
+            "Prawn Paste Chicken",
+            "Salted Egg Prawn",
+            "Sambal Sotong"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/fulee-seafood-ang-mo-kio/"
+    },
+    {
+        "name": "Broadway Chicken Claypot",
+        "location": "727 Ang Mo Kio Ave 6 #01-4236, SG 560728",
+        "descriptions": [
+            "846m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/broadway-chicken-claypot/"
+    },
+    {
+        "name": "Backyard Griller (Ang Mo Kio)",
+        "location": "727 Ang Mo Kio Ave 6, SG 560727",
+        "descriptions": [
+            "847m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Western Restaurants",
+            "Black Pepper Chicken",
+            "Calamari Rings",
+            "Carbonara",
+            "Cheese Fries",
+            "Chicken Chop",
+            "Chicken Cutlet",
+            "Chicken Fried Rice",
+            "Chicken Nuggets",
+            "Chicken Wings",
+            "Coleslaw",
+            "Fried Chicken",
+            "Mashed Potato",
+            "Onion Rings",
+            "Prawn Aglio Olio",
+            "Smoked Salmon",
+            "Spring Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/backyard-griller-ang-mo-kio/"
+    },
+    {
+        "name": "Curry Xi Shi (AMK)",
+        "location": "727 Ang Mo Kio Ave 6 #01-4236, SG 560727",
+        "descriptions": [
+            "847m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Singaporean",
+            "Curry",
+            "Chicken Curry",
+            "Chicken Cutlet"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/curry-xi-shi-amk/"
+    },
+    {
+        "name": "Broadway Claypot Rice",
+        "location": "727 Ang Mo Kio Avenue 6 #01-4236, Singapore 560727",
+        "descriptions": [
+            "848m",
+            "S$5 - S$15",
+            "+65 8818 5451"
+        ],
+        "category": [
+            "Rainy Day Comforts",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/broadway-claypot-rice/"
+    },
+    {
+        "name": "Chai Chee Noodle Village (Ang Mo Kio)",
+        "location": "727 Ang Mo Kio Avenue 6 Fu Chan Coffee Shop, Singapore 560727",
+        "descriptions": [
+            "848m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/chai-chee-noodle-village-ang-mo-kio/"
+    },
+    {
+        "name": "Broadway (AMK Ave 6)",
+        "location": "727 Ang Mo Kio Avenue 6 #01-4236, Singapore 560727",
+        "descriptions": [
+            "848m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/broadway-amk-ave-6/"
+    },
+    {
+        "name": "Ah Gu Kaka Wa",
+        "location": "5 Ang Mo Kio Central 2 #01-01 Djitsun Mall, Singapore 569663",
+        "descriptions": [
+            "850m",
+            "S$10 - S$30",
+            "+65 6757 3358"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Fried Chicken",
+            "Fried Egg",
+            "Fried Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/guo-chang-chuan-wei-guan/"
+    },
+    {
+        "name": "Hong Kong Street Long Ji (Ang Mo Kio 151)",
+        "location": "151 Ang Mo Kio Avenue 5 #01-1601, Singapore 560151",
+        "descriptions": [
+            "868m",
+            "S$10 - S$20"
+        ],
+        "category": [
+            "Zi Char",
+            "Hawker Food",
+            "Beef Hor Fun",
+            "Black Pepper Beef",
+            "Black Pepper Chicken",
+            "Cereal Prawn",
+            "Chicken Rice",
+            "Chilli Chicken",
+            "Curry Chicken",
+            "Curry Fish Head",
+            "Fried Egg",
+            "Fried Rice",
+            "Hokkien Mee",
+            "Mee Goreng",
+            "Omelette",
+            "Prawn Paste Chicken",
+            "Sambal Sotong",
+            "Seafood Fried Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hong-kong-street-zhen-ji-ang-mo-kio-151/"
+    }
+]

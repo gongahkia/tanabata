@@ -1,0 +1,1947 @@
+[
+    {
+        "name": "Mensa Canteen (Temasek Polytechnic)",
+        "location": "21 Tampines Avenue 1 Block 30 Temasek Polytechnic, Singapore 529757",
+        "descriptions": [
+            "40m"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/mensa-canteen-temasek-polytechnic/"
+    },
+    {
+        "name": "Bistro Walk (Temasek Polytechnic)",
+        "location": "21 Tampines Avenue 1 #01-05 Blk 30 Student Development Centre Building, Singapore 529757",
+        "descriptions": [
+            "40m",
+            "+65 6780 6488"
+        ],
+        "category": [
+            "Western Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/bistro-walk-temasek-polytechnic/"
+    },
+    {
+        "name": "Flavours Food & Beverages (Temasek Polytechnic)",
+        "location": "21 Tampines Avenue 1 Block 4 Level 2 Temasek Polytechnic School of Applied Science / School of Informatics & IT, Singapore 529757",
+        "descriptions": [
+            "40m"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/flavours-food-beverages-temasek-polytechnic/"
+    },
+    {
+        "name": "Western Cuisine",
+        "location": "21 Tampines Avenue 1, Singapore 529757",
+        "descriptions": [
+            "115m",
+            "+65 6788 2000"
+        ],
+        "category": [
+            "Western Restaurants",
+            "",
+            "Chicken Chop",
+            "Chicken Cutlet",
+            "Chicken Nuggets",
+            "Chicken Wings",
+            "Fish and Chips",
+            "French Fries",
+            "Onion Rings"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/western-cuisine/"
+    },
+    {
+        "name": "Bistro Lab",
+        "location": "21 Tampines Avenue 1 Unit SDC30-01-01 Temasek Polytechnic, Singapore 529757",
+        "descriptions": [
+            "128m",
+            "S$5 - S$10",
+            "+65 6780 5193"
+        ],
+        "category": [
+            "Local Delights"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/bistro-lab/"
+    },
+    {
+        "name": "Rong Hu Bang",
+        "location": "Temasek Polytechnic, Building 26, The Business Park, Tampines Ave 1, Tampines, Simei, SG 529757",
+        "descriptions": [
+            "133m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Meat",
+            "Chinese Restaurants",
+            "Char Siew Rice",
+            "Chicken Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/rong-hu-bang/"
+    },
+    {
+        "name": "Subway (Temasek Polytechnic)",
+        "location": "21 Tampines Avenue 1 30B-01-03 Temasek Polytechnic, Singapore 529757",
+        "descriptions": [
+            "146m",
+            "S$5 - S$15",
+            "+65 6781 2301"
+        ],
+        "category": [
+            "subway"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/subway-temasek-polytechnic/"
+    },
+    {
+        "name": "McDonald's (Temasek Polytechnic)",
+        "location": "21 Tampines Avenue 1 30B-01-02 Temasek Polytechnic, Singapore 529757",
+        "descriptions": [
+            "150m",
+            "S$5 - S$15",
+            "+65 6785 7158"
+        ],
+        "category": [
+            "Supper Restaurants",
+            "Burgers",
+            "Fast Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/mcdonalds-temasek-polytechnic/"
+    },
+    {
+        "name": "Toast Box (Temasek Polytechnic)",
+        "location": "21 Tampines Avenue 1 Temasek Poly F&B Outlet 1 @ 30B-01-01, Singapore 529757",
+        "descriptions": [
+            "168m",
+            "S$5 - S$15",
+            "+65 6781 5960"
+        ],
+        "category": [
+            "Local Delights",
+            "Bread",
+            "Breakfast",
+            "Cafes",
+            "Chicken Chop",
+            "Chicken Rice",
+            "Sweet Potato Fries",
+            "Teriyaki Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/toast-box-temasek-polytechnic/"
+    },
+    {
+        "name": "The Designer Pad (Temasek Polytechnic)",
+        "location": "21 Tampines Avenue 1 Block 28 Level 1 Temasek Polytechnic School of Design, Singapore 529757",
+        "descriptions": [
+            "170m"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/the-designer-pad-temasek-polytechnic/"
+    },
+    {
+        "name": "The Business Park (Temasek Polytechnic)",
+        "location": "25A Tampines Avenue 1 Block 26 Level 1 Temasek Polytechnic School of Business, Singapore 529765",
+        "descriptions": [
+            "223m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Kopitiam",
+            "Cheap Food Restaurants",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/the-business-park-temasek-polytechnic/"
+    },
+    {
+        "name": "Tea Tree Cafe (Tampines)",
+        "location": "29B Tampines Ave 1, Temasek Polytechnic, Tampines, Simei, SG 528694",
+        "descriptions": [
+            "280m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Beverages",
+            "Singaporean"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/tea-tree-cafe-tampines/"
+    },
+    {
+        "name": "The Bread Board (Temasek Polytechnic)",
+        "location": "33A Tampines Avenue 1 Block 25 Level 2 Temasek Polytechnic School of Engineering, Singapore 529769",
+        "descriptions": [
+            "289m"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/the-bread-board-temasek-polytechnic/"
+    },
+    {
+        "name": "Ri Ri Sheng Mala Pot",
+        "location": "823A Tampines Street 81 #01-02 Food Park, Singapore 521823",
+        "descriptions": [
+            "334m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Rainy Day Comforts",
+            "Hawker Food",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ri-ri-sheng-mala-pot-/"
+    },
+    {
+        "name": "Spicy Non Spicy",
+        "location": "822 Tampines Street 81 #01-196, Singapore 520822",
+        "descriptions": [
+            "334m",
+            "S$10 - S$20",
+            "+65 9123 0088"
+        ],
+        "category": [],
+        "url": "https://www.foodadvisor.com.sg/restaurant/spicy-non-spicy-/"
+    },
+    {
+        "name": "A1 Chendol & Durian",
+        "location": "822 Tampines Street 81 #01-186, Singapore 520822",
+        "descriptions": [
+            "334m",
+            "S$5 - S$10",
+            "+65 8832 4338"
+        ],
+        "category": [
+            "Desserts"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/a1-chendol-durian/"
+    },
+    {
+        "name": "Food Park (Tampines)",
+        "location": "823A Tampines Street 81 #01-02, Singapore 521823",
+        "descriptions": [
+            "334m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/food-park-tampines/"
+    },
+    {
+        "name": "Penang A1 Chendol",
+        "location": "822 Tampines Street 81 #01-186, Singapore 520822",
+        "descriptions": [
+            "334m",
+            "S$5 - S$10",
+            "+65 8832 4338"
+        ],
+        "category": [
+            "Desserts"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/penang-a1-chendol/"
+    },
+    {
+        "name": "Jian Bo Tiong Bahru Shui Kueh (823A Tampines Street)",
+        "location": "Blk 823A Tampines Street 81 #01-02, SG 521823",
+        "descriptions": [
+            "334m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Singaporean"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/jian-bo-tiong-bahru-shui-kueh-823a-tampines-street/"
+    },
+    {
+        "name": "Shang Hai Shi Xiang Ge",
+        "location": "823A Tampines Street 81, #01-01, Tampines, 521823, SG 521823",
+        "descriptions": [
+            "334m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Asian",
+            "Fried Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/shang-hai-shi-xiang-ge/"
+    },
+    {
+        "name": "An An Minced Meat Noodle",
+        "location": "823A Tampines Street 81 #01-02 Food Park, Singapore 521823",
+        "descriptions": [
+            "334m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/an-an-minced-meat-noodle/"
+    },
+    {
+        "name": "Popiah",
+        "location": "823A Tampines Street 81 #01-02 Food Park, Singapore 521823",
+        "descriptions": [
+            "334m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/popiah/"
+    },
+    {
+        "name": "KFC (Tampines Street 81)",
+        "location": "823A Tampines Street 81 #01-02, Singapore 521823",
+        "descriptions": [
+            "334m",
+            "S$5 - S$15",
+            "+65 6260 5195"
+        ],
+        "category": [
+            "Halal Restaurants",
+            "Fast Food",
+            "Cheese Fries",
+            "Nuggets",
+            "Popcorn Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/kfc-tampines-street-81/"
+    },
+    {
+        "name": "Fong Kee Hainanese Chicken Rice (Tampines)",
+        "location": "823A Tampines Street 81 #01-02 Food Park, Singapore 521823",
+        "descriptions": [
+            "334m",
+            "S$5 - S$10",
+            "+65 9664 9465"
+        ],
+        "category": [],
+        "url": "https://www.foodadvisor.com.sg/restaurant/fong-kee-hainanese-chicken-rice-tampines/"
+    },
+    {
+        "name": "LABULA Chinese Cuisine Mala Hot Pot",
+        "location": "01-196, Blk 822 Tampines Street 81, Tampines, Simei, SG 520822",
+        "descriptions": [
+            "335m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Meat",
+            "Vegetarian",
+            "Chinese Restaurants",
+            "Chinese",
+            "",
+            "Fried Egg",
+            "Fried Rice",
+            "Yang Zhou Fried Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/labula-chinese-cuisine-mala-hot-pot/"
+    },
+    {
+        "name": "A1 Penang Chendol",
+        "location": "822 Tampines Street 81, SG 520822",
+        "descriptions": [
+            "335m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Dessert"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/a1-penang-chendol/"
+    },
+    {
+        "name": "Wang Yuan Fish Soup (Tampines 823A)",
+        "location": "BLK 823A Tampines St 81, SG 520823",
+        "descriptions": [
+            "335m",
+            "S$11 - S$21"
+        ],
+        "category": [
+            "Asian",
+            "Healthy Food Restaurants",
+            "Meat",
+            "Seafood",
+            "Chinese Restaurants",
+            "Fish"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/wang-yuan-fish-soup-tampines-823a/"
+    },
+    {
+        "name": "Al-Hussain Restaurant (Tampines)",
+        "location": "822 Tampines Street 81 #01-202, Singapore 520822",
+        "descriptions": [
+            "336m",
+            "S$5 - S$15",
+            "+65 8646 2812"
+        ],
+        "category": [
+            "Indian",
+            "Hawker Food",
+            "Banana Prata",
+            "Bee Hoon Goreng",
+            "Butter Prata",
+            "Cheese Prata",
+            "Cheese Thosai",
+            "Chicken Biryani",
+            "Chicken Chop",
+            "Chicken Murtabak",
+            "Chicken Steak",
+            "Coin Prata",
+            "Double Egg Prata",
+            "Egg Onion Prata",
+            "Egg Onion Thosai",
+            "Egg Thosai",
+            "French Fries",
+            "Ghee Thosai",
+            "Mee Goreng"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/al-hussain/"
+    },
+    {
+        "name": "Seafood Park (Tampines)",
+        "location": "832A Tampines Street 81 #01-02, Singapore 520832",
+        "descriptions": [
+            "341m",
+            "S$10 - S$20",
+            "+65 6260 0548"
+        ],
+        "category": [
+            "Zi Char",
+            "Seafood",
+            "Good For Groups"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/seafood-park-tze-char-tampines/"
+    },
+    {
+        "name": "Canopy Coffee Club",
+        "location": "21 Tampines Avenue 1 Level 2 Block 1A Temasek Polytechnic, Singapore 529757",
+        "descriptions": [
+            "344m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Local Delights",
+            "Hawker Food",
+            "Cafes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/canopy-coffee-club/"
+    },
+    {
+        "name": "An An Minced Meat Noodles",
+        "location": "Blk 823a tampines st 81 singapore 520823, SG 520823",
+        "descriptions": [
+            "345m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Meat"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/an-an-minced-meat-noodles/"
+    },
+    {
+        "name": "Mala Collections (Tampines)",
+        "location": "824 Tampines Street 81 #01-22, Singapore 520824",
+        "descriptions": [
+            "346m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Zi Char",
+            "Seafood",
+            "1-for-1 Deals",
+            "Cheap Food Restaurants",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/mala-collections-tampines/"
+    },
+    {
+        "name": "Ninja Chirashi",
+        "location": "824 Tampines Street 81 #01-36, Singapore 520824",
+        "descriptions": [
+            "346m",
+            "S$10 - S$20",
+            "+65 8181 0780"
+        ],
+        "category": [
+            "Chirashi",
+            "Seafood",
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ninja-chirashi/"
+    },
+    {
+        "name": "Banh Mi Thit (Tampines)",
+        "location": "824 Tampines Street 81 #01-08, Singapore 520824",
+        "descriptions": [
+            "346m",
+            "S$5 - S$10",
+            "+65 9711 1635"
+        ],
+        "category": [
+            "Vietnamese Restaurants",
+            "Sandwiches",
+            "Cheap Food Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/banh-mi-thit-tampines/"
+    },
+    {
+        "name": "Hundred Acre Creamery (Tampines)",
+        "location": "824 Tampines Street 81 #01-24, Singapore 520824",
+        "descriptions": [
+            "346m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Ice Cream",
+            "Desserts",
+            "Cafes",
+            "Waffles"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hundred-acre-creamery-tampines/"
+    },
+    {
+        "name": "Kim Poh Seafood",
+        "location": "824 Tampines Street 81 #01-38, SG 520824",
+        "descriptions": [
+            "346m",
+            "S$11 - S$31"
+        ],
+        "category": [
+            "Chicken",
+            "Seafood",
+            "Bee Hoon Goreng",
+            "Beef Fried Rice",
+            "Beef Hor Fun",
+            "Black Pepper Beef",
+            "Black Pepper Chicken",
+            "Cereal Prawn",
+            "Chicken Chop",
+            "Chilli Chicken",
+            "Curry Chicken",
+            "Curry Fish Head",
+            "Mee Goreng",
+            "Pineapple Fried Rice",
+            "Prawn Paste Chicken",
+            "Salted Egg Chicken",
+            "Sambal Sotong"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/kim-poh-seafood/"
+    },
+    {
+        "name": "Gimee face noodle house",
+        "location": "Tampines Street 81, Singapore 520824",
+        "descriptions": [
+            "346m"
+        ],
+        "category": [
+            "Noodle",
+            "Asian"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/gimee-face-noodle-house/"
+    },
+    {
+        "name": "Mbk Thai",
+        "location": "#01-22, Blk 824 Tampines Street 81, Tampines, Simei, SG 520824",
+        "descriptions": [
+            "349m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Halal Restaurants",
+            "Seafood",
+            "Thai Restaurants",
+            "Thai",
+            "Black Pepper Beef",
+            "Black Pepper Chicken",
+            "Fried Rice",
+            "Hor Fun",
+            "Omelette",
+            "Seafood Soup",
+            "Tom Yum Fried Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/mbk-thai/"
+    },
+    {
+        "name": "Qi Lin Hong Kong Roasted Delight (Tampines)",
+        "location": "Blk 824 Tampines St 81 #01-4B, SG 520824",
+        "descriptions": [
+            "349m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Chicken Rice",
+            "Hor Fun"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/qi-lin-hong-kong-roasted-delight-tampines/"
+    },
+    {
+        "name": "Warong Fiszah",
+        "location": "Blk 824 tampines st 81 #01-08, 520824, SG 520824",
+        "descriptions": [
+            "349m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Asian",
+            "Thai Milk Tea"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/warong-fiszah/"
+    },
+    {
+        "name": "XinTea",
+        "location": "Blk 824 Tampines St 81 #01-18, SG 520824",
+        "descriptions": [
+            "350m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Beverages",
+            "Pepperoni Pizza"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/xintea/"
+    },
+    {
+        "name": "Sarawak Kolo Mee & Laksa",
+        "location": "823A Tampines Street 81 #01-02 Food Park, Singapore 521823",
+        "descriptions": [
+            "352m",
+            "S$5 - S$10",
+            "+65 8712 8111"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/sarawak-kolo-mee-laksa/"
+    },
+    {
+        "name": "Soi Thai Kitchen (Tampines)",
+        "location": "824 Tampines Street 81 #01-28, Singapore 520824",
+        "descriptions": [
+            "353m",
+            "S$5 - S$15",
+            "+65 6784 2421"
+        ],
+        "category": [
+            "Thai Restaurants",
+            "Good For Groups Restaurants",
+            "Thai",
+            "Black Pepper Beef",
+            "Chicken Wings",
+            "Curry Chicken",
+            "Fried Chicken",
+            "Fried Rice",
+            "Mango Salad",
+            "Olive Fried Rice",
+            "Omelette",
+            "Prawn Omelette",
+            "Seafood Fried Rice",
+            "Sweet and Sour Pork"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/soi-thai-kitchen-tampines/"
+    },
+    {
+        "name": "Tokyo Western Food",
+        "location": "823A Tampines Street 81 #01-02 Food Park, Singapore 521823",
+        "descriptions": [
+            "353m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Hawker Food",
+            "Western Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/tokyo-western-food/"
+    },
+    {
+        "name": "Tenderbest (824 Tampines)",
+        "location": "824 Tampines Street 81 #01-38, Singapore 520824",
+        "descriptions": [
+            "361m",
+            "S$10 - S$20",
+            "+65 8385 2386"
+        ],
+        "category": [
+            "Kopitiam",
+            "Western Restaurants",
+            "Halal Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/tenderbest-824-tampines/"
+    },
+    {
+        "name": "Heng Long Teochew Porridge (Tampines)",
+        "location": "824 Tampines Street 81 #01-38, Singapore 520824",
+        "descriptions": [
+            "366m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Hawker Food",
+            "Supper Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/heng-long-teochew-porridge-tampines/"
+    },
+    {
+        "name": "Wangs Roasted Delight (Tampines Street 81)",
+        "location": "Blk 823A Tampines Street 81 #01-02 (Stall 1), Singapore 521823",
+        "descriptions": [
+            "372m"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Asian",
+            "Chicken",
+            "Rice Dishes",
+            "Singaporean",
+            "Chicken Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/wangs-roasted-delight-tampines-street-81/"
+    },
+    {
+        "name": "JOFA Meepok",
+        "location": "824 Tampines Street 81 #01-38 Choh Dee Place, Singapore 520824",
+        "descriptions": [
+            "380m",
+            "S$5 - S$10",
+            "+65 9821 7774"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/jofa-meepok/"
+    },
+    {
+        "name": "\u8c22\u5fc5\u5b89\u7d20\u98df Xie Bi An Vegetarian",
+        "location": "824 Tampines Street 81 #01-38, Singapore 520824",
+        "descriptions": [
+            "383m",
+            "+65 9006 4438"
+        ],
+        "category": [],
+        "url": "https://www.foodadvisor.com.sg/restaurant/-xie-bi-an-vegetarian/"
+    },
+    {
+        "name": "Sugarloaf",
+        "location": "31 Tampines Avenue 1 Level 1 Temasek Culinary Academy, Temasek Polytechnic, Singapore 529757",
+        "descriptions": [
+            "389m",
+            "S$5 - S$15",
+            "+65 6780 6363"
+        ],
+        "category": [
+            "Cafes",
+            "Desserts",
+            "Western"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/sugarloaf/"
+    },
+    {
+        "name": "EAT BAR \u6765\u5427\u5403\u9738 (Tampines)",
+        "location": "824 tampines street 81 #01-38 Singapore 520824",
+        "descriptions": [
+            "389m"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Asian",
+            "Noodles",
+            "Singaporean",
+            "Malaysian",
+            "Dim Sum",
+            "Hokkien Mee"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/eat-bar-tampines/"
+    },
+    {
+        "name": "Tenderbest (Tampines)",
+        "location": "824 Tampines Street 81, SG 520824",
+        "descriptions": [
+            "390m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Seafood",
+            "Halal Restaurants",
+            "Black Pepper Chicken",
+            "Carbonara",
+            "Chicken Burger",
+            "Chicken Chop",
+            "Chicken Cutlet",
+            "Chicken Rice",
+            "Coleslaw",
+            "French Fries",
+            "Fried Chicken",
+            "Garlic Bread",
+            "Mushroom Soup",
+            "Nuggets",
+            "Spring Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/tenderbest-tampines/"
+    },
+    {
+        "name": "Top Table (Temasek Polytechnic)",
+        "location": "21 Tampines Avenue 1 3F Temasek Culinary Academy Temasek Polytechnic, Singapore 529757",
+        "descriptions": [
+            "391m",
+            "S$10 - S$30",
+            "+65 6780 6369"
+        ],
+        "category": [
+            "Western Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/top-table-temasek-polytechnic/"
+    },
+    {
+        "name": "Face Ban Mian (Tampines)",
+        "location": "826 Tampines Street 81, Singapore 520826",
+        "descriptions": [
+            "391m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Kopitiam",
+            "Chinese Restaurants",
+            "Local Delights"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/face-ban-mian-tampines/"
+    },
+    {
+        "name": "Fried Hokkien Prawn Noodle",
+        "location": "826 Tampines Street 81 #01-86 826 Tampines Kopi Point, Singapore 520826",
+        "descriptions": [
+            "391m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/fried-hokkien-prawn-noodle/"
+    },
+    {
+        "name": "Tampines 826 Chicken Rice & Traditional Claypot Rice",
+        "location": "01-86, 826 Tampines Street 81, Tampines, Simei, SG 520826",
+        "descriptions": [
+            "394m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Meat",
+            "Singaporean",
+            "Braised Egg"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/tampines-826-chicken-rice-traditional-claypot-rice/"
+    },
+    {
+        "name": "Emi's Waffle & Gelato",
+        "location": "825 Tampines Street 81 #01-46, Singapore 520825",
+        "descriptions": [
+            "395m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Ice Cream",
+            "Desserts",
+            "Cafes",
+            "Waffles",
+            "Supper Restaurants",
+            "Cakes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/emis-waffle-gelato/"
+    },
+    {
+        "name": "New Century Food House (Tampines)",
+        "location": "828 Tampines Street 81 #01-254, Singapore 520828",
+        "descriptions": [
+            "398m",
+            "S$5 - S$10",
+            "+65 6299 5108"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/new-century-food-house-tampines/"
+    },
+    {
+        "name": "i.Tea (Tampines West)",
+        "location": "#01-156 Block 828A Tampines Street 81, SG 521828",
+        "descriptions": [
+            "398m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Bakery and Cakes",
+            "Dessert",
+            "Beverages",
+            "Earl Grey Tea"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/i-tea-tampines-west/"
+    },
+    {
+        "name": "King Of Fried Rice (Tampines)",
+        "location": "828 Tampines Street 81, Singapore 520828",
+        "descriptions": [
+            "399m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/king-of-fried-rice-tampines/"
+    },
+    {
+        "name": "Haji Kadir Food Chains (Tampines)",
+        "location": "820 Tampines Street 81 #01-534, Singapore 520820",
+        "descriptions": [
+            "402m",
+            "S$5 - S$15",
+            "+65 6784 8313"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food",
+            "Halal",
+            "Butter Prata",
+            "Chicken Chop",
+            "Chicken Curry",
+            "Chicken Nuggets",
+            "Fried Chicken",
+            "Hor Fun",
+            "Maggi Goreng",
+            "Mee Goreng",
+            "Mee Kuah",
+            "Mutton Chop",
+            "Nasi Goreng",
+            "Nasi Goreng Ayam",
+            "Nasi Goreng Ikan Bilis",
+            "Nasi Goreng Pattaya",
+            "Onion Rings",
+            "Popcorn Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/haji-kadir-food-chains-tampines/"
+    },
+    {
+        "name": "Deen Combo Restaurant",
+        "location": "Blk 828 Tampines Street 81 #01-254, S520828, SG 520828",
+        "descriptions": [
+            "406m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Meat",
+            "Indian Restaurants",
+            "Egg Prata",
+            "Mee Kuah",
+            "Plain Prata"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/deen-combo-restaurant/"
+    },
+    {
+        "name": "Tenderbest (826 Tampines)",
+        "location": "826 Tampines Street 81 #01-86, Singapore 520826",
+        "descriptions": [
+            "409m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food",
+            "Halal Restaurants",
+            "Western Restaurants",
+            "Braised Egg"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/tenderbest-826-tampines/"
+    },
+    {
+        "name": "826 Tampines Kopi Point",
+        "location": "826 Tampines Street 81 #01-86, Singapore 520826",
+        "descriptions": [
+            "409m",
+            "S$5 - S$10",
+            "+65 6782 0450"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/826-tampines-kopi-point/"
+    },
+    {
+        "name": "He Xing Seafood",
+        "location": "826 Tampines Street 81 #01-86, Singapore 520826",
+        "descriptions": [
+            "409m",
+            "S$10 - S$20",
+            "+65 6260 2806"
+        ],
+        "category": [
+            "Zi Char",
+            "Seafood",
+            "Good For Groups",
+            "Beef Fried Rice",
+            "Beef Hor Fun",
+            "Black Pepper Beef",
+            "Cereal Prawn",
+            "Chicken Fried Rice",
+            "Chicken Rice",
+            "Chilli Chicken",
+            "Curry Fish Head",
+            "Fried Egg",
+            "Mee Goreng",
+            "Omelette",
+            "Prawn Paste Chicken",
+            "Salted Egg Chicken",
+            "Salted Egg Prawn"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/he-xing-seafood/"
+    },
+    {
+        "name": "Duck King (Tampines)",
+        "location": "828 Tampines Street 81, SG 520828",
+        "descriptions": [
+            "416m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Singaporean",
+            "Braised Egg",
+            "Char Siew Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/duck-king-tampines/"
+    },
+    {
+        "name": "Horiginal Beef Noodle (Tampines)",
+        "location": "828 Tampines Street 81 #01-254, Singapore 520828",
+        "descriptions": [
+            "416m",
+            "S$5 - S$15",
+            "+65 8692 3139"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/horiginal-beef-noodle-tampines/"
+    },
+    {
+        "name": "PrimaD\u00e9li (Tampines St 81)",
+        "location": "828 Tampines Street 81 #01-250, Singapore 520828",
+        "descriptions": [
+            "416m",
+            "S$5 - S$10",
+            "+65 6612 6508"
+        ],
+        "category": [
+            "Desserts",
+            "Cakes",
+            "Bread & Pastries",
+            "Halal Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/primadeli-tampines-st-81/"
+    },
+    {
+        "name": "Baker Talent (Tampines)",
+        "location": "828 Tampines Street 81 #01-266, Singapore 520828",
+        "descriptions": [
+            "417m",
+            "S$5 - S$10",
+            "+65 6784 7740"
+        ],
+        "category": [
+            "Bread"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/baker-talent-tampines/"
+    },
+    {
+        "name": "Wonderful Grab & Go (Tampines)",
+        "location": "Blk 828 Tampines Street 81 #01-254, SG 520828",
+        "descriptions": [
+            "418m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Asian",
+            "Chicken Nuggets"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/wonderful-grab-go-tampines/"
+    },
+    {
+        "name": "One18 Artisanal Bakery",
+        "location": "826 Tampines Street 81 #01-118, Singapore 520826",
+        "descriptions": [
+            "418m"
+        ],
+        "category": [
+            "Bread Pastry Cake",
+            "Bakery"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/one18-artisanal-bakery/"
+    },
+    {
+        "name": "KRAFT KITCHEN",
+        "location": "820 Tampines Street 81 #01-526, Singapore 520820",
+        "descriptions": [
+            "421m",
+            "S$10 - S$30",
+            "+65 6592 8561"
+        ],
+        "category": [
+            "Chicken",
+            "Western Restaurants",
+            "Calamari Rings",
+            "Cheese Fries",
+            "Mushroom Soup",
+            "Seafood Marinara",
+            "Truffle Fries"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/kraft-kitchen/"
+    },
+    {
+        "name": "Tampines West Food Court",
+        "location": "827 Tampines Street 81 #01-128, Singapore 520827",
+        "descriptions": [
+            "435m",
+            "S$5 - S$15",
+            "+65 6784 2483"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/tampines-west-food-court/"
+    },
+    {
+        "name": "Boon Chiang Hainanese Chicken Rice (829 Tampines Street 81)",
+        "location": "829 Tampines Street 81 #01-296 Tampines Grove Singapore 520829, SG 520829",
+        "descriptions": [
+            "438m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Chinese Restaurants",
+            "Chicken Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/boon-chiang-hainanese-chicken-rice-829-tampines-street-81/"
+    },
+    {
+        "name": "Jia Jia Vegetarian (Tampines)",
+        "location": "827 Tampines St 81, #01-128, Tampines Grove, SG 520827",
+        "descriptions": [
+            "442m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Vegetarian"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/jia-jia-vegetarian-tampines/"
+    },
+    {
+        "name": "Maruhachi (Tampines)",
+        "location": "829 Tampines Street 81 #01-296, Singapore 520829",
+        "descriptions": [
+            "443m",
+            "S$5 - S$15",
+            "+65 9278 0131"
+        ],
+        "category": [
+            "Kid Friendly Restaurants",
+            "Kopitiam",
+            "Seafood",
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/maruhachi-tampines/"
+    },
+    {
+        "name": "Ming Fu Fishball Noodle",
+        "location": "829 Tampines Street 81 #01-296, Singapore 520829",
+        "descriptions": [
+            "443m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ming-fu-fishball-noodle/"
+    },
+    {
+        "name": "Hong Kao Liao Li (Tampines)",
+        "location": "827 Tampines Street 81 #01-150, Singapore 520827",
+        "descriptions": [
+            "443m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Bread & Pastries",
+            "Cakes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hong-kao-liao-li-tampines/"
+    },
+    {
+        "name": "Hua Zai HK Style Roasted Delight Rice Noodle (Tampines West)",
+        "location": "827 Tampines Street 81 #01-827 Tampines West Foodcourt, Singapore 520827",
+        "descriptions": [
+            "444m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Hidden Gem Restaurants",
+            "Hawker Food",
+            "Braised Egg"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/hua-zai-hk-style-roasted-delight-rice-noodle/"
+    },
+    {
+        "name": "Shun Shun Prawn Noodle \u987a\u987a\u867e\u9762",
+        "location": "829 Tampines Street 81 #01-296 Choh Dee Place, Singapore 520829",
+        "descriptions": [
+            "444m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/shun-shun-prawn-noodle-/"
+    },
+    {
+        "name": "Mama Don",
+        "location": "820 Tampines Street 81 #01-526, Singapore 520820",
+        "descriptions": [
+            "446m",
+            "S$10 - S$30"
+        ],
+        "category": [
+            "Japanese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/mama-don/"
+    },
+    {
+        "name": "888 Mookata (Tampines)",
+        "location": "820 Tampines Street 81 #01-506 Georgetown Coffee House, Singapore 520820",
+        "descriptions": [
+            "446m",
+            "S$10 - S$20"
+        ],
+        "category": [
+            "Mookata",
+            "Thai Restaurants",
+            "BBQ",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/888-mookata-tampines/"
+    },
+    {
+        "name": "Georgetown Coffee House",
+        "location": "820 Tampines Street 81 #01-506, Singapore 520820",
+        "descriptions": [
+            "447m",
+            "S$5 - S$15",
+            "+65 9687 7473"
+        ],
+        "category": [
+            "Hawker Food",
+            "Cafes"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/georgetown-coffee-house/"
+    },
+    {
+        "name": "Al-Faliha Islamic Food Corner",
+        "location": "820 Tampines St 81, SG 520820",
+        "descriptions": [
+            "449m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Malaysian",
+            "Banana Prata",
+            "Bee Hoon Goreng",
+            "Butter Prata",
+            "Cheese Prata",
+            "Cheese Thosai",
+            "Chicken Chop",
+            "Chicken Steak",
+            "Coin Prata",
+            "Egg Onion Prata",
+            "Egg Onion Thosai",
+            "Egg Prata",
+            "Egg Thosai",
+            "Fish Briyani",
+            "Ghee Thosai",
+            "Maggi Goreng",
+            "Masala Thosai",
+            "Mee Goreng",
+            "Mushroom Prata"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/al-faliha-islamic-food-corner/"
+    },
+    {
+        "name": "1990 Kopi Box & Bakery (Tampines)",
+        "location": "BlK 820 Tampines Street 81 S520820, SG 520820",
+        "descriptions": [
+            "449m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Beverages",
+            "Dessert",
+            "Bakery and Cakes",
+            "Thai Milk Tea"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/1990-kopi-box-bakery-tampines/"
+    },
+    {
+        "name": "IPOH ZHI CHAR",
+        "location": "820 TAMPINES STREET 81 #01-506 520820, SG 520820",
+        "descriptions": [
+            "449m",
+            "S$13 - S$23"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Beef Fried Rice",
+            "Black Pepper Beef",
+            "Black Pepper Chicken",
+            "Cereal Prawn",
+            "Chicken Chop",
+            "Chilli Chicken",
+            "Curry Fish Head",
+            "Fried Chicken",
+            "Hokkien Mee",
+            "Hor Fun",
+            "Mee Goreng",
+            "Pineapple Fried Rice",
+            "Prawn Paste Chicken",
+            "Salted Egg Prawn",
+            "Sambal Sotong"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ipoh-zhi-char/"
+    },
+    {
+        "name": "827 Seafood Soup (Tampines)",
+        "location": "827 Tampines Street 81 #01-128 Tampines West Food Court, Singapore 520827",
+        "descriptions": [
+            "450m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Kopitiam",
+            "Soup",
+            "Seafood",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/827-seafood-soup-tampines/"
+    },
+    {
+        "name": "829 Food Court",
+        "location": "829 Tampines Street 81 #01-296, Singapore 520829",
+        "descriptions": [
+            "454m"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/829-food-court/"
+    },
+    {
+        "name": "Tiong Bahru Hainanese Boneless Chicken Rice (Tampines)",
+        "location": "829 Tampines Street 81, Singapore 520829",
+        "descriptions": [
+            "454m",
+            "S$5 - S$10",
+            "+65 8809 8334"
+        ],
+        "category": [
+            "Kopitiam",
+            "Chicken Rice",
+            "Fried Chicken",
+            "Chinese Restaurants",
+            "Local Delights"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/tiong-bahru-hainanese-boneless-chicken-rice-tampines/"
+    },
+    {
+        "name": "Wang See Satay",
+        "location": "Block 820 Tampines Street 81, #01-506, Singapore 520820, Kopi House, SG 520820",
+        "descriptions": [
+            "456m",
+            "S$10 - S$20"
+        ],
+        "category": [
+            "Meat",
+            "Singaporean"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/wang-see-satay/"
+    },
+    {
+        "name": "Yuan Man Vegetarian",
+        "location": "Block 820 Tampanies Street 81 #01-506 Singapore 520820, SG 520820",
+        "descriptions": [
+            "456m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Beverages",
+            "Dessert",
+            "Meat",
+            "Vegetarian",
+            "Carrot Cake",
+            "Cereal Prawn",
+            "Chicken Chop",
+            "Chicken Cutlet",
+            "Chicken Rice",
+            "Curry Chicken",
+            "Fried Rice",
+            "Hokkien Mee",
+            "Hor Fun",
+            "Mee Goreng",
+            "Omelette",
+            "Pineapple Fried Rice",
+            "Sambal Kang Kong",
+            "Seafood Soup",
+            "Sliced Fish Soup",
+            "Sweet & Sour Pork"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/yuan-man-vegetarian/"
+    },
+    {
+        "name": "Habibie Seafood",
+        "location": "829 Tampines Street 81 Floor 509 Food Court, Singapore 520829",
+        "descriptions": [
+            "456m",
+            "+65 7000 422 4243"
+        ],
+        "category": [
+            "Seafood",
+            "Black Pepper Beef",
+            "Black Pepper Chicken",
+            "Cereal Prawn",
+            "Chicken Rice",
+            "Chicken Wings",
+            "Chilli Chicken",
+            "Fried Chicken",
+            "Fried Egg",
+            "Fried Rice",
+            "Hokkien Mee",
+            "Hor Fun",
+            "Laksa",
+            "Maggi Goreng",
+            "Mee Goreng",
+            "Omelette",
+            "Onion Omelette",
+            "Prawn Omelette",
+            "Salted Egg Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/habibie-seafood/"
+    },
+    {
+        "name": "Madas Nasi Lemak (Tampines)",
+        "location": "Blk 829 Tampines Street 81 Food Court, SG 520829",
+        "descriptions": [
+            "457m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Sandwiches",
+            "Singaporean",
+            "Chicken Cutlet",
+            "Chicken Nuggets",
+            "Chicken Wings"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/madas-nasi-lemak-tampines/"
+    },
+    {
+        "name": "Liu Ji Fish Soup",
+        "location": "829 Tampines Street 81, Singapore 520829",
+        "descriptions": [
+            "457m"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/liu-ji-fish-soup/"
+    },
+    {
+        "name": "Old Teochew Satay Bee Hoon \u8001\u6f6e\u5dde\u6c99\u7239\u7c73\u7c89 (Tampines)",
+        "location": "829 Tampines Street 81 #01-296, Singapore 520829",
+        "descriptions": [
+            "458m",
+            "+65 9893 1948"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/old-teochew-satay-bee-hoon-tampines/"
+    },
+    {
+        "name": "West Grill Station (Tampines)",
+        "location": "Blk 827 Tampines St 81, #01-128, SG 520827",
+        "descriptions": [
+            "460m",
+            "S$11 - S$31"
+        ],
+        "category": [
+            "Chicken",
+            "Seafood",
+            "Western Restaurants",
+            "Caesar Salad",
+            "Carbonara",
+            "Cheese Fries",
+            "Chicken Burger",
+            "Chicken Cutlet",
+            "Chicken Nuggets",
+            "Coleslaw",
+            "Fish and Chips",
+            "French Fries",
+            "Fried Rice",
+            "Mashed Potato",
+            "Mushroom Soup",
+            "Onion Rings",
+            "Potato Wedges",
+            "Spring Chicken",
+            "Truffle Fries"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/west-grill-station-tampines/"
+    },
+    {
+        "name": "McDonald's (Tampines West CC)",
+        "location": "5 Tampines Avenue 3 #01-01, Singapore 529705",
+        "descriptions": [
+            "468m",
+            "S$5 - S$15",
+            "+65 6783 7366"
+        ],
+        "category": [
+            "Supper",
+            "Fast Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/mcdonalds-tampines-west-cc/"
+    },
+    {
+        "name": "Starbucks (Tampines West CC)",
+        "location": "5 Tampines Avenue 3 #01-09 Tampines West Community Club, Singapore 529705",
+        "descriptions": [
+            "468m",
+            "S$5 - S$15",
+            "+65 6783 9341"
+        ],
+        "category": [
+            "Cafes",
+            "Chicken Cutlet"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/starbucks-tampines-west-cc/"
+    },
+    {
+        "name": "Arnold's Fried Chicken (Tampines West CC)",
+        "location": "5 Tampines Ave 3, #02-07 Tampines West CC, SG 529705",
+        "descriptions": [
+            "473m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Beverages",
+            "Western Restaurants",
+            "Chicken",
+            "Coleslaw",
+            "Mashed Potato",
+            "Onion Rings",
+            "Potato Wedges",
+            "Spring Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/arnolds-fried-chicken-tampines-west-cc/"
+    },
+    {
+        "name": "Arnold\u2019s Fried Chicken (Tampines)",
+        "location": "5 Tampines Avenue 3 #02-07 Tampines West Community Club, Singapore 529705",
+        "descriptions": [
+            "479m",
+            "+65 6592 8627"
+        ],
+        "category": [
+            "Fried Chicken",
+            "Fast Food",
+            "Western Restaurants",
+            "Halal Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/arnolds-fried-chicken-tampines/"
+    },
+    {
+        "name": "Dsnack Station",
+        "location": "Blk 835 Tampines Street 83, #01-16, SG 520835",
+        "descriptions": [
+            "574m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Asian",
+            "Black Pepper Chicken",
+            "Samosa"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/dsnack-station/"
+    },
+    {
+        "name": "Mufiz Restaurant (Tampines)",
+        "location": "835 Tampines Street 83, Singapore 520835",
+        "descriptions": [
+            "594m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Indian",
+            "Supper",
+            "Hawker Food",
+            "Banana Prata",
+            "Black Pepper Beef",
+            "Black Pepper Chicken",
+            "Butter Prata",
+            "Cheese Prata",
+            "Chicken Chop",
+            "Chicken Steak",
+            "Coin Prata",
+            "Egg Onion Prata",
+            "Egg Prata",
+            "Maggi Goreng",
+            "Mee Goreng",
+            "Mee Kuah",
+            "Mutton Chop",
+            "Mutton Steak",
+            "Nasi Goreng",
+            "Nasi Goreng Ayam"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/mufiz-restaurant-tampines/"
+    },
+    {
+        "name": "Yuan Xiang Vegetarian Food (Tampines)",
+        "location": "835 Tampines Street 83 #01-02, Singapore 520835",
+        "descriptions": [
+            "595m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Vegetarian",
+            "Chinese Restaurants",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/yuan-xiang-vegetarian-food-tampines/"
+    },
+    {
+        "name": "The Alley (Caltex Tampines)",
+        "location": "1 Tampines Avenue 8 #01-04, Singapore 529594",
+        "descriptions": [
+            "597m",
+            "S$5 - S$10",
+            "+65 8102 3928"
+        ],
+        "category": [
+            "Desserts Deals",
+            "Fruit Tea",
+            "Bubble Tea"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/the-alley-caltex-tampines/"
+    },
+    {
+        "name": "Three's a Crowd",
+        "location": "802 Tampines Avenue 4 #01-11, Singapore 520802",
+        "descriptions": [
+            "600m",
+            "S$5 - S$15",
+            "+65 6702 0700"
+        ],
+        "category": [
+            "Ice Cream",
+            "Cafes",
+            "Cakes",
+            "Desserts",
+            "Waffles",
+            "Nuggets"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/threes-a-crowd/"
+    },
+    {
+        "name": "Geylang Lor 9 Fresh Frog Porridge (Tampines)",
+        "location": "802 Tampines Avenue 4 #01-07 Chang Cheng Mee Wah, Singapore 520802",
+        "descriptions": [
+            "600m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Hawker Food",
+            "Caesar Salad",
+            "Cheese Fries",
+            "Chicken Burger",
+            "Chicken Cutlet",
+            "Chicken Nuggets",
+            "Coleslaw",
+            "Fish and Chips",
+            "French Fries",
+            "Fried Rice",
+            "Mashed Potato",
+            "Mushroom Soup",
+            "Onion Rings",
+            "Potato Wedges",
+            "Spring Chicken"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/geylang-lor-9-fresh-frog-porridge-tampines/"
+    },
+    {
+        "name": "Jia Xiang Mala Hotpot \u5bb6\u4e61\u9ebb\u8fa3\u9999\u9505-Tampines",
+        "location": "802 TAMPINES AVENUE 4 #01-07 TAMPINES POLYVIEW SINAGPORE, SG 520802",
+        "descriptions": [
+            "600m",
+            "S$7 - S$17"
+        ],
+        "category": [
+            "Meat",
+            "Chinese Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/jia-xiang-mala-hotpot-tampines/"
+    },
+    {
+        "name": "Chef Wei HK Cheong Fun (Tampines Polyview)",
+        "location": "802 Tampines Avenue 4 #01-07 Chang Cheng Mee Wah, Singapore 520802",
+        "descriptions": [
+            "603m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/chef-wei-hk-cheong-fun-tampines-polyview/"
+    },
+    {
+        "name": "Chang Cheng Mee Wah (Tampines Polyview)",
+        "location": "802 Tampines Avenue 4 #01-07, Singapore 520802",
+        "descriptions": [
+            "604m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Kopitiam",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/chang-cheng-mee-wah-tampines-polyview/"
+    },
+    {
+        "name": "Ming Kitchen Seafood Restaurant (Tampines Polyview)",
+        "location": "802 Tampines Avenue 4 #01-07, Singapore 520802",
+        "descriptions": [
+            "610m",
+            "S$10 - S$20",
+            "+65 6782 8064"
+        ],
+        "category": [
+            "Zi Char",
+            "Seafood"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/ming-kitchen-seafood-restaurant-tampines-polyview/"
+    },
+    {
+        "name": "Alsalam Restaurant (Tampines)",
+        "location": "801 Tampines Avenue 4 #01-285, Singapore 520801",
+        "descriptions": [
+            "611m",
+            "+65 6789 9680"
+        ],
+        "category": [
+            "Indian Restaurants",
+            "Delivery",
+            "Halal Restaurants"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/alsalam-restaurant-tampines/"
+    },
+    {
+        "name": "Zi Zai Vegetarian (Tampines)",
+        "location": "801 Tampines Avenue 4 #01-281, Singapore 520801",
+        "descriptions": [
+            "612m",
+            "S$5 - S$15",
+            "+65 6781 1820"
+        ],
+        "category": [
+            "Local Delights",
+            "Vegetarian",
+            "Healthy Food Restaurants",
+            "Carrot Cake",
+            "Cereal Prawn",
+            "Chicken Chop",
+            "Chicken Rice",
+            "Chilli Chicken",
+            "Curry Fish Head",
+            "French Fries",
+            "Fried Rice",
+            "Hokkien Mee",
+            "Hor Fun",
+            "Laksa",
+            "Mee Goreng",
+            "Omelette"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/zi-zai-vegetarian-tampines/"
+    },
+    {
+        "name": "Pondok Daun Upeh",
+        "location": "801 Tampines Avenue 4, Singapore 520801",
+        "descriptions": [
+            "614m",
+            "S$5 - S$15"
+        ],
+        "category": [
+            "Supper Restaurants",
+            "Malay Restaurants",
+            "Halal Restaurants",
+            "Hawker Food",
+            "Fried Rice",
+            "Hokkien Mee",
+            "Hor Fun",
+            "Mee Goreng",
+            "Nasi Goreng",
+            "Nasi Goreng Ayam",
+            "Nasi Goreng Pattaya",
+            "Omelette",
+            "Pineapple Fried Rice",
+            "Salted Egg Chicken",
+            "Seafood Soup"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/pondok-daun-upeh/"
+    },
+    {
+        "name": "Bonchon (Tampines)",
+        "location": "801 Tampines Avenue 4 #01-279, Singapore 520801",
+        "descriptions": [
+            "614m",
+            "S$10 - S$20",
+            "+65 6694 8460"
+        ],
+        "category": [
+            "Korean",
+            "Korean Fried Chicken",
+            "Chicken Cutlet",
+            "Fried Rice",
+            "Miso soup",
+            "Truffle Fries"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/bonchon-tampines/"
+    },
+    {
+        "name": "Zoul\u2019s Corner",
+        "location": "801 Tampines Avenue 4 #01-257, Singapore 470716",
+        "descriptions": [
+            "614m",
+            "S$5 - S$15",
+            "+65 6636 4414"
+        ],
+        "category": [
+            "Supper Restaurants",
+            "Malay Restaurants",
+            "Halal Restaurants",
+            "Hawker Food",
+            "Bee Hoon Goreng",
+            "Chicken Chop",
+            "Chicken Cutlet",
+            "Chicken Rice",
+            "Chicken Wings",
+            "French Fries",
+            "Fried Chicken",
+            "Fried Egg",
+            "Fried Rice",
+            "Hor Fun",
+            "Kway Teow Goreng",
+            "Mee Goreng",
+            "Nasi Goreng",
+            "Nasi Goreng Ayam"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/zouls-corner/"
+    },
+    {
+        "name": "Our Tampines Hub Hawker Centre",
+        "location": "1 Tampines Walk Our Tampines Hub Hawker Centre, Singapore 528523",
+        "descriptions": [
+            "630m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Supper Restaurants",
+            "Hawker Food"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/our-tampines-hub-hawker-centre/"
+    },
+    {
+        "name": "TAMPINES- MALA POT",
+        "location": "BLK 878C TAMPINES AVE 8 #01-66 SINGAPORE 523878, SG 523878",
+        "descriptions": [
+            "663m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Singaporean",
+            "Black Pepper Beef"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/tampines-mala-pot/"
+    },
+    {
+        "name": "Kimly Dim Sum (Tampines Ave 8)",
+        "location": "878C Tampines Ave 8, SG 523878",
+        "descriptions": [
+            "676m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Singaporean",
+            "Carrot Cake"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/kimly-dim-sum-tampines-ave-8/"
+    },
+    {
+        "name": "Singyi Seafood Garden (Tampines)",
+        "location": "#01-66, Block 878C, Tampines Ave 8, Tampines, Simei, SG 523878",
+        "descriptions": [
+            "679m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chinese Restaurants",
+            "Singaporean",
+            "Seafood",
+            "Beef Fried Rice",
+            "Beef Hor Fun",
+            "Black Pepper Beef",
+            "Chicken Fried Rice",
+            "Chicken Rice",
+            "Chilli Chicken",
+            "Curry Fish Head",
+            "Fried Egg",
+            "Mee Goreng",
+            "Omelette",
+            "Prawn Paste Chicken",
+            "Salted Egg Prawn",
+            "Salted Fish Fried Rice",
+            "Seafood Soup"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/singyi-seafood-garden-tampines/"
+    },
+    {
+        "name": "Feng Feng Hainanese Chicken Rice",
+        "location": "878c Tampines Avenue 8, Tampines, Simei, SG 520878",
+        "descriptions": [
+            "682m",
+            "S$5 - S$10"
+        ],
+        "category": [
+            "Chicken",
+            "Chinese Restaurants",
+            "Singaporean",
+            "Chicken Rice"
+        ],
+        "url": "https://www.foodadvisor.com.sg/restaurant/feng-feng-hainanese-chicken-rice/"
+    }
+]
