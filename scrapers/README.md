@@ -23,6 +23,11 @@
 | `suss_shakespeare` | https://www.foodadvisor.com.sg | https://www.foodadvisor.com.sg/nearby/599494/ | :white_check_mark: |
 | `laselle_shakespeare` | https://www.foodadvisor.com.sg | https://www.foodadvisor.com.sg/nearby/187940/ | :white_check_mark: |
 | `nafa_shakespeare` | https://www.foodadvisor.com.sg | https://www.foodadvisor.com.sg/nearby/189655/ | :white_check_mark: |
+| `nyp_shakespeare` | https://www.foodadvisor.com.sg | https://www.foodadvisor.com.sg/nearby/569830/ | :white_check_mark: |
+| `np_shakespeare` | https://www.foodadvisor.com.sg | https://www.foodadvisor.com.sg/nearby/599489/ | :white_check_mark: |
+| `sp_shakespeare` | https://www.foodadvisor.com.sg | https://www.foodadvisor.com.sg/nearby/139651/ | :white_check_mark: |
+| `tp_shakespeare` | https://www.foodadvisor.com.sg | https://www.foodadvisor.com.sg/nearby/529757/ | :white_check_mark: |
+| `rp_shakespeare` | https://www.rp.edu.sg | https://www.rp.edu.sg/our-campus/facilities/retail-dining | :white_check_mark: |
 | `ion_orchard_shakespeare` | https://www.ionorchard.com | - https://www.ionorchard.com/en/dine.html?category=Casual%20Dining%20and%20Takeaways<br> - https://www.ionorchard.com/en/dine.html?category=Restaurants%20and%20Cafes | :white_check_mark: |
 | `jewel_shakespeare` | https://www.jewelchangiairport.com | https://www.jewelchangiairport.com/en/dine.html | :white_check_mark: |
 | `singpost_shakespeare` | https://www.singpostcentre.com | https://www.singpostcentre.com/stores?start_with=&s=&category=cafes-restaurants-food-court | :white_check_mark: |

@@ -1,13 +1,6 @@
 # `NAPKIN.md`
 
 ## FUA
-    
-* include scraping support for all polys in singapore
-    * nanyang polytechnic (nyp)
-    * ngee ann polytechnic (np)
-    * republic polytechnic (rp)
-    * singapore polytechnic (sp)
-    * temasek polytechnic (tp)
 
 * focus on this for now
     * try scraping with playwright, converting existing scraping code to playwright
