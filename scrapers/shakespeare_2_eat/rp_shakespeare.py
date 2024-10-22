@@ -50,7 +50,7 @@ def scrape_rp_dining(url):
                     'name': name,
                     'location': "",
                     'description': clean_string(description),
-                    'category': "",
+                    'category': "Retail & Dining",
                     'url': url
                 }
                 print(details)
