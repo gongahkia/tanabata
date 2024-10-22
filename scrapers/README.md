@@ -1,8 +1,8 @@
-# `2 eat`
+# `scrapers`
 
-Scrapers I implemented to scrape the following sites.
+## Coverage
 
-## BeautifulSoup4
+### BeautifulSoup4
 
 [BeautifulSoup4 scrapers](./soup_2_eat/) currently scrape the following websites.
 
@@ -10,13 +10,7 @@ Scrapers I implemented to scrape the following sites.
 | :--- | :--- | :--- | :--- |
 | `ntu_soup` | https://www.ntu.edu.sg/life-at-ntu/leisure-and-dining/general-directory | https://www.ntu.edu.sg/life-at-ntu/leisure-and-dining/general-directory?locationTypes=all&locationCategories=all&page=1 | :white_check_mark: |
 
-### Usage
-
-```console
-$ python3 soup_name
-```
-
-## Playwright
+### Playwright
 
 [Playwright scrapers](./shakespeare_2_eat/) currently scrape the following websites.
 
@@ -47,37 +41,27 @@ $ python3 soup_name
 | `frasers_shakespeare` | https://www.frasersexperience.com/ | - https://www.causewaypoint.com.sg/<br> - https://www.centurysquare.com.sg/<br> - https://www.eastpoint.sg/<br> - https://www.hougangmall.com.sg/<br> - https://www.northpointcity.com.sg/<br> - https://www.robertsonwalk.com.sg/<br> - https://www.tampines1.com.sg/<br> - https://www.thecentrepoint.com.sg/<br> - https://www.tiongbahruplaza.com.sg/<br> - https://www.waterwaypoint.com.sg/<br> - https://www.whitesands.com.sg/ | :white_check_mark: |
 | `capitaland_shakespeare` | https://www.capitaland.com/sg/ | - https://www.capitaland.com/sg/malls/plazasingapura/en/stores.html?category=foodandbeverage<br>- https://www.capitaland.com/sg/malls/aperia/en/stores.html?category=foodandbeverage<br>- https://www.capitaland.com/sg/malls/bedokmall/en/stores.html?category=foodandbeverage<br>- https://www.capitaland.com/sg/malls/bugisjunction/en/stores.html?category=foodandbeverage<br>- https://www.capitaland.com/sg/malls/bugisplus/en/stores.html?category=foodandbeverage<br>- https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores.html?category=foodandbeverage<br>- https://www.capitaland.com/sg/malls/funan/en/stores.html?category=foodandbeverage<br>- https://www.capitaland.com/sg/malls/imm/en/stores.html?category=foodandbeverage<br>- https://www.capitaland.com/sg/malls/junction8/en/stores.html?category=foodandbeverage<br>- https://www.capitaland.com/sg/malls/lotone/en/stores.html?category=foodandbeverage<br>- https://www.capitaland.com/sg/malls/rafflescity/en/stores.html?category=foodandbeverage<br>- https://www.capitaland.com/sg/malls/tampinesmall/en/stores.html?category=foodandbeverage<br>- https://www.capitaland.com/sg/malls/westgate/en/stores.html?category=foodandbeverage<br> | :white_check_mark: |
 
-### Usage
+## Unsupported
 
-```console
-$ python3 shakespeare_name
-```
+Sites which cannot be scraped.
 
-## Scrapy
+| Site URL | Reason | Status |
+| :--- | :--- | :--- | 
+| https://www.sengkanggrandmall.com.sg/en/stores.html | unable to toggle the drop-down menu | :x: |
+| https://www.ngeeanncity.com.sg/shopdirectory/index.html | - HTML table without any css identifiers<br> - consider using bs4 instead of playwright | :x: |
+| https://www.amkhub.com.sg/store-directory/?level=&cate=Food+%26+Beverage | - HTML table without any css identifiers<br> - consider using bs4 instead of playwright | :x: |
+| https://www.jurongpoint.com.sg/store-directory/ | - HTML table is used here without any css identifers<br> - consider using bs4 instead of playwright | :x: |
+| https://thestarvista.sg/stores | unable to select the Restaurant/Cafe option in the category dropdown menu | :x: |
+| https://www.orchardcentral.com.sg/dining | unable to select the drop-down option that specifies Restaraunts, Cafes & Desserts | :x: |
+| https://www.hillionmall.com.sg/store-directory/ | unable to select from the dynamic drop-down that leads to an active map before displaying any stores | :x: |
+| https://www.anchorpoint.com.sg/shops | - uncontextualised hardcoded html content<br> - consider using bs4 instead of playwright | :x: |
+| https://www.sportshub.com.sg/shop-dine/stores?store_id=181&venue=All&payment_methods=All&combine=&custom_az_filter=character_asca | - despite everything seeming normal, unable to scrape the specified details<br> - considering using bs4 instead of playwright | :x: |
+| https://www.theclementimall.com/stores | playwright is unable to load the site when it is not already open in a local browser | :x: |
+| https://www.westmall.com.sg/stores | playwright is unable to load the site when it is not already open in a local browser | :x: |
+| https://www.fareastplaza.com.sg/categories | page freezes on the category screen | :x: |
+| https://www.cathay.com.sg | undergoing renovations till end 2024 | :x: |
 
-[Scrapy spiders](./spider_2_eat/) currently crawl the following websites.
+## Decomissioned scrapers
 
-| Spider name | Domains scraped | Sites scraped | Status |
-| :--- | :--- | :--- | :--- |
-| | | | | 
-
-### Usage
-
-```console
-$ scrapy crawl spider_name
-$ scrapy crawl spider_name -o output.json
-```
-
-## Selenium
-
-[Selenium scrapers](./mineral_2_eat/) currently scrape the following websites.
-
-| Selenium scraper name | Domains scraped | Sites scraped | Status |
-| :--- | :--- | :--- | :--- |
-| | | | |
-
-### Usage
-
-```console
-$ python3 mineral_name
-```
+### [Scrapy](./spider_2_eat/)
+### [Selenium](./mineral_2_eat/)
