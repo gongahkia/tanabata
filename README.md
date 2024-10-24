@@ -14,7 +14,7 @@
 
 ### How to build it
 
-Don't. Access the web app [here](addalinkherelater.com).
+Don't. Access the web app [here]().
 
 ### Design
 
@@ -85,15 +85,6 @@ flowchart TB
   "category": string, // identifying category
   "url": string // web url
 }
-```
-
-### Internal reference
-
-For testing purposes.
-
-```console
-$ make config
-$ make
 ```
 
 ## Contribute
