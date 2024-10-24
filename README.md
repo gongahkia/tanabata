@@ -7,7 +7,7 @@
 
 *Tako* comprises the following - 
 
-1. *Ta*, a web app that helps you decide where to eat.   
+1. *Ta*, a [web app](./web) that helps you decide where to eat.   
 2. *Ko*, a bevy of scrapers that extract public eating spaces in malls, colleges and other locations into a convenient [API wrapper](#api).
 
 ## Usage
