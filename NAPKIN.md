@@ -2,13 +2,16 @@
 
 ## FUA
 
-* need to debug why the script.js and style.css in my ./food/static/food/ folder is not visible when i serve my index.html file
+* migrate code to serve the other scraper information to the django webpage
 
 * do I want to expose the API script to make `tako` an API wrapper that exposes food places in colleges and malls? if so add that in the README.md and learn how to write a wrapper for an API
     * API is available here http://127.0.0.1:8000/api/food-places/?format=json
         * figure out a standard way for users to interact with this api instead
     * standardise the API wrapper if I decide to expose it for public use at any time
     * add further API specficiation for JSON structure in my napkin.md or readme.md
+
+* Debug for serving the webpage
+    * need to debug why the script.js and style.css in my ./food/static/food/ folder is not visible when i serve my index.html file
 
 * Debug for scraping
     * scraper within frasers_shakespeare.py doesn't handle clicking of the Load More button properly, it doesn't ensure load all is clicked fully and instead appears to load once before beginning extraction
