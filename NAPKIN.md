@@ -4,6 +4,8 @@
 
 * migrate code to serve the other scraper information to the django webpage
 
+* implement the geolocation API used in the browser
+
 * do I want to expose the API script to make `tako` an API wrapper that exposes food places in colleges and malls? if so add that in the README.md and learn how to write a wrapper for an API
     * API is available here http://127.0.0.1:8000/api/food-places/?format=json
         * figure out a standard way for users to interact with this api instead
