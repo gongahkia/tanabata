@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tako</title>
+    <title>Tako - Food Suggestions</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'food/style.css' %}">
-    <script src="{% static 'food/script.js' %}"></script>
+    <script src="{% static 'food/script.js' %}" defer></script> <!-- Use defer for better loading performance -->
 </head>
 <body>
     <div class="header">
@@ -17,8 +17,10 @@
             <a href="https://github.com/gongahkia/tako">Source</a>
         </p>
     </div>
+    
     <h1 align="center">Tako</h1>
     <h2>Nearby Food Suggestions</h2>
+    
     <button id="scrape-button">Scrape Food Places</button>
     <ul id="food-list">
         {% for vendor in food_places %}
@@ -27,26 +29,43 @@
                 Location: {{ vendor.location }}<br>
                 Description: {{ vendor.description }}<br>
                 Category: {{ vendor.category }}<br>
-                <a href="{{ vendor.url }}">Visit Website</a>
+                <a href="{{ vendor.url }}" target="_blank">Visit Website</a>
             </li>
+        {% empty %}
+            <li>No food places available. Click the button to scrape!</li>
         {% endfor %}
     </ul>
+
     <script>
         document.getElementById('scrape-button').addEventListener('click', function() {
             fetch('/scrape-food-places/')
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     const foodList = document.getElementById('food-list');
-                    foodList.innerHTML = ''; 
-                    data.forEach(place => {
-                        const li = document.createElement('li');
-                        li.innerHTML = `<strong>${place.name}</strong><br>
-                                        Location: ${place.location}<br>
-                                        Description: ${place.description}<br>
-                                        Category: ${place.category}<br>
-                                        <a href="${place.url}">Visit Website</a>`;
-                        foodList.appendChild(li);
-                    });
+                    foodList.innerHTML = ''; // Clear the list before appending new items
+                    
+                    // Append new food places to the list
+                    if (data.length > 0) {
+                        data.forEach(place => {
+                            const li = document.createElement('li');
+                            li.innerHTML = `<strong>${place.name}</strong><br>
+                                            Location: ${place.location}<br>
+                                            Description: ${place.description}<br>
+                                            Category: ${place.category}<br>
+                                            <a href="${place.url}" target="_blank">Visit Website</a>`;
+                            foodList.appendChild(li);
+                        });
+                    } else {
+                        foodList.innerHTML = '<li>No food places found. Please try again.</li>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching food places:', error);
                 });
         });
     </script>
