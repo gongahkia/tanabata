@@ -2,9 +2,9 @@
 
 Now deprecated.
 
-## `Tako` full-stack web application 
+## [`Tako` full-stack web application](./web)
 
-* Powered by 
+* Vanilla HTML frontend, Django backend
 * Retired on 03/11/2024
 
 ```mermaid
