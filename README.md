@@ -1,3 +1,10 @@
+![](https://img.shields.io/badge/tako_1.0-build-orange)
+
+>[!IMPORTANT]  
+> `Tako` is under active development and awaiting deployment.  
+>  
+> *\~ Gabriel*
+
 # `tako`
 
 <p align='center'>
@@ -7,73 +14,22 @@
 
 *Tako* comprises the following - 
 
-1. *Ta*, a [web app](./web) that helps you decide where to eat.   
+1. *Ta*, a [telegram bot](./bot) that helps you decide where to eat.   
 2. *Ko*, a bevy of scrapers that extract public eating spaces in malls, colleges and other locations into a convenient [API wrapper](#api).
 
 ## Usage
 
-### How to build it
+### How to build
 
-Don't. Access the web app [here]().
+Don't. Access the telegram bot [here](https://t.me/tako_bot).
 
-### Design
+### For developers
 
-```mermaid
-flowchart TB
-    
-    subgraph "Frontend"
+#### Local deployment
 
-        direction TB
-        browser([Browser])
-        pageLoad[Page load event]
+*Ta* [telegram bot](./bot) can be deployed locally.
 
-        subgraph "API"
-            geoAPI[Google geolocation API]
-            placesAPI[Google places API]
-        end
-
-        subgraph "Scrapers"
-            bs4[BeautifulSoup]
-            pw[Playwright]
-        end
-
-    end
-
-    subgraph "Backend"
-
-        subgraph "Django"
-            direction TB
-            views[[Django views]]
-            drf[[Django REST framework]]
-            serializers{{DRF serializers}}
-            models{{Django models}}
-            signals{{Django signals}}
-        end
-
-        subgraph "Database"
-            direction TB
-            postgres[(PostgreSQL)]
-        end
-    
-    end
-    
-    browser --> pageLoad
-    pageLoad --->|triggers| geoAPI & placesAPI & bs4 & pw
-    geoAPI & placesAPI & bs4 & pw -->|provisions| views
-    views --> drf
-    drf -->|validate| serializers
-    serializers -->|write data| models
-    models -->|CRUD| postgres
-    models -->|emit| signals
-    postgres -->|query| models
-    models -->|fetch| serializers
-    serializers -->|serialize| drf
-    drf -->|provisions| browser
-    user((User)) -.access.-> browser
-    drf -.access.-> dev((Developer))
-```
-
-### API
+#### Scrapers
 
 *Ko* [scrapers](./scrapers) extract shop data to an array of json following the below structure.
 
