@@ -27,9 +27,39 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text("Poke one button to get started 🤏🏼", reply_markup=reply_markup)
 
+async def find_nearby_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """
+    FUA 
+    
+    add logic here
+    """
+    await update.callback_query.answer() 
+    await update.callback_query.edit_message_text("Searching for food near you... 🍽️")
+
+async def find_random_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """
+    FUA 
+    
+    add logic here
+    """
+    await update.callback_query.answer()  
+    await update.callback_query.edit_message_text("Spinning the wheel... 🎡")
+
+async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """
+    FUA 
+    
+    add logic here
+    """
+    await update.callback_query.answer()
+    await update.callback_query.edit_message_text("Settings menu is under construction ⚙️")
+
 def main():
     app = ApplicationBuilder().token(read_token_env()).build()
     app.add_handler(CommandHandler("start", start))
+    app.add_handler(CallbackQueryHandler(find_nearby_food, pattern='find_nearby_food'))
+    app.add_handler(CallbackQueryHandler(find_random_food, pattern='find_random_food'))
+    app.add_handler(CallbackQueryHandler(settings, pattern='settings'))
     print("bot is polling...")
     app.run_polling()
 

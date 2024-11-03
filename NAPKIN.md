@@ -1,5 +1,10 @@
 # `NAPKIN.md`
 
+* implement the geolocation API to be called by the telegram bot
+    * implement proper geolocation API checks that will scrape for food based on available sites nearby
+* should i consider implement an asynchronous playwright script that runs and screenshots google maps overhead AND street view and appends it to the response produced by each food place suggested
+    * can further consider the telegram bot will produce directions on how to get to a specific food place, with a possible button that appears if that location is available
+* add a report an issue button that appears in main menu under settings, as well as when a specific food place isn't open when the user has manually gone there
 * implement takko as a telegram bot
     * include further considerations native for telegram bot usage
     * make takko as easy to use as possible
@@ -12,9 +17,8 @@
         * https://blockchain.oodles.io/blog/telegram-mini-apps-vs-telegram-bots/
     * existing features of telegram bots
         * https://core.telegram.org/bots/features
+* add updated mermaid diagram of how the telegram bot is structured to the README.md in the root folder
 * implement proper LOCAL DEPLOYMENT via docker images so that developers also have instant access to the scrapers and the telegram bot, ask GPT for help with this as needed
-* implement the geolocation API to be called by the telegram bot
-    * implement proper geolocation API checks that will scrape for food based on available sites nearby
 * work out how to deploy the telegram bot with the following 
     * heroku
     * railway
