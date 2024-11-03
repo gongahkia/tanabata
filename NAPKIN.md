@@ -3,6 +3,7 @@
 * implement takko as a telegram bot
     * include further considerations native for telegram bot usage
     * make takko as easy to use as possible
+* draw an emoji-like icon for tako on my ipad similar to the one i drew for sagusa, then make that the new bot profile picture through @botfather
 * look into new features of telegram miniapps that telegram is capable of to make the bot more interactive 
     * telegram miniapps
         * https://docs.ton.org/develop/dapps/telegram-apps/
