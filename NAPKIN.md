@@ -1,8 +1,8 @@
 # `NAPKIN.md`
 
-* implement tako as a telegram bot
+* implement takko as a telegram bot
     * include further considerations native for telegram bot usage
-    * make tako as easy to use as possible
+    * make takko as easy to use as possible
 * look into new features of telegram miniapps that telegram is capable of to make the bot more interactive 
     * telegram miniapps
         * https://docs.ton.org/develop/dapps/telegram-apps/

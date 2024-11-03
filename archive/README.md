@@ -2,7 +2,7 @@
 
 Now deprecated.
 
-## [`Tako` full-stack web application](./web)
+## [`Takko` full-stack web application](./web)
 
 * Vanilla HTML frontend, Django backend
 * Retired on 03/11/2024

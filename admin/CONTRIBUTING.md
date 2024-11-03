@@ -1,8 +1,8 @@
-# Contributing to Tako
+# Contributing to Takko
 
-The following is a set of guidelines for contributing to Tako, hosted [here](https://github.com/gongahkia/tako) on GitHub. 
+The following is a set of guidelines for contributing to Takko, hosted [here](https://github.com/gongahkia/takko) on GitHub. 
 
-These are guidelines, not rules. Use your best judgment, and feel free to propose changes to [this document](https://github.com/gongahkia/tako/blob/main/CONTRIBUTING.md) in a pull request.
+These are guidelines, not rules. Use your best judgment, and feel free to propose changes to [this document](https://github.com/gongahkia/takko/blob/main/CONTRIBUTING.md) in a pull request.
 
 ## Table Of Contents
 
@@ -31,7 +31,7 @@ This project and everyone contributing to it is governed by this [Code of Conduc
 
 ### Reporting Bugs 
 
-This section guides you through submitting a bug report for Tako. **Following these guidelines** helps maintainers and the community...
+This section guides you through submitting a bug report for Takko. **Following these guidelines** helps maintainers and the community...
 
 1. Understand your report
 2. Reproduce the behavior 
@@ -39,7 +39,7 @@ This section guides you through submitting a bug report for Tako. **Following th
 
 #### Guidelines for Reporting Bugs
 
-1. Perform a cursory search [here](https://github.com/gongahkia/tako/issues) for whether the issue has already been reported.
+1. Perform a cursory search [here](https://github.com/gongahkia/takko/issues) for whether the issue has already been reported.
 2. If it has already been reported, add a comment to **that issue** instead of opening a new issue.
 3. If not already reported, please be as detailed as possible in describing the issue.
 4. Follow [this template](./BUG_REPORT.md) in the issue's description when opening a new issue.
@@ -49,24 +49,24 @@ This section guides you through submitting a bug report for Tako. **Following th
 
 ### Suggesting Enhancements
 
-This section guides you through submitting an enhancement suggestion for Tako. **Following these guidelines** helps maintainers and the community...
+This section guides you through submitting an enhancement suggestion for Takko. **Following these guidelines** helps maintainers and the community...
 
 1. Understand your suggestion
 2. Gauge demand and popularity
 
 #### Guidelines for Suggesting Enhancements
 
-1. Perform a cursory search [here](https://github.com/gongahkia/tako/issues) for whether the enhancement has already been suggested.
+1. Perform a cursory search [here](https://github.com/gongahkia/takko/issues) for whether the enhancement has already been suggested.
 2. If it has already been suggested, add a comment to **that issue** instead of opening a new issue.
 3. If not already suggested, please be as detailed as possible in describing the suggestion.
 4. Follow [this template](./SUGGEST.md) in the issue's description when opening a new issue.
 
 ### Your First Code Contribution
 
-Unsure where to begin contributing to Tako? You can start by looking through these beginner and help-wanted issues:
+Unsure where to begin contributing to Takko? You can start by looking through these beginner and help-wanted issues:
 
-* [Beginner issues](https://github.com/gongahkia/tako/labels/good%20first%20issue): Issues which should only require a few lines of code, and a test or two.
-* [Help wanted issues](https://github.com/gongahkia/tako/labels/help%20wanted): Issues which should be a bit more involved than beginner issues.
+* [Beginner issues](https://github.com/gongahkia/takko/labels/good%20first%20issue): Issues which should only require a few lines of code, and a test or two.
+* [Help wanted issues](https://github.com/gongahkia/takko/labels/help%20wanted): Issues which should be a bit more involved than beginner issues.
 
 As for **how** to contribute to Open Source projects, follow [this guide](https://daily.dev/blog/how-to-contribute-to-open-source-projects-as-a-beginner) for a step-by-step walkthrough of opening a pull request.
 
