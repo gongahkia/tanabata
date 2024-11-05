@@ -19,7 +19,8 @@
         * https://core.telegram.org/bots/features
 * add updated mermaid diagram of how the telegram bot is structured to the README.md in the root folder
 * implement proper LOCAL DEPLOYMENT via docker images so that developers also have instant access to the scrapers and the telegram bot, ask GPT for help with this as needed
-* work out how to deploy the telegram bot with the following 
+* work out how to deploy the telegram bot with the following
+    * https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html as that's what is being used to deploy sagasu currently
     * heroku
     * railway
     * render
