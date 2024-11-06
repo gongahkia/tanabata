@@ -24,14 +24,29 @@ from telegram.ext import (
 import geolocation as g
 import schedule as s
 
+# ~~~~~ HELPER FUNCTIONS ~~~~~
+
 
 def get_random_element(lst):
     """
     returns a random element from an array
     """
-    if not lst:  
+    if not lst:
         return None
     return random.choice(lst)
+
+
+def float_to_minutes_seconds(time_float):
+    """
+    converts minutes to minutes and seconds
+    """
+    minutes = int(time_float)
+    seconds = int((time_float - minutes) * 60)
+    if seconds != 0:
+        return f"{minutes} minutes {seconds} seconds"
+    else:
+        return f"{minutes} minutes"
+
 
 def read_token_env():
     """
@@ -241,7 +256,9 @@ async def find_random_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
         nearby_places_sorted = sorted(
             nearby_places, key=lambda place: place["actual_travel_time"]
         )
-        target_place = get_random_element([place for place in nearby_places_sorted if place["walkable"]])
+        target_place = get_random_element(
+            [place for place in nearby_places_sorted if place["walkable"]]
+        )
         target_place_string = f"{target_place['foodplace_name']} - {target_place['haversine_distance']:.2f} km away, {target_place['actual_travel_time']:.1f} mins away"
 
         await update.callback_query.edit_message_text(
@@ -258,30 +275,28 @@ async def find_random_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """
-    Settings menu to specify walking speed in km/h or provide a 2.4km timing.
+    FUA
+
+    continue to implement click-through for the settings page here once the replykeyboardmarkup has been clicked
+
+    settings menu to specify walking speed in km/h or provide a 2.4km timing
     """
     keyboard = [
-        [
-            InlineKeyboardButton("🚶🏻‍♀️🚶🏻 Specify your walking speed (km/h)", callback_data="specify_speed"),
-            InlineKeyboardButton("🤔 I don't know", callback_data="dont_know")
-        ]
+        [KeyboardButton("🚶🏻‍♀️🚶🏻 Specify your walking speed (km/h)")],
+        [KeyboardButton("🤔 I don't know my walking speed")],
     ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    await update.callback_query.answer()
-    await update.callback_query.edit_message_text(
-        "⚙️ Settings menu:\nPlease specify your walking speed or provide your 2.4km timing.",
-        reply_markup=reply_markup
+    reply_markup = ReplyKeyboardMarkup(
+        keyboard, resize_keyboard=True, one_time_keyboard=True
     )
-
-async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    query = update.callback_query
-    await query.answer()
-    if query.data == "specify_speed":
-        await query.edit_message_text("Please enter your walking speed in km/h.")
-        context.user_data['awaiting_input'] = 'walking_speed'
-    elif query.data == "dont_know":
-        await query.edit_message_text("Please enter your 2.4km timing in minutes.")
-        context.user_data['awaiting_input'] = 'timing_2.4km'
+    if update.message:
+        await update.message.reply_text(
+            "⚙️ Customise your walking speed", reply_markup=reply_markup
+        )
+    elif update.callback_query:
+        await update.callback_query.message.reply_text(
+            "⚙️ Customise your walking speed", reply_markup=reply_markup
+        )
+        await update.callback_query.answer()
 
 
 def main():
