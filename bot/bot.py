@@ -60,6 +60,9 @@ async def handle_location(update: Update, context: ContextTypes.DEFAULT_TYPE):
             [InlineKeyboardButton("Settings ⚙️", callback_data="settings")],
         ]
         inline_reply_markup = InlineKeyboardMarkup(keyboard)
+
+        context.user_data["location"] = (lat, lon)
+
         await update.message.reply_text(
             f"Location received! 😺\nLatitude: {lat}, Longitude: {lon}",
         )
@@ -78,8 +81,43 @@ async def find_nearby_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     add logic here
     """
+    nearby_places = []
+    LOCATION_FILEPATH = "./locations.json"
+    USER_TRAVEL_TIME_MINS = 10
+    USER_SPEED = 5.0
     await update.callback_query.answer()
     await update.callback_query.edit_message_text("Searching for food near you... 🍽️")
+
+    lat, lon = context.user_data.get("location", (None, None))
+    if lat is None or lon is None:
+        await update.callback_query.edit_message_text(
+            "No location data found. Please send your location."
+        )
+        return
+
+    with open(LOCATION_FILEPATH, "r") as file:
+        locations = json.load(file)
+    for place, coords in locations.items():
+        if coords[0] is None or coords[1] is None:
+            continue
+        else:
+            locations_near_array = g.locations_near(
+                lat, lon, coords[0], coords[1], USER_TRAVEL_TIME_MINS, USER_SPEED
+            )
+            nearby_places.append(
+                {
+                    "walkable": locations_near_array[0],
+                    "foodplace_name": place,
+                    "foodplace_latitude_longitude": coords,
+                    "actual_travel_time": locations_near_array[1],
+                    "user_speed": USER_SPEED,
+                    "haversine_distance": g.haversine(lat, lon, coords[0], coords[1]),
+                }
+            )
+    print(
+        nearby_places
+    )  # FUA change this line later to prepare a formatted response to be returned to the user
+    return nearby_places
 
 
 async def find_random_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
