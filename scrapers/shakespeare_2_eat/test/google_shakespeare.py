@@ -1,6 +1,6 @@
 # !NOTE
-    # never to go into production
-    # just for testing the playwright library
+# never to go into production
+# just for testing the playwright library
 
 from playwright.sync_api import sync_playwright
 

@@ -7,29 +7,52 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='FoodPlace',
+            name="FoodPlace",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-                ('location', models.CharField(max_length=255)),
-                ('price', models.DecimalField(blank=True, decimal_places=2, max_digits=6, null=True)),
-                ('category', models.CharField(blank=True, max_length=100, null=True)),
-                ('description', models.TextField(blank=True, max_length=255, null=True)),
-                ('url', models.TextField(blank=True, max_length=255, null=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255)),
+                ("location", models.CharField(max_length=255)),
+                (
+                    "price",
+                    models.DecimalField(
+                        blank=True, decimal_places=2, max_digits=6, null=True
+                    ),
+                ),
+                ("category", models.CharField(blank=True, max_length=100, null=True)),
+                (
+                    "description",
+                    models.TextField(blank=True, max_length=255, null=True),
+                ),
+                ("url", models.TextField(blank=True, max_length=255, null=True)),
             ],
         ),
         migrations.CreateModel(
-            name='UserPreference',
+            name="UserPreference",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('user_id', models.IntegerField()),
-                ('location', models.CharField(max_length=255)),
-                ('preferred_category', models.CharField(max_length=100)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("user_id", models.IntegerField()),
+                ("location", models.CharField(max_length=255)),
+                ("preferred_category", models.CharField(max_length=100)),
             ],
         ),
     ]

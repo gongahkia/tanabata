@@ -42,10 +42,11 @@ import re
 from requests_html import HTMLSession
 from bs4 import BeautifulSoup
 
+
 def delete_file(target_url):
     """
-    helper function that attempts 
-    to delete a file at the specified 
+    helper function that attempts
+    to delete a file at the specified
     URL
     """
     try:
@@ -54,23 +55,25 @@ def delete_file(target_url):
     except OSError as e:
         print(f"error deleting file at filepath: {target_url} due to {e}")
 
+
 def clean_string(input_string):
     """
     sanitize a provided string
     """
-    cleaned_string = re.sub(r'\n+', ' ', input_string)
-    cleaned_string = re.sub(r'<[^>]+>', '', cleaned_string)
+    cleaned_string = re.sub(r"\n+", " ", input_string)
+    cleaned_string = re.sub(r"<[^>]+>", "", cleaned_string)
     return cleaned_string.strip()
+
 
 def scrape_smu(base_url):
     """
-    scrapes the specified SMU website 
+    scrapes the specified SMU website
     for food and beverage details
     """
     # html_file_path = "smu_dining_details.html"
     session = HTMLSession()
     response = session.get(base_url)
-    response.html.render() 
+    response.html.render()
     details_list = []
     errors = []
 
@@ -86,30 +89,55 @@ def scrape_smu(base_url):
     #     html_file.write(response.html.html)
     # print(f"raw HTML written to file: {html_file_path}")
 
-    soup = BeautifulSoup(response.html.html, 'html.parser')
+    soup = BeautifulSoup(response.html.html, "html.parser")
 
     # print(soup)
 
-    locations = soup.select('div.col-md-9 div.location')
+    locations = soup.select("div.col-md-9 div.location")
 
     for location in locations:
-        name = location.select_one('h4.location-title').get_text(strip=True) if location.select_one('h4.location-title') else ''
-        location_text = location.select_one('div.location-address').get_text(strip=True) if location.select_one('div.location-address') else ''
-        location_url = location.select_one('div.location-address a')['href'] if location.select_one('div.location-address a') else ''
-        description = location.select_one('div.location-description').get_text(strip=True) if location.select_one('div.location-description') else ''
-        contact_info = location.select_one('div.location-contact').get_text(strip=True) if location.select_one('div.location-contact') else ''
-        hours_info = location.select_one('div.location-hours').get_text(strip=True) if location.select_one('div.location-hours') else ''
+        name = (
+            location.select_one("h4.location-title").get_text(strip=True)
+            if location.select_one("h4.location-title")
+            else ""
+        )
+        location_text = (
+            location.select_one("div.location-address").get_text(strip=True)
+            if location.select_one("div.location-address")
+            else ""
+        )
+        location_url = (
+            location.select_one("div.location-address a")["href"]
+            if location.select_one("div.location-address a")
+            else ""
+        )
+        description = (
+            location.select_one("div.location-description").get_text(strip=True)
+            if location.select_one("div.location-description")
+            else ""
+        )
+        contact_info = (
+            location.select_one("div.location-contact").get_text(strip=True)
+            if location.select_one("div.location-contact")
+            else ""
+        )
+        hours_info = (
+            location.select_one("div.location-hours").get_text(strip=True)
+            if location.select_one("div.location-hours")
+            else ""
+        )
         category = "Food and Beverage"
         details = {
-            'name': name,
-            'location': clean_string(location_text),
-            'description': f"{clean_string(description)} {clean_string(contact_info)} {clean_string(hours_info)}".strip(),
-            'category': category,
-            'url': location_url
+            "name": name,
+            "location": clean_string(location_text),
+            "description": f"{clean_string(description)} {clean_string(contact_info)} {clean_string(hours_info)}".strip(),
+            "category": category,
+            "url": location_url,
         }
         details_list.append(details)
 
     return details_list, errors
+
 
 # ----- execution code -----
 
@@ -124,5 +152,5 @@ if errors:
 print("Scraping complete")
 delete_file(TARGET_FILEPATH)
 
-with open(TARGET_FILEPATH, 'w') as f:
+with open(TARGET_FILEPATH, "w") as f:
     json.dump(details_list, f, indent=4)

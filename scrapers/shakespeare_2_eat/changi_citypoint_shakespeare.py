@@ -20,6 +20,7 @@ import os
 import re
 from playwright.sync_api import sync_playwright
 
+
 def delete_file(target_url):
     """
     Helper function to delete a file at the specified URL
@@ -30,13 +31,15 @@ def delete_file(target_url):
     except OSError as e:
         print(f"Error deleting file at filepath: {target_url} due to {e}")
 
+
 def clean_string(input_string):
     """
     Sanitize a provided string
     """
-    cleaned_string = re.sub(r'\n+', ' ', input_string)
-    cleaned_string = re.sub(r'<[^>]+>', '', cleaned_string)
+    cleaned_string = re.sub(r"\n+", " ", input_string)
+    cleaned_string = re.sub(r"<[^>]+>", "", cleaned_string)
     return cleaned_string.strip()
+
 
 def scrape_changi_city_point(base_url):
     """
@@ -49,33 +52,57 @@ def scrape_changi_city_point(base_url):
         page = browser.new_page()
         try:
             page.goto(base_url)
-            page.wait_for_selector('div.item.item-custom')
+            page.wait_for_selector("div.item.item-custom")
             while True:
-                items = page.query_selector_all('div.item.item-custom')
+                items = page.query_selector_all("div.item.item-custom")
                 for item in items:
-                    url_element = item.query_selector('div.content-store div.thumb a')
-                    name_element = item.query_selector('div.box-content div.name a')
-                    description_elements = item.query_selector_all('div.box-content div.list div.item.d-flex div.content')
+                    url_element = item.query_selector("div.content-store div.thumb a")
+                    name_element = item.query_selector("div.box-content div.name a")
+                    description_elements = item.query_selector_all(
+                        "div.box-content div.list div.item.d-flex div.content"
+                    )
                     print([el.inner_text() for el in description_elements])
-                    url = url_element.get_attribute('href') if url_element else ""
-                    name = clean_string(name_element.inner_text()) if name_element else ""
-                    description = f"{clean_string(description_elements[0].inner_text())}, {clean_string(description_elements[1].inner_text())}" if description_elements else ""
-                    category = clean_string(description_elements[2].inner_text()) if len(description_elements) > 2 else ""
-                    location = clean_string(description_elements[3].inner_text()) if len(description_elements) > 3 else ""
+                    url = url_element.get_attribute("href") if url_element else ""
+                    name = (
+                        clean_string(name_element.inner_text()) if name_element else ""
+                    )
+                    description = (
+                        f"{clean_string(description_elements[0].inner_text())}, {clean_string(description_elements[1].inner_text())}"
+                        if description_elements
+                        else ""
+                    )
+                    category = (
+                        clean_string(description_elements[2].inner_text())
+                        if len(description_elements) > 2
+                        else ""
+                    )
+                    location = (
+                        clean_string(description_elements[3].inner_text())
+                        if len(description_elements) > 3
+                        else ""
+                    )
                     details = {
-                        'name': name,
-                        'location': location,
-                        'description': description,
-                        'category': category,
-                        'url': url
+                        "name": name,
+                        "location": location,
+                        "description": description,
+                        "category": category,
+                        "url": url,
                     }
                     print(details)
                     details_list.append(details)
-                next_page = page.query_selector('li.pagi-item.pagi-action.pagi-next.is-disabled a.page-link.next') if page.query_selector('li.pagi-item.pagi-action.pagi-next.is-disabled a.page-link.next') else None
+                next_page = (
+                    page.query_selector(
+                        "li.pagi-item.pagi-action.pagi-next.is-disabled a.page-link.next"
+                    )
+                    if page.query_selector(
+                        "li.pagi-item.pagi-action.pagi-next.is-disabled a.page-link.next"
+                    )
+                    else None
+                )
                 if next_page:
                     print("navigating to next page")
                     next_page.click()
-                    page.wait_for_timeout(2000) 
+                    page.wait_for_timeout(2000)
                 else:
                     print("no more pages to navigate to")
                     break
@@ -85,14 +112,17 @@ def scrape_changi_city_point(base_url):
             browser.close()
     return details_list, errors
 
+
 # ----- Execution Code -----
 
-TARGET_URL = "https://changicitypoint.com.sg/stores/?search=&level=&mall=&cat=12&apply_filter="
+TARGET_URL = (
+    "https://changicitypoint.com.sg/stores/?search=&level=&mall=&cat=12&apply_filter="
+)
 TARGET_FILEPATH = "./../output/changi_city_point_dining_details.json"
 details_list, errors = scrape_changi_city_point(TARGET_URL)
 if errors:
     print(f"Errors encountered: {errors}")
 print("Scraping complete.")
 delete_file(TARGET_FILEPATH)
-with open(TARGET_FILEPATH, 'w') as f:
+with open(TARGET_FILEPATH, "w") as f:
     json.dump(details_list, f, indent=4)

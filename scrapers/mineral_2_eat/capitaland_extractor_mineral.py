@@ -13,6 +13,7 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 
+
 class CapitalandExtractor:
 
     def __init__(self):
@@ -32,22 +33,25 @@ class CapitalandExtractor:
             "https://www.capitaland.com/sg/malls/lotone/en/stores.html?category=foodandbeverage",
             "https://www.capitaland.com/sg/malls/rafflescity/en/stores.html?category=foodandbeverage",
             "https://www.capitaland.com/sg/malls/tampinesmall/en/stores.html?category=foodandbeverage",
-            "https://www.capitaland.com/sg/malls/westgate/en/stores.html?category=foodandbeverage"
+            "https://www.capitaland.com/sg/malls/westgate/en/stores.html?category=foodandbeverage",
         ]
         chrome_options = Options()
         chrome_options.add_argument("--headless")
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
-        self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
+        self.driver = webdriver.Chrome(
+            service=ChromeService(ChromeDriverManager().install()),
+            options=chrome_options,
+        )
 
     def sanitize_url(self, url):
         """
-        sanitize the given URL to 
+        sanitize the given URL to
         extract the mall name
         """
         try:
-            parts = url.split('/')
-            mall_name = parts[5] 
+            parts = url.split("/")
+            mall_name = parts[5]
             return mall_name
         except IndexError:
             print(f"Invalid URL format found with the URL: {url}")
@@ -55,20 +59,20 @@ class CapitalandExtractor:
 
     def fetch_page(self, url):
         """
-        fetch the page and 
+        fetch the page and
         return a BeautifulSoup object
         """
-        self.driver.get(url) 
-        self.driver.implicitly_wait(10) 
+        self.driver.get(url)
+        self.driver.implicitly_wait(10)
 
         html = self.driver.page_source
-        return BeautifulSoup(html, 'html.parser') 
+        return BeautifulSoup(html, "html.parser")
 
     def extract_store_links(self):
         """
-        extract store links from the main 
-        listing pages, returning a dictionary 
-        with URLs as keys and lists of store 
+        extract store links from the main
+        listing pages, returning a dictionary
+        with URLs as keys and lists of store
         links as values
         """
         store_links = {}
@@ -76,8 +80,14 @@ class CapitalandExtractor:
             print(f"Extracting from: {url}")
             soup = self.fetch_page(url)
             if soup:
-                listings = soup.select('div.listing-container ul.listing-items article.listing-item.listing-tenants a')
-                links = [self.base_url + listing.get('href') for listing in listings if listing.get('href')]
+                listings = soup.select(
+                    "div.listing-container ul.listing-items article.listing-item.listing-tenants a"
+                )
+                links = [
+                    self.base_url + listing.get("href")
+                    for listing in listings
+                    if listing.get("href")
+                ]
                 sanitized_url = self.sanitize_url(url)
                 store_links[sanitized_url] = links
         return store_links
@@ -88,10 +98,11 @@ class CapitalandExtractor:
         """
         self.driver.quit()
 
+
 # ----- execution code -----
-    # !NOTE
-    # code here is just for testing individual functionality of capitaland_extractor_mineral.py
-    # actual code is to be run from some other file
+# !NOTE
+# code here is just for testing individual functionality of capitaland_extractor_mineral.py
+# actual code is to be run from some other file
 
 if __name__ == "__main__":
     extractor = CapitalandExtractor()

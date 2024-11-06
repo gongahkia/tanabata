@@ -16,6 +16,7 @@ import os
 import re
 from playwright.sync_api import sync_playwright
 
+
 def delete_file(target_url):
     """
     Helper function to delete a file at the specified URL
@@ -26,13 +27,15 @@ def delete_file(target_url):
     except OSError as e:
         print(f"Error deleting file at filepath: {target_url} due to {e}")
 
+
 def clean_string(input_string):
     """
     Sanitize a provided string
     """
-    cleaned_string = re.sub(r'\n+', ' ', input_string)
-    cleaned_string = re.sub(r'<[^>]+>', '', cleaned_string)
+    cleaned_string = re.sub(r"\n+", " ", input_string)
+    cleaned_string = re.sub(r"<[^>]+>", "", cleaned_string)
     return cleaned_string.strip()
+
 
 def scrape_kinex_dining(base_url):
     """
@@ -45,21 +48,29 @@ def scrape_kinex_dining(base_url):
         page = browser.new_page()
         try:
             page.goto(base_url)
-            page.wait_for_selector('div.col-sm-3.col-xs-6')
-            items = page.query_selector_all('div.col-sm-3.col-xs-6')
+            page.wait_for_selector("div.col-sm-3.col-xs-6")
+            items = page.query_selector_all("div.col-sm-3.col-xs-6")
             for item in items:
-                name_element = item.query_selector('div.item-list div.item-text.main-color1 span.item-list-title')
-                location_element = item.query_selector('div.item-list div.item-text.main-color1 span:nth-child(2)')
-                url_element = item.query_selector('a')
+                name_element = item.query_selector(
+                    "div.item-list div.item-text.main-color1 span.item-list-title"
+                )
+                location_element = item.query_selector(
+                    "div.item-list div.item-text.main-color1 span:nth-child(2)"
+                )
+                url_element = item.query_selector("a")
                 name = clean_string(name_element.inner_text()) if name_element else ""
-                location = clean_string(location_element.inner_text()) if location_element else ""
-                url = url_element.get_attribute('href') if url_element else ""
+                location = (
+                    clean_string(location_element.inner_text())
+                    if location_element
+                    else ""
+                )
+                url = url_element.get_attribute("href") if url_element else ""
                 details = {
-                    'name': name,
-                    'location': location,
-                    'description': "",
-                    'category': "Dining",
-                    'url': url
+                    "name": name,
+                    "location": location,
+                    "description": "",
+                    "category": "Dining",
+                    "url": url,
                 }
                 print(details)
                 details_list.append(details)
@@ -68,6 +79,7 @@ def scrape_kinex_dining(base_url):
         finally:
             browser.close()
     return details_list, errors
+
 
 # ----- Execution Code -----
 
@@ -78,5 +90,5 @@ if errors:
     print(f"Errors encountered: {errors}")
 print("Scraping complete.")
 delete_file(TARGET_FILEPATH)
-with open(TARGET_FILEPATH, 'w') as f:
+with open(TARGET_FILEPATH, "w") as f:
     json.dump(details_list, f, indent=4)
