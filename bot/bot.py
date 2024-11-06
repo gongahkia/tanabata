@@ -1,8 +1,9 @@
-import json
 import os
+import json
+import random
 from dotenv import load_dotenv
 from telegram.constants import ParseMode
-from telegram.ext import MessageHandler, filters
+from telegram.ext import MessageHandler, filters, ContextTypes
 from telegram import (
     Update,
     InlineKeyboardButton,
@@ -23,6 +24,14 @@ from telegram.ext import (
 import geolocation as g
 import schedule as s
 
+
+def get_random_element(lst):
+    """
+    returns a random element from an array
+    """
+    if not lst:  
+        return None
+    return random.choice(lst)
 
 def read_token_env():
     """
@@ -174,7 +183,7 @@ async def find_nearby_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
     else:
         await update.callback_query.edit_message_text(
-            "No nearby food places found within walking distance."
+            "No nearby food places found within walking distance. 😭"
         )
 
     return nearby_places
@@ -185,21 +194,94 @@ async def find_random_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
     FUA
 
     add logic here
+
+    add additional malls and hubs to the specified json as well
     """
+
+    nearby_places = []
+    LOCATION_FILEPATH = "./locations.json"
+    USER_TRAVEL_TIME_MINS = 10
+    USER_SPEED = 5.0
+
+    user_walking_time = context.user_data.get("walking_time")
+    if user_walking_time is None:
+        await ask_walking_time(update, context)
+        return
+
     await update.callback_query.answer()
     await update.callback_query.edit_message_text("Spinning the wheel... 🎡")
+
+    lat, lon = context.user_data.get("location", (None, None))
+    if lat is None or lon is None:
+        await update.callback_query.edit_message_text(
+            "No location data found. Please send your location."
+        )
+        return
+
+    with open(LOCATION_FILEPATH, "r") as file:
+        locations = json.load(file)
+    for place, coords in locations.items():
+        if coords[0] is None or coords[1] is None:
+            continue
+        else:
+            locations_near_array = g.locations_near(
+                lat, lon, coords[0], coords[1], user_walking_time, USER_SPEED
+            )
+            nearby_places.append(
+                {
+                    "walkable": locations_near_array[0],
+                    "foodplace_name": place,
+                    "foodplace_latitude_longitude": coords,
+                    "actual_travel_time": locations_near_array[1],
+                    "user_speed": USER_SPEED,
+                    "haversine_distance": g.haversine(lat, lon, coords[0], coords[1]),
+                }
+            )
+    if nearby_places:
+        nearby_places_sorted = sorted(
+            nearby_places, key=lambda place: place["actual_travel_time"]
+        )
+        target_place = get_random_element([place for place in nearby_places_sorted if place["walkable"]])
+        target_place_string = f"{target_place['foodplace_name']} - {target_place['haversine_distance']:.2f} km away, {target_place['actual_travel_time']:.1f} mins away"
+
+        await update.callback_query.edit_message_text(
+            f"🍽️ <i><b><u>Go eat at...</u></b></i>\n\n{target_place_string}",
+            parse_mode=ParseMode.HTML,
+        )
+    else:
+        await update.callback_query.edit_message_text(
+            "No nearby food places found within walking distance. 😭"
+        )
+
+    return nearby_places
 
 
 async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """
-    FUA
-
-    add logic here
+    Settings menu to specify walking speed in km/h or provide a 2.4km timing.
     """
+    keyboard = [
+        [
+            InlineKeyboardButton("🚶🏻‍♀️🚶🏻 Specify your walking speed (km/h)", callback_data="specify_speed"),
+            InlineKeyboardButton("🤔 I don't know", callback_data="dont_know")
+        ]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
     await update.callback_query.answer()
     await update.callback_query.edit_message_text(
-        "Settings menu is under construction ⚙️"
+        "⚙️ Settings menu:\nPlease specify your walking speed or provide your 2.4km timing.",
+        reply_markup=reply_markup
     )
+
+async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+    if query.data == "specify_speed":
+        await query.edit_message_text("Please enter your walking speed in km/h.")
+        context.user_data['awaiting_input'] = 'walking_speed'
+    elif query.data == "dont_know":
+        await query.edit_message_text("Please enter your 2.4km timing in minutes.")
+        context.user_data['awaiting_input'] = 'timing_2.4km'
 
 
 def main():
