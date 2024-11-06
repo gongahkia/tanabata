@@ -9,6 +9,7 @@ from telegram import (
     InlineKeyboardMarkup,
     KeyboardButton,
     ReplyKeyboardMarkup,
+    ReplyKeyboardRemove,
 )
 from telegram.ext import (
     ApplicationBuilder,
@@ -75,16 +76,44 @@ async def handle_location(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
 
+async def ask_walking_time(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = [
+        [InlineKeyboardButton("5 mins", callback_data="time_5")],
+        [InlineKeyboardButton("10 mins", callback_data="time_10")],
+        [InlineKeyboardButton("15 mins", callback_data="time_15")],
+        [InlineKeyboardButton("20 mins", callback_data="time_20")],
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.callback_query.answer()
+    await update.callback_query.edit_message_text(
+        "How long are you willing to walk? 🚶‍♂️", reply_markup=reply_markup
+    )
+
+
+async def handle_time_selection(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    time_selection = update.callback_query.data.split("_")[1]
+    context.user_data["walking_time"] = int(time_selection)
+    await find_nearby_food(update, context)
+
+
 async def find_nearby_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """
     FUA
 
-    add logic here
+    continue adding logic here to allow the user to not have to constantly reshare location
+    and they can just click find food again after inputting location the first time, also
+    so that they can choose a diff walking time if they are willing to do so
     """
     nearby_places = []
     LOCATION_FILEPATH = "./locations.json"
     USER_TRAVEL_TIME_MINS = 10
     USER_SPEED = 5.0
+
+    user_walking_time = context.user_data.get("walking_time")
+    if user_walking_time is None:
+        await ask_walking_time(update, context)
+        return
+
     await update.callback_query.answer()
     await update.callback_query.edit_message_text("Searching for food near you... 🍽️")
 
@@ -98,11 +127,12 @@ async def find_nearby_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
     with open(LOCATION_FILEPATH, "r") as file:
         locations = json.load(file)
     for place, coords in locations.items():
+        # print(place)
         if coords[0] is None or coords[1] is None:
             continue
         else:
             locations_near_array = g.locations_near(
-                lat, lon, coords[0], coords[1], USER_TRAVEL_TIME_MINS, USER_SPEED
+                lat, lon, coords[0], coords[1], user_walking_time, USER_SPEED
             )
             nearby_places.append(
                 {
@@ -114,9 +144,39 @@ async def find_nearby_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     "haversine_distance": g.haversine(lat, lon, coords[0], coords[1]),
                 }
             )
-    print(
-        nearby_places
-    )  # FUA change this line later to prepare a formatted response to be returned to the user
+    if nearby_places:
+        nearby_places_sorted = sorted(
+            nearby_places, key=lambda place: place["actual_travel_time"]
+        )
+        walkable_results = "\n".join(
+            [
+                f"{place['foodplace_name']} - {place['haversine_distance']:.2f} km away, {place['actual_travel_time']:.1f} mins away"
+                for place in nearby_places_sorted
+                if place["walkable"]
+            ]
+        )
+        not_walkable_results = "\n".join(
+            [
+                f"{place['foodplace_name']} - {place['haversine_distance']:.2f} km away, {place['actual_travel_time']:.1f} mins away"
+                for place in nearby_places_sorted
+                if not place["walkable"]
+            ]
+        )
+        all_results = "\n".join(
+            [
+                f"{place['foodplace_name']} - {place['haversine_distance']:.2f} km away, {place['actual_travel_time']:.1f} mins away"
+                for place in nearby_places_sorted
+            ]
+        )
+        await update.callback_query.edit_message_text(
+            f"🔍 <i><b><u>Nearby food places</u></b></i>\n\n{walkable_results}",
+            parse_mode=ParseMode.HTML,
+        )
+    else:
+        await update.callback_query.edit_message_text(
+            "No nearby food places found within walking distance."
+        )
+
     return nearby_places
 
 
@@ -149,6 +209,7 @@ def main():
     app.add_handler(CallbackQueryHandler(find_nearby_food, pattern="find_nearby_food"))
     app.add_handler(CallbackQueryHandler(find_random_food, pattern="find_random_food"))
     app.add_handler(CallbackQueryHandler(settings, pattern="settings"))
+    app.add_handler(CallbackQueryHandler(handle_time_selection, pattern="^time_"))
 
     print("bot is polling...")
     app.run_polling()
