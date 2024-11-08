@@ -23,6 +23,19 @@ from telegram.ext import (
 )
 import geolocation as g
 import schedule as s
+from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove
+from telegram.ext import (
+    ContextTypes,
+    ConversationHandler,
+    CommandHandler,
+    MessageHandler,
+    filters,
+)
+
+# ~~~~~ CONSTANTS ~~~~~
+
+ENTER_TIMING = 1
+FOOD_OPTIONS = 2
 
 # ~~~~~ HELPER FUNCTIONS ~~~~~
 
@@ -61,6 +74,21 @@ def read_token_env():
         return bot_token
 
 
+def calculate_user_speed(timing):
+    """
+    calculates walking speed of user based on their
+    inputted timing for the 2.4km run
+    """
+    try:
+        minutes, seconds = map(int, timing.split(":"))
+    except ValueError:
+        raise ValueError("Invalid timing format. Please enter the timing as 'mm:ss'.")
+    total_seconds = minutes * 60 + seconds
+    distance_km = 2.4
+    speed_kmh = (distance_km / total_seconds) * 3600
+    return round(speed_kmh, 2)
+
+
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     location_button = KeyboardButton("Share Location 📍", request_location=True)
     reply_markup = ReplyKeyboardMarkup(
@@ -75,6 +103,36 @@ async def handle_location(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.message.location:
         user_location = update.message.location
         lat, lon = user_location.latitude, user_location.longitude
+        context.user_data["location"] = (lat, lon)
+        await update.message.reply_text(
+            f"Location received! 😺\nLatitude: {lat}, Longitude: {lon}",
+        )
+        await update.message.reply_text(
+            "Please enter your 2.4km timing in the format 'mm:ss' 🙏",
+            reply_markup=ReplyKeyboardRemove(),
+        )
+        return ENTER_TIMING
+    else:
+        await update.message.reply_text(
+            "Location data not received.😞\nPlease try again."
+        )
+        return ConversationHandler.END
+
+
+async def save_timing(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    """
+    Save the 2.4km timing entered by the user, calculate their speed,
+    and then proceed to food options and spin the wheel
+    """
+    timing = update.message.text
+    try:
+        speed_kmh = calculate_user_speed(timing)
+        context.user_data["2.4km_timing"] = timing
+        context.user_data["speed_kmh"] = speed_kmh
+        await update.message.reply_text(
+            f"✅ Your 2.4km timing has been saved as {timing}.\n"
+            f"🏃 Your estimated speed is {speed_kmh:.2f} km/h."
+        )
         keyboard = [
             [InlineKeyboardButton("Food near me 🍡", callback_data="find_nearby_food")],
             [
@@ -82,22 +140,17 @@ async def handle_location(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     "Spin the wheel 🎰", callback_data="find_random_food"
                 )
             ],
-            [InlineKeyboardButton("Settings ⚙️", callback_data="settings")],
         ]
         inline_reply_markup = InlineKeyboardMarkup(keyboard)
-
-        context.user_data["location"] = (lat, lon)
-
-        await update.message.reply_text(
-            f"Location received! 😺\nLatitude: {lat}, Longitude: {lon}",
-        )
         await update.message.reply_text(
             f"Poke one button to get started 🤏🏼", reply_markup=inline_reply_markup
         )
-    else:
+        return FOOD_OPTIONS
+    except ValueError:
         await update.message.reply_text(
-            "Location data not received.😞\nPlease try again."
+            "❌ Invalid timing format. Please enter the timing in the format 'mm:ss'."
         )
+        return ENTER_TIMING
 
 
 async def ask_walking_time(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -273,42 +326,14 @@ async def find_random_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
     return nearby_places
 
 
-async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """
-    FUA
-
-    continue to implement click-through for the settings page here once the replykeyboardmarkup has been clicked
-
-    settings menu to specify walking speed in km/h or provide a 2.4km timing
-    """
-    keyboard = [
-        [KeyboardButton("🚶🏻‍♀️🚶🏻 Specify your walking speed (km/h)")],
-        [KeyboardButton("🤔 I don't know my walking speed")],
-    ]
-    reply_markup = ReplyKeyboardMarkup(
-        keyboard, resize_keyboard=True, one_time_keyboard=True
-    )
-    if update.message:
-        await update.message.reply_text(
-            "⚙️ Customise your walking speed", reply_markup=reply_markup
-        )
-    elif update.callback_query:
-        await update.callback_query.message.reply_text(
-            "⚙️ Customise your walking speed", reply_markup=reply_markup
-        )
-        await update.callback_query.answer()
-
-
 def main():
     app = ApplicationBuilder().token(read_token_env()).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.LOCATION, handle_location))
     app.add_handler(CallbackQueryHandler(find_nearby_food, pattern="find_nearby_food"))
     app.add_handler(CallbackQueryHandler(find_random_food, pattern="find_random_food"))
-    app.add_handler(CallbackQueryHandler(settings, pattern="settings"))
     app.add_handler(CallbackQueryHandler(handle_time_selection, pattern="^time_"))
-
-    print("bot is polling...")
+    print("Bot is polling...")
     app.run_polling()
 
 
