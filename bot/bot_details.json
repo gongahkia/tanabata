@@ -1,0 +1,169 @@
+{
+  "SMU Campus": {
+    "scraper_name": "smu_shakespeare",
+    "domain": "https://www.smu.edu.sg",
+    "site": "https://www.smu.edu.sg/campus-life/visiting-smu/food-beverages-listing"
+  },
+  "NUS Campus": {
+    "scraper_name": "nus_shakespeare",
+    "domain": "https://uci.nus.edu.sg/oca",
+    "site": [
+      "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/",
+      "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/",
+      "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages-bukit-timah/"
+    ]
+  },
+  "SIM Campus": {
+    "scraper_name": "sim_shakespeare",
+    "domain": "https://www.foodadvisor.com.sg",
+    "site": "https://www.foodadvisor.com.sg/nearby/599491/"
+  },
+  "SIT Campus": {
+    "scraper_name": "sit_shakespeare",
+    "domain": "https://www.foodadvisor.com.sg",
+    "site": "https://www.foodadvisor.com.sg/nearby/138683/"
+  },
+  "SUSS Campus": {
+    "scraper_name": "suss_shakespeare",
+    "domain": "https://www.foodadvisor.com.sg",
+    "site": "https://www.foodadvisor.com.sg/nearby/599494/"
+  },
+  "Lasalle Campus": {
+    "scraper_name": "laselle_shakespeare",
+    "domain": "https://www.foodadvisor.com.sg",
+    "site": "https://www.foodadvisor.com.sg/nearby/187940/"
+  },
+  "NAFA Campus": {
+    "scraper_name": "nafa_shakespeare",
+    "domain": "https://www.foodadvisor.com.sg",
+    "site": "https://www.foodadvisor.com.sg/nearby/189655/"
+  },
+  "NYP Campus": {
+    "scraper_name": "nyp_shakespeare",
+    "domain": "https://www.foodadvisor.com.sg",
+    "site": "https://www.foodadvisor.com.sg/nearby/569830/"
+  },
+  "NP Campus": {
+    "scraper_name": "np_shakespeare",
+    "domain": "https://www.foodadvisor.com.sg",
+    "site": "https://www.foodadvisor.com.sg/nearby/599489/"
+  },
+  "SP Campus": {
+    "scraper_name": "sp_shakespeare",
+    "domain": "https://www.foodadvisor.com.sg",
+    "site": "https://www.foodadvisor.com.sg/nearby/139651/"
+  },
+  "TP Campus": {
+    "scraper_name": "tp_shakespeare",
+    "domain": "https://www.foodadvisor.com.sg",
+    "site": "https://www.foodadvisor.com.sg/nearby/529757/"
+  },
+  "RP Campus": {
+    "scraper_name": "rp_shakespeare",
+    "domain": "https://www.rp.edu.sg",
+    "site": "https://www.rp.edu.sg/our-campus/facilities/retail-dining"
+  },
+  "ION Orchard": {
+    "scraper_name": "ion_orchard_shakespeare",
+    "domain": "https://www.ionorchard.com",
+    "site": [
+      "https://www.ionorchard.com/en/dine.html?category=Casual%20Dining%20and%20Takeaways",
+      "https://www.ionorchard.com/en/dine.html?category=Restaurants%20and%20Cafes"
+    ]
+  },
+  "Jewel Changi Airport": {
+    "scraper_name": "jewel_shakespeare",
+    "domain": "https://www.jewelchangiairport.com",
+    "site": "https://www.jewelchangiairport.com/en/dine.html"
+  },
+  "SingPost Centre": {
+    "scraper_name": "singpost_shakespeare",
+    "domain": "https://www.singpostcentre.com",
+    "site": "https://www.singpostcentre.com/stores?start_with=&s=&category=cafes-restaurants-food-court"
+  },
+  "Suntec City": {
+    "scraper_name": "suntec_shakespeare",
+    "domain": "https://www.sunteccity.com.sg",
+    "site": "https://www.sunteccity.com.sg/store_categories/dining"
+  },
+  "Marina Bay Sands": {
+    "scraper_name": "mbs_shakespeare",
+    "domain": "https://www.marinabaysands.com",
+    "site": "https://www.marinabaysands.com/restaurants/view-all.html"
+  },
+  "Paragon": {
+    "scraper_name": "paragon_shakespeare",
+    "domain": "https://www.paragon.com.sg",
+    "site": "https://www.paragon.com.sg/stores/category/food-beverage"
+  },
+  "Great World": {
+    "scraper_name": "great_world_shakespeare",
+    "domain": "https://shop.greatworld.com.sg/",
+    "site": "https://shop.greatworld.com.sg/dine/"
+  },
+  "Paya Lebar Quarter (PLQ)": {
+    "scraper_name": "plq_shakespeare",
+    "domain": "https://www.payalebarquarter.com",
+    "site": "https://www.payalebarquarter.com/directory/mall/?categories=Food+%26+Restaurant"
+  },
+  "City Square Mall": {
+    "scraper_name": "city_square_mall_shakespeare",
+    "domain": "https://www.citysquaremall.com",
+    "site": "https://www.citysquaremall.com.sg/shops/food-beverage/"
+  },
+  "Compass One": {
+    "scraper_name": "compass_one_shakespeare",
+    "domain": "https://compassone.sg",
+    "site": "https://compassone.sg/category/stores/restaurant-cafe-fast-food/"
+  },
+  "Thomson Plaza": {
+    "scraper_name": "thomson_plaza_shakespeare",
+    "domain": "https://www.thomsonplaza.com.sg",
+    "site": "https://www.thomsonplaza.com.sg/store-directory/?keyword=&filter=5&payment_type="
+  },
+  "Kinex": {
+    "scraper_name": "kinex_shakespeare",
+    "domain": "https://www.kinex.com.sg",
+    "site": "https://www.kinex.com.sg/dining"
+  },
+  "Changi City Point": {
+    "scraper_name": "changi_citypoint_shakespeare",
+    "domain": "https://changicitypoint.com.sg",
+    "site": "https://changicitypoint.com.sg/stores/page/1/?search&level&mall&cat=12&apply_filter"
+  },
+  "CityLink Mall": {
+    "scraper_name": "citylink_shakespeare",
+    "domain": "https://citylink.com.sg",
+    "site": "https://citylink.com.sg/restaurants-cafes/"
+  },
+  "Parkway Parade": {
+    "scraper_name": "parkway_parade_shakespeare",
+    "domain": "https://www.parkwayparade.com.sg",
+    "site": "https://www.parkwayparade.com.sg/store-directory/?categories=Food+%26+Restaurant"
+  },
+  "The Seletar Mall": {
+    "scraper_name": "seletar_mall_shakespeare",
+    "domain": "https://theseletarmall.com.sg",
+    "site": "https://theseletarmall.com.sg/dine/"
+  },
+  "Bras Basah Complex": {
+    "scraper_name": "bras_basah_complex_shakespeare",
+    "domain": "https://www.brasbasahcomplex.com",
+    "site": "https://www.brasbasahcomplex.com/shops/?category_id=46"
+  },
+  "NEX": {
+    "scraper_name": "nex_shakespeare",
+    "domain": "https://www.nex.com.sg",
+    "site": "https://www.nex.com.sg/Directory/Category?EncDetail=qbjHWjcKv2GJGewRmzGQOA_3d_3d&CategoryName=Restaurant_Cafe%20_%20Fast%20Food&voucher=false&rewards=false"
+  },
+  "VivoCity": {
+    "scraper_name": "vivo_shakespeare",
+    "domain": "https://www.vivocity.com.sg",
+    "site": "https://www.vivocity.com.sg/shopping-guide/dining-guide"
+  },
+  "Waterway Point": {
+    "scraper_name": "waterway_point_shakespeare",
+    "domain": "https://www.waterwaypoint.com.sg",
+    "site": "https://www.waterwaypoint.com.sg/shop/dining"
+  }
+}

@@ -32,11 +32,6 @@ from telegram.ext import (
     filters,
 )
 
-# ~~~~~ CONSTANTS ~~~~~
-
-ENTER_TIMING = 1
-FOOD_OPTIONS = 2
-
 # ~~~~~ HELPER FUNCTIONS ~~~~~
 
 
@@ -107,50 +102,48 @@ async def handle_location(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(
             f"Location received! 😺\nLatitude: {lat}, Longitude: {lon}",
         )
+        keyboard = [
+            [InlineKeyboardButton("Less than 5 mins", callback_data="05:00")],
+            [InlineKeyboardButton("Less than 10 mins", callback_data="10:00")],
+            [InlineKeyboardButton("Less than 15 mins", callback_data="15:00")],
+            [InlineKeyboardButton("Less than 20 mins", callback_data="20:00")],
+            [InlineKeyboardButton("Less than 25 mins", callback_data="25:00")],
+            [InlineKeyboardButton("More than 25 mins", callback_data="30:00")],
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
         await update.message.reply_text(
-            "Please enter your 2.4km timing in the format 'mm:ss' 🙏",
-            reply_markup=ReplyKeyboardRemove(),
+            "Please select your 2.4km run timing ⏱️", reply_markup=reply_markup
         )
-        return ENTER_TIMING
     else:
         await update.message.reply_text(
             "Location data not received.😞\nPlease try again."
         )
-        return ConversationHandler.END
 
 
-async def save_timing(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+async def handle_run_time_selection(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    selected_time = update.callback_query.data
+    context.user_data["user_speed"] = calculate_user_speed(selected_time)
+    await update.callback_query.answer()
+    await update.callback_query.edit_message_text(
+        f"Speed received! 😹\nEstimated speed: {context.user_data['user_speed']} km/h",
+    )
+    print(update.callback_query.data)
+    await home_screen(update, context)
+
+
+async def home_screen(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """
     Save the 2.4km timing entered by the user, calculate their speed,
     and then proceed to food options and spin the wheel
     """
-    timing = update.message.text
-    try:
-        speed_kmh = calculate_user_speed(timing)
-        context.user_data["2.4km_timing"] = timing
-        context.user_data["speed_kmh"] = speed_kmh
-        await update.message.reply_text(
-            f"✅ Your 2.4km timing has been saved as {timing}.\n"
-            f"🏃 Your estimated speed is {speed_kmh:.2f} km/h."
-        )
-        keyboard = [
-            [InlineKeyboardButton("Food near me 🍡", callback_data="find_nearby_food")],
-            [
-                InlineKeyboardButton(
-                    "Spin the wheel 🎰", callback_data="find_random_food"
-                )
-            ],
-        ]
-        inline_reply_markup = InlineKeyboardMarkup(keyboard)
-        await update.message.reply_text(
-            f"Poke one button to get started 🤏🏼", reply_markup=inline_reply_markup
-        )
-        return FOOD_OPTIONS
-    except ValueError:
-        await update.message.reply_text(
-            "❌ Invalid timing format. Please enter the timing in the format 'mm:ss'."
-        )
-        return ENTER_TIMING
+    keyboard = [
+        [InlineKeyboardButton("Food near me 🍡", callback_data="find_nearby_food")],
+        [InlineKeyboardButton("Spin the wheel 🎰", callback_data="find_random_food")],
+    ]
+    inline_reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.callback_query.message.reply_text(
+        "Poke one button to get started 🤏🏼🍽️", reply_markup=inline_reply_markup
+    )
 
 
 async def ask_walking_time(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -177,14 +170,16 @@ async def find_nearby_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """
     FUA
 
-    continue adding logic here to allow the user to not have to constantly reshare location
-    and they can just click find food again after inputting location the first time, also
-    so that they can choose a diff walking time if they are willing to do so
+    integrate logic to randomly select a mall from the walkable_list, then randomly select a stall
     """
     nearby_places = []
     LOCATION_FILEPATH = "./locations.json"
     USER_TRAVEL_TIME_MINS = 10
     USER_SPEED = 5.0
+
+    user_speed = context.user_data.get("user_speed")
+    if user_speed is None:
+        user_speed = USER_SPEED
 
     user_walking_time = context.user_data.get("walking_time")
     if user_walking_time is None:
@@ -209,7 +204,7 @@ async def find_nearby_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
             continue
         else:
             locations_near_array = g.locations_near(
-                lat, lon, coords[0], coords[1], user_walking_time, USER_SPEED
+                lat, lon, coords[0], coords[1], user_walking_time, user_speed
             )
             nearby_places.append(
                 {
@@ -217,7 +212,7 @@ async def find_nearby_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     "foodplace_name": place,
                     "foodplace_latitude_longitude": coords,
                     "actual_travel_time": locations_near_array[1],
-                    "user_speed": USER_SPEED,
+                    "user_speed": user_speed,
                     "haversine_distance": g.haversine(lat, lon, coords[0], coords[1]),
                 }
             )
@@ -245,13 +240,26 @@ async def find_nearby_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 for place in nearby_places_sorted
             ]
         )
+    if walkable_results:
         await update.callback_query.edit_message_text(
             f"🔍 <i><b><u>Nearby food places</u></b></i>\n\n{walkable_results}",
             parse_mode=ParseMode.HTML,
         )
     else:
+
         await update.callback_query.edit_message_text(
-            "No nearby food places found within walking distance. 😭"
+            f"🔍 <i><b><u>Nearby food places</u></b></i>\n\nNone were found near you 😭",
+            parse_mode=ParseMode.HTML,
+        )
+
+        await update.callback_query.message.reply_text(
+            f"Here are food places that are outside your desired distance",
+            parse_mode=ParseMode.HTML,
+        )
+
+        await update.callback_query.message.reply_text(
+            f"🔍 <i><b><u>Further food places</u></b></i>\n\n{not_walkable_results}",
+            parse_mode=ParseMode.HTML,
         )
 
     return nearby_places
@@ -261,15 +269,17 @@ async def find_random_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """
     FUA
 
-    add logic here
-
-    add additional malls and hubs to the specified json as well
+    integrate the logic for actual botscraping for each of the specified malls
     """
 
     nearby_places = []
     LOCATION_FILEPATH = "./locations.json"
     USER_TRAVEL_TIME_MINS = 10
     USER_SPEED = 5.0
+
+    user_speed = context.user_data.get("user_speed")
+    if user_speed is None:
+        user_speed = USER_SPEED
 
     user_walking_time = context.user_data.get("walking_time")
     if user_walking_time is None:
@@ -293,7 +303,7 @@ async def find_random_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
             continue
         else:
             locations_near_array = g.locations_near(
-                lat, lon, coords[0], coords[1], user_walking_time, USER_SPEED
+                lat, lon, coords[0], coords[1], user_walking_time, user_speed
             )
             nearby_places.append(
                 {
@@ -301,7 +311,7 @@ async def find_random_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     "foodplace_name": place,
                     "foodplace_latitude_longitude": coords,
                     "actual_travel_time": locations_near_array[1],
-                    "user_speed": USER_SPEED,
+                    "user_speed": user_speed,
                     "haversine_distance": g.haversine(lat, lon, coords[0], coords[1]),
                 }
             )
@@ -330,9 +340,13 @@ def main():
     app = ApplicationBuilder().token(read_token_env()).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.LOCATION, handle_location))
+    app.add_handler(
+        CallbackQueryHandler(handle_run_time_selection, pattern="^\\d{2}:\\d{2}$")
+    )
+    app.add_handler(CallbackQueryHandler(handle_time_selection, pattern="^time_"))
     app.add_handler(CallbackQueryHandler(find_nearby_food, pattern="find_nearby_food"))
     app.add_handler(CallbackQueryHandler(find_random_food, pattern="find_random_food"))
-    app.add_handler(CallbackQueryHandler(handle_time_selection, pattern="^time_"))
+    app.add_handler(CallbackQueryHandler(home_screen, pattern="^home_screen$"))
     print("Bot is polling...")
     app.run_polling()
 
