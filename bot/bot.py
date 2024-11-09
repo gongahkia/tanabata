@@ -100,11 +100,12 @@ async def run_scraper_function(mall_name):
         site = bot_details[mall_name]["site"]
         print(scraper_name, site)
         try:
-            # FUA will def need to debug the below portion later
             scraper_module = importlib.import_module(scraper_name)
             result = await scraper_module.run_scraper(site)
             print(f"Successfully ran scraper for {mall_name} using {scraper_name}.")
             print(result)
+            return result
+
         except ModuleNotFoundError:
             print(f"Scraper module '{scraper_name}' not found.")
         except AttributeError:
@@ -359,13 +360,16 @@ async def find_random_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
         target_place = get_random_element(
             [place for place in nearby_places_sorted if place["walkable"]]
         )
-        target_place_string = f"{target_place['foodplace_name']} - {target_place['haversine_distance']:.2f} km away, {target_place['actual_travel_time']:.1f} mins away"
+
+        target_mall_string = f"{target_place['foodplace_name']} - {target_place['haversine_distance']:.2f} km away, {target_place['actual_travel_time']:.1f} mins away"
         place_name = target_place["foodplace_name"]
         print(place_name)
-        await run_scraper_function(place_name)
+        result = await run_scraper_function(place_name)
+        target_store = get_random_element(result)
+        target_store_string = f"store name: {target_store['name']}\nstore location: {target_store['location']}\nstore category: {target_store['category']}\nstore description: {target_store['description']}\nstore url: {target_store['url']}"
 
         await update.callback_query.edit_message_text(
-            f"🍽️ <i><b><u>Go eat at...</u></b></i>\n\n{target_place_string}",
+            f"🍽️ <i><b><u>Go eat at...</u></b></i>\n\n{target_mall_string}\n\n{target_store_string}",
             parse_mode=ParseMode.HTML,
         )
 
