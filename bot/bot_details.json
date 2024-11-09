@@ -215,5 +215,70 @@
     "scraper_name": "frasers_shakespeare.py",
     "domain": "",
     "site": "https://www.whitesands.com.sg/"
+  },
+  "Plaza Singapura": {
+    "scraper_name": "capitaland_shakespeare.py",
+    "domain": "",
+    "site": "https://www.capitaland.com/sg/malls/plazasingapura/en/stores.html?category=foodandbeverage"
+  },
+  "Aperia": {
+    "scraper_name": "capitaland_shakespeare.py",
+    "domain": "",
+    "site": "https://www.capitaland.com/sg/malls/aperia/en/stores.html?category=foodandbeverage"
+  },
+  "Bedok Mall": {
+    "scraper_name": "capitaland_shakespeare.py",
+    "domain": "",
+    "site": "https://www.capitaland.com/sg/malls/bedokmall/en/stores.html?category=foodandbeverage"
+  },
+  "Bugis Junction": {
+    "scraper_name": "capitaland_shakespeare.py",
+    "domain": "",
+    "site": "https://www.capitaland.com/sg/malls/bugisjunction/en/stores.html?category=foodandbeverage"
+  },
+  "Bugis+": {
+    "scraper_name": "capitaland_shakespeare.py",
+    "domain": "",
+    "site": "https://www.capitaland.com/sg/malls/bugisplus/en/stores.html?category=foodandbeverage"
+  },
+  "Bukit Panjang Plaza": {
+    "scraper_name": "capitaland_shakespeare.py",
+    "domain": "",
+    "site": "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores.html?category=foodandbeverage"
+  },
+  "Funan": {
+    "scraper_name": "capitaland_shakespeare.py",
+    "domain": "",
+    "site": "https://www.capitaland.com/sg/malls/funan/en/stores.html?category=foodandbeverage"
+  },
+  "IMM": {
+    "scraper_name": "capitaland_shakespeare.py",
+    "domain": "",
+    "site": "https://www.capitaland.com/sg/malls/imm/en/stores.html?category=foodandbeverage"
+  },
+  "Junction 8": {
+    "scraper_name": "capitaland_shakespeare.py",
+    "domain": "",
+    "site": "https://www.capitaland.com/sg/malls/junction8/en/stores.html?category=foodandbeverage"
+  },
+  "Lot One": {
+    "scraper_name": "capitaland_shakespeare.py",
+    "domain": "",
+    "site": "https://www.capitaland.com/sg/malls/lotone/en/stores.html?category=foodandbeverage"
+  },
+  "Raffles City": {
+    "scraper_name": "capitaland_shakespeare.py",
+    "domain": "",
+    "site": "https://www.capitaland.com/sg/malls/rafflescity/en/stores.html?category=foodandbeverage"
+  },
+  "Tampines Mall": {
+    "scraper_name": "capitaland_shakespeare.py",
+    "domain": "",
+    "site": "https://www.capitaland.com/sg/malls/tampinesmall/en/stores.html?category=foodandbeverage"
+  },
+  "Westgate": {
+    "scraper_name": "capitaland_shakespeare.py",
+    "domain": "",
+    "site": "https://www.capitaland.com/sg/malls/westgate/en/stores.html?category=foodandbeverage"
   }
 }
