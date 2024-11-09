@@ -1,9 +1,4 @@
-![](https://img.shields.io/badge/takko_1.0-build-orange)
-
->[!IMPORTANT]  
-> `Takko` is under active development and awaiting deployment.  
->  
-> *\~ Gabriel*
+![](https://img.shields.io/badge/takko_1.0-passing-green)
 
 # `takko`
 
@@ -16,6 +11,20 @@
 
 1. *Tak*, a [telegram bot](./bot) that helps you decide where to eat.   
 2. *Ko*, a bevy of [scrapers](#scrapers) that extract public eating spaces in malls, colleges and other locations into a convenient API wrapper.
+
+## Screenshots
+
+### About
+
+![](./asset/screenshot/about.jpg)
+
+### `Spin the wheel 🎰`
+
+![](./asset/screenshot/spin_the_wheel.jpg)
+
+### `Food near me 🍡`
+
+![](./asset/screenshot/food_nearby.jpg)
 
 ## Usage
 
