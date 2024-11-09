@@ -96,7 +96,7 @@ def specify_scraper_function(mall_name):
         )
         return None
     else:
-        scraper_name = f"bot_details[mall_name]['scraper_name'].py"
+        scraper_name = f"./bot_scraper/{bot_details[mall_name]['scraper_name']}.py"
         site = bot_details[mall_name]["site"]
         print(scraper_name, site)
         try:
