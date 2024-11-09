@@ -1,30 +1,13 @@
-"""
-~~~ INTERNAL REFERENCE ~~~
-
-sites to scrape: https://theseletarmall.com.sg/dine/
-
-~ HTML DOM STRUCTURE ~
-
-div.shopboxwrap
-    div.shopbox a --> href is the url
-    div.shopbox div.shopsummarybox div.shoplevelunitbox --> inner_text is the location
-    div.shopbox div.shopsummarybox div.shopcategory --> inner_text is the category
-    div.shopbox div.shopsummarybox div.shoptitle --> inner_text is the name
-    div.shopbox div.shopsummarybox
-    
-div.wp-pagenavi
-    a.nextpostslink --> click to go to next page
-"""
-
 import json
 import os
 import re
-from playwright.sync_api import sync_playwright
+import asyncio
+from playwright.async_api import async_playwright
 
 
-def delete_file(target_url):
+async def delete_file(target_url):
     """
-    Helper function to delete a file at the specified URL
+    Helper function to delete a file at the specified URL asynchronously
     """
     try:
         os.remove(target_url)
@@ -42,44 +25,46 @@ def clean_string(input_string):
     return cleaned_string.strip()
 
 
-def scrape_seletar_mall(base_url):
+async def scrape_seletar_mall(base_url):
     """
-    Scrapes The Seletar Mall website for dining details and navigates through pages by clicking the "Next" button
+    Scrapes The Seletar Mall website for dining details and navigates through pages by clicking the "Next" button asynchronously
     """
     details_list = []
     errors = []
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        page = await browser.new_page()
         try:
-            page.goto(base_url)
-            page.wait_for_selector("div.shopboxwrap")
+            await page.goto(base_url)
+            await page.wait_for_selector("div.shopboxwrap")
             while True:
-                items = page.query_selector_all("div.shopboxwrap div.shopbox")
+                items = await page.query_selector_all("div.shopboxwrap div.shopbox")
                 for item in items:
-                    url_element = item.query_selector("a")
-                    location_element = item.query_selector(
+                    url_element = await item.query_selector("a")
+                    location_element = await item.query_selector(
                         "div.shopsummarybox div.shoplevelunitbox"
                     )
-                    category_element = item.query_selector(
+                    category_element = await item.query_selector(
                         "div.shopsummarybox div.shopcategory"
                     )
-                    name_element = item.query_selector(
+                    name_element = await item.query_selector(
                         "div.shopsummarybox div.shoptitle"
                     )
-                    url = url_element.get_attribute("href") if url_element else ""
+                    url = await url_element.get_attribute("href") if url_element else ""
                     location = (
-                        clean_string(location_element.inner_text())
+                        clean_string(await location_element.inner_text())
                         if location_element
                         else ""
                     )
                     category = (
-                        clean_string(category_element.inner_text())
+                        clean_string(await category_element.inner_text())
                         if category_element
                         else ""
                     )
                     name = (
-                        clean_string(name_element.inner_text()) if name_element else ""
+                        clean_string(await name_element.inner_text())
+                        if name_element
+                        else ""
                     )
                     if name == "" and location == "" and category == "":
                         continue
@@ -92,10 +77,12 @@ def scrape_seletar_mall(base_url):
                     }
                     print(details)
                     details_list.append(details)
-                next_button = page.query_selector("div.wp-pagenavi a.nextpostslink")
+                next_button = await page.query_selector(
+                    "div.wp-pagenavi a.nextpostslink"
+                )
                 if next_button:
-                    next_button.click()
-                    page.wait_for_timeout(2000)
+                    await next_button.click()
+                    await page.wait_for_timeout(2000)
                     print("Navigating to next page...")
                 else:
                     print("No more pages to navigate.")
@@ -103,29 +90,15 @@ def scrape_seletar_mall(base_url):
         except Exception as e:
             errors.append(f"Error processing {base_url}: {e}")
         finally:
-            browser.close()
+            await browser.close()
     return details_list, errors
 
 
-# ----- Execution Code -----
-
-# TARGET_URL = "https://theseletarmall.com.sg/dine/"
-# TARGET_FILEPATH = "./../output/seletar_mall_dining_details.json"
-# details_list, errors = scrape_seletar_mall(TARGET_URL)
-# if errors:
-#     print(f"Errors encountered: {errors}")
-# print("Scraping complete.")
-# delete_file(TARGET_FILEPATH)
-# with open(TARGET_FILEPATH, "w") as f:
-#     json.dump(details_list, f, indent=4)
-
-
-def run_scraper(target_url):
+async def run_scraper(target_url):
     """
-    actual function to call the scraper code
-    and display it to users
+    Actual function to call the scraper code asynchronously and display it to users.
     """
-    details_list, errors = scrape_seletar_mall(target_url)
+    details_list, errors = await scrape_seletar_mall(target_url)
     if errors:
         print(f"Errors encountered: {errors}")
         return errors

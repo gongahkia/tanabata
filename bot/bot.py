@@ -86,7 +86,7 @@ def calculate_user_speed(timing):
     return round(speed_kmh, 2)
 
 
-def specify_scraper_function(mall_name):
+async def run_scraper_function(mall_name):
     BOT_DETAILS_FILEPATH = "bot_details.json"
     with open(BOT_DETAILS_FILEPATH, "r") as file:
         bot_details = json.load(file)
@@ -96,14 +96,15 @@ def specify_scraper_function(mall_name):
         )
         return None
     else:
-        scraper_name = f"./bot_scraper/{bot_details[mall_name]['scraper_name']}.py"
+        scraper_name = f"bot_scraper.{bot_details[mall_name]['scraper_name']}"
         site = bot_details[mall_name]["site"]
         print(scraper_name, site)
         try:
             # FUA will def need to debug the below portion later
             scraper_module = importlib.import_module(scraper_name)
-            scraper_module.run_scraper(site)
+            result = await scraper_module.run_scraper(site)
             print(f"Successfully ran scraper for {mall_name} using {scraper_name}.")
+            print(result)
         except ModuleNotFoundError:
             print(f"Scraper module '{scraper_name}' not found.")
         except AttributeError:
@@ -303,6 +304,9 @@ async def find_random_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
     FUA
 
     integrate the logic for actual botscraping for each of the specified malls
+
+    move the recieve how long are you willing to walk question to right after the how fast is your 2.4km run question
+    to prevent confusion when each option (either spin the wheel or food nearby) is pressed
     """
 
     nearby_places = []
@@ -356,11 +360,15 @@ async def find_random_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
             [place for place in nearby_places_sorted if place["walkable"]]
         )
         target_place_string = f"{target_place['foodplace_name']} - {target_place['haversine_distance']:.2f} km away, {target_place['actual_travel_time']:.1f} mins away"
+        place_name = target_place["foodplace_name"]
+        print(place_name)
+        await run_scraper_function(place_name)
 
         await update.callback_query.edit_message_text(
             f"🍽️ <i><b><u>Go eat at...</u></b></i>\n\n{target_place_string}",
             parse_mode=ParseMode.HTML,
         )
+
     else:
         await update.callback_query.edit_message_text(
             "No nearby food places found within walking distance. 😭"

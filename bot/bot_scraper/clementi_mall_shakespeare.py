@@ -1,10 +1,11 @@
 import json
 import os
 import re
-from playwright.sync_api import sync_playwright
+from playwright.async_api import async_playwright
+import asyncio
 
 
-def delete_file(target_url):
+async def delete_file(target_url):
     """
     Helper function to delete a file at the specified URL
     """
@@ -24,40 +25,48 @@ def clean_string(input_string):
     return cleaned_string.strip()
 
 
-def scrape_custom_mall(base_url):
+async def scrape_custom_mall(base_url):
     """
-    Scrapes a custom mall page with the provided base URL
+    Scrapes a custom mall page with the provided base URL asynchronously
     """
     details_list = []
     errors = []
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        page = await browser.new_page()
         try:
-            page.goto(base_url)
-            page.wait_for_selector(
+            await page.goto(base_url)
+            await page.wait_for_selector(
                 "div.mix.col-md-6.cat-foodcourt-restaurants-cafes div.storelist-wrapper",
                 timeout=10000,
             )
-            items = page.query_selector_all(
+            items = await page.query_selector_all(
                 "div.mix.col-md-6.cat-foodcourt-restaurants-cafes div.storelist-wrapper"
             )
             for item in items:
-                name_element = item.query_selector("div.col-xs-20 p.title")
-                name = clean_string(name_element.inner_text()) if name_element else ""
-                raw_elements = item.query_selector_all(
+                name_element = await item.query_selector("div.col-xs-20 p.title")
+                name = (
+                    clean_string(await name_element.inner_text())
+                    if name_element
+                    else ""
+                )
+                raw_elements = await item.query_selector_all(
                     "div.col-xs-8.col-sm-4 div.meta-wrap"
                 )
+                location = description = ""
                 for element in raw_elements:
-                    class_name = element.query_selector("span").get_attribute("class")
+                    class_name = await element.query_selector("span")
+                    class_name = (
+                        await class_name.get_attribute("class") if class_name else ""
+                    )
                     if "icon-Location" in class_name:
-                        location = element.inner_text().strip()
+                        location = await element.inner_text()
                     elif "icon-Telephone" in class_name:
-                        description = element.inner_text().strip()
-                url_element = item.query_selector(
+                        description = await element.inner_text()
+                url_element = await item.query_selector(
                     "div.col-xs-8.col-sm-4 div.meta-wrap a"
                 )
-                url = url_element.get_attribute("href") if url_element else ""
+                url = await url_element.get_attribute("href") if url_element else ""
                 if name and url:
                     details = {
                         "name": name,
@@ -70,27 +79,16 @@ def scrape_custom_mall(base_url):
                     details_list.append(details)
         except Exception as e:
             errors.append(f"Error processing {base_url}: {str(e)}")
-        browser.close()
+        await browser.close()
+
     return details_list, errors
 
 
-# base_url = "https://www.theclementimall.com/stores"
-# scraped_data, scraping_errors = scrape_custom_mall(base_url)
-# output_file = "./../output/clementi_mall_dining_details.json"
-# with open(output_file, "w") as f:
-#     json.dump(scraped_data, f, indent=4)
-# if scraping_errors:
-#     print("Errors encountered:", scraping_errors)
-# else:
-#     print(f"Scraping completed successfully. Data saved to {output_file}.")
-
-
-def run_scraper(target_url):
+async def run_scraper(target_url):
     """
-    actual function to call the scraper code
-    and display it to users
+    Actual function to call the scraper code and display it to users asynchronously
     """
-    details_list, errors = scrape_custom_mall(target_url)
+    details_list, errors = await scrape_custom_mall(target_url)
     if errors:
         print(f"Errors encountered: {errors}")
         return errors

@@ -1,29 +1,13 @@
-"""
-~~~ INTERNAL REFERENCE ~~~
-
-sites to scrape: https://www.thomsonplaza.com.sg/store-directory/?keyword=&filter=5&payment_type=
-
-~ HTML DOM STRUCTURE ~
-
-div.l-more a.button directory-link-btn --> keep .click until no more
-
-li with style="display: list-item;"
-    a --> href is url
-    div.directoryInfoBox div.directoryInfoBoxInner div.directoryContent div.directoryName --> inner_text is name
-    div.directoryInfoBox div.directoryInfoBoxInner div.directoryContent div.directoryCat --> inner_text is category
-    div.directoryInfoBox div.directoryInfoBoxInner div.directoryContent div.store-location --> inner_text is location
-    div.directoryInfoBox div.directoryInfoBoxInner div.directoryContent div.store-tel --> inner_text is description
-"""
-
 import json
 import os
 import re
-from playwright.sync_api import sync_playwright
+import asyncio
+from playwright.async_api import async_playwright
 
 
-def delete_file(target_url):
+async def delete_file(target_url):
     """
-    Helper function to delete a file at the specified URL
+    Helper function to delete a file at the specified URL asynchronously.
     """
     try:
         os.remove(target_url)
@@ -34,39 +18,41 @@ def delete_file(target_url):
 
 def clean_string(input_string):
     """
-    Sanitize a provided string
+    Sanitize a provided string.
     """
     cleaned_string = re.sub(r"\n+", " ", input_string)
     cleaned_string = re.sub(r"<[^>]+>", "", cleaned_string)
     return cleaned_string.strip()
 
 
-def scrape_thomson_plaza(base_url):
+async def scrape_thomson_plaza(base_url):
     """
-    Scrapes Thomson Plaza website for directory details
+    Scrapes Thomson Plaza website for directory details asynchronously.
     """
     details_list = []
     errors = []
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        page = await browser.new_page()
         try:
-            page.goto(base_url)
-            page.wait_for_selector("div.l-more a.button.directory-link-btn")
+            await page.goto(base_url)
+            await page.wait_for_selector("div.l-more a.button.directory-link-btn")
             while True:
                 current_item_count = len(
-                    page.query_selector_all('li[style="display: list-item;"]')
+                    await page.query_selector_all('li[style="display: list-item;"]')
                 )
                 try:
-                    load_more_button = page.query_selector(
+                    load_more_button = await page.query_selector(
                         "div.l-more a.button.directory-link-btn"
                     )
                     if load_more_button:
                         print("clicking load button")
-                        load_more_button.click()
-                        page.wait_for_timeout(1000)
+                        await load_more_button.click()
+                        await page.wait_for_timeout(1000)
                         new_item_count = len(
-                            page.query_selector_all('li[style="display: list-item;"]')
+                            await page.query_selector_all(
+                                'li[style="display: list-item;"]'
+                            )
                         )
                         if new_item_count == current_item_count:
                             print("No more items to load.")
@@ -76,38 +62,47 @@ def scrape_thomson_plaza(base_url):
                 except Exception as e:
                     print(f"No more load more button to click: {e}")
                     break
-            list_items = page.query_selector_all('li[style="display: list-item;"]')
+
+            list_items = await page.query_selector_all(
+                'li[style="display: list-item;"]'
+            )
             for item in list_items:
-                name_element = item.query_selector(
+                name_element = await item.query_selector(
                     "div.directoryInfoBoxInner div.directoryContent div.directoryName"
                 )
-                category_element = item.query_selector(
+                category_element = await item.query_selector(
                     "div.directoryInfoBoxInner div.directoryContent div.directoryCat"
                 )
-                location_element = item.query_selector(
+                location_element = await item.query_selector(
                     "div.directoryInfoBoxInner div.directoryContent div.store-location"
                 )
-                description_element = item.query_selector(
+                description_element = await item.query_selector(
                     "div.directoryInfoBoxInner div.directoryContent div.store-tel"
                 )
-                url_element = item.query_selector("a")
-                name = clean_string(name_element.inner_text()) if name_element else ""
+                url_element = await item.query_selector("a")
+
+                name = (
+                    clean_string(await name_element.inner_text())
+                    if name_element
+                    else ""
+                )
                 category = (
-                    clean_string(category_element.inner_text())
+                    clean_string(await category_element.inner_text())
                     if category_element
                     else ""
                 )
                 location = (
-                    clean_string(location_element.inner_text())
+                    clean_string(await location_element.inner_text())
                     if location_element
                     else ""
                 )
                 description = (
-                    clean_string(description_element.inner_text())
+                    clean_string(await description_element.inner_text())
                     if description_element
                     else ""
                 )
-                url = url_element.get_attribute("href") if url_element else ""
+                url = await url_element.get_attribute("href") if url_element else ""
+
                 details = {
                     "name": name,
                     "location": location,
@@ -120,31 +115,15 @@ def scrape_thomson_plaza(base_url):
         except Exception as e:
             errors.append(f"Error processing {base_url}: {e}")
         finally:
-            browser.close()
+            await browser.close()
     return details_list, errors
 
 
-# ----- Execution Code -----
-
-# TARGET_URL = (
-#     "https://www.thomsonplaza.com.sg/store-directory/?keyword=&filter=5&payment_type="
-# )
-# TARGET_FILEPATH = "./../output/thomson_plaza_details.json"
-# details_list, errors = scrape_thomson_plaza(TARGET_URL)
-# if errors:
-#     print(f"Errors encountered: {errors}")
-# print("Scraping complete.")
-# delete_file(TARGET_FILEPATH)
-# with open(TARGET_FILEPATH, "w") as f:
-#     json.dump(details_list, f, indent=4)
-
-
-def run_scraper(target_url):
+async def run_scraper(target_url):
     """
-    actual function to call the scraper code
-    and display it to users
+    Actual function to call the scraper code asynchronously and display it to users.
     """
-    details_list, errors = scrape_thomson_plaza(target_url)
+    details_list, errors = await scrape_thomson_plaza(target_url)
     if errors:
         print(f"Errors encountered: {errors}")
         return errors

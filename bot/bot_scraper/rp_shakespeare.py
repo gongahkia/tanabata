@@ -1,15 +1,10 @@
-"""
-https://www.rp.edu.sg/our-campus/facilities/retail-dining
+# ASYNC VERSION
 
-div.row.mb-50
-    div div div h3 --> inner_text() is name
-    div div div p --> inner_text() is description
-"""
-
-from playwright.sync_api import sync_playwright
 import json
 import os
 import re
+import asyncio
+from playwright.async_api import async_playwright
 
 
 def delete_file(target_url):
@@ -32,25 +27,34 @@ def clean_string(input_string):
     return cleaned_string.strip()
 
 
-def scrape_rp_dining(url):
+async def scrape_rp_dining(url):
     """
-    Scrapes the Republic Polytechnic retail and dining page
+    Asynchronously scrapes the Republic Polytechnic retail and dining page
     """
     scraped_data = []
     errors = []
-    with sync_playwright() as p:
-        browser = p.chromium.launch()
-        page = browser.new_page()
+
+    async with async_playwright() as p:
+        browser = await p.chromium.launch()
+        page = await browser.new_page()
         try:
-            page.goto(url)
-            page.wait_for_selector("div.row.mb-50")
+            await page.goto(url)
+            await page.wait_for_selector("div.row.mb-50")
             print(f"Scraping the URL: {url}")
-            post_items = page.query_selector_all("div.row.mb-50")
+            post_items = await page.query_selector_all("div.row.mb-50")
             for item in post_items:
-                name = item.query_selector("div div div h3").inner_text().strip()
-                description = item.query_selector("div div div p").inner_text().strip()
+                name_element = await item.query_selector("div div div h3")
+                description_element = await item.query_selector("div div div p")
+
+                name = await name_element.inner_text() if name_element else ""
+                description = (
+                    await description_element.inner_text()
+                    if description_element
+                    else ""
+                )
+
                 details = {
-                    "name": name,
+                    "name": name.strip(),
                     "location": "",
                     "description": clean_string(description),
                     "category": "Retail & Dining",
@@ -61,25 +65,20 @@ def scrape_rp_dining(url):
         except Exception as e:
             errors.append(f"Error processing {url}: {e}")
         finally:
-            browser.close()
-    with open("./../output/rp_dining_data.json", "w") as f:
-        json.dump(scraped_data, f, indent=4)
+            await browser.close()
+
+    # output_path = "./../output/rp_dining_data.json"
+    # with open(output_path, "w") as f:
+    #     json.dump(scraped_data, f, indent=4)
+
     return scraped_data, errors
 
 
-# ----- EXECUTION CODE -----
-
-# if __name__ == "__main__":
-#     delete_file("./../output/rp_dining_data.json")
-#     scrape_rp_dining("https://www.rp.edu.sg/our-campus/facilities/retail-dining")
-
-
-def run_scraper(target_url):
+async def run_scraper(target_url):
     """
-    actual function to call the scraper code
-    and display it to users
+    Asynchronously calls the scraper function
     """
-    details_list, errors = scrape_rp_dining(target_url)
+    details_list, errors = await scrape_rp_dining(target_url)
     if errors:
         print(f"Errors encountered: {errors}")
         return errors

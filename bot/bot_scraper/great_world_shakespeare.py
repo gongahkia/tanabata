@@ -1,29 +1,12 @@
-"""
-~~~ INTERNAL REFERENCE ~~~
-
-sites to scrape: https://shop.greatworld.com.sg/dine/
-
-~ HTML DOM STRUCTURE ~
-
-div.shopboxwrap
-    div.shopbox a --> href is url
-   div.shopunit --> inner_text() is location
-   div.shopcategory --> inner_text() is category
-   div.shoptitle --> inner_text() is name
-
-div.paginationcontainer div.wp-pagenavi
-    a.page --> clickable page
-    span.current --> current page
-"""
-
 import json
 import os
-from playwright.sync_api import sync_playwright
+import asyncio
+from playwright.async_api import async_playwright
 
 
-def delete_file(target_url):
+async def delete_file(target_url):
     """
-    Helper function that attempts to delete a file at the specified URL
+    Helper function that attempts to delete a file at the specified URL asynchronously
     """
     try:
         os.remove(target_url)
@@ -39,43 +22,45 @@ def clean_string(input_string):
     return input_string.strip()
 
 
-def scrape_great_world_dining(base_url):
+async def scrape_great_world_dining(base_url):
     """
-    Scrapes the Great World shopping website for dining details and handles pagination
+    Scrapes the Great World shopping website for dining details and handles pagination asynchronously
     """
     details_list = []
     errors = []
 
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        page = await browser.new_page()
 
         try:
-            page.goto(base_url)
-            page.wait_for_selector("div.shopboxwrap")
+            await page.goto(base_url)
+            await page.wait_for_selector("div.shopboxwrap")
             print(f"successfully retrieved page URL: {base_url}")
 
             while True:
-                dining_stores = page.query_selector_all("div.shopboxwrap")
+                dining_stores = await page.query_selector_all("div.shopboxwrap")
                 for store in dining_stores:
-                    name_element = store.query_selector("div.shoptitle")
-                    location_element = store.query_selector("div.shopunit")
-                    category_element = store.query_selector("div.shopcategory")
-                    url_element = store.query_selector("div.shopbox a")
+                    name_element = await store.query_selector("div.shoptitle")
+                    location_element = await store.query_selector("div.shopunit")
+                    category_element = await store.query_selector("div.shopcategory")
+                    url_element = await store.query_selector("div.shopbox a")
                     name = (
-                        clean_string(name_element.inner_text()) if name_element else ""
+                        clean_string(await name_element.inner_text())
+                        if name_element
+                        else ""
                     )
                     location = (
-                        clean_string(location_element.inner_text())
+                        clean_string(await location_element.inner_text())
                         if location_element
                         else ""
                     )
                     category = (
-                        clean_string(category_element.inner_text())
+                        clean_string(await category_element.inner_text())
                         if category_element
                         else ""
                     )
-                    url = url_element.get_attribute("href") if url_element else ""
+                    url = await url_element.get_attribute("href") if url_element else ""
                     details = {
                         "name": name,
                         "location": location,
@@ -85,61 +70,51 @@ def scrape_great_world_dining(base_url):
                     }
                     print(details)
                     details_list.append(details)
-                pagination_container = page.query_selector(
+
+                pagination_container = await page.query_selector(
                     "div.paginationcontainer div.wp-pagenavi"
                 )
                 current_page = (
-                    pagination_container.query_selector("span.current").inner_text()
+                    await pagination_container.query_selector("span.current")
                     if pagination_container
                     else None
                 )
+                current_page_text = (
+                    await current_page.inner_text() if current_page else None
+                )
                 final_breakpoint = (
-                    pagination_container.query_selector("a.page.larger")
-                    if pagination_container.query_selector("a.page.larger")
+                    await pagination_container.query_selector("a.page.larger")
+                    if pagination_container
+                    and await pagination_container.query_selector("a.page.larger")
                     else None
                 )
-                print(f"current page is {current_page}")
-                if final_breakpoint == None:
+                print(f"current page is {current_page_text}")
+
+                if final_breakpoint is None:
                     print("no more pages to scrape.")
                     break
                 else:
-                    next_page = (
-                        pagination_container.query_selector("a.page.larger")
-                        if pagination_container
-                        else None
+                    next_page = await pagination_container.query_selector(
+                        "a.page.larger"
                     )
-                    print(f"navigating to next page {next_page.inner_text()}")
-                    next_page.click()
-                    page.wait_for_timeout(2000)
+                    print(f"navigating to next page {await next_page.inner_text()}")
+                    await next_page.click()
+                    await page.wait_for_timeout(2000)
 
         except Exception as e:
             errors.append(f"Error processing {base_url}: {e}")
 
         finally:
-            browser.close()
+            await browser.close()
 
     return details_list, errors
 
 
-# ----- Execution Code -----
-
-# TARGET_URL = "https://shop.greatworld.com.sg/dine/"
-# TARGET_FILEPATH = "./../output/great_world_dining_details.json"
-# details_list, errors = scrape_great_world_dining(TARGET_URL)
-# if errors:
-#     print(f"Errors encountered: {errors}")
-# print("Scraping complete.")
-# delete_file(TARGET_FILEPATH)
-# with open(TARGET_FILEPATH, "w") as f:
-#     json.dump(details_list, f, indent=4)
-
-
-def run_scraper(target_url):
+async def run_scraper(target_url):
     """
-    actual function to call the scraper code
-    and display it to users
+    Actual function to call the scraper code and display it to users asynchronously
     """
-    details_list, errors = scrape_great_world_dining(target_url)
+    details_list, errors = await scrape_great_world_dining(target_url)
     if errors:
         print(f"Errors encountered: {errors}")
         return errors

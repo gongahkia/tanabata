@@ -167,117 +167,117 @@
     "site": "https://www.waterwaypoint.com.sg/shop/dining"
   },
   "Causeway Point": {
-    "scraper_name": "frasers_shakespeare.py",
+    "scraper_name": "frasers_shakespeare",
     "domain": "",
     "site": "https://www.causewaypoint.com.sg/"
   },
   "Century Square": {
-    "scraper_name": "frasers_shakespeare.py",
+    "scraper_name": "frasers_shakespeare",
     "domain": "",
     "site": "https://www.centurysquare.com.sg/"
   },
   "Eastpoint Mall": {
-    "scraper_name": "frasers_shakespeare.py",
+    "scraper_name": "frasers_shakespeare",
     "domain": "",
     "site": "https://www.eastpoint.sg/"
   },
   "Hougang Mall": {
-    "scraper_name": "frasers_shakespeare.py",
+    "scraper_name": "frasers_shakespeare",
     "domain": "",
     "site": "https://www.hougangmall.com.sg/"
   },
   "Northpoint City": {
-    "scraper_name": "frasers_shakespeare.py",
+    "scraper_name": "frasers_shakespeare",
     "domain": "",
     "site": "https://www.northpointcity.com.sg/"
   },
   "Robertson Walk": {
-    "scraper_name": "frasers_shakespeare.py",
+    "scraper_name": "frasers_shakespeare",
     "domain": "",
     "site": "https://www.robertsonwalk.com.sg/"
   },
   "Tampines 1": {
-    "scraper_name": "frasers_shakespeare.py",
+    "scraper_name": "frasers_shakespeare",
     "domain": "",
     "site": "https://www.tampines1.com.sg/"
   },
   "The Centrepoint": {
-    "scraper_name": "frasers_shakespeare.py",
+    "scraper_name": "frasers_shakespeare",
     "domain": "",
     "site": "https://www.thecentrepoint.com.sg/"
   },
   "Tiong Bahru Plaza": {
-    "scraper_name": "frasers_shakespeare.py",
+    "scraper_name": "frasers_shakespeare",
     "domain": "",
     "site": "https://www.tiongbahruplaza.com.sg/"
   },
   "White Sands": {
-    "scraper_name": "frasers_shakespeare.py",
+    "scraper_name": "frasers_shakespeare",
     "domain": "",
     "site": "https://www.whitesands.com.sg/"
   },
   "Plaza Singapura": {
-    "scraper_name": "capitaland_shakespeare.py",
+    "scraper_name": "capitaland_shakespeare",
     "domain": "",
     "site": "https://www.capitaland.com/sg/malls/plazasingapura/en/stores.html?category=foodandbeverage"
   },
   "Aperia": {
-    "scraper_name": "capitaland_shakespeare.py",
+    "scraper_name": "capitaland_shakespeare",
     "domain": "",
     "site": "https://www.capitaland.com/sg/malls/aperia/en/stores.html?category=foodandbeverage"
   },
   "Bedok Mall": {
-    "scraper_name": "capitaland_shakespeare.py",
+    "scraper_name": "capitaland_shakespeare",
     "domain": "",
     "site": "https://www.capitaland.com/sg/malls/bedokmall/en/stores.html?category=foodandbeverage"
   },
   "Bugis Junction": {
-    "scraper_name": "capitaland_shakespeare.py",
+    "scraper_name": "capitaland_shakespeare",
     "domain": "",
     "site": "https://www.capitaland.com/sg/malls/bugisjunction/en/stores.html?category=foodandbeverage"
   },
   "Bugis+": {
-    "scraper_name": "capitaland_shakespeare.py",
+    "scraper_name": "capitaland_shakespeare",
     "domain": "",
     "site": "https://www.capitaland.com/sg/malls/bugisplus/en/stores.html?category=foodandbeverage"
   },
   "Bukit Panjang Plaza": {
-    "scraper_name": "capitaland_shakespeare.py",
+    "scraper_name": "capitaland_shakespeare",
     "domain": "",
     "site": "https://www.capitaland.com/sg/malls/bukitpanjangplaza/en/stores.html?category=foodandbeverage"
   },
   "Funan": {
-    "scraper_name": "capitaland_shakespeare.py",
+    "scraper_name": "capitaland_shakespeare",
     "domain": "",
     "site": "https://www.capitaland.com/sg/malls/funan/en/stores.html?category=foodandbeverage"
   },
   "IMM": {
-    "scraper_name": "capitaland_shakespeare.py",
+    "scraper_name": "capitaland_shakespeare",
     "domain": "",
     "site": "https://www.capitaland.com/sg/malls/imm/en/stores.html?category=foodandbeverage"
   },
   "Junction 8": {
-    "scraper_name": "capitaland_shakespeare.py",
+    "scraper_name": "capitaland_shakespeare",
     "domain": "",
     "site": "https://www.capitaland.com/sg/malls/junction8/en/stores.html?category=foodandbeverage"
   },
   "Lot One": {
-    "scraper_name": "capitaland_shakespeare.py",
+    "scraper_name": "capitaland_shakespeare",
     "domain": "",
     "site": "https://www.capitaland.com/sg/malls/lotone/en/stores.html?category=foodandbeverage"
   },
   "Raffles City": {
-    "scraper_name": "capitaland_shakespeare.py",
+    "scraper_name": "capitaland_shakespeare",
     "domain": "",
     "site": "https://www.capitaland.com/sg/malls/rafflescity/en/stores.html?category=foodandbeverage"
   },
   "Tampines Mall": {
-    "scraper_name": "capitaland_shakespeare.py",
+    "scraper_name": "capitaland_shakespeare",
     "domain": "",
     "site": "https://www.capitaland.com/sg/malls/tampinesmall/en/stores.html?category=foodandbeverage"
   },
   "Westgate": {
-    "scraper_name": "capitaland_shakespeare.py",
+    "scraper_name": "capitaland_shakespeare",
     "domain": "",
     "site": "https://www.capitaland.com/sg/malls/westgate/en/stores.html?category=foodandbeverage"
   }

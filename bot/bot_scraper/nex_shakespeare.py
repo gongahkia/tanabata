@@ -1,27 +1,13 @@
-"""
-~~~ INTERNAL REFERENCE ~~~
-
-sites to scrape: https://www.nex.com.sg/Directory/Category?EncDetail=qbjHWjcKv2GJGewRmzGQOA_3d_3d&CategoryName=Restaurant_Cafe%20_%20Fast%20Food&voucher=false&rewards=false
-
-~ HTML DOM STRUCTURE ~
-
-div.storeLogo
-    div.logoImg a --> href is the url
-    div.logoTitle a --> inner_text() is the name
-
-div.levelCategoryPageNum.pagination.simple-pagination
-    ul li a.page-link.next --> click() to go to the next page
-"""
-
 import json
 import os
 import re
-from playwright.sync_api import sync_playwright
+import asyncio
+from playwright.async_api import async_playwright
 
 
-def delete_file(target_url):
+async def delete_file(target_url):
     """
-    Helper function to delete a file at the specified URL
+    Helper function to delete a file at the specified URL asynchronously
     """
     try:
         os.remove(target_url)
@@ -39,29 +25,35 @@ def clean_string(input_string):
     return cleaned_string.strip()
 
 
-def scrape_nex(base_url):
+async def scrape_nex(base_url):
     """
-    Scrapes NEX Mall's restaurants and cafes from the provided base URL
-    Handles pagination by clicking the "Next" button until no more pages are available
+    Scrapes NEX Mall's restaurants and cafes from the provided base URL asynchronously.
+    Handles pagination by clicking the "Next" button until no more pages are available.
     """
     details_list = []
     errors = []
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        page = await browser.new_page()
         try:
-            page.goto(base_url)
-            page.wait_for_selector("div.storeLogo")
+            await page.goto(base_url)
+            await page.wait_for_selector("div.storeLogo")
             while True:
-                items = page.query_selector_all("div.storeLogo")
+                items = await page.query_selector_all("div.storeLogo")
                 for item in items:
-                    url_element = item.query_selector("div.logoImg a")
-                    name_element = item.query_selector("div.logoTitle a")
-                    url = url_element.get_attribute("href") if url_element else ""
+                    url_element = await item.query_selector("div.logoImg a")
+                    name_element = await item.query_selector("div.logoTitle a")
+                    url = await url_element.get_attribute("href") if url_element else ""
                     raw_name = (
-                        clean_string(name_element.inner_text()) if name_element else ""
+                        clean_string(await name_element.inner_text())
+                        if name_element
+                        else ""
                     )
-                    location = [el for el in raw_name.split() if el.startswith("#")][0]
+                    location = (
+                        [el for el in raw_name.split() if el.startswith("#")][0]
+                        if raw_name
+                        else ""
+                    )
                     clean_name = raw_name.replace(location, "")
                     details = {
                         "name": clean_name.strip(),
@@ -72,45 +64,26 @@ def scrape_nex(base_url):
                     }
                     print(details)
                     details_list.append(details)
-                next_button = (
-                    page.query_selector("ul li a.page-link.next")
-                    if page.query_selector("ul li a.page-link.next")
-                    else None
-                )
-                print(next_button)
+                next_button = await page.query_selector("ul li a.page-link.next")
                 if next_button:
-                    print("navigating to the next page...")
-                    next_button.click()
-                    page.wait_for_timeout(2000)
+                    print("Navigating to the next page...")
+                    await next_button.click()
+                    await page.wait_for_timeout(2000)
                 else:
-                    print("no more pages to navigate to")
+                    print("No more pages to navigate to")
                     break
         except Exception as e:
             errors.append(f"Error processing {base_url}: {e}")
         finally:
-            browser.close()
+            await browser.close()
     return details_list, errors
 
 
-# ----- Execution Code -----
-
-# TARGET_URL = "https://www.nex.com.sg/Directory/Category?EncDetail=qbjHWjcKv2GJGewRmzGQOA_3d_3d&CategoryName=Restaurant_Cafe%20_%20Fast%20Food&voucher=false&rewards=false"
-# TARGET_FILEPATH = "./../output/nex_dining_details.json"
-# details_list, errors = scrape_nex(TARGET_URL)
-# if errors:
-#     print(f"Errors encountered: {errors}")
-# print("Scraping complete.")
-# delete_file(TARGET_FILEPATH)
-# with open(TARGET_FILEPATH, "w") as f:
-#     json.dump(details_list, f, indent=4)
-
-
-def run_scraper(target_url):
+async def run_scraper(target_url):
     """
-    actual function to call the scraper code
-    and display it to users
+    Actual function to call the scraper code asynchronously and display results to users
     """
-    details_list, errors = scrape_nex(target_url)
+    details_list, errors = await scrape_nex(target_url)
     if errors:
         print(f"Errors encountered: {errors}")
         return errors

@@ -1,13 +1,13 @@
 import json
 import re
 import os
-from playwright.sync_api import sync_playwright
+import asyncio
+from playwright.async_api import async_playwright
 
 
-def delete_file(target_url):
+async def delete_file(target_url):
     """
-    helper function that attempts to
-    delete a file at the specified url
+    Helper function that attempts to delete a file at the specified URL asynchronously
     """
     try:
         os.remove(target_url)
@@ -18,18 +18,15 @@ def delete_file(target_url):
 
 def clean_string(input_string):
     """
-    sanitize a provided string
+    Sanitize a provided string
     """
     return input_string.strip()
 
 
-def parse_details(name, details, url):
+async def parse_details(name, details, url):
     """
-    parses and sorts each field
-    from the given detail string
-    and sorts it into the provided
-    JSON categories for easier
-    API sorting
+    Parses and sorts each field from the given detail string
+    and sorts it into the provided JSON categories for easier API sorting
     """
     fin = {
         "name": name,
@@ -46,82 +43,57 @@ def parse_details(name, details, url):
     return fin
 
 
-def fetch_nus_dining_data(url):
+async def fetch_nus_dining_data(url):
     """
-    fetches dining details from
-    the given NUS page using Playwright
+    Fetches dining details from the given NUS page using Playwright asynchronously
     """
     details_list = []
     errors = []
 
-    with sync_playwright() as p:
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        page = await browser.new_page()
+        await page.goto(url)
+        await page.wait_for_selector(
+            "div.vc_col-sm-12.vc_gitem-col.vc_gitem-col-align-"
+        )
 
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
-        page.goto(url)
-        page.wait_for_selector("div.vc_col-sm-12.vc_gitem-col.vc_gitem-col-align-")
-        if page.title() == "":
-            errors.append(f"failed to retrieve page {url}")
-            browser.close()
+        if await page.title() == "":
+            errors.append(f"Failed to retrieve page {url}")
+            await browser.close()
             return details_list, errors
         else:
-            print(f"scraping details from {url}")
+            print(f"Scraping details from {url}")
 
-        listings = page.query_selector_all(
+        listings = await page.query_selector_all(
             "div.vc_col-sm-12.vc_gitem-col.vc_gitem-col-align-"
         )
 
         for listing in listings:
-
-            # print(listing.inner_text())
-
-            name = listing.query_selector('h3[style="text-align: left"]').inner_text()
-            details = listing.query_selector(
+            name = await listing.query_selector(
+                'h3[style="text-align: left"]'
+            ).inner_text()
+            details = await listing.query_selector(
                 'p[style="text-align: left"] + p'
-            ).inner_text()  # + p goes one element down walahi
-            fin_details = parse_details(name, details, url)
-
-            # print(fin_details)
+            ).inner_text()  # + p goes one element down
+            fin_details = await parse_details(name, details, url)
 
             details_list.append(fin_details)
 
-        browser.close()
+        await browser.close()
 
     return details_list, errors
 
 
-# ----- Execution Code -----
-
-# urls = [
-#     "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages/",
-#     "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverage-utown/",
-#     "https://uci.nus.edu.sg/oca/retail-dining/food-and-beverages-bukit-timah/",
-# ]
-
-# all_locations = {}
-# all_details = {}
-
-# for url in urls:
-#     all_locations[url] = fetch_nus_dining_data(url)[0]
-# all_details["nus"] = all_locations
-
-# output_file = "./../output/nus_dining_details.json"
-# delete_file(output_file)
-# with open(output_file, "w") as f:
-#     json.dump(all_details, f, indent=4)
-
-# print(f"Scraping completed, data written to {output_file}")
-
-
-def run_scraper(target_url_array):
+async def run_scraper(target_url_array):
     """
-    actual function to call the scraper code
-    and display it to users
+    Actual function to call the scraper code asynchronously and display it to users
     """
     all_details = {}
     all_locations = {}
+
     for url in target_url_array:
-        memo = fetch_nus_dining_data(url)
+        memo = await fetch_nus_dining_data(url)
         if memo[1]:
             errors = memo[1]
             print(f"Errors encountered: {errors}")
