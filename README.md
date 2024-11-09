@@ -12,6 +12,14 @@
 1. *Tak*, a [telegram bot](./bot) that helps you decide where to eat.   
 2. *Ko*, a bevy of [scrapers](#scrapers) that extract public eating spaces in malls, colleges and other locations into a convenient API wrapper.
 
+## Usage
+
+### How to build
+
+Don't. Access the telegram bot [`takko_bot`](https://t.me/takko_bot). 
+
+It is currenty deployed with a [Heroku dyno](https://www.heroku.com/dynos). Report any issues [here](https://github.com/gongahkia/takko/issues).
+
 ## Screenshots
 
 ### About
@@ -26,13 +34,7 @@
 
 ![](./asset/screenshot/food_nearby.jpg)
 
-## Usage
-
-### How to build
-
-Don't. Access the telegram bot [here](https://t.me/takko_bot).
-
-### For developers
+## For developers
 
 #### Local deployment
 
@@ -40,7 +42,7 @@ Don't. Access the telegram bot [here](https://t.me/takko_bot).
 
 #### Scrapers
 
-*Ko* [scrapers](./scrapers) extract shop data to an array of json following the below structure.
+*Ko* [scrapers](./scrapers) extract shop data to an array of json following the below structure. 
 
 ```json
 {

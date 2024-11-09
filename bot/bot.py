@@ -684,6 +684,9 @@ async def find_nearby_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """
     FUA
 
+    move the recieve how long are you willing to walk question to right after the how fast is your 2.4km run question
+    to prevent confusion when each option (either spin the wheel or food nearby) is pressed
+
     integrate logic to randomly select a mall from the walkable_list, then randomly select a stall
     """
     nearby_places = []
@@ -781,12 +784,7 @@ async def find_nearby_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def find_random_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """
-    FUA
-
-    integrate the logic for actual botscraping for each of the specified malls
-
-    move the recieve how long are you willing to walk question to right after the how fast is your 2.4km run question
-    to prevent confusion when each option (either spin the wheel or food nearby) is pressed
+    provides functionality for the find random food function
     """
 
     nearby_places = []
