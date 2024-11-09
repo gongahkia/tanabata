@@ -31,6 +31,8 @@ from telegram.ext import (
     MessageHandler,
     filters,
 )
+import json
+import importlib
 
 # ~~~~~ HELPER FUNCTIONS ~~~~~
 
@@ -82,6 +84,37 @@ def calculate_user_speed(timing):
     distance_km = 2.4
     speed_kmh = (distance_km / total_seconds) * 3600
     return round(speed_kmh, 2)
+
+
+def specify_scraper_function(mall_name):
+    BOT_DETAILS_FILEPATH = "bot_details.json"
+    with open(BOT_DETAILS_FILEPATH, "r") as file:
+        bot_details = json.load(file)
+    if mall_name not in bot_details:
+        print(
+            f"Error hit, specified mall {mall_name} not found in file at {BOT_DETAILS_FILEPATH}"
+        )
+        return None
+    else:
+        scraper_name = f"bot_details[mall_name]['scraper_name'].py"
+        site = bot_details[mall_name]["site"]
+        print(scraper_name, site)
+        try:
+            # FUA will def need to debug the below portion later
+            scraper_module = importlib.import_module(scraper_name)
+            scraper_module.run_scraper(site)
+            print(f"Successfully ran scraper for {mall_name} using {scraper_name}.")
+        except ModuleNotFoundError:
+            print(f"Scraper module '{scraper_name}' not found.")
+        except AttributeError:
+            print(
+                f"Function 'run_scraper' not found in scraper module '{scraper_name}'."
+            )
+        except Exception as e:
+            print(f"An error occurred while running the scraper: {e}")
+
+
+# ~~~~~ BOT CODE ~~~~~
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
