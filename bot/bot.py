@@ -848,7 +848,7 @@ async def find_random_food(update: Update, context: ContextTypes.DEFAULT_TYPE):
         target_store_string = f"{target_store['name']} {random_emoji()} - {target_store['location']}\nCategory: {target_store['category']}\nDescription:\n{target_store['description']}\nURL: {target_store['url']}"
 
         await update.callback_query.edit_message_text(
-            f"🍽️ <i><b><u>Go eat at...</u></b></i>\n\n{target_store_string}\n\n <i><b><u>found at...</i></b></u>\n\n{target_mall_string}",
+            f"🍽️ <i><b><u>Go eat at...</u></b></i>\n\n{target_store_string}\n\n <i><b><u>found at...</u></b></i>\n\n{target_mall_string}",
             parse_mode=ParseMode.HTML,
         )
 
