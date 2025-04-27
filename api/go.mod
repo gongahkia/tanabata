@@ -1,4 +1,4 @@
-module github.com/yourusername/tanabata/api
+module github.com/gongahkia/tanabata/api
 
 go 1.21
 
