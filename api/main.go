@@ -10,9 +10,12 @@ import (
 	"math/rand"
 	"net/http"
 	"os"
+	"context"
+	"time"
 	"strings"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/gin-gonic/gin"
+	"github.com/chromedp/chromedp"
 )
 
 // ----- struct definitions -----
@@ -39,28 +42,55 @@ func main() {
 }
 
 func runScraper() {
-	rapperSlugs := []string{"kendrick-lamar", "tupac-shakur", "eminem"} // FUA to add more here
+	rapperSlugs := []string{"kendrick-lamar", "tupac-shakur", "eminem"} // FUA to add more names later
 	var scrapedQuotes []Quote
+	ctx, cancel := chromedp.NewContext(context.Background())
+	defer cancel()
 	for _, slug := range rapperSlugs {
 		url := fmt.Sprintf("https://www.brainyquote.com/authors/%s", slug)
-		resp, err := http.Get(url)
+		var htmlContent string
+		err := chromedp.Run(ctx,
+			chromedp.Navigate(url),
+			chromedp.Sleep(2*time.Second), 
+			chromedp.ActionFunc(func(ctx context.Context) error {
+				for i := 0; i < 10; i++ {
+					if err := chromedp.Evaluate(`window.scrollTo(0, document.body.scrollHeight)`, nil).Do(ctx); err != nil {
+						return err
+					}
+					time.Sleep(1 * time.Second)
+				}
+				return nil
+			}),
+			chromedp.OuterHTML("html", &htmlContent, chromedp.ByQuery),
+		)
 		if err != nil {
-			log.Printf("Error fetching %s: %v", url, err)
+			log.Printf("Error loading %s: %v", url, err)
 			continue
 		}
-		defer resp.Body.Close()
-		doc, err := goquery.NewDocumentFromReader(resp.Body)
+		doc, err := goquery.NewDocumentFromReader(strings.NewReader(htmlContent))
 		if err != nil {
-			log.Printf("Error parsing %s: %v", url, err)
+			log.Printf("Error parsing HTML for %s: %v", url, err)
 			continue
 		}
-		doc.Find(".grid-item .qkrn-content-wrapper").Each(func(i int, s *goquery.Selection) {
-			text := strings.TrimSpace(s.Find("a[title='view quote']").Text())
+		authorName := strings.Title(strings.ReplaceAll(slug, "-", " "))
+		doc.Find(`[title="view quote"]`).Each(func(i int, s *goquery.Selection) {
+			text := strings.TrimSpace(s.Text())
 			if text != "" {
 				scrapedQuotes = append(scrapedQuotes, Quote{
-					Author: strings.Title(strings.ReplaceAll(slug, "-", " ")),
+					Author: authorName,
 					Text:   text,
 				})
+				return
+			}
+			img := s.Find("img")
+			if img.Length() > 0 {
+				alt, exists := img.Attr("alt")
+				if exists && strings.TrimSpace(alt) != "" {
+					scrapedQuotes = append(scrapedQuotes, Quote{
+						Author: authorName,
+						Text:   alt,
+					})
+				}
 			}
 		})
 	}
