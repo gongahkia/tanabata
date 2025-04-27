@@ -1,9 +1,23 @@
 [![](https://img.shields.io/badge/tanabata_1.0.0-passing-green)](https://github.com/gongahkia/tanabata/releases/tag/1.0.0) 
 ![](https://github.com/gongahkia/tanabata/actions/workflows/scrape.yml/badge.svg)
 
+
+> [!IMPORTANT]  
+> `Tanabata`'s REST API is ***live*** at [tanabata.onrender.com](https://tanabata.onrender.com/quotes). See the available endpoints [here](#usage).
+
 # `Tanabata`
 
-...
+A small REST API that provides Musician Quotes *(scraped monthly at [quotefancy.com](https://quotefancy.com/))*.
+
+Thrown together over [a Sunday](https://github.com/gongahkia/tanabata/commit/82f11bb336bd2523440523980c79317bd4bc25e8) to practise writing APIs in Go and to escape from [week 2 of finals](https://github.com/gongahkia/naobito/blob/main/asset/reference/finals.jpg).
+
+## Usage
+
+| API | Description | Example |
+| :--- | :--- | :--- |
+| `/quotes` | Returns all scraped quotes. | [tanabata.onrender.com/quotes](https://tanabata.onrender.com/quotes) |
+| `/quotes/random` | Returns a single randomly selected quote. | [tanabata.onrender.com/quotes/random](https://tanabata.onrender.com/quotes/random) |
+| `/quotes/<artist_name>` | Returns all quotes associated with the specified artist. | [tanabata.onrender.com/quotes/Kendrick%20Lamar](https://tanabata.onrender.com/quotes/Kendrick%20Lamar) |
 
 ## Stack
 
@@ -11,25 +25,9 @@
 * *Deploy*: [Render](https://render.com/), [Github Actions](https://github.com/features/actions)
 * *Package*: [Docker](https://www.docker.com/)
 
-## Rationale
-
-...
-
-## Usage
-
-...
-
-... add endpoint documentation here
-
-https://tanabata.onrender.com/quotes  
-https://your-app.onrender.com/quotes/random  
-https://your-app.onrender.com/quotes/Eminem  
-
 ## Architecture
 
-...
-
-![](./asset/reference/)
+![](./asset/reference/architecture.png)
 
 ## Other notes
 
