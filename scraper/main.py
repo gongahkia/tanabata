@@ -17,7 +17,6 @@ async def scrape_quotes():
         "beyonce",
         "taylor-swift",
         "bob-dylan",
-        "aretha-franklin",
         "michael-jackson",
         "prince",
         "david-bowie",
@@ -27,40 +26,19 @@ async def scrape_quotes():
         "queen",
         "led-zeppelin",
         "jay-z",
-        "nas",
-        "nina-simone",
-        "billie-holiday",
-        "miles-davis",
-        "john-coltrane",
-        "johnny-cash",
         "dolly-parton",
-        "hank-williams",
         "radiohead",
-        "nirvana",
         "jimi-hendrix",
         "stevie-wonder",
-        "ella-fitzgerald",
         "frank-ocean",
-        "fleetwood-mac",
         "adele",
+        "kanye-west",
         "metallica",
         "rolling-stones",
-        "bad-bunny",
-        "daft-punk",
-        "bjork",
-        "bach",
-        "mozart",
-        "beethoven",
-        "missy-elliott",
         "bts",
-        "fela-kuti",
-        "nusrat-fateh-ali-khan",
-        "celia-cruz",
-        "kraftwerk",
-        "juan-gabriel",
-        "willie-nelson",
         "rihanna",
         "lady-gaga"
+        "olivia-rodrigo",
     ]
     all_quotes = []
     async with async_playwright() as p:
@@ -76,7 +54,7 @@ async def scrape_quotes():
                 for _ in range(3):
                     await page.mouse.wheel(0, 15000)
                     await page.wait_for_timeout(2000)
-                    print("Scrolled to load more content")
+                    # print("Scrolling down...")
                 quotes = await page.query_selector_all('.quote-a')
                 print(f"Found {len(quotes)} quotes for {artist}")
                 for quote in quotes:
