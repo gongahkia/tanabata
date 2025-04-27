@@ -1,2 +1,2 @@
-playwright==1.42.0
+playwright
 python-dateutil==2.9.0.post0
