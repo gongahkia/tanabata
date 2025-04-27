@@ -17,7 +17,7 @@ Thrown together over [a Sunday](https://github.com/gongahkia/tanabata/commit/82f
 | :--- | :--- | :--- |
 | `/quotes` | Returns all scraped quotes. | [tanabata.onrender.com/quotes](https://tanabata.onrender.com/quotes) |
 | `/quotes/random` | Returns a single randomly selected quote. | [tanabata.onrender.com/quotes/random](https://tanabata.onrender.com/quotes/random) |
-| `/quotes/<artist_name>` | Returns all quotes associated with the specified artist. | [tanabata.onrender.com/quotes/Kendrick%20Lamar](https://tanabata.onrender.com/quotes/Kendrick%20Lamar) |
+| `/quotes/<artist_name>` | Returns all quotes associated with the specified artist. | [tanabata.onrender.com/quotes/Frank%20Ocean](https://tanabata.onrender.com/quotes/Frank%20Ocean) |
 
 ## Stack
 
