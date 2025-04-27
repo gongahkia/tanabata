@@ -2,6 +2,8 @@
 
 # `Tanabata`
 
+Heavily inspired by [kanye.rest](https://github.com/ajzbc/kanye.rest).
+
 ...
 
 ## Rationale
