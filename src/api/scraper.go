@@ -1,6 +1,6 @@
 // ----- required imports -----
 
-package scraper
+package main
 
 import (
     "context"
