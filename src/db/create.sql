@@ -1,8 +1,0 @@
-CREATE TABLE IF NOT EXISTS quotes (
-    id SERIAL PRIMARY KEY,
-    author VARCHAR(255) NOT NULL,
-    text TEXT NOT NULL,
-    scraped_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE INDEX IF NOT EXISTS idx_author_lower ON quotes (LOWER(author));
