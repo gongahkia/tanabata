@@ -45,7 +45,7 @@ jobs:
           playwright install-deps
       - name: Run scraper
         working-directory: ./scraper
-        run: python scraper.py
+        run: python main.py
       - name: Commit and push changes
         run: |
           git config --global user.name "GitHub Actions"
