@@ -2,15 +2,12 @@ name: Monthly Scraper
 
 on:
   schedule:
-    - cron: '0 0 1 * *'
+    - cron: '0 0 1 * *'  
   workflow_dispatch:
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./src/api
     steps:
       - uses: actions/checkout@v3
       - name: Set up Go
@@ -18,10 +15,13 @@ jobs:
         with:
           go-version: '1.21'
       - name: Install dependencies
-        run: go get github.com/PuerkitoBio/goquery github.com/lib/pq
-      - name: Build scraper
-        run: go build -o scraper .
+        run: go get github.com/PuerkitoBio/goquery github.com/gin-gonic/gin
       - name: Run scraper
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: ./scraper
+        run: go run main.go --scrape
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add data/quotes.json
+          git commit -m "Update quotes.json"
+          git push
