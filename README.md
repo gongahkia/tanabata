@@ -2,8 +2,6 @@
 
 # `Tanabata`
 
-Heavily inspired by [kanye.rest](https://github.com/ajzbc/kanye.rest).
-
 ## Stack
 
 * *Backend*: [Go](https://go.dev/), [Python](https://www.python.org/), [Render](https://render.com/), [Github Actions](https://github.com/features/actions)
@@ -23,6 +21,12 @@ https://your-app.onrender.com/quotes/Eminem
 ## Architecture
 
 ...
+
+![](./asset/reference/)
+
+## Other notes
+
+`Tanabata` is heavily inspired by [kanye.rest](https://github.com/ajzbc/kanye.rest).
 
 ## Reference
 
