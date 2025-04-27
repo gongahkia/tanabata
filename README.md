@@ -4,7 +4,7 @@
 
 Heavily inspired by [kanye.rest](https://github.com/ajzbc/kanye.rest).
 
-...
+Written in [Go](https://go.dev/), hosted on [Render](https://render.com/).
 
 ## Rationale
 
@@ -13,6 +13,10 @@ Heavily inspired by [kanye.rest](https://github.com/ajzbc/kanye.rest).
 ## Usage
 
 ...
+
+https://tanabata.onrender.com/quotes
+https://your-app.onrender.com/quotes/random
+https://your-app.onrender.com/quotes/Eminem
 
 ## Architecture
 
