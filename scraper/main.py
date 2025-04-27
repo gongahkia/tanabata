@@ -35,7 +35,7 @@ async def scrape_quotes():
         "rolling-stones",
         "bts",
         "rihanna",
-        "lady-gaga"
+        "lady-gaga",
         "olivia-rodrigo",
     ]
     all_quotes = []
