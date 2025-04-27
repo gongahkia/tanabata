@@ -1,4 +1,5 @@
 # ----- required imports -----
+
 from playwright.async_api import async_playwright
 import json
 import os
@@ -6,9 +7,61 @@ import asyncio
 from datetime import datetime
 
 # ----- helper functions -----
+
 async def scrape_quotes():
     print("Scraping quotes...")
-    artists = ["kendrick-lamar", "tupac-shakur", "eminem"]
+    artists = [
+        "kendrick-lamar",
+        "tupac-shakur", 
+        "eminem",
+        "beyonce",
+        "taylor-swift",
+        "bob-dylan",
+        "aretha-franklin",
+        "michael-jackson",
+        "prince",
+        "david-bowie",
+        "bob-marley",
+        "pink-floyd",
+        "the-beatles",
+        "queen",
+        "led-zeppelin",
+        "jay-z",
+        "nas",
+        "nina-simone",
+        "billie-holiday",
+        "miles-davis",
+        "john-coltrane",
+        "johnny-cash",
+        "dolly-parton",
+        "hank-williams",
+        "radiohead",
+        "nirvana",
+        "jimi-hendrix",
+        "stevie-wonder",
+        "ella-fitzgerald",
+        "frank-ocean",
+        "fleetwood-mac",
+        "adele",
+        "metallica",
+        "rolling-stones",
+        "bad-bunny",
+        "daft-punk",
+        "bjork",
+        "bach",
+        "mozart",
+        "beethoven",
+        "missy-elliott",
+        "bts",
+        "fela-kuti",
+        "nusrat-fateh-ali-khan",
+        "celia-cruz",
+        "kraftwerk",
+        "juan-gabriel",
+        "willie-nelson",
+        "rihanna",
+        "lady-gaga"
+    ]
     all_quotes = []
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
@@ -45,5 +98,6 @@ async def scrape_quotes():
     print(f"Successfully scraped {len(all_quotes)} quotes from {len(artists)} artists at {datetime.now()}")
 
 # ----- execution code -----
+
 if __name__ == "__main__":
     asyncio.run(scrape_quotes())
