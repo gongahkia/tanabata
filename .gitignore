@@ -1,2 +1,5 @@
 .pre-commit-config.yaml
 *.tar.gz
+app
+api/api
+*.env
