@@ -4,14 +4,11 @@
 
 Heavily inspired by [kanye.rest](https://github.com/ajzbc/kanye.rest).
 
+Written in [Go](https://go.dev/) and hosted on [Render](https://render.com/) and [Github Actions](https://github.com/features/actions).
+
 ## Rationale
 
 ...
-
-## Stack
-
-* *Backend*: [Go](https://go.dev/), [Render](https://render.com/), [Github Actions](https://github.com/features/actions)
-* *Database*: [SQL](https://dev.mysql.com/doc/), [PostgreSQL](https://www.postgresql.org/)
 
 ## Usage
 
