@@ -1,0 +1,21 @@
+name: Monthly Scraper
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'  
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'
+      - name: Build scraper
+        run: go build -o scraper ./src/api/scraper.go
+      - name: Run scraper
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: ./scraper
