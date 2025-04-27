@@ -2,7 +2,7 @@ name: Monthly Scraper
 
 on:
   schedule:
-    - cron: '0 0 1 * *'  
+    - cron: '0 0 1 * *'
   workflow_dispatch:
 
 jobs:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./src/api  
+        working-directory: ./src/api
     steps:
       - uses: actions/checkout@v3
       - name: Set up Go
