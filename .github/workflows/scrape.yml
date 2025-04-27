@@ -2,24 +2,28 @@ name: Monthly Scraper
 
 on:
   schedule:
-    - cron: '0 0 1 * *'
+    - cron: '0 0 1 * *'  
   workflow_dispatch:
 
 jobs:
   scrape:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Go
-        uses: actions/setup-go@v4
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          go-version: '1.21'
+          python-version: '3.10'
       - name: Install dependencies
-        working-directory: ./api
-        run: go get github.com/PuerkitoBio/goquery github.com/gin-gonic/gin
+        working-directory: ./scraper
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          playwright install chromium
+          playwright install-deps
       - name: Run scraper
-        working-directory: ./api
-        run: go run main.go --scrape
+        working-directory: ./scraper
+        run: python scraper.py
       - name: Commit and push changes
         run: |
           git config --global user.name "GitHub Actions"

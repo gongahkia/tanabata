@@ -3,3 +3,4 @@
 app
 api/api
 *.env
+myenv
