@@ -1,33 +1,36 @@
 # ----- required imports -----
 
-from playwright.sync_api import sync_playwright
+from playwright.async_api import async_playwright
 import json
 import os
+import asyncio
 from datetime import datetime
 
 # ----- helper functions -----
 
-def scrape_quotes():
+async def scrape_quotes():
     rappers = ["kendrick-lamar", "tupac-shakur", "eminem"]
     all_quotes = []
-    with sync_playwright() as p:
-        browser = p.chromium.launch()
-        page = browser.new_page()
+    async with async_playwright() as p:
+        browser = await p.chromium.launch()
+        page = await browser.new_page()
         for rapper in rappers:
-            page.goto(f"https://www.brainyquote.com/authors/{rapper}")
-            for _ in range(5):
-                page.mouse.wheel(0, 15000)
-                page.wait_for_timeout(1000)
-            quotes = page.query_selector_all('.grid-item .oncl_q')
+            await page.goto(f"https://www.brainyquote.com/authors/{rapper}")
+            await page.wait_for_timeout(5000)  
+            for _ in range(3):
+                await page.mouse.wheel(0, 15000)
+                await page.wait_for_timeout(2000)  
+            quotes = await page.query_selector_all('.grid-item .oncl_q')
             for quote in quotes:
-                text = quote.inner_text().strip()
+                text = await quote.inner_text()
+                text = text.strip()
                 print(text)
                 if text:
                     all_quotes.append({
                         "author": rapper.replace("-", " ").title(),
                         "text": text
                     })
-        browser.close()
+        await browser.close()
     os.makedirs('../api/data', exist_ok=True)
     with open('../api/data/quotes.json', 'w') as f:
         json.dump(all_quotes, f, indent=2)
@@ -36,4 +39,4 @@ def scrape_quotes():
 # ----- execution code -----
 
 if __name__ == "__main__":
-    scrape_quotes()
+    asyncio.run(scrape_quotes())
