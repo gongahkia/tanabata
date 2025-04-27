@@ -18,6 +18,8 @@
 
 ...
 
+... add endpoint documentation here
+
 https://tanabata.onrender.com/quotes  
 https://your-app.onrender.com/quotes/random  
 https://your-app.onrender.com/quotes/Eminem  
