@@ -2,9 +2,13 @@
 
 # `Tanabata`
 
+...
+
 ## Stack
 
-* *Backend*: [Go](https://go.dev/), [Python](https://www.python.org/), [Render](https://render.com/), [Github Actions](https://github.com/features/actions)
+* *Backend*: [Go](https://go.dev/), [Python](https://www.python.org/)
+* *Deploy*: [Render](https://render.com/), [Github Actions](https://github.com/features/actions)
+* *Package*: [Docker](https://www.docker.com/)
 
 ## Rationale
 
