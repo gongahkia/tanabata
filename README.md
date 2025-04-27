@@ -2,13 +2,16 @@
 
 # `Tanabata`
 
-Written in [Go](https://go.dev/), hosted on [Render](https://render.com/).
-
 Heavily inspired by [kanye.rest](https://github.com/ajzbc/kanye.rest).
 
 ## Rationale
 
 ...
+
+## Stack
+
+* *Backend*: [Go](https://go.dev/), [Render](https://render.com/)
+* *Database*: [SQL](https://dev.mysql.com/doc/), [PostgreSQL](https://www.postgresql.org/)
 
 ## Usage
 
