@@ -4,7 +4,7 @@
 
 Heavily inspired by [kanye.rest](https://github.com/ajzbc/kanye.rest).
 
-Written in [Go](https://go.dev/) and hosted on [Render](https://render.com/) and [Github Actions](https://github.com/features/actions).
+Written in [Go](https://go.dev/). Hosted on [Render](https://render.com/) and [Github Actions](https://github.com/features/actions).
 
 ## Rationale
 
