@@ -21,6 +21,7 @@ def scrape_quotes():
             quotes = page.query_selector_all('.grid-item .oncl_q')
             for quote in quotes:
                 text = quote.inner_text().strip()
+                print(text)
                 if text:
                     all_quotes.append({
                         "author": rapper.replace("-", " ").title(),
