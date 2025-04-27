@@ -11,8 +11,6 @@ import (
 	"net/http"
 	"os"
 	"strings"
-	"time"
-
 	"github.com/PuerkitoBio/goquery"
 	"github.com/gin-gonic/gin"
 )
