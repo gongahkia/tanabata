@@ -1,9 +1,9 @@
 [![](https://img.shields.io/badge/tanabata_1.0.0-passing-green)](https://github.com/gongahkia/tanabata/releases/tag/1.0.0) 
 ![](https://github.com/gongahkia/tanabata/actions/workflows/scrape.yml/badge.svg)
+![](https://img.shields.io/badge/tanabata_1.0.0-deployment_down-orange)
 
-
-> [!IMPORTANT]  
-> `Tanabata`'s REST API is ***live*** at [tanabata.onrender.com](https://tanabata.onrender.com/quotes). See the available endpoints [here](#usage).
+> [!WARNING]  
+> [`Tanabata`](https://github.com/gongahkia/tanabata)'s Render deployment is inactive as of 1 June 2025.  
 
 # `Tanabata`
 
@@ -12,6 +12,9 @@ A small REST API that provides Musician Quotes *(scraped monthly at [quotefancy.
 Thrown together over [a Sunday](https://github.com/gongahkia/tanabata/commit/82f11bb336bd2523440523980c79317bd4bc25e8) to practise writing an API Server in Go and to escape from [week 2 of finals](https://github.com/gongahkia/naobito/blob/main/asset/reference/finals.jpg).
 
 ## Usage
+
+> [!IMPORTANT]  
+> `Tanabata`'s REST API is ***live*** at [tanabata.onrender.com](https://tanabata.onrender.com/quotes). See the available endpoints [here](#usage).
 
 | API | Description | Example |
 | :--- | :--- | :--- |
