@@ -1,4 +1,8 @@
 ![](https://img.shields.io/badge/takko_1.0-passing-green)
+![](https://img.shields.io/badge/takko_1.0.0-deployment_down-orange)
+
+> [!WARNING]  
+> [`Takko`](https://github.com/gongahkia/takko)'s Heroku Dyno deployment is inactive as of 9 November 2024.  
 
 # `takko`
 
@@ -18,7 +22,7 @@
 
 Don't. Access the telegram bot [`takko_bot`](https://t.me/takko_bot). 
 
-It is currenty deployed with a [Heroku dyno](https://www.heroku.com/dynos). Report any issues [here](https://github.com/gongahkia/takko/issues).
+It is currenty deployed with a [Heroku Dyno](https://www.heroku.com/dynos). Report any issues [here](https://github.com/gongahkia/takko/issues).
 
 ## Screenshots
 
@@ -55,5 +59,6 @@ It is currenty deployed with a [Heroku dyno](https://www.heroku.com/dynos). Repo
 ```
 
 ## Contribute
+
 
 Takko is open-source. Contribution guidelines are found at [`CONTRIBUTING.md`](./admin/CONTRIBUTING.md).
