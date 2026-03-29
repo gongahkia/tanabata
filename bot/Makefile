@@ -1,5 +1,15 @@
-all:start_bot
+PYTHON ?= python3.12
 
-start_bot:bot.py
-	@echo "executing bot script..."
-	@python3 bot.py
+.PHONY: install install-playwright run test
+
+install:
+	$(PYTHON) -m pip install -r requirements-dev.txt
+
+install-playwright:
+	$(PYTHON) -m playwright install chromium
+
+run:
+	$(PYTHON) bot.py
+
+test:
+	PYTHONPATH=.. $(PYTHON) -m pytest -q ../tests
