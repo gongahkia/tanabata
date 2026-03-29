@@ -1,14 +1,14 @@
-"""
-FUA 
+"""Phase-two scheduling notes.
 
-add a script here that schedules an async bot based on 
-the user's current location and whereabouts contingent on being
-fed the user's postal code
-
-it determines which malls are in proximity based on the user's location
-
-work out if the scrapers called have to be async to begin with? i mean
-they probably do but that can be worked out later
+Takko does not ship proactive reminders or scheduled scraping in the runtime path
+yet. The request-response bot flow is intentionally kept separate until the core
+experience is stable and tested.
 """
 
-print("balls")
+PHASE_TWO_BACKLOG = (
+    "Scheduled lunch reminders",
+    "Saved favourite areas and eateries",
+    "Group recommendation mode",
+    "Proactive cache warming for popular areas",
+)
+
