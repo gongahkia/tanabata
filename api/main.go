@@ -1,69 +1,40 @@
-// ----- required imports -----
-
 package main
 
 import (
-	"encoding/json"
-	"math/rand"
-	"net/http"
+	"context"
+	"log"
 	"os"
-	"strings"
-	"github.com/gin-gonic/gin"
+	"path/filepath"
+
+	httpapi "github.com/gongahkia/tanabata/api/internal/api"
+	"github.com/gongahkia/tanabata/api/internal/catalog"
 )
 
-// ----- type definitions -----
-
-type Quote struct {
-	Author string `json:"author"`
-	Text   string `json:"text"`
-}
-
-// ----- initialization code -----
-
-var quotes []Quote
-
-// ----- helper functions -----
-
 func main() {
+	ctx := context.Background()
+	catalogPath := envOrDefault("CATALOG_PATH", filepath.Join("data", "catalog.sqlite"))
+	legacyQuotesPath := envOrDefault("LEGACY_QUOTES_PATH", filepath.Join("data", "quotes.json"))
+	port := envOrDefault("PORT", "8080")
 
-	loadQuotes()
-	
-	r := gin.Default()
-	
-	r.GET("/quotes", func(c *gin.Context) {
-		c.JSON(http.StatusOK, quotes)
-	})
-	
-	r.GET("/quotes/random", func(c *gin.Context) {
-		if len(quotes) == 0 {
-			c.JSON(http.StatusNotFound, gin.H{"error": "No quotes available"})
-			return
-		}
-		c.JSON(http.StatusOK, quotes[rand.Intn(len(quotes))])
-	})
-	
-	r.GET("/quotes/:author", func(c *gin.Context) {
-		author := strings.ToLower(c.Param("author"))
-		var filtered []Quote
-		for _, q := range quotes {
-			if strings.ToLower(q.Author) == author {
-				filtered = append(filtered, q)
-			}
-		}
-		c.JSON(http.StatusOK, filtered)
-	})
-	
-	r.Run(":" + os.Getenv("PORT"))
+	store, err := catalog.Open(catalogPath)
+	if err != nil {
+		log.Fatalf("open catalog: %v", err)
+	}
+	defer store.Close()
 
+	if err := store.SeedFromLegacyJSON(ctx, legacyQuotesPath); err != nil {
+		log.Fatalf("seed legacy data: %v", err)
+	}
+
+	server := httpapi.NewServer(store)
+	if err := server.Router().Run(":" + port); err != nil {
+		log.Fatalf("start server: %v", err)
+	}
 }
 
-func loadQuotes() {
-	file, err := os.Open("data/quotes.json")
-	if err != nil {
-		panic(err)
+func envOrDefault(key, fallback string) string {
+	if value := os.Getenv(key); value != "" {
+		return value
 	}
-	defer file.Close()
-	if err := json.NewDecoder(file).Decode(&quotes); err != nil {
-		panic(err)
-	}
+	return fallback
 }

@@ -4,3 +4,5 @@ app
 api/api
 *.env
 myenv
+api/data/*.sqlite-shm
+api/data/*.sqlite-wal
