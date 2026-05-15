@@ -3,10 +3,14 @@ package providers
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"strings"
+	"sync/atomic"
 	"testing"
+	"time"
 
 	"github.com/gongahkia/tanabata/api/internal/models"
 )
@@ -239,5 +243,62 @@ func TestSetlistProviderDisabledByDefault(t *testing.T) {
 	provider := NewSetlistFMProvider()
 	if provider.Enabled() {
 		t.Fatalf("SetlistFM provider should be disabled without key")
+	}
+}
+
+func TestHTTPClientRetriesTransientFailure(t *testing.T) {
+	var attempts atomic.Int32
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if attempts.Add(1) == 1 {
+			http.Error(w, "try again", http.StatusBadGateway)
+			return
+		}
+		_ = json.NewEncoder(w).Encode(map[string]string{"status": "ok"})
+	}))
+	defer server.Close()
+
+	client := NewHTTPClient(server.URL)
+	var payload map[string]string
+	if err := client.JSON(context.Background(), "/", url.Values{}, nil, &payload); err != nil {
+		t.Fatalf("JSON() error = %v", err)
+	}
+	if attempts.Load() != 2 {
+		t.Fatalf("expected retry, got %d attempts", attempts.Load())
+	}
+	if payload["status"] != "ok" {
+		t.Fatalf("unexpected payload %+v", payload)
+	}
+}
+
+func TestHTTPClientReturnsErrorAfterRetries(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		http.Error(w, "nope", http.StatusBadGateway)
+	}))
+	defer server.Close()
+
+	client := NewHTTPClient(server.URL)
+	client.backoff = 5 * time.Millisecond
+	var payload map[string]string
+	err := client.JSON(context.Background(), "/", nil, nil, &payload)
+	if err == nil || !strings.Contains(err.Error(), "provider request failed") {
+		t.Fatalf("expected upstream error, got %v", err)
+	}
+}
+
+func TestHTTPClientContextCancellation(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		time.Sleep(50 * time.Millisecond)
+		_ = json.NewEncoder(w).Encode(map[string]string{"status": "late"})
+	}))
+	defer server.Close()
+
+	client := NewHTTPClient(server.URL)
+	client.attempts = 1
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Millisecond)
+	defer cancel()
+	var payload map[string]string
+	err := client.JSON(ctx, "/", nil, nil, &payload)
+	if err == nil || (!errors.Is(err, context.DeadlineExceeded) && !strings.Contains(err.Error(), "context deadline exceeded")) {
+		t.Fatalf("expected deadline error, got %v", err)
 	}
 }

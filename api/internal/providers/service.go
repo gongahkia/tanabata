@@ -8,8 +8,16 @@ import (
 
 	"github.com/gongahkia/tanabata/api/internal/catalog"
 	"github.com/gongahkia/tanabata/api/internal/models"
+	"github.com/gongahkia/tanabata/api/internal/observability"
 	"github.com/gongahkia/tanabata/api/internal/search"
 )
+
+type EnrichResult struct {
+	ArtistID string
+	Target   string
+	Status   string
+	Details  string
+}
 
 type Service struct {
 	store       *catalog.Store
@@ -19,59 +27,83 @@ type Service struct {
 	lastfm      *LastFMProvider
 }
 
-func NewService(store *catalog.Store) *Service {
+func NewService(store *catalog.Store, telemetry *observability.Telemetry) *Service {
 	return &Service{
 		store:       store,
-		musicBrainz: NewMusicBrainzProvider(),
-		wikidata:    NewWikidataProvider(),
-		wikiquote:   NewWikiquoteProvider(),
-		lastfm:      NewLastFMProvider(),
+		musicBrainz: NewMusicBrainzProviderWithTelemetry(telemetry),
+		wikidata:    NewWikidataProviderWithTelemetry(telemetry),
+		wikiquote:   NewWikiquoteProviderWithTelemetry(telemetry),
+		lastfm:      NewLastFMProviderWithTelemetry(telemetry),
 	}
 }
 
-func (s *Service) EnrichExistingArtists(ctx context.Context) error {
+func (s *Service) EnrichExistingArtists(ctx context.Context) ([]EnrichResult, error) {
 	artists, err := s.store.ListArtists(ctx, models.ArtistFilters{Limit: 1000})
 	if err != nil {
-		return err
+		return nil, err
 	}
+	results := make([]EnrichResult, 0, len(artists.Data))
 	for _, artist := range artists.Data {
-		if err := s.EnrichArtist(ctx, artist.Name); err != nil {
-			return err
+		result, err := s.EnrichArtist(ctx, artist.Name)
+		if err != nil {
+			return results, err
 		}
+		results = append(results, result)
 	}
-	return nil
+	return results, nil
 }
 
-func (s *Service) EnrichArtist(ctx context.Context, query string) error {
-	artist, err := s.loadOrCreateArtist(ctx, query)
-	if err != nil {
-		return err
-	}
-	if artist == nil {
-		return nil
+func (s *Service) EnrichArtist(ctx context.Context, query string) (EnrichResult, error) {
+	result := EnrichResult{
+		Target: strings.TrimSpace(query),
+		Status: "succeeded",
 	}
 
-	if err := s.applyMusicBrainz(ctx, artist); err != nil {
-		return err
+	artist, err := s.loadOrCreateArtist(ctx, query)
+	if err != nil {
+		return result, err
 	}
-	if err := s.applyWikidata(ctx, artist); err != nil {
-		return err
+	if artist == nil {
+		result.Status = "failed"
+		result.Details = "artist could not be loaded"
+		return result, nil
 	}
-	if err := s.applyWikiquote(ctx, artist); err != nil {
-		return err
-	}
-	if err := s.applyLastFM(ctx, artist); err != nil {
-		return err
+	result.ArtistID = artist.ArtistID
+
+	statuses := []string{}
+	details := []string{}
+	for _, apply := range []func(context.Context, *models.Artist) (string, string, error){
+		s.applyMusicBrainz,
+		s.applyWikidata,
+		s.applyWikiquote,
+		s.applyLastFM,
+	} {
+		status, detail, err := apply(ctx, artist)
+		if err != nil {
+			return result, err
+		}
+		if status != "" {
+			statuses = append(statuses, status)
+		}
+		if detail != "" {
+			details = append(details, detail)
+		}
 	}
 
 	if err := s.store.UpsertArtist(ctx, *artist); err != nil {
-		return err
+		return result, err
 	}
 	now := time.Now().UTC().Format(time.RFC3339)
 	if err := s.store.SetMeta(ctx, "snapshot_version", now); err != nil {
-		return err
+		return result, err
 	}
-	return s.store.UpdateActiveProviders(ctx)
+	if err := s.store.UpdateActiveProviders(ctx); err != nil {
+		return result, err
+	}
+
+	result.Status = overallStatus(statuses)
+	result.Details = strings.Join(details, "; ")
+	return result, nil
 }
 
 func (s *Service) loadOrCreateArtist(ctx context.Context, query string) (*models.Artist, error) {
@@ -98,7 +130,7 @@ func (s *Service) loadOrCreateArtist(ctx context.Context, query string) (*models
 	return artist, nil
 }
 
-func (s *Service) applyMusicBrainz(ctx context.Context, artist *models.Artist) error {
+func (s *Service) applyMusicBrainz(ctx context.Context, artist *models.Artist) (string, string, error) {
 	startedAt := time.Now().UTC()
 	runID := search.StableHash("musicbrainz", artist.ArtistID, startedAt.Format(time.RFC3339Nano))
 	recordRun := func(status, details string) error {
@@ -114,21 +146,17 @@ func (s *Service) applyMusicBrainz(ctx context.Context, artist *models.Artist) e
 
 	candidate, err := s.musicBrainz.SearchArtist(ctx, artist.Name)
 	if err != nil {
-		_ = s.store.RecordProviderError(ctx, catalog.ProviderError{
-			ErrorID:    search.StableHash("musicbrainz", artist.ArtistID, err.Error(), startedAt.Format(time.RFC3339Nano)),
-			Provider:   s.musicBrainz.Name(),
-			OccurredAt: time.Now().UTC(),
-			Context:    artist.Name,
-			Message:    err.Error(),
-		})
-		return recordRun("failed", err.Error())
+		if recordErr := s.recordProviderFailure(ctx, s.musicBrainz.Name(), artist.ArtistID, artist.Name, startedAt, err); recordErr != nil {
+			return "", "", recordErr
+		}
+		return "partial", err.Error(), recordRun("failed", err.Error())
 	}
 	if candidate == nil {
-		return recordRun("success", "no match")
+		return "succeeded", "musicbrainz:no match", recordRun("success", "no match")
 	}
 	if artist.ArtistID != candidate.ArtistID {
 		if err := s.store.RekeyArtist(ctx, artist.ArtistID, candidate.ArtistID, candidate.Name); err != nil {
-			return err
+			return "", "", err
 		}
 		artist.ArtistID = candidate.ArtistID
 	}
@@ -147,16 +175,20 @@ func (s *Service) applyMusicBrainz(ctx context.Context, artist *models.Artist) e
 	artist.Links = append(artist.Links, candidate.Links...)
 	artist.ProviderStatus["musicbrainz"] = "fetched"
 
-	releases, err := s.musicBrainz.Releases(ctx, artist.MBID)
-	if err == nil {
-		if err := s.store.ReplaceReleases(ctx, artist.ArtistID, releases); err != nil {
-			return err
+	releases, releasesErr := s.musicBrainz.Releases(ctx, artist.MBID)
+	if releasesErr != nil {
+		if recordErr := s.recordProviderFailure(ctx, s.musicBrainz.Name(), artist.ArtistID, artist.Name, startedAt, releasesErr); recordErr != nil {
+			return "", "", recordErr
 		}
+		return "partial", releasesErr.Error(), recordRun("failed", releasesErr.Error())
 	}
-	return recordRun("success", fmt.Sprintf("artist=%s releases=%d", artist.Name, len(releases)))
+	if err := s.store.ReplaceReleases(ctx, artist.ArtistID, releases); err != nil {
+		return "", "", err
+	}
+	return "succeeded", fmt.Sprintf("musicbrainz:releases=%d", len(releases)), recordRun("success", fmt.Sprintf("artist=%s releases=%d", artist.Name, len(releases)))
 }
 
-func (s *Service) applyWikidata(ctx context.Context, artist *models.Artist) error {
+func (s *Service) applyWikidata(ctx context.Context, artist *models.Artist) (string, string, error) {
 	startedAt := time.Now().UTC()
 	runID := search.StableHash("wikidata", artist.ArtistID, startedAt.Format(time.RFC3339Nano))
 	recordRun := func(status, details string) error {
@@ -171,17 +203,13 @@ func (s *Service) applyWikidata(ctx context.Context, artist *models.Artist) erro
 	}
 	data, err := s.wikidata.SearchArtist(ctx, artist.Name)
 	if err != nil {
-		_ = s.store.RecordProviderError(ctx, catalog.ProviderError{
-			ErrorID:    search.StableHash("wikidata", artist.ArtistID, err.Error(), startedAt.Format(time.RFC3339Nano)),
-			Provider:   s.wikidata.Name(),
-			OccurredAt: time.Now().UTC(),
-			Context:    artist.Name,
-			Message:    err.Error(),
-		})
-		return recordRun("failed", err.Error())
+		if recordErr := s.recordProviderFailure(ctx, s.wikidata.Name(), artist.ArtistID, artist.Name, startedAt, err); recordErr != nil {
+			return "", "", recordErr
+		}
+		return "partial", err.Error(), recordRun("failed", err.Error())
 	}
 	if data == nil {
-		return recordRun("success", "no match")
+		return "succeeded", "wikidata:no match", recordRun("success", "no match")
 	}
 	artist.WikidataID = data.EntityID
 	if artist.Description == "" {
@@ -192,10 +220,10 @@ func (s *Service) applyWikidata(ctx context.Context, artist *models.Artist) erro
 	}
 	artist.Links = append(artist.Links, data.Links...)
 	artist.ProviderStatus["wikidata"] = "fetched"
-	return recordRun("success", fmt.Sprintf("entity=%s", data.EntityID))
+	return "succeeded", fmt.Sprintf("wikidata:%s", data.EntityID), recordRun("success", fmt.Sprintf("entity=%s", data.EntityID))
 }
 
-func (s *Service) applyWikiquote(ctx context.Context, artist *models.Artist) error {
+func (s *Service) applyWikiquote(ctx context.Context, artist *models.Artist) (string, string, error) {
 	startedAt := time.Now().UTC()
 	runID := search.StableHash("wikiquote", artist.ArtistID, startedAt.Format(time.RFC3339Nano))
 	recordRun := func(status, details string) error {
@@ -213,24 +241,23 @@ func (s *Service) applyWikiquote(ctx context.Context, artist *models.Artist) err
 	if title == "" {
 		found, err := s.wikiquote.SearchPage(ctx, artist.Name)
 		if err != nil {
-			return recordRun("failed", err.Error())
+			if recordErr := s.recordProviderFailure(ctx, s.wikiquote.Name(), artist.ArtistID, artist.Name, startedAt, err); recordErr != nil {
+				return "", "", recordErr
+			}
+			return "partial", err.Error(), recordRun("failed", err.Error())
 		}
 		title = found
 	}
 	if title == "" {
-		return recordRun("success", "no page")
+		return "succeeded", "wikiquote:no page", recordRun("success", "no page")
 	}
 	artist.WikiquoteTitle = title
 	quotes, err := s.wikiquote.Quotes(ctx, title)
 	if err != nil {
-		_ = s.store.RecordProviderError(ctx, catalog.ProviderError{
-			ErrorID:    search.StableHash("wikiquote", artist.ArtistID, err.Error(), startedAt.Format(time.RFC3339Nano)),
-			Provider:   s.wikiquote.Name(),
-			OccurredAt: time.Now().UTC(),
-			Context:    title,
-			Message:    err.Error(),
-		})
-		return recordRun("failed", err.Error())
+		if recordErr := s.recordProviderFailure(ctx, s.wikiquote.Name(), artist.ArtistID, title, startedAt, err); recordErr != nil {
+			return "", "", recordErr
+		}
+		return "partial", err.Error(), recordRun("failed", err.Error())
 	}
 	for _, item := range quotes {
 		source := item.Source
@@ -238,7 +265,7 @@ func (s *Service) applyWikiquote(ctx context.Context, artist *models.Artist) err
 			source.SourceID = search.SourceID("wikiquote", source.URL)
 		}
 		if err := s.store.UpsertSource(ctx, source); err != nil {
-			return err
+			return "", "", err
 		}
 		quote := models.Quote{
 			QuoteID:          search.QuoteID(artist.ArtistID, search.NormalizeText(item.Text), source.URL),
@@ -251,22 +278,28 @@ func (s *Service) applyWikiquote(ctx context.Context, artist *models.Artist) err
 			Tags:             sectionTags(item.Section),
 			ProvenanceStatus: "source_attributed",
 			ConfidenceScore:  0.9,
-			License:          source.License,
-			FirstSeenAt:      source.RetrievedAt,
-			LastVerifiedAt:   source.RetrievedAt,
-			Source:           &source,
+			ProviderOrigin:   s.wikiquote.Name(),
+			Evidence: []string{
+				"Matched Wikiquote page: " + title,
+				"Section: " + item.Section,
+				"Source URL: " + source.URL,
+			},
+			License:        source.License,
+			FirstSeenAt:    source.RetrievedAt,
+			LastVerifiedAt: source.RetrievedAt,
+			Source:         &source,
 		}
 		if err := s.store.UpsertQuote(ctx, quote); err != nil {
-			return err
+			return "", "", err
 		}
 	}
 	artist.ProviderStatus["wikiquote"] = "fetched"
-	return recordRun("success", fmt.Sprintf("page=%s quotes=%d", title, len(quotes)))
+	return "succeeded", fmt.Sprintf("wikiquote:quotes=%d", len(quotes)), recordRun("success", fmt.Sprintf("page=%s quotes=%d", title, len(quotes)))
 }
 
-func (s *Service) applyLastFM(ctx context.Context, artist *models.Artist) error {
+func (s *Service) applyLastFM(ctx context.Context, artist *models.Artist) (string, string, error) {
 	if !s.lastfm.Enabled() {
-		return nil
+		return "skipped", "lastfm:disabled", nil
 	}
 	startedAt := time.Now().UTC()
 	runID := search.StableHash("lastfm", artist.ArtistID, startedAt.Format(time.RFC3339Nano))
@@ -282,17 +315,13 @@ func (s *Service) applyLastFM(ctx context.Context, artist *models.Artist) error 
 	}
 	data, err := s.lastfm.ArtistInfo(ctx, *artist)
 	if err != nil {
-		_ = s.store.RecordProviderError(ctx, catalog.ProviderError{
-			ErrorID:    search.StableHash("lastfm", artist.ArtistID, err.Error(), startedAt.Format(time.RFC3339Nano)),
-			Provider:   s.lastfm.Name(),
-			OccurredAt: time.Now().UTC(),
-			Context:    artist.Name,
-			Message:    err.Error(),
-		})
-		return recordRun("failed", err.Error())
+		if recordErr := s.recordProviderFailure(ctx, s.lastfm.Name(), artist.ArtistID, artist.Name, startedAt, err); recordErr != nil {
+			return "", "", recordErr
+		}
+		return "partial", err.Error(), recordRun("failed", err.Error())
 	}
 	if data == nil {
-		return recordRun("success", "disabled")
+		return "skipped", "lastfm:disabled", recordRun("success", "disabled")
 	}
 	if artist.BioSummary == "" {
 		artist.BioSummary = data.Summary
@@ -312,13 +341,36 @@ func (s *Service) applyLastFM(ctx context.Context, artist *models.Artist) error 
 			},
 		}
 		if err := s.store.UpsertArtist(ctx, relatedArtist); err != nil {
-			return err
+			return "", "", err
 		}
 	}
 	if err := s.store.ReplaceArtistRelations(ctx, artist.ArtistID, data.Related); err != nil {
-		return err
+		return "", "", err
 	}
-	return recordRun("success", fmt.Sprintf("tags=%d related=%d", len(data.Tags), len(data.Related)))
+	return "succeeded", fmt.Sprintf("lastfm:related=%d", len(data.Related)), recordRun("success", fmt.Sprintf("tags=%d related=%d", len(data.Tags), len(data.Related)))
+}
+
+func (s *Service) recordProviderFailure(ctx context.Context, provider, artistID, contextValue string, startedAt time.Time, err error) error {
+	return s.store.RecordProviderError(ctx, catalog.ProviderError{
+		ErrorID:    search.StableHash(provider, artistID, err.Error(), startedAt.Format(time.RFC3339Nano)),
+		Provider:   provider,
+		OccurredAt: time.Now().UTC(),
+		Context:    contextValue,
+		Message:    err.Error(),
+	})
+}
+
+func overallStatus(statuses []string) string {
+	result := "succeeded"
+	for _, status := range statuses {
+		switch status {
+		case "partial":
+			return "partial"
+		case "failed":
+			result = "failed"
+		}
+	}
+	return result
 }
 
 func sectionTags(section string) []string {

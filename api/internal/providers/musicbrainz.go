@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/gongahkia/tanabata/api/internal/models"
+	"github.com/gongahkia/tanabata/api/internal/observability"
 	"github.com/gongahkia/tanabata/api/internal/search"
 )
 
@@ -16,7 +17,11 @@ type MusicBrainzProvider struct {
 }
 
 func NewMusicBrainzProvider() *MusicBrainzProvider {
-	return &MusicBrainzProvider{client: NewHTTPClient("https://musicbrainz.org")}
+	return NewMusicBrainzProviderWithTelemetry(nil)
+}
+
+func NewMusicBrainzProviderWithTelemetry(telemetry *observability.Telemetry) *MusicBrainzProvider {
+	return &MusicBrainzProvider{client: NewHTTPClient("https://musicbrainz.org").ConfigureProvider("musicbrainz", telemetry)}
 }
 
 func (p *MusicBrainzProvider) Name() string {

@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/gongahkia/tanabata/api/internal/models"
+	"github.com/gongahkia/tanabata/api/internal/observability"
 	"github.com/gongahkia/tanabata/api/internal/search"
 )
 
@@ -16,9 +17,13 @@ type WikidataProvider struct {
 }
 
 func NewWikidataProvider() *WikidataProvider {
+	return NewWikidataProviderWithTelemetry(nil)
+}
+
+func NewWikidataProviderWithTelemetry(telemetry *observability.Telemetry) *WikidataProvider {
 	return &WikidataProvider{
-		searchClient: NewHTTPClient("https://www.wikidata.org"),
-		entityClient: NewHTTPClient("https://www.wikidata.org"),
+		searchClient: NewHTTPClient("https://www.wikidata.org").ConfigureProvider("wikidata", telemetry),
+		entityClient: NewHTTPClient("https://www.wikidata.org").ConfigureProvider("wikidata", telemetry),
 	}
 }
 

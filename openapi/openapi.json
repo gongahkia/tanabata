@@ -1,0 +1,736 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Tanabata API",
+    "version": "2.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080"
+    }
+  ],
+  "paths": {
+    "/v1/artists": {
+      "get": {
+        "operationId": "listArtists",
+        "parameters": [
+          { "name": "q", "in": "query", "schema": { "type": "string" } },
+          { "name": "mbid", "in": "query", "schema": { "type": "string" } },
+          { "name": "wikiquote_title", "in": "query", "schema": { "type": "string" } },
+          { "name": "tag", "in": "query", "schema": { "type": "string" } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } },
+          { "name": "offset", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Artist list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Artist" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/artists/{artist_id}": {
+      "get": {
+        "operationId": "getArtist",
+        "parameters": [
+          { "name": "artist_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Artist detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "$ref": "#/components/schemas/Artist" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/artists/{artist_id}/quotes": {
+      "get": {
+        "operationId": "getArtistQuotes",
+        "parameters": [
+          { "name": "artist_id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "q", "in": "query", "schema": { "type": "string" } },
+          { "name": "tag", "in": "query", "schema": { "type": "string" } },
+          { "name": "source", "in": "query", "schema": { "type": "string" } },
+          { "name": "provenance_status", "in": "query", "schema": { "type": "string", "enum": ["verified", "source_attributed", "provider_attributed", "ambiguous", "needs_review"] } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } },
+          { "name": "offset", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Artist quotes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Quote" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/artists/{artist_id}/related": {
+      "get": {
+        "operationId": "getArtistRelated",
+        "parameters": [
+          { "name": "artist_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Related artists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/RelatedArtist" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/artists/{artist_id}/releases": {
+      "get": {
+        "operationId": "getArtistReleases",
+        "parameters": [
+          { "name": "artist_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Artist releases",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Release" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/artists/{artist_id}/setlists": {
+      "get": {
+        "operationId": "getArtistSetlists",
+        "parameters": [
+          { "name": "artist_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Artist setlists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Setlist" } },
+                    "meta": { "type": "object", "additionalProperties": true }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/quotes": {
+      "get": {
+        "operationId": "listQuotes",
+        "parameters": [
+          { "name": "artist", "in": "query", "schema": { "type": "string" } },
+          { "name": "artist_id", "in": "query", "schema": { "type": "string" } },
+          { "name": "q", "in": "query", "schema": { "type": "string" } },
+          { "name": "tag", "in": "query", "schema": { "type": "string" } },
+          { "name": "source", "in": "query", "schema": { "type": "string" } },
+          { "name": "provenance_status", "in": "query", "schema": { "type": "string", "enum": ["verified", "source_attributed", "provider_attributed", "ambiguous", "needs_review"] } },
+          { "name": "sort", "in": "query", "schema": { "type": "string" } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } },
+          { "name": "offset", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Quote list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Quote" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/quotes/random": {
+      "get": {
+        "operationId": "getRandomQuote",
+        "parameters": [
+          { "name": "artist", "in": "query", "schema": { "type": "string" } },
+          { "name": "artist_id", "in": "query", "schema": { "type": "string" } },
+          { "name": "q", "in": "query", "schema": { "type": "string" } },
+          { "name": "tag", "in": "query", "schema": { "type": "string" } },
+          { "name": "source", "in": "query", "schema": { "type": "string" } },
+          { "name": "provenance_status", "in": "query", "schema": { "type": "string", "enum": ["verified", "source_attributed", "provider_attributed", "ambiguous", "needs_review"] } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Random quote",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "$ref": "#/components/schemas/Quote" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/quotes/{quote_id}": {
+      "get": {
+        "operationId": "getQuote",
+        "parameters": [
+          { "name": "quote_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Quote detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "$ref": "#/components/schemas/Quote" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/quotes/{quote_id}/provenance": {
+      "get": {
+        "operationId": "getQuoteProvenance",
+        "parameters": [
+          { "name": "quote_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Quote provenance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "$ref": "#/components/schemas/QuoteProvenance" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/sources/{source_id}": {
+      "get": {
+        "operationId": "getSource",
+        "parameters": [
+          { "name": "source_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Source detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "$ref": "#/components/schemas/Source" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/providers": {
+      "get": {
+        "operationId": "listProviders",
+        "responses": {
+          "200": {
+            "description": "Provider summaries",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/ProviderSummary" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/providers/{provider}/runs": {
+      "get": {
+        "operationId": "listProviderRuns",
+        "parameters": [
+          { "name": "provider", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Provider runs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/ProviderRun" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/providers/{provider}/errors": {
+      "get": {
+        "operationId": "listProviderErrors",
+        "parameters": [
+          { "name": "provider", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Provider errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/ProviderError" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/jobs": {
+      "get": {
+        "operationId": "listJobs",
+        "parameters": [
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ingestion jobs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/JobRun" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/jobs/{job_id}": {
+      "get": {
+        "operationId": "getJob",
+        "parameters": [
+          { "name": "job_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ingestion job detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "$ref": "#/components/schemas/JobRun" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/search": {
+      "get": {
+        "operationId": "searchCatalog",
+        "parameters": [
+          { "name": "q", "in": "query", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "$ref": "#/components/schemas/SearchResults" },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/stats": {
+      "get": {
+        "operationId": "getStats",
+        "responses": {
+          "200": {
+            "description": "Stats payload",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "additionalProperties": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/lyrics": {
+      "get": {
+        "operationId": "getLyrics",
+        "parameters": [
+          { "name": "artist", "in": "query", "required": true, "schema": { "type": "string" } },
+          { "name": "track", "in": "query", "required": true, "schema": { "type": "string" } },
+          { "name": "provider", "in": "query", "schema": { "type": "string", "enum": ["auto", "lrclib", "lyricsovh"] } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lyrics payload",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "$ref": "#/components/schemas/LyricsResult" },
+                    "meta": { "type": "object", "additionalProperties": true }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Pagination": {
+        "type": "object",
+        "properties": {
+          "limit": { "type": "integer" },
+          "offset": { "type": "integer" },
+          "total": { "type": "integer" }
+        }
+      },
+      "ListMeta": {
+        "type": "object",
+        "properties": {
+          "snapshot_version": { "type": "string" },
+          "active_providers": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "LifeSpan": {
+        "type": "object",
+        "properties": {
+          "begin": { "type": "string" },
+          "end": { "type": "string" }
+        }
+      },
+      "ArtistLink": {
+        "type": "object",
+        "properties": {
+          "provider": { "type": "string" },
+          "kind": { "type": "string" },
+          "url": { "type": "string" },
+          "external_id": { "type": "string" }
+        }
+      },
+      "Artist": {
+        "type": "object",
+        "properties": {
+          "artist_id": { "type": "string" },
+          "name": { "type": "string" },
+          "aliases": { "type": "array", "items": { "type": "string" } },
+          "mbid": { "type": "string" },
+          "wikidata_id": { "type": "string" },
+          "wikiquote_title": { "type": "string" },
+          "country": { "type": "string" },
+          "life_span": { "$ref": "#/components/schemas/LifeSpan" },
+          "description": { "type": "string" },
+          "bio_summary": { "type": "string" },
+          "genres": { "type": "array", "items": { "type": "string" } },
+          "links": { "type": "array", "items": { "$ref": "#/components/schemas/ArtistLink" } },
+          "provider_status": { "type": "object", "additionalProperties": { "type": "string" } }
+        }
+      },
+      "Source": {
+        "type": "object",
+        "properties": {
+          "source_id": { "type": "string" },
+          "provider": { "type": "string" },
+          "url": { "type": "string" },
+          "title": { "type": "string" },
+          "publisher": { "type": "string" },
+          "license": { "type": "string" },
+          "retrieved_at": { "type": "string" }
+        }
+      },
+      "Quote": {
+        "type": "object",
+        "properties": {
+          "quote_id": { "type": "string" },
+          "text": { "type": "string" },
+          "artist_id": { "type": "string" },
+          "artist_name": { "type": "string" },
+          "source_id": { "type": "string" },
+          "source_type": { "type": "string" },
+          "work_title": { "type": "string" },
+          "year": { "type": "integer" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "provenance_status": { "type": "string" },
+          "confidence_score": { "type": "number" },
+          "provider_origin": { "type": "string" },
+          "evidence": { "type": "array", "items": { "type": "string" } },
+          "license": { "type": "string" },
+          "first_seen_at": { "type": "string" },
+          "last_verified_at": { "type": "string" },
+          "source": { "$ref": "#/components/schemas/Source" }
+        }
+      },
+      "QuoteProvenance": {
+        "type": "object",
+        "properties": {
+          "quote_id": { "type": "string" },
+          "provenance_status": { "type": "string" },
+          "confidence_score": { "type": "number" },
+          "provider_origin": { "type": "string" },
+          "first_seen_at": { "type": "string" },
+          "last_verified_at": { "type": "string" },
+          "evidence": { "type": "array", "items": { "type": "string" } },
+          "source": { "$ref": "#/components/schemas/Source" }
+        }
+      },
+      "Release": {
+        "type": "object",
+        "properties": {
+          "release_id": { "type": "string" },
+          "title": { "type": "string" },
+          "year": { "type": "integer" },
+          "kind": { "type": "string" },
+          "provider": { "type": "string" },
+          "url": { "type": "string" }
+        }
+      },
+      "RelatedArtist": {
+        "type": "object",
+        "properties": {
+          "artist_id": { "type": "string" },
+          "name": { "type": "string" },
+          "relation": { "type": "string" },
+          "score": { "type": "number" },
+          "provider": { "type": "string" }
+        }
+      },
+      "ProviderSummary": {
+        "type": "object",
+        "properties": {
+          "provider": { "type": "string" },
+          "category": { "type": "string" },
+          "enabled": { "type": "boolean" },
+          "last_status": { "type": "string" },
+          "last_successful": { "type": "string" },
+          "last_error_at": { "type": "string" },
+          "recent_error_count": { "type": "integer" }
+        }
+      },
+      "ProviderRun": {
+        "type": "object",
+        "properties": {
+          "run_id": { "type": "string" },
+          "provider": { "type": "string" },
+          "status": { "type": "string" },
+          "started_at": { "type": "string" },
+          "finished_at": { "type": "string" },
+          "details": { "type": "string" }
+        }
+      },
+      "ProviderError": {
+        "type": "object",
+        "properties": {
+          "error_id": { "type": "string" },
+          "provider": { "type": "string" },
+          "occurred_at": { "type": "string" },
+          "context": { "type": "string" },
+          "message": { "type": "string" }
+        }
+      },
+      "JobItem": {
+        "type": "object",
+        "properties": {
+          "job_item_id": { "type": "string" },
+          "job_id": { "type": "string" },
+          "provider": { "type": "string" },
+          "target": { "type": "string" },
+          "status": { "type": "string" },
+          "started_at": { "type": "string" },
+          "finished_at": { "type": "string" },
+          "details": { "type": "string" },
+          "error_message": { "type": "string" }
+        }
+      },
+      "JobRun": {
+        "type": "object",
+        "properties": {
+          "job_id": { "type": "string" },
+          "name": { "type": "string" },
+          "scope": { "type": "string" },
+          "status": { "type": "string" },
+          "started_at": { "type": "string" },
+          "finished_at": { "type": "string" },
+          "details": { "type": "string" },
+          "error_message": { "type": "string" },
+          "items": { "type": "array", "items": { "$ref": "#/components/schemas/JobItem" } }
+        }
+      },
+      "SearchResults": {
+        "type": "object",
+        "properties": {
+          "artists": { "type": "array", "items": { "$ref": "#/components/schemas/Artist" } },
+          "quotes": { "type": "array", "items": { "$ref": "#/components/schemas/Quote" } }
+        }
+      },
+      "LyricsResult": {
+        "type": "object",
+        "properties": {
+          "provider": { "type": "string" },
+          "artist": { "type": "string" },
+          "track": { "type": "string" },
+          "lyrics": { "type": "string" },
+          "synced_lyrics": { "type": "string" },
+          "source_url": { "type": "string" }
+        }
+      },
+      "SetlistArtist": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "mbid": { "type": "string" }
+        }
+      },
+      "SetlistVenueCountry": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" }
+        }
+      },
+      "SetlistVenueCity": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "country": { "$ref": "#/components/schemas/SetlistVenueCountry" }
+        }
+      },
+      "SetlistVenue": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "city": { "$ref": "#/components/schemas/SetlistVenueCity" }
+        }
+      },
+      "Setlist": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "eventDate": { "type": "string" },
+          "url": { "type": "string" },
+          "artist": { "$ref": "#/components/schemas/SetlistArtist" },
+          "venue": { "$ref": "#/components/schemas/SetlistVenue" },
+          "sets": { "type": "object", "additionalProperties": true },
+          "lastUpdated": { "type": "string" }
+        }
+      }
+    }
+  }
+}

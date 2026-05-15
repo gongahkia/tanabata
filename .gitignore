@@ -6,3 +6,5 @@ api/api
 myenv
 api/data/*.sqlite-shm
 api/data/*.sqlite-wal
+web/node_modules
+web/dist

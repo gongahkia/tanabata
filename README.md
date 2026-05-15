@@ -1,66 +1,102 @@
-[![](https://img.shields.io/badge/tanabata_1.0.0-passing-green)](https://github.com/gongahkia/tanabata/releases/tag/1.0.0) 
-![](https://github.com/gongahkia/tanabata/actions/workflows/scrape.yml/badge.svg)
-![](https://img.shields.io/badge/tanabata_1.0.0-deployment_down-orange)
+# Tanabata
 
-> [!WARNING]  
-> [`Tanabata`](https://github.com/gongahkia/tanabata)'s Render deployment is inactive as of 1 June 2025.  
+Tanabata is a read-only music knowledge product built around quote discovery, provenance, provider health, and ingestion visibility.
 
-# `Tanabata`
+It is deliberately shaped as a backend-focused portfolio project:
+- a Go API over a SQLite catalog
+- an explicit ingestion pipeline instead of startup mutation
+- FTS-backed catalog search
+- provider run and error tracking
+- a small TypeScript frontend driven by a generated client from OpenAPI
 
-A small REST API that provides Musician Quotes *(scraped monthly at [quotefancy.com](https://quotefancy.com/))*.
+## Product Surface
 
-Thrown together over [a Sunday](https://github.com/gongahkia/tanabata/commit/82f11bb336bd2523440523980c79317bd4bc25e8) to practise writing an API Server in Go and to escape from [week 2 of finals](https://github.com/gongahkia/naobito/blob/main/asset/reference/finals.jpg).
+### API
+- Legacy endpoints remain for compatibility:
+  - `/quotes`
+  - `/quotes/random`
+  - `/quotes/{author}`
+- The main product surface lives under `/v1`:
+  - `/v1/search`
+  - `/v1/artists`
+  - `/v1/quotes`
+  - `/v1/quotes/{quote_id}/provenance`
+  - `/v1/providers`
+  - `/v1/providers/{provider}/runs`
+  - `/v1/providers/{provider}/errors`
+  - `/v1/jobs`
+  - `/v1/stats`
+  - `/v1/lyrics`
 
-## Stack
-
-* *Backend*: [Go](https://go.dev/), [Python](https://www.python.org/), [SQLite](https://sqlite.org/)
-* *Deploy*: [Render](https://render.com/), [Github Actions](https://github.com/features/actions)
-* *Package*: [Docker](https://www.docker.com/)
-
-## Usage
-
-> [!IMPORTANT]  
-> `Tanabata`'s REST API is ***live*** at [tanabata.onrender.com](https://tanabata.onrender.com/quotes). See the available endpoints [here](#usage).
-
-| API | Description | 
-| :--- | :--- | 
-| `/health` | Service health plus snapshot metadata. |
-| `/quotes` | Legacy endpoint that returns all scraped quotes. | 
-| `/quotes/random` | Legacy endpoint that returns a single randomly selected quote. | 
-| `/quotes/<artist_name>` | Legacy endpoint that returns all quotes associated with the specified artist. |
-| `/v1/artists` | List or search artists. Supports `q`, `mbid`, `wikiquote_title`, `tag`, `limit`, `offset`. |
-| `/v1/artists/{artist_id}` | Fetch one artist. |
-| `/v1/artists/{artist_id}/quotes` | Quotes scoped to one artist. Supports `q`, `tag`, `source`, `provenance_status`, `limit`, `offset`, `sort`. |
-| `/v1/artists/{artist_id}/related` | Related artists from catalog data. |
-| `/v1/artists/{artist_id}/releases` | Releases imported from MusicBrainz. |
-| `/v1/artists/{artist_id}/setlists` | Live setlist.fm passthrough when `SETLISTFM_API_KEY` is configured. |
-| `/v1/quotes` | Global quote listing. Supports `artist`, `artist_id`, `q`, `tag`, `source`, `provenance_status`, `limit`, `offset`, `sort`. |
-| `/v1/quotes/random` | Random quote with the same filters as `/v1/quotes`. |
-| `/v1/quotes/{quote_id}` | Fetch one quote. |
-| `/v1/sources/{source_id}` | Fetch one source record. |
-| `/v1/search?q=...` | Combined artist and quote search. |
-| `/v1/stats` | Catalog counts and provider metadata. |
-
-Alternatively, run `Tanabata` locally with the below.
-
-```console
-$ make test
-$ make run
-$ make ingest
-$ make ingest-artist ARTIST="<artist_name>"
-```
+### Web App
+- `/`
+  Discovery and search
+- `/artists/:artistId`
+  Artist detail with quotes, releases, and related artists
+- `/quotes/:quoteId`
+  Quote detail with provenance
+- `/system`
+  Provider health, freshness, and ingestion history
 
 ## Architecture
 
-<img src="./asset/reference/architecture.png" width="35%">
+- Serving path:
+  The API starts from a prebuilt catalog and does not mutate data on startup.
+- Ingestion path:
+  `api/cmd/ingest` seeds and enriches the catalog as tracked jobs.
+- Search path:
+  SQLite FTS5 indices back artist and quote search.
+- Provider path:
+  Enrichment and runtime providers record runs and failures, and runtime calls can be cached.
 
-## Other notes
+More detail lives in [docs/architecture.md](/Users/gongahkia/Desktop/coding/projects/tanabata/docs/architecture.md) and the ADRs under [docs/adr](/Users/gongahkia/Desktop/coding/projects/tanabata/docs/adr).
 
-`Tanabata` is heavily inspired by [kanye.rest](https://github.com/ajzbc/kanye.rest).
+## Local Development
 
-## Reference
+### Backend
+```bash
+make test
+make ingest
+make run
+```
 
-The name `Tanabata` is in reference to [Tanabata](https://sakamoto-days.fandom.com/wiki/Tanabata) (七夕), a new member of the [Order](https://sakamoto-days.fandom.com/wiki/Order) recruited during the [JAA Jail Arc](https://sakamoto-days.fandom.com/wiki/JAA_Jail_Arc). He emerges as an antagonist in the [New JAA Arc](https://sakamoto-days.fandom.com/wiki/New_JAA_Arc) as part of the ongoing manga series [Sakamoto Days](https://sakamoto-days.fandom.com/wiki/Sakamoto_Days_Wiki).
+### Frontend
+```bash
+cd web
+npm install
+npm run dev
+```
 
-![](./asset/logo/tanabata.webp)
+### Docker Compose
+```bash
+docker compose up --build
+```
 
+The compose setup expects the catalog to live in `api/data/catalog.sqlite`. Run `make ingest` first if you need to rebuild it locally.
+
+## Contracts
+
+- OpenAPI source of truth:
+  [openapi/openapi.json](/Users/gongahkia/Desktop/coding/projects/tanabata/openapi/openapi.json)
+- Generated client:
+  [web/src/generated/client.ts](/Users/gongahkia/Desktop/coding/projects/tanabata/web/src/generated/client.ts)
+
+Regenerate the client with:
+
+```bash
+cd web
+npm run generate:client
+```
+
+## Observability and Ops
+
+- `/livez`, `/readyz`, `/health`, `/metrics`
+- request IDs and structured logs
+- Prometheus metrics
+- OpenTelemetry spans via stdout exporter
+- multi-stage API container build
+- CI for backend tests, coverage floor, linting, generated-client drift, frontend test/build, and container smoke test
+
+## Screens
+
+The repo now contains both the backend and the demo frontend. The original architecture reference is still available at [asset/reference/architecture.png](/Users/gongahkia/Desktop/coding/projects/tanabata/asset/reference/architecture.png).

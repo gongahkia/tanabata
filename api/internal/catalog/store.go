@@ -51,6 +51,7 @@ func Open(path string) (*Store, error) {
 	if err != nil {
 		return nil, fmt.Errorf("open sqlite db: %w", err)
 	}
+
 	store := &Store{db: db}
 	if err := store.init(context.Background()); err != nil {
 		_ = db.Close()
@@ -66,9 +67,14 @@ func (s *Store) Close() error {
 	return s.db.Close()
 }
 
+func (s *Store) Ping(ctx context.Context) error {
+	return s.db.QueryRowContext(ctx, `SELECT 1`).Scan(new(int))
+}
+
 func (s *Store) init(ctx context.Context) error {
 	statements := []string{
 		`PRAGMA foreign_keys = ON;`,
+		`PRAGMA journal_mode = WAL;`,
 		`CREATE TABLE IF NOT EXISTS catalog_meta (
 			key TEXT PRIMARY KEY,
 			value TEXT NOT NULL
@@ -129,6 +135,7 @@ func (s *Store) init(ctx context.Context) error {
 			year TEXT NOT NULL DEFAULT '',
 			provenance_status TEXT NOT NULL,
 			confidence_score REAL NOT NULL,
+			provider_origin TEXT NOT NULL DEFAULT '',
 			license TEXT NOT NULL DEFAULT '',
 			first_seen_at TEXT NOT NULL DEFAULT '',
 			last_verified_at TEXT NOT NULL DEFAULT '',
@@ -138,6 +145,13 @@ func (s *Store) init(ctx context.Context) error {
 			quote_id TEXT NOT NULL,
 			tag TEXT NOT NULL,
 			PRIMARY KEY (quote_id, tag),
+			FOREIGN KEY (quote_id) REFERENCES quotes(quote_id) ON DELETE CASCADE
+		);`,
+		`CREATE TABLE IF NOT EXISTS quote_evidence (
+			quote_id TEXT NOT NULL,
+			evidence TEXT NOT NULL,
+			position INTEGER NOT NULL DEFAULT 0,
+			PRIMARY KEY (quote_id, position),
 			FOREIGN KEY (quote_id) REFERENCES quotes(quote_id) ON DELETE CASCADE
 		);`,
 		`CREATE TABLE IF NOT EXISTS artist_relations (
@@ -175,13 +189,130 @@ func (s *Store) init(ctx context.Context) error {
 			context TEXT NOT NULL DEFAULT '',
 			message TEXT NOT NULL
 		);`,
+		`CREATE TABLE IF NOT EXISTS provider_cache (
+			provider TEXT NOT NULL,
+			kind TEXT NOT NULL,
+			cache_key TEXT NOT NULL,
+			payload TEXT NOT NULL,
+			refreshed_at TEXT NOT NULL,
+			expires_at TEXT NOT NULL,
+			PRIMARY KEY (provider, kind, cache_key)
+		);`,
+		`CREATE TABLE IF NOT EXISTS jobs (
+			job_id TEXT PRIMARY KEY,
+			name TEXT NOT NULL,
+			scope TEXT NOT NULL DEFAULT '',
+			status TEXT NOT NULL,
+			started_at TEXT NOT NULL,
+			finished_at TEXT NOT NULL DEFAULT '',
+			details TEXT NOT NULL DEFAULT '',
+			error_message TEXT NOT NULL DEFAULT ''
+		);`,
+		`CREATE TABLE IF NOT EXISTS job_items (
+			job_item_id TEXT PRIMARY KEY,
+			job_id TEXT NOT NULL,
+			provider TEXT NOT NULL,
+			target TEXT NOT NULL DEFAULT '',
+			status TEXT NOT NULL,
+			started_at TEXT NOT NULL,
+			finished_at TEXT NOT NULL DEFAULT '',
+			details TEXT NOT NULL DEFAULT '',
+			error_message TEXT NOT NULL DEFAULT '',
+			FOREIGN KEY (job_id) REFERENCES jobs(job_id) ON DELETE CASCADE
+		);`,
+		`CREATE INDEX IF NOT EXISTS idx_artist_aliases_normalized ON artist_aliases(normalized_alias);`,
+		`CREATE INDEX IF NOT EXISTS idx_quotes_artist_provenance ON quotes(artist_id, provenance_status, confidence_score DESC);`,
+		`CREATE INDEX IF NOT EXISTS idx_quotes_source ON quotes(source_id);`,
+		`CREATE INDEX IF NOT EXISTS idx_quote_tags_tag ON quote_tags(tag);`,
+		`CREATE INDEX IF NOT EXISTS idx_provider_runs_lookup ON provider_runs(provider, status, started_at DESC);`,
+		`CREATE INDEX IF NOT EXISTS idx_provider_errors_lookup ON provider_errors(provider, occurred_at DESC);`,
+		`CREATE INDEX IF NOT EXISTS idx_job_items_lookup ON job_items(job_id, provider, started_at DESC);`,
+		`CREATE VIRTUAL TABLE IF NOT EXISTS artist_search USING fts5(
+			artist_id UNINDEXED,
+			name,
+			aliases
+		);`,
+		`CREATE VIRTUAL TABLE IF NOT EXISTS quote_search USING fts5(
+			quote_id UNINDEXED,
+			artist_id UNINDEXED,
+			artist_name,
+			text,
+			tags
+		);`,
 	}
 	for _, stmt := range statements {
 		if _, err := s.db.ExecContext(ctx, stmt); err != nil {
 			return fmt.Errorf("init schema: %w", err)
 		}
 	}
+	if err := s.migrate(ctx); err != nil {
+		return err
+	}
 	return nil
+}
+
+func (s *Store) migrate(ctx context.Context) error {
+	if err := s.ensureColumn(ctx, "quotes", "provider_origin", `ALTER TABLE quotes ADD COLUMN provider_origin TEXT NOT NULL DEFAULT ''`); err != nil {
+		return err
+	}
+	if _, err := s.db.ExecContext(ctx, `
+		UPDATE quotes
+		SET provenance_status = 'needs_review'
+		WHERE provenance_status = 'legacy_unverified' OR provenance_status = ''
+	`); err != nil {
+		return err
+	}
+	if _, err := s.db.ExecContext(ctx, `
+		UPDATE quotes
+		SET provider_origin = COALESCE(
+			NULLIF(provider_origin, ''),
+			(SELECT provider FROM quote_sources WHERE quote_sources.source_id = quotes.source_id),
+			'legacy'
+		)
+		WHERE provider_origin = ''
+	`); err != nil {
+		return err
+	}
+	if _, err := s.db.ExecContext(ctx, `
+		INSERT INTO quote_evidence(quote_id, evidence, position)
+		SELECT quote_id,
+			CASE
+				WHEN provenance_status = 'source_attributed' THEN 'Source metadata exists, but evidence predates Tanabata V2.'
+				ELSE 'Imported from the legacy catalog and requires manual verification.'
+			END,
+			0
+		FROM quotes
+		WHERE quote_id NOT IN (SELECT quote_id FROM quote_evidence)
+	`); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *Store) ensureColumn(ctx context.Context, table, column, ddl string) error {
+	rows, err := s.db.QueryContext(ctx, `PRAGMA table_info(`+table+`)`)
+	if err != nil {
+		return err
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var (
+			cid        int
+			name       string
+			colType    string
+			notNull    int
+			defaultV   sql.NullString
+			primaryKey int
+		)
+		if err := rows.Scan(&cid, &name, &colType, &notNull, &defaultV, &primaryKey); err != nil {
+			return err
+		}
+		if name == column {
+			return nil
+		}
+	}
+	_, err = s.db.ExecContext(ctx, ddl)
+	return err
 }
 
 func (s *Store) SeedFromLegacyJSON(ctx context.Context, legacyPath string) error {
@@ -230,45 +361,46 @@ func (s *Store) SeedFromLegacyJSON(ctx context.Context, legacyPath string) error
 			continue
 		}
 		artistID := search.ArtistID(name, "")
-		if _, seen := artists[artistID]; seen {
-			continue
-		}
-		artists[artistID] = struct{}{}
-		status, _ := json.Marshal(map[string]string{"legacy": "imported"})
-		if _, err := tx.ExecContext(ctx, `
-		INSERT INTO artists(artist_id, name, slug, provider_status)
-			VALUES(?, ?, ?, ?)
-		`, artistID, name, search.Slug(name), string(status)); err != nil {
-			return fmt.Errorf("insert artist %s: %w", name, err)
-		}
-		aliases := dedupeStrings([]string{name, strings.ReplaceAll(name, " ", "-")})
-		for _, alias := range aliases {
+		if _, seen := artists[artistID]; !seen {
+			artists[artistID] = struct{}{}
+			status, _ := json.Marshal(map[string]string{"legacy": "seeded"})
 			if _, err := tx.ExecContext(ctx, `
-				INSERT INTO artist_aliases(artist_id, alias, normalized_alias)
-				VALUES(?, ?, ?)
-			`, artistID, alias, search.NormalizeText(alias)); err != nil {
-				return fmt.Errorf("insert alias %s: %w", alias, err)
+				INSERT INTO artists(artist_id, name, slug, provider_status)
+				VALUES(?, ?, ?, ?)
+			`, artistID, name, search.Slug(name), string(status)); err != nil {
+				return fmt.Errorf("insert artist %s: %w", name, err)
+			}
+			for _, alias := range dedupeStrings([]string{name, strings.ReplaceAll(name, " ", "-")}) {
+				if _, err := tx.ExecContext(ctx, `
+					INSERT INTO artist_aliases(artist_id, alias, normalized_alias)
+					VALUES(?, ?, ?)
+				`, artistID, alias, search.NormalizeText(alias)); err != nil {
+					return fmt.Errorf("insert alias %s: %w", alias, err)
+				}
+			}
+			if _, err := tx.ExecContext(ctx, `
+				INSERT INTO artist_links(artist_id, provider, kind, url, external_id)
+				VALUES(?, ?, ?, ?, ?)
+			`, artistID, "quotefancy", "source_home", sourceURL, ""); err != nil {
+				return fmt.Errorf("insert legacy link: %w", err)
 			}
 		}
-		if _, err := tx.ExecContext(ctx, `
-			INSERT INTO artist_links(artist_id, provider, kind, url, external_id)
-			VALUES(?, ?, ?, ?, ?)
-		`, artistID, "quotefancy", "source_home", sourceURL, ""); err != nil {
-			return fmt.Errorf("insert legacy link: %w", err)
-		}
-	}
 
-	for _, quote := range quotes {
-		artistID := search.ArtistID(quote.Author, "")
 		normalizedText := search.NormalizeText(quote.Text)
 		quoteID := search.QuoteID(artistID, normalizedText, sourceURL)
 		if _, err := tx.ExecContext(ctx, `
 			INSERT OR IGNORE INTO quotes(
 				quote_id, text, normalized_text, artist_id, source_id, source_type, work_title, year,
-				provenance_status, confidence_score, license, first_seen_at, last_verified_at
-			) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-		`, quoteID, strings.TrimSpace(quote.Text), normalizedText, artistID, sourceID, "legacy_scrape", "", "", "legacy_unverified", 0.25, "unknown", now, now); err != nil {
+				provenance_status, confidence_score, provider_origin, license, first_seen_at, last_verified_at
+			) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+		`, quoteID, strings.TrimSpace(quote.Text), normalizedText, artistID, sourceID, "legacy_scrape", "", "", "needs_review", 0.25, "quotefancy", "unknown", now, now); err != nil {
 			return fmt.Errorf("insert quote: %w", err)
+		}
+		if _, err := tx.ExecContext(ctx, `
+			INSERT OR REPLACE INTO quote_evidence(quote_id, evidence, position)
+			VALUES(?, ?, ?)
+		`, quoteID, "Imported from QuoteFancy during legacy bootstrap; requires manual verification.", 0); err != nil {
+			return fmt.Errorf("insert quote evidence: %w", err)
 		}
 	}
 
@@ -284,8 +416,14 @@ func (s *Store) SeedFromLegacyJSON(ctx context.Context, legacyPath string) error
 	`, search.StableHash("legacy-import", now), "quotefancy", "success", now, now, "seeded from quotes.json"); err != nil {
 		return fmt.Errorf("insert provider run: %w", err)
 	}
+	if err := tx.Commit(); err != nil {
+		return err
+	}
+	return s.rebuildSearchIndices(ctx)
+}
 
-	return tx.Commit()
+func (s *Store) RefreshSearchIndices(ctx context.Context) error {
+	return s.rebuildSearchIndices(ctx)
 }
 
 func (s *Store) quoteCount(ctx context.Context) (int, error) {
@@ -296,15 +434,13 @@ func (s *Store) quoteCount(ctx context.Context) (int, error) {
 
 func (s *Store) Meta(ctx context.Context) (models.ListMeta, error) {
 	meta := models.ListMeta{}
-	var snapshot string
-	if err := s.db.QueryRowContext(ctx, `SELECT value FROM catalog_meta WHERE key = ?`, snapshotVersionKey).Scan(&snapshot); err != nil && !errors.Is(err, sql.ErrNoRows) {
+	if err := s.db.QueryRowContext(ctx, `SELECT COALESCE(value, '') FROM catalog_meta WHERE key = ?`, snapshotVersionKey).Scan(&meta.SnapshotVersion); err != nil && !errors.Is(err, sql.ErrNoRows) {
 		return meta, err
 	}
 	var providers string
-	if err := s.db.QueryRowContext(ctx, `SELECT value FROM catalog_meta WHERE key = ?`, activeProvidersKey).Scan(&providers); err != nil && !errors.Is(err, sql.ErrNoRows) {
+	if err := s.db.QueryRowContext(ctx, `SELECT COALESCE(value, '') FROM catalog_meta WHERE key = ?`, activeProvidersKey).Scan(&providers); err != nil && !errors.Is(err, sql.ErrNoRows) {
 		return meta, err
 	}
-	meta.SnapshotVersion = snapshot
 	if providers != "" {
 		meta.ActiveProviders = strings.Split(providers, ",")
 	}
@@ -372,7 +508,7 @@ func (s *Store) UpsertArtist(ctx context.Context, artist models.Artist) error {
 	if err != nil {
 		return err
 	}
-	_, err = s.db.ExecContext(ctx, `
+	if _, err := s.db.ExecContext(ctx, `
 		INSERT INTO artists(artist_id, name, slug, mbid, wikidata_id, wikiquote_title, country, life_span_begin, life_span_end, description, bio_summary, provider_status)
 		VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 		ON CONFLICT(artist_id) DO UPDATE SET
@@ -387,17 +523,13 @@ func (s *Store) UpsertArtist(ctx context.Context, artist models.Artist) error {
 			description = excluded.description,
 			bio_summary = excluded.bio_summary,
 			provider_status = excluded.provider_status
-	`, artist.ArtistID, artist.Name, search.Slug(artist.Name), artist.MBID, artist.WikidataID, artist.WikiquoteTitle, artist.Country, artist.LifeSpan.Begin, artist.LifeSpan.End, artist.Description, artist.BioSummary, string(statusJSON))
-	if err != nil {
+	`, artist.ArtistID, artist.Name, search.Slug(artist.Name), artist.MBID, artist.WikidataID, artist.WikiquoteTitle, artist.Country, artist.LifeSpan.Begin, artist.LifeSpan.End, artist.Description, artist.BioSummary, string(statusJSON)); err != nil {
 		return err
 	}
 	if _, err := s.db.ExecContext(ctx, `DELETE FROM artist_aliases WHERE artist_id = ?`, artist.ArtistID); err != nil {
 		return err
 	}
 	for _, alias := range dedupeStrings(append(artist.Aliases, artist.Name)) {
-		if strings.TrimSpace(alias) == "" {
-			continue
-		}
 		if _, err := s.db.ExecContext(ctx, `
 			INSERT INTO artist_aliases(artist_id, alias, normalized_alias)
 			VALUES(?, ?, ?)
@@ -420,13 +552,11 @@ func (s *Store) UpsertArtist(ctx context.Context, artist models.Artist) error {
 		return err
 	}
 	for _, genre := range dedupeStrings(artist.Genres) {
-		if _, err := s.db.ExecContext(ctx, `
-			INSERT INTO artist_tags(artist_id, tag) VALUES(?, ?)
-		`, artist.ArtistID, genre); err != nil {
+		if _, err := s.db.ExecContext(ctx, `INSERT INTO artist_tags(artist_id, tag) VALUES(?, ?)`, artist.ArtistID, genre); err != nil {
 			return err
 		}
 	}
-	return nil
+	return s.syncArtistSearch(ctx, artist)
 }
 
 func (s *Store) RekeyArtist(ctx context.Context, oldID, newID string, canonicalName string) error {
@@ -448,17 +578,14 @@ func (s *Store) RekeyArtist(ctx context.Context, oldID, newID string, canonicalN
 	if exists == 0 {
 		return nil
 	}
-
-	_, err = tx.ExecContext(ctx, `
+	if _, err := tx.ExecContext(ctx, `
 		INSERT OR IGNORE INTO artists(artist_id, name, slug)
 		SELECT ?, COALESCE(NULLIF(name, ''), ?), ?
 		FROM artists
 		WHERE artist_id = ?
-	`, newID, canonicalName, search.Slug(canonicalName)+"-"+search.StableHash(newID)[:8], oldID)
-	if err != nil {
+	`, newID, canonicalName, search.Slug(canonicalName)+"-"+search.StableHash(newID)[:8], oldID); err != nil {
 		return err
 	}
-
 	for _, table := range []string{"quotes", "artist_aliases", "artist_links", "artist_tags", "releases"} {
 		if _, err := tx.ExecContext(ctx, fmt.Sprintf(`UPDATE %s SET artist_id = ? WHERE artist_id = ?`, table), newID, oldID); err != nil {
 			return err
@@ -472,7 +599,10 @@ func (s *Store) RekeyArtist(ctx context.Context, oldID, newID string, canonicalN
 	if _, err := tx.ExecContext(ctx, `DELETE FROM artists WHERE artist_id = ?`, oldID); err != nil {
 		return err
 	}
-	return tx.Commit()
+	if err := tx.Commit(); err != nil {
+		return err
+	}
+	return s.rebuildSearchIndices(ctx)
 }
 
 func (s *Store) UpsertSource(ctx context.Context, source models.Source) error {
@@ -495,7 +625,7 @@ func (s *Store) UpsertQuote(ctx context.Context, quote models.Quote) error {
 	if err != nil {
 		return err
 	}
-	if existingID != "" && (existingStatus == "legacy_unverified" || quote.QuoteID == "") {
+	if existingID != "" && (existingStatus == "needs_review" || existingStatus == "legacy_unverified" || quote.QuoteID == "") {
 		quote.QuoteID = existingID
 	}
 	if quote.QuoteID == "" {
@@ -509,11 +639,15 @@ func (s *Store) UpsertQuote(ctx context.Context, quote models.Quote) error {
 	if quote.Year != nil {
 		year = strconv.Itoa(*quote.Year)
 	}
-	_, err = s.db.ExecContext(ctx, `
+	providerOrigin := strings.TrimSpace(quote.ProviderOrigin)
+	if providerOrigin == "" && quote.Source != nil {
+		providerOrigin = quote.Source.Provider
+	}
+	if _, err := s.db.ExecContext(ctx, `
 		INSERT INTO quotes(
 			quote_id, text, normalized_text, artist_id, source_id, source_type, work_title, year,
-			provenance_status, confidence_score, license, first_seen_at, last_verified_at
-		) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+			provenance_status, confidence_score, provider_origin, license, first_seen_at, last_verified_at
+		) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 		ON CONFLICT(quote_id) DO UPDATE SET
 			text = excluded.text,
 			normalized_text = excluded.normalized_text,
@@ -524,24 +658,47 @@ func (s *Store) UpsertQuote(ctx context.Context, quote models.Quote) error {
 			year = excluded.year,
 			provenance_status = excluded.provenance_status,
 			confidence_score = excluded.confidence_score,
+			provider_origin = excluded.provider_origin,
 			license = excluded.license,
 			first_seen_at = excluded.first_seen_at,
 			last_verified_at = excluded.last_verified_at
-	`, quote.QuoteID, quote.Text, search.NormalizeText(quote.Text), quote.ArtistID, nullToEmpty(quote.SourceID), quote.SourceType, quote.WorkTitle, year, quote.ProvenanceStatus, quote.ConfidenceScore, quote.License, quote.FirstSeenAt, quote.LastVerifiedAt)
-	if err != nil {
+	`, quote.QuoteID, quote.Text, search.NormalizeText(quote.Text), quote.ArtistID, nullToEmpty(quote.SourceID), quote.SourceType, quote.WorkTitle, year, quote.ProvenanceStatus, quote.ConfidenceScore, providerOrigin, quote.License, quote.FirstSeenAt, quote.LastVerifiedAt); err != nil {
 		return err
 	}
 	if _, err := s.db.ExecContext(ctx, `DELETE FROM quote_tags WHERE quote_id = ?`, quote.QuoteID); err != nil {
 		return err
 	}
 	for _, tag := range dedupeStrings(quote.Tags) {
-		if _, err := s.db.ExecContext(ctx, `
-			INSERT INTO quote_tags(quote_id, tag) VALUES(?, ?)
-		`, quote.QuoteID, tag); err != nil {
+		if _, err := s.db.ExecContext(ctx, `INSERT INTO quote_tags(quote_id, tag) VALUES(?, ?)`, quote.QuoteID, tag); err != nil {
 			return err
 		}
 	}
-	return nil
+	if _, err := s.db.ExecContext(ctx, `DELETE FROM quote_evidence WHERE quote_id = ?`, quote.QuoteID); err != nil {
+		return err
+	}
+	for idx, evidence := range dedupeStrings(quote.Evidence) {
+		if _, err := s.db.ExecContext(ctx, `
+			INSERT INTO quote_evidence(quote_id, evidence, position)
+			VALUES(?, ?, ?)
+		`, quote.QuoteID, evidence, idx); err != nil {
+			return err
+		}
+	}
+	if len(quote.Evidence) == 0 {
+		if _, err := s.db.ExecContext(ctx, `
+			INSERT INTO quote_evidence(quote_id, evidence, position)
+			VALUES(?, ?, 0)
+		`, quote.QuoteID, "Imported without explicit evidence; inspect source metadata."); err != nil {
+			return err
+		}
+	}
+	if quote.ArtistName == "" {
+		artist, _ := s.ArtistByID(ctx, quote.ArtistID)
+		if artist != nil {
+			quote.ArtistName = artist.Name
+		}
+	}
+	return s.syncQuoteSearch(ctx, quote)
 }
 
 func (s *Store) existingQuote(ctx context.Context, artistID, normalizedText string) (string, string, error) {
@@ -656,6 +813,7 @@ func (s *Store) ListQuotes(ctx context.Context, filters models.QuoteFilters) (mo
 			quotes.year,
 			quotes.provenance_status,
 			quotes.confidence_score,
+			quotes.provider_origin,
 			quotes.license,
 			quotes.first_seen_at,
 			quotes.last_verified_at
@@ -679,11 +837,19 @@ func (s *Store) ListQuotes(ctx context.Context, filters models.QuoteFilters) (mo
 		args = append(args, search.NormalizeText(filters.Artist))
 	}
 	if filters.Query != "" {
-		where = append(where, `(quotes.normalized_text LIKE ? OR artists.artist_id IN (
-			SELECT artist_id FROM artist_aliases WHERE normalized_alias LIKE ?
-		))`)
+		fts := ftsQuery(filters.Query)
 		pattern := "%" + search.NormalizeText(filters.Query) + "%"
-		args = append(args, pattern, pattern)
+		if fts != "" {
+			where = append(where, `quotes.quote_id IN (
+				SELECT quote_id FROM quote_search WHERE quote_search MATCH ?
+				UNION
+				SELECT quote_id FROM quotes WHERE normalized_text LIKE ?
+			)`)
+			args = append(args, fts, pattern)
+		} else {
+			where = append(where, `quotes.normalized_text LIKE ?`)
+			args = append(args, pattern)
+		}
 	}
 	if filters.Tag != "" {
 		where = append(where, `quotes.quote_id IN (SELECT quote_id FROM quote_tags WHERE tag = ?)`)
@@ -720,7 +886,7 @@ func (s *Store) ListQuotes(ctx context.Context, filters models.QuoteFilters) (mo
 	}
 	response.Meta = meta
 
-	order := ` ORDER BY quotes.confidence_score DESC, artists.name ASC, quotes.quote_id ASC`
+	order := ` ORDER BY quotes.confidence_score DESC, quotes.last_verified_at DESC, artists.name ASC, quotes.quote_id ASC`
 	if filters.Sort == "random" {
 		order = ` ORDER BY RANDOM()`
 	}
@@ -768,6 +934,7 @@ func (s *Store) QuoteByID(ctx context.Context, quoteID string) (*models.Quote, e
 			quotes.year,
 			quotes.provenance_status,
 			quotes.confidence_score,
+			quotes.provider_origin,
 			quotes.license,
 			quotes.first_seen_at,
 			quotes.last_verified_at
@@ -787,6 +954,26 @@ func (s *Store) QuoteByID(ctx context.Context, quoteID string) (*models.Quote, e
 		return nil, err
 	}
 	return &quote, nil
+}
+
+func (s *Store) QuoteProvenance(ctx context.Context, quoteID string) (*models.QuoteProvenance, error) {
+	quote, err := s.QuoteByID(ctx, quoteID)
+	if err != nil {
+		return nil, err
+	}
+	if quote == nil {
+		return nil, nil
+	}
+	return &models.QuoteProvenance{
+		QuoteID:          quote.QuoteID,
+		ProvenanceStatus: quote.ProvenanceStatus,
+		ConfidenceScore:  quote.ConfidenceScore,
+		ProviderOrigin:   quote.ProviderOrigin,
+		FirstSeenAt:      quote.FirstSeenAt,
+		LastVerifiedAt:   quote.LastVerifiedAt,
+		Evidence:         quote.Evidence,
+		Source:           quote.Source,
+	}, nil
 }
 
 func (s *Store) ListArtists(ctx context.Context, filters models.ArtistFilters) (models.ListResponse[models.Artist], error) {
@@ -815,11 +1002,21 @@ func (s *Store) ListArtists(ctx context.Context, filters models.ArtistFilters) (
 		args = append(args, filters.WikiquoteTitle)
 	}
 	if filters.Query != "" {
-		normalized := "%" + search.NormalizeText(filters.Query) + "%"
-		where = append(where, `(artists.artist_id IN (
-			SELECT artist_id FROM artist_aliases WHERE normalized_alias LIKE ?
-		) OR artists.name LIKE ?)`)
-		args = append(args, normalized, "%"+filters.Query+"%")
+		pattern := "%" + search.NormalizeText(filters.Query) + "%"
+		fts := ftsQuery(filters.Query)
+		if fts != "" {
+			where = append(where, `(artists.artist_id IN (
+				SELECT artist_id FROM artist_search WHERE artist_search MATCH ?
+			) OR artists.artist_id IN (
+				SELECT artist_id FROM artist_aliases WHERE normalized_alias LIKE ?
+			))`)
+			args = append(args, fts, pattern)
+		} else {
+			where = append(where, `artists.artist_id IN (
+				SELECT artist_id FROM artist_aliases WHERE normalized_alias LIKE ?
+			)`)
+			args = append(args, pattern)
+		}
 	}
 
 	query := base
@@ -901,9 +1098,7 @@ func (s *Store) ResolveArtistID(ctx context.Context, input string) (string, erro
 		return "", err
 	}
 
-	rows, err := s.db.QueryContext(ctx, `
-		SELECT artist_id, alias FROM artist_aliases
-	`)
+	rows, err := s.db.QueryContext(ctx, `SELECT artist_id, alias FROM artist_aliases`)
 	if err != nil {
 		return "", err
 	}
@@ -1002,16 +1197,32 @@ func (s *Store) Search(ctx context.Context, query string) (models.SearchResponse
 	}
 	response.Meta = meta
 
-	artists, err := s.ListArtists(ctx, models.ArtistFilters{Query: query, Limit: 10, Offset: 0})
+	artists, err := s.searchArtists(ctx, query, 10)
 	if err != nil {
 		return response, err
 	}
-	quotes, err := s.ListQuotes(ctx, models.QuoteFilters{Query: query, Limit: 10, Offset: 0})
+	quotes, err := s.searchQuotes(ctx, query, 10)
 	if err != nil {
 		return response, err
 	}
-	response.Data.Artists = artists.Data
-	response.Data.Quotes = quotes.Data
+	if len(artists) == 0 {
+		fallback, err := s.ListArtists(ctx, models.ArtistFilters{Query: query, Limit: 10, Offset: 0})
+		if err != nil {
+			return response, err
+		}
+		artists = fallback.Data
+	}
+	if len(quotes) == 0 {
+		fallback, err := s.ListQuotes(ctx, models.QuoteFilters{Query: query, Limit: 10, Offset: 0})
+		if err != nil {
+			return response, err
+		}
+		quotes = fallback.Data
+	}
+	response.Data = models.SearchResults{
+		Artists: artists,
+		Quotes:  quotes,
+	}
 	return response, nil
 }
 
@@ -1020,35 +1231,357 @@ func (s *Store) Stats(ctx context.Context) (map[string]any, error) {
 	if err != nil {
 		return nil, err
 	}
-	var artists int
-	if err := s.db.QueryRowContext(ctx, `SELECT COUNT(*) FROM artists`).Scan(&artists); err != nil {
-		return nil, err
-	}
-	var quotes int
-	if err := s.db.QueryRowContext(ctx, `SELECT COUNT(*) FROM quotes`).Scan(&quotes); err != nil {
-		return nil, err
-	}
-	var sources int
-	if err := s.db.QueryRowContext(ctx, `SELECT COUNT(*) FROM quote_sources`).Scan(&sources); err != nil {
-		return nil, err
-	}
-	var releases int
-	if err := s.db.QueryRowContext(ctx, `SELECT COUNT(*) FROM releases`).Scan(&releases); err != nil {
-		return nil, err
-	}
-	var related int
-	if err := s.db.QueryRowContext(ctx, `SELECT COUNT(*) FROM artist_relations`).Scan(&related); err != nil {
-		return nil, err
+	counts := map[string]int{}
+	for key, query := range map[string]string{
+		"artists":         `SELECT COUNT(*) FROM artists`,
+		"quotes":          `SELECT COUNT(*) FROM quotes`,
+		"sources":         `SELECT COUNT(*) FROM quote_sources`,
+		"releases":        `SELECT COUNT(*) FROM releases`,
+		"related_artists": `SELECT COUNT(*) FROM artist_relations`,
+		"jobs":            `SELECT COUNT(*) FROM jobs`,
+	} {
+		var count int
+		if err := s.db.QueryRowContext(ctx, query).Scan(&count); err != nil {
+			return nil, err
+		}
+		counts[key] = count
 	}
 	return map[string]any{
-		"artists":          artists,
-		"quotes":           quotes,
-		"sources":          sources,
-		"releases":         releases,
-		"related_artists":  related,
+		"artists":          counts["artists"],
+		"quotes":           counts["quotes"],
+		"sources":          counts["sources"],
+		"releases":         counts["releases"],
+		"related_artists":  counts["related_artists"],
+		"jobs":             counts["jobs"],
 		"snapshot_version": meta.SnapshotVersion,
 		"active_providers": meta.ActiveProviders,
 	}, nil
+}
+
+func (s *Store) ProviderRuns(ctx context.Context, provider string, limit int) ([]models.ProviderRun, error) {
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT run_id, provider, status, started_at, finished_at, details
+		FROM provider_runs
+		WHERE provider = ?
+		ORDER BY started_at DESC
+		LIMIT ?
+	`, provider, normalizeLimit(limit))
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var runs []models.ProviderRun
+	for rows.Next() {
+		var run models.ProviderRun
+		if err := rows.Scan(&run.RunID, &run.Provider, &run.Status, &run.StartedAt, &run.FinishedAt, &run.Details); err != nil {
+			return nil, err
+		}
+		runs = append(runs, run)
+	}
+	return runs, rows.Err()
+}
+
+func (s *Store) ProviderErrors(ctx context.Context, provider string, limit int) ([]models.ProviderError, error) {
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT error_id, provider, occurred_at, context, message
+		FROM provider_errors
+		WHERE provider = ?
+		ORDER BY occurred_at DESC
+		LIMIT ?
+	`, provider, normalizeLimit(limit))
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var failures []models.ProviderError
+	for rows.Next() {
+		var failure models.ProviderError
+		if err := rows.Scan(&failure.ErrorID, &failure.Provider, &failure.OccurredAt, &failure.Context, &failure.Message); err != nil {
+			return nil, err
+		}
+		failures = append(failures, failure)
+	}
+	return failures, rows.Err()
+}
+
+func (s *Store) ProviderSummaries(ctx context.Context, configured []models.ProviderSummary) ([]models.ProviderSummary, error) {
+	summaries := make([]models.ProviderSummary, 0, len(configured))
+	for _, item := range configured {
+		summary := item
+		_ = s.db.QueryRowContext(ctx, `
+			SELECT status, finished_at
+			FROM provider_runs
+			WHERE provider = ?
+			ORDER BY started_at DESC
+			LIMIT 1
+		`, item.Provider).Scan(&summary.LastStatus, new(string))
+
+		_ = s.db.QueryRowContext(ctx, `
+			SELECT finished_at
+			FROM provider_runs
+			WHERE provider = ? AND status = 'success'
+			ORDER BY finished_at DESC
+			LIMIT 1
+		`, item.Provider).Scan(&summary.LastSuccessful)
+
+		_ = s.db.QueryRowContext(ctx, `
+			SELECT COUNT(*)
+			FROM provider_errors
+			WHERE provider = ? AND occurred_at >= ?
+		`, item.Provider, time.Now().UTC().Add(-30*24*time.Hour).Format(time.RFC3339)).Scan(&summary.RecentErrorCount)
+
+		_ = s.db.QueryRowContext(ctx, `
+			SELECT occurred_at
+			FROM provider_errors
+			WHERE provider = ?
+			ORDER BY occurred_at DESC
+			LIMIT 1
+		`, item.Provider).Scan(&summary.LastErrorAt)
+		summaries = append(summaries, summary)
+	}
+	sort.SliceStable(summaries, func(i, j int) bool {
+		return summaries[i].Provider < summaries[j].Provider
+	})
+	return summaries, nil
+}
+
+func (s *Store) GetProviderCache(ctx context.Context, provider, kind, key string) (string, string, string, bool, error) {
+	var payload, refreshedAt, expiresAt string
+	err := s.db.QueryRowContext(ctx, `
+		SELECT payload, refreshed_at, expires_at
+		FROM provider_cache
+		WHERE provider = ? AND kind = ? AND cache_key = ? AND expires_at >= ?
+	`, provider, kind, key, time.Now().UTC().Format(time.RFC3339)).Scan(&payload, &refreshedAt, &expiresAt)
+	if errors.Is(err, sql.ErrNoRows) {
+		return "", "", "", false, nil
+	}
+	if err != nil {
+		return "", "", "", false, err
+	}
+	return payload, refreshedAt, expiresAt, true, nil
+}
+
+func (s *Store) SetProviderCache(ctx context.Context, provider, kind, key, payload string, ttl time.Duration) error {
+	now := time.Now().UTC()
+	_, err := s.db.ExecContext(ctx, `
+		INSERT INTO provider_cache(provider, kind, cache_key, payload, refreshed_at, expires_at)
+		VALUES(?, ?, ?, ?, ?, ?)
+		ON CONFLICT(provider, kind, cache_key) DO UPDATE SET
+			payload = excluded.payload,
+			refreshed_at = excluded.refreshed_at,
+			expires_at = excluded.expires_at
+	`, provider, kind, key, payload, now.Format(time.RFC3339), now.Add(ttl).Format(time.RFC3339))
+	return err
+}
+
+func (s *Store) RecordJob(ctx context.Context, job models.JobRun) error {
+	_, err := s.db.ExecContext(ctx, `
+		INSERT INTO jobs(job_id, name, scope, status, started_at, finished_at, details, error_message)
+		VALUES(?, ?, ?, ?, ?, ?, ?, ?)
+		ON CONFLICT(job_id) DO UPDATE SET
+			name = excluded.name,
+			scope = excluded.scope,
+			status = excluded.status,
+			started_at = excluded.started_at,
+			finished_at = excluded.finished_at,
+			details = excluded.details,
+			error_message = excluded.error_message
+	`, job.JobID, job.Name, job.Scope, job.Status, job.StartedAt, job.FinishedAt, job.Details, job.ErrorMessage)
+	return err
+}
+
+func (s *Store) RecordJobItem(ctx context.Context, item models.JobItem) error {
+	_, err := s.db.ExecContext(ctx, `
+		INSERT INTO job_items(job_item_id, job_id, provider, target, status, started_at, finished_at, details, error_message)
+		VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)
+		ON CONFLICT(job_item_id) DO UPDATE SET
+			job_id = excluded.job_id,
+			provider = excluded.provider,
+			target = excluded.target,
+			status = excluded.status,
+			started_at = excluded.started_at,
+			finished_at = excluded.finished_at,
+			details = excluded.details,
+			error_message = excluded.error_message
+	`, item.JobItemID, item.JobID, item.Provider, item.Target, item.Status, item.StartedAt, item.FinishedAt, item.Details, item.ErrorMessage)
+	return err
+}
+
+func (s *Store) ListJobs(ctx context.Context, limit int) ([]models.JobRun, error) {
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT job_id, name, scope, status, started_at, finished_at, details, error_message
+		FROM jobs
+		ORDER BY started_at DESC
+		LIMIT ?
+	`, normalizeLimit(limit))
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var jobs []models.JobRun
+	for rows.Next() {
+		var job models.JobRun
+		if err := rows.Scan(&job.JobID, &job.Name, &job.Scope, &job.Status, &job.StartedAt, &job.FinishedAt, &job.Details, &job.ErrorMessage); err != nil {
+			return nil, err
+		}
+		job.Items, _ = s.jobItems(ctx, job.JobID)
+		jobs = append(jobs, job)
+	}
+	return jobs, rows.Err()
+}
+
+func (s *Store) JobByID(ctx context.Context, jobID string) (*models.JobRun, error) {
+	row := s.db.QueryRowContext(ctx, `
+		SELECT job_id, name, scope, status, started_at, finished_at, details, error_message
+		FROM jobs
+		WHERE job_id = ?
+	`, jobID)
+	var job models.JobRun
+	if err := row.Scan(&job.JobID, &job.Name, &job.Scope, &job.Status, &job.StartedAt, &job.FinishedAt, &job.Details, &job.ErrorMessage); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, nil
+		}
+		return nil, err
+	}
+	job.Items, _ = s.jobItems(ctx, job.JobID)
+	return &job, nil
+}
+
+func (s *Store) jobItems(ctx context.Context, jobID string) ([]models.JobItem, error) {
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT job_item_id, job_id, provider, target, status, started_at, finished_at, details, error_message
+		FROM job_items
+		WHERE job_id = ?
+		ORDER BY started_at ASC
+	`, jobID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []models.JobItem
+	for rows.Next() {
+		var item models.JobItem
+		if err := rows.Scan(&item.JobItemID, &item.JobID, &item.Provider, &item.Target, &item.Status, &item.StartedAt, &item.FinishedAt, &item.Details, &item.ErrorMessage); err != nil {
+			return nil, err
+		}
+		items = append(items, item)
+	}
+	return items, rows.Err()
+}
+
+func (s *Store) searchArtists(ctx context.Context, query string, limit int) ([]models.Artist, error) {
+	fts := ftsQuery(query)
+	if fts == "" {
+		return nil, nil
+	}
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT artist_id
+		FROM artist_search
+		WHERE artist_search MATCH ?
+		ORDER BY bm25(artist_search), artist_id
+		LIMIT ?
+	`, fts, limit)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var artists []models.Artist
+	for rows.Next() {
+		var artistID string
+		if err := rows.Scan(&artistID); err != nil {
+			return nil, err
+		}
+		artist, err := s.ArtistByID(ctx, artistID)
+		if err != nil || artist == nil {
+			continue
+		}
+		artists = append(artists, *artist)
+	}
+	return artists, rows.Err()
+}
+
+func (s *Store) searchQuotes(ctx context.Context, query string, limit int) ([]models.Quote, error) {
+	fts := ftsQuery(query)
+	if fts == "" {
+		return nil, nil
+	}
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT quote_id
+		FROM quote_search
+		WHERE quote_search MATCH ?
+		ORDER BY bm25(quote_search), quote_id
+		LIMIT ?
+	`, fts, limit)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var quotes []models.Quote
+	for rows.Next() {
+		var quoteID string
+		if err := rows.Scan(&quoteID); err != nil {
+			return nil, err
+		}
+		quote, err := s.QuoteByID(ctx, quoteID)
+		if err != nil || quote == nil {
+			continue
+		}
+		quotes = append(quotes, *quote)
+	}
+	return quotes, rows.Err()
+}
+
+func (s *Store) rebuildSearchIndices(ctx context.Context) error {
+	if _, err := s.db.ExecContext(ctx, `DELETE FROM artist_search`); err != nil {
+		return err
+	}
+	if _, err := s.db.ExecContext(ctx, `DELETE FROM quote_search`); err != nil {
+		return err
+	}
+
+	artists, err := s.ListArtists(ctx, models.ArtistFilters{Limit: 1000})
+	if err != nil {
+		return err
+	}
+	for _, artist := range artists.Data {
+		if err := s.syncArtistSearch(ctx, artist); err != nil {
+			return err
+		}
+	}
+	quotes, err := s.ListQuotes(ctx, models.QuoteFilters{Limit: 1000})
+	if err != nil {
+		return err
+	}
+	for _, quote := range quotes.Data {
+		if err := s.syncQuoteSearch(ctx, quote); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (s *Store) syncArtistSearch(ctx context.Context, artist models.Artist) error {
+	if _, err := s.db.ExecContext(ctx, `DELETE FROM artist_search WHERE artist_id = ?`, artist.ArtistID); err != nil {
+		return err
+	}
+	aliases := strings.Join(dedupeStrings(artist.Aliases), " ")
+	_, err := s.db.ExecContext(ctx, `
+		INSERT INTO artist_search(artist_id, name, aliases)
+		VALUES(?, ?, ?)
+	`, artist.ArtistID, artist.Name, aliases)
+	return err
+}
+
+func (s *Store) syncQuoteSearch(ctx context.Context, quote models.Quote) error {
+	if _, err := s.db.ExecContext(ctx, `DELETE FROM quote_search WHERE quote_id = ?`, quote.QuoteID); err != nil {
+		return err
+	}
+	tags := strings.Join(dedupeStrings(quote.Tags), " ")
+	_, err := s.db.ExecContext(ctx, `
+		INSERT INTO quote_search(quote_id, artist_id, artist_name, text, tags)
+		VALUES(?, ?, ?, ?, ?)
+	`, quote.QuoteID, quote.ArtistID, quote.ArtistName, quote.Text, tags)
+	return err
 }
 
 func (s *Store) scanQuoteRow(ctx context.Context, scanner interface{ Scan(dest ...any) error }) (models.Quote, error) {
@@ -1066,6 +1599,7 @@ func (s *Store) scanQuoteRow(ctx context.Context, scanner interface{ Scan(dest .
 		&year,
 		&quote.ProvenanceStatus,
 		&quote.ConfidenceScore,
+		&quote.ProviderOrigin,
 		&quote.License,
 		&quote.FirstSeenAt,
 		&quote.LastVerifiedAt,
@@ -1074,6 +1608,7 @@ func (s *Store) scanQuoteRow(ctx context.Context, scanner interface{ Scan(dest .
 	}
 	quote.SourceID = emptyToNull(sourceID)
 	quote.Tags, _ = s.quoteTags(ctx, quote.QuoteID)
+	quote.Evidence, _ = s.quoteEvidence(ctx, quote.QuoteID)
 	if quote.SourceID != "" {
 		quote.Source, _ = s.SourceByID(ctx, quote.SourceID)
 	}
@@ -1110,9 +1645,7 @@ func (s *Store) scanArtistRow(ctx context.Context, scanner interface{ Scan(dest 
 }
 
 func (s *Store) artistAliases(ctx context.Context, artistID string) ([]string, error) {
-	rows, err := s.db.QueryContext(ctx, `
-		SELECT alias FROM artist_aliases WHERE artist_id = ? ORDER BY alias ASC
-	`, artistID)
+	rows, err := s.db.QueryContext(ctx, `SELECT alias FROM artist_aliases WHERE artist_id = ? ORDER BY alias ASC`, artistID)
 	if err != nil {
 		return nil, err
 	}
@@ -1149,10 +1682,7 @@ func (s *Store) artistLinks(ctx context.Context, artistID string) ([]models.Arti
 
 func (s *Store) artistGenres(ctx context.Context, artistID string) ([]string, error) {
 	rows, err := s.db.QueryContext(ctx, `
-		SELECT tag
-		FROM artist_tags
-		WHERE artist_id = ?
-		ORDER BY tag ASC
+		SELECT tag FROM artist_tags WHERE artist_id = ? ORDER BY tag ASC
 	`, artistID)
 	if err != nil {
 		return nil, err
@@ -1184,6 +1714,25 @@ func (s *Store) quoteTags(ctx context.Context, quoteID string) ([]string, error)
 		tags = append(tags, tag)
 	}
 	return tags, rows.Err()
+}
+
+func (s *Store) quoteEvidence(ctx context.Context, quoteID string) ([]string, error) {
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT evidence FROM quote_evidence WHERE quote_id = ? ORDER BY position ASC
+	`, quoteID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var evidence []string
+	for rows.Next() {
+		var item string
+		if err := rows.Scan(&item); err != nil {
+			return nil, err
+		}
+		evidence = append(evidence, item)
+	}
+	return evidence, rows.Err()
 }
 
 func normalizeLimit(limit int) int {
@@ -1239,4 +1788,15 @@ func dedupeStrings(values []string) []string {
 	}
 	sort.Strings(deduped)
 	return deduped
+}
+
+func ftsQuery(input string) string {
+	terms := strings.Fields(search.NormalizeText(input))
+	if len(terms) == 0 {
+		return ""
+	}
+	for i, term := range terms {
+		terms[i] = term + "*"
+	}
+	return strings.Join(terms, " ")
 }

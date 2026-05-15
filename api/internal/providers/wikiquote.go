@@ -12,6 +12,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 
 	"github.com/gongahkia/tanabata/api/internal/models"
+	"github.com/gongahkia/tanabata/api/internal/observability"
 	"github.com/gongahkia/tanabata/api/internal/search"
 )
 
@@ -20,7 +21,11 @@ type WikiquoteProvider struct {
 }
 
 func NewWikiquoteProvider() *WikiquoteProvider {
-	return &WikiquoteProvider{client: NewHTTPClient("https://en.wikiquote.org")}
+	return NewWikiquoteProviderWithTelemetry(nil)
+}
+
+func NewWikiquoteProviderWithTelemetry(telemetry *observability.Telemetry) *WikiquoteProvider {
+	return &WikiquoteProvider{client: NewHTTPClient("https://en.wikiquote.org").ConfigureProvider("wikiquote", telemetry)}
 }
 
 func (p *WikiquoteProvider) Name() string {

@@ -11,18 +11,33 @@ type ListMeta struct {
 	ActiveProviders []string `json:"active_providers"`
 }
 
+type APIError struct {
+	Code    string         `json:"code"`
+	Message string         `json:"message"`
+	Details map[string]any `json:"details,omitempty"`
+}
+
+type APIResponse[T any] struct {
+	Data       T           `json:"data,omitempty"`
+	Meta       any         `json:"meta,omitempty"`
+	Pagination *Pagination `json:"pagination,omitempty"`
+	Error      *APIError   `json:"error,omitempty"`
+}
+
 type ListResponse[T any] struct {
 	Data       []T        `json:"data"`
 	Pagination Pagination `json:"pagination"`
 	Meta       ListMeta   `json:"meta"`
 }
 
+type SearchResults struct {
+	Artists []Artist `json:"artists"`
+	Quotes  []Quote  `json:"quotes"`
+}
+
 type SearchResponse struct {
-	Data struct {
-		Artists []Artist `json:"artists"`
-		Quotes  []Quote  `json:"quotes"`
-	} `json:"data"`
-	Meta ListMeta `json:"meta"`
+	Data SearchResults `json:"data"`
+	Meta ListMeta      `json:"meta"`
 }
 
 type Artist struct {
@@ -65,9 +80,22 @@ type Quote struct {
 	Tags             []string `json:"tags"`
 	ProvenanceStatus string   `json:"provenance_status"`
 	ConfidenceScore  float64  `json:"confidence_score"`
+	ProviderOrigin   string   `json:"provider_origin,omitempty"`
+	Evidence         []string `json:"evidence,omitempty"`
 	License          string   `json:"license,omitempty"`
 	FirstSeenAt      string   `json:"first_seen_at,omitempty"`
 	LastVerifiedAt   string   `json:"last_verified_at,omitempty"`
+	Source           *Source  `json:"source,omitempty"`
+}
+
+type QuoteProvenance struct {
+	QuoteID          string   `json:"quote_id"`
+	ProvenanceStatus string   `json:"provenance_status"`
+	ConfidenceScore  float64  `json:"confidence_score"`
+	ProviderOrigin   string   `json:"provider_origin"`
+	FirstSeenAt      string   `json:"first_seen_at,omitempty"`
+	LastVerifiedAt   string   `json:"last_verified_at,omitempty"`
+	Evidence         []string `json:"evidence"`
 	Source           *Source  `json:"source,omitempty"`
 }
 
@@ -122,4 +150,55 @@ type ArtistFilters struct {
 	Tag            string
 	Limit          int
 	Offset         int
+}
+
+type ProviderSummary struct {
+	Provider         string `json:"provider"`
+	Category         string `json:"category"`
+	Enabled          bool   `json:"enabled"`
+	LastStatus       string `json:"last_status,omitempty"`
+	LastSuccessful   string `json:"last_successful,omitempty"`
+	LastErrorAt      string `json:"last_error_at,omitempty"`
+	RecentErrorCount int    `json:"recent_error_count"`
+}
+
+type ProviderRun struct {
+	RunID      string `json:"run_id"`
+	Provider   string `json:"provider"`
+	Status     string `json:"status"`
+	StartedAt  string `json:"started_at"`
+	FinishedAt string `json:"finished_at"`
+	Details    string `json:"details,omitempty"`
+}
+
+type ProviderError struct {
+	ErrorID    string `json:"error_id"`
+	Provider   string `json:"provider"`
+	OccurredAt string `json:"occurred_at"`
+	Context    string `json:"context,omitempty"`
+	Message    string `json:"message"`
+}
+
+type JobRun struct {
+	JobID        string    `json:"job_id"`
+	Name         string    `json:"name"`
+	Scope        string    `json:"scope,omitempty"`
+	Status       string    `json:"status"`
+	StartedAt    string    `json:"started_at"`
+	FinishedAt   string    `json:"finished_at,omitempty"`
+	Details      string    `json:"details,omitempty"`
+	ErrorMessage string    `json:"error_message,omitempty"`
+	Items        []JobItem `json:"items,omitempty"`
+}
+
+type JobItem struct {
+	JobItemID    string `json:"job_item_id"`
+	JobID        string `json:"job_id"`
+	Provider     string `json:"provider"`
+	Target       string `json:"target,omitempty"`
+	Status       string `json:"status"`
+	StartedAt    string `json:"started_at"`
+	FinishedAt   string `json:"finished_at,omitempty"`
+	Details      string `json:"details,omitempty"`
+	ErrorMessage string `json:"error_message,omitempty"`
 }
