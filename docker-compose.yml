@@ -1,0 +1,21 @@
+services:
+  api:
+    build:
+      context: ./api
+    environment:
+      CATALOG_PATH: /app/data/catalog.sqlite
+      PORT: "8080"
+    volumes:
+      - ./api/data:/app/data
+    ports:
+      - "8080:8080"
+
+  web:
+    build:
+      context: ./web
+    environment:
+      VITE_API_BASE_URL: http://localhost:8080
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api

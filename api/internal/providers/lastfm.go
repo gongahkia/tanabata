@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/gongahkia/tanabata/api/internal/models"
+	"github.com/gongahkia/tanabata/api/internal/observability"
 	"github.com/gongahkia/tanabata/api/internal/search"
 )
 
@@ -17,8 +18,12 @@ type LastFMProvider struct {
 }
 
 func NewLastFMProvider() *LastFMProvider {
+	return NewLastFMProviderWithTelemetry(nil)
+}
+
+func NewLastFMProviderWithTelemetry(telemetry *observability.Telemetry) *LastFMProvider {
 	return &LastFMProvider{
-		client: NewHTTPClient("https://ws.audioscrobbler.com"),
+		client: NewHTTPClient("https://ws.audioscrobbler.com").ConfigureProvider("lastfm", telemetry),
 		apiKey: os.Getenv("LASTFM_API_KEY"),
 	}
 }

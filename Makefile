@@ -9,7 +9,7 @@ run:
 	cd $(API_DIR) && go run .
 
 ingest:
-	cd $(API_DIR) && go run ./cmd/ingest -all=true
+	cd $(API_DIR) && go run ./cmd/ingest -bootstrap=true -all=true
 
 ingest-artist:
 	cd $(API_DIR) && go run ./cmd/ingest -artist "$(ARTIST)"

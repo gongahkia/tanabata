@@ -6,6 +6,8 @@ import (
 	"net/url"
 	"os"
 	"strings"
+
+	"github.com/gongahkia/tanabata/api/internal/observability"
 )
 
 type SetlistFMProvider struct {
@@ -14,8 +16,12 @@ type SetlistFMProvider struct {
 }
 
 func NewSetlistFMProvider() *SetlistFMProvider {
+	return NewSetlistFMProviderWithTelemetry(nil)
+}
+
+func NewSetlistFMProviderWithTelemetry(telemetry *observability.Telemetry) *SetlistFMProvider {
 	return &SetlistFMProvider{
-		client: NewHTTPClient("https://api.setlist.fm"),
+		client: NewHTTPClient("https://api.setlist.fm").ConfigureProvider("setlistfm", telemetry),
 		apiKey: os.Getenv("SETLISTFM_API_KEY"),
 	}
 }

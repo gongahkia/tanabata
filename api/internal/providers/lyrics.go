@@ -4,6 +4,8 @@ import (
 	"context"
 	"net/url"
 	"strings"
+
+	"github.com/gongahkia/tanabata/api/internal/observability"
 )
 
 type LyricsResult struct {
@@ -20,7 +22,11 @@ type LRCLIBProvider struct {
 }
 
 func NewLRCLIBProvider() *LRCLIBProvider {
-	return &LRCLIBProvider{client: NewHTTPClient("https://lrclib.net")}
+	return NewLRCLIBProviderWithTelemetry(nil)
+}
+
+func NewLRCLIBProviderWithTelemetry(telemetry *observability.Telemetry) *LRCLIBProvider {
+	return &LRCLIBProvider{client: NewHTTPClient("https://lrclib.net").ConfigureProvider("lrclib", telemetry)}
 }
 
 func (p *LRCLIBProvider) Name() string {
@@ -57,7 +63,11 @@ type LyricsOVHProvider struct {
 }
 
 func NewLyricsOVHProvider() *LyricsOVHProvider {
-	return &LyricsOVHProvider{client: NewHTTPClient("https://api.lyrics.ovh")}
+	return NewLyricsOVHProviderWithTelemetry(nil)
+}
+
+func NewLyricsOVHProviderWithTelemetry(telemetry *observability.Telemetry) *LyricsOVHProvider {
+	return &LyricsOVHProvider{client: NewHTTPClient("https://api.lyrics.ovh").ConfigureProvider("lyricsovh", telemetry)}
 }
 
 func (p *LyricsOVHProvider) Name() string {

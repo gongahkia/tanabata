@@ -1,54 +1,48 @@
-name: Monthly Scraper
+name: Catalog Refresh
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 6 1 * *"
 
 jobs:
-  scrape:
+  refresh:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
+
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
-      - name: Install system dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-              libnss3 \
-              libnspr4 \
-              libatk1.0-0 \
-              libatk-bridge2.0-0 \
-              libcups2 \
-              libdrm2 \
-              libxkbcommon0 \
-              libxcomposite1 \
-              libxdamage1 \
-              libxfixes3 \
-              libxrandr2 \
-              libgbm1 \
-              libasound2 \
-              libffi7 \
-              libx264-163
-      - name: Install Python dependencies
+          python-version: "3.10"
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: ./api/go.mod
+
+      - name: Install scraper dependencies
         working-directory: ./scraper
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Install Playwright browsers
-        working-directory: ./scraper
-        run: |
           playwright install chromium
           playwright install-deps
-      - name: Run scraper
+
+      - name: Refresh scraped source data
         working-directory: ./scraper
         run: python main.py
-      - name: Commit and push changes
+
+      - name: Rebuild catalog
+        working-directory: ./api
+        run: go run ./cmd/ingest -bootstrap=true -all=true -name scheduled-catalog-refresh
+
+      - name: Commit refreshed artifacts
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git add api/data/quotes.json
-          git commit -m "Update quotes.json"
-
+          git add api/data/quotes.json api/data/catalog.sqlite
+          if git diff --cached --quiet; then
+            echo "No catalog changes to commit"
+            exit 0
+          fi
+          git commit -m "Refresh catalog artifacts"
           git push
