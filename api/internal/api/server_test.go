@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
-	"os"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -13,31 +12,26 @@ import (
 
 	"github.com/gongahkia/tanabata/api/internal/catalog"
 	"github.com/gongahkia/tanabata/api/internal/models"
+	"github.com/gongahkia/tanabata/api/internal/providers"
 	"github.com/gongahkia/tanabata/api/internal/search"
+	"github.com/gongahkia/tanabata/api/internal/testutil"
 )
 
 func seededServer(t *testing.T) (*Server, *catalog.Store) {
 	t.Helper()
 	tempDir := t.TempDir()
 	dbPath := filepath.Join(tempDir, "catalog.sqlite")
-	legacyPath := filepath.Join(tempDir, "quotes.json")
-	payload := []models.LegacyQuote{
-		{Author: "Frank Ocean", Text: "Work hard in silence."},
-		{Author: "Taylor Swift", Text: "Just keep dancing."},
-	}
-	content, err := json.Marshal(payload)
-	if err != nil {
-		t.Fatalf("marshal payload: %v", err)
-	}
-	if err := os.WriteFile(legacyPath, content, 0o644); err != nil {
-		t.Fatalf("write payload: %v", err)
-	}
+	legacyPath := testutil.WriteLegacyQuotes(t, tempDir)
+	curatedPath := testutil.WriteCuratedQuotes(t, tempDir)
 	store, err := catalog.Open(dbPath)
 	if err != nil {
 		t.Fatalf("open store: %v", err)
 	}
 	if err := store.SeedFromLegacyJSON(context.Background(), legacyPath); err != nil {
 		t.Fatalf("seed store: %v", err)
+	}
+	if _, err := store.ImportCuratedQuotes(context.Background(), curatedPath); err != nil {
+		t.Fatalf("import curated quotes: %v", err)
 	}
 	return NewServer(store, nil), store
 }
@@ -56,8 +50,8 @@ func TestLegacyQuotesEndpoint(t *testing.T) {
 	if err := json.Unmarshal(recorder.Body.Bytes(), &quotes); err != nil {
 		t.Fatalf("decode response: %v", err)
 	}
-	if len(quotes) != 2 {
-		t.Fatalf("expected 2 legacy quotes, got %d", len(quotes))
+	if len(quotes) != 8 {
+		t.Fatalf("expected 8 quotes in legacy compatibility endpoint, got %d", len(quotes))
 	}
 }
 
@@ -302,6 +296,143 @@ func TestLyricsEndpointUsesCache(t *testing.T) {
 	}
 	if !strings.Contains(recorder.Body.String(), `"cached":true`) {
 		t.Fatalf("expected cached response, got %s", recorder.Body.String())
+	}
+}
+
+func TestLyricsEndpointRefreshesExpiredCache(t *testing.T) {
+	server, store := seededServer(t)
+	defer store.Close()
+
+	key := search.StableHash("coldplay", "yellow")
+	if err := store.SetProviderCache(context.Background(), "lrclib", "lyrics", key, `{"provider":"lrclib","artist":"Coldplay","track":"Yellow","lyrics":"stale"}`, -time.Minute); err != nil {
+		t.Fatalf("SetProviderCache() error = %v", err)
+	}
+
+	upstream := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewEncoder(w).Encode(map[string]string{
+			"trackName":   "Yellow",
+			"artistName":  "Coldplay",
+			"plainLyrics": "Fresh lyrics",
+		})
+	}))
+	defer upstream.Close()
+	server.lrclib.SetHTTPClient(providers.NewHTTPClient(upstream.URL))
+
+	recorder := httptest.NewRecorder()
+	request := httptest.NewRequest(http.MethodGet, "/v1/lyrics?artist=Coldplay&track=Yellow&provider=lrclib", nil)
+	server.Router().ServeHTTP(recorder, request)
+	if recorder.Code != http.StatusOK {
+		t.Fatalf("status = %d, want 200", recorder.Code)
+	}
+	body := recorder.Body.String()
+	if !strings.Contains(body, `"cached":false`) || !strings.Contains(body, "Fresh lyrics") {
+		t.Fatalf("expected refreshed lyrics, got %s", body)
+	}
+}
+
+func TestLyricsEndpointFallsBackFromMalformedCacheAndProviderFailure(t *testing.T) {
+	server, store := seededServer(t)
+	defer store.Close()
+
+	key := search.StableHash("coldplay", "yellow")
+	if err := store.SetProviderCache(context.Background(), "lrclib", "lyrics", key, `{"lyrics":`, time.Hour); err != nil {
+		t.Fatalf("SetProviderCache() error = %v", err)
+	}
+
+	lrclibUpstream := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		http.Error(w, "broken", http.StatusBadGateway)
+	}))
+	defer lrclibUpstream.Close()
+	server.lrclib.SetHTTPClient(providers.NewHTTPClient(lrclibUpstream.URL))
+
+	lyricsOVHUpstream := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewEncoder(w).Encode(map[string]string{"lyrics": "Fallback lyrics"})
+	}))
+	defer lyricsOVHUpstream.Close()
+	server.lyricsOVH.SetHTTPClient(providers.NewHTTPClient(lyricsOVHUpstream.URL))
+
+	recorder := httptest.NewRecorder()
+	request := httptest.NewRequest(http.MethodGet, "/v1/lyrics?artist=Coldplay&track=Yellow", nil)
+	server.Router().ServeHTTP(recorder, request)
+	if recorder.Code != http.StatusOK {
+		t.Fatalf("status = %d, want 200", recorder.Code)
+	}
+	body := recorder.Body.String()
+	if !strings.Contains(body, `"provider":"lyricsovh"`) || !strings.Contains(body, "Fallback lyrics") {
+		t.Fatalf("expected fallback provider response, got %s", body)
+	}
+}
+
+func TestLyricsEndpointRequestedProviderFailureReturnsError(t *testing.T) {
+	server, store := seededServer(t)
+	defer store.Close()
+
+	upstream := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		http.Error(w, "broken", http.StatusBadGateway)
+	}))
+	defer upstream.Close()
+	server.lrclib.SetHTTPClient(providers.NewHTTPClient(upstream.URL))
+
+	recorder := httptest.NewRecorder()
+	request := httptest.NewRequest(http.MethodGet, "/v1/lyrics?artist=Coldplay&track=Yellow&provider=lrclib", nil)
+	server.Router().ServeHTTP(recorder, request)
+	if recorder.Code != http.StatusBadGateway {
+		t.Fatalf("status = %d, want 502", recorder.Code)
+	}
+	var response models.APIResponse[any]
+	if err := json.Unmarshal(recorder.Body.Bytes(), &response); err != nil {
+		t.Fatalf("decode response: %v", err)
+	}
+	if response.Error == nil || response.Error.Code != "provider_request_failed" {
+		t.Fatalf("unexpected error payload %+v", response.Error)
+	}
+}
+
+func TestSetlistsEndpointUsesProviderAfterExpiredCache(t *testing.T) {
+	server, store := seededServer(t)
+	defer store.Close()
+
+	artistID, err := store.ResolveArtistID(context.Background(), "Frank Ocean")
+	if err != nil || artistID == "" {
+		t.Fatalf("ResolveArtistID() err=%v artistID=%q", err, artistID)
+	}
+	artist, err := store.ArtistByID(context.Background(), artistID)
+	if err != nil || artist == nil {
+		t.Fatalf("ArtistByID() err=%v artist=%+v", err, artist)
+	}
+	artist.MBID = "mbid-frank"
+	if err := store.UpsertArtist(context.Background(), *artist); err != nil {
+		t.Fatalf("UpsertArtist() error = %v", err)
+	}
+
+	if err := store.SetProviderCache(context.Background(), "setlistfm", "setlists", "mbid-frank", `{"stale":true}`, -time.Minute); err != nil {
+		t.Fatalf("SetProviderCache() error = %v", err)
+	}
+
+	upstream := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewEncoder(w).Encode(map[string]any{
+			"setlist": []map[string]any{{
+				"id":        "set-1",
+				"eventDate": "15-05-2026",
+				"url":       "https://setlist.fm/set-1",
+				"artist":    map[string]any{"name": "Frank Ocean", "mbid": "mbid-frank"},
+				"venue":     map[string]any{"name": "Madison Square Garden", "city": map[string]any{"name": "New York", "country": map[string]any{"name": "United States"}}},
+			}},
+		})
+	}))
+	defer upstream.Close()
+	server.setlistFM.SetAPIKey("test-key")
+	server.setlistFM.SetHTTPClient(providers.NewHTTPClient(upstream.URL))
+
+	recorder := httptest.NewRecorder()
+	request := httptest.NewRequest(http.MethodGet, "/v1/artists/"+artistID+"/setlists", nil)
+	server.Router().ServeHTTP(recorder, request)
+	if recorder.Code != http.StatusOK {
+		t.Fatalf("status = %d, want 200", recorder.Code)
+	}
+	body := recorder.Body.String()
+	if !strings.Contains(body, `"cached":false`) || !strings.Contains(body, "Madison Square Garden") {
+		t.Fatalf("expected fetched setlists, got %s", body)
 	}
 }
 

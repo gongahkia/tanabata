@@ -32,6 +32,10 @@ func (p *WikiquoteProvider) Name() string {
 	return "wikiquote"
 }
 
+func (p *WikiquoteProvider) SetHTTPClient(client *HTTPClient) {
+	p.client = client
+}
+
 type mediaWikiSectionsResponse struct {
 	Parse struct {
 		Sections []struct {

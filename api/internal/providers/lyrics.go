@@ -33,6 +33,10 @@ func (p *LRCLIBProvider) Name() string {
 	return "lrclib"
 }
 
+func (p *LRCLIBProvider) SetHTTPClient(client *HTTPClient) {
+	p.client = client
+}
+
 type lrclibResponse struct {
 	TrackName    string `json:"trackName"`
 	ArtistName   string `json:"artistName"`
@@ -72,6 +76,10 @@ func NewLyricsOVHProviderWithTelemetry(telemetry *observability.Telemetry) *Lyri
 
 func (p *LyricsOVHProvider) Name() string {
 	return "lyricsovh"
+}
+
+func (p *LyricsOVHProvider) SetHTTPClient(client *HTTPClient) {
+	p.client = client
 }
 
 type lyricsOVHResponse struct {

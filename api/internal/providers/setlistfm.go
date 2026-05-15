@@ -30,6 +30,14 @@ func (p *SetlistFMProvider) Name() string {
 	return "setlistfm"
 }
 
+func (p *SetlistFMProvider) SetHTTPClient(client *HTTPClient) {
+	p.client = client
+}
+
+func (p *SetlistFMProvider) SetAPIKey(apiKey string) {
+	p.apiKey = apiKey
+}
+
 func (p *SetlistFMProvider) Enabled() bool {
 	return strings.TrimSpace(p.apiKey) != ""
 }

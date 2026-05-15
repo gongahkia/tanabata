@@ -28,6 +28,7 @@ check_floor() {
   }
 }
 
-check_floor "internal/api" "25"
-check_floor "internal/catalog" "35"
-check_floor "internal/providers" "50"
+check_floor "cmd/ingest" "50"
+check_floor "internal/api" "50"
+check_floor "internal/catalog" "60"
+check_floor "internal/providers" "65"

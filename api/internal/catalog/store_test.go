@@ -281,7 +281,7 @@ func TestImportCuratedQuotesExpandsProvenanceCoverage(t *testing.T) {
 		want   string
 	}{
 		{status: "verified", want: "Make the work precise enough that it can survive your mood."},
-		{status: "source_attributed", want: "The part people keep is usually the part that felt dangerous to say."},
+		{status: "source_attributed", want: "If the room leans forward, the line usually has a pulse."},
 		{status: "provider_attributed", want: "You can hear when a song is trying to be brave instead of simply being honest."},
 		{status: "ambiguous", want: "If the quote keeps changing between sources, the disagreement is part of the record."},
 		{status: "needs_review", want: "Work hard in silence."},
@@ -308,6 +308,29 @@ func TestImportCuratedQuotesExpandsProvenanceCoverage(t *testing.T) {
 				t.Fatalf("expected %q in results %+v", tc.want, quotes.Data)
 			}
 		})
+	}
+}
+
+func TestImportCuratedQuotesMergesMultiSourceEvidence(t *testing.T) {
+	store, ctx := newSeededStore(t)
+	defer store.Close()
+
+	quotes, err := store.ListQuotes(ctx, models.QuoteFilters{
+		Query:  "precise enough",
+		Limit:  10,
+		Offset: 0,
+	})
+	if err != nil || len(quotes.Data) == 0 {
+		t.Fatalf("ListQuotes() err=%v quotes=%+v", err, quotes.Data)
+	}
+	if quotes.Pagination.Total != 1 {
+		t.Fatalf("expected duplicate curated sources to merge into one canonical quote, got %d", quotes.Pagination.Total)
+	}
+	if len(quotes.Data[0].Evidence) < 4 || quotes.Data[0].Source == nil {
+		t.Fatalf("expected merged multi-source evidence, got %+v", quotes.Data[0])
+	}
+	if quotes.Data[0].Source.Provider != "editorial_archive" {
+		t.Fatalf("expected strongest verified source to remain primary, got %+v", quotes.Data[0].Source)
 	}
 }
 
