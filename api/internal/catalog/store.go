@@ -733,12 +733,21 @@ func (s *Store) UpsertSource(ctx context.Context, source models.Source) error {
 }
 
 func (s *Store) UpsertQuote(ctx context.Context, quote models.Quote) error {
-	existingID, existingStatus, err := s.existingQuote(ctx, quote.ArtistID, search.NormalizeText(quote.Text))
+	existingID, existingStatus, err := s.existingQuote(ctx, quote.ArtistID, quote.Text)
 	if err != nil {
 		return err
 	}
-	if existingID != "" && (existingStatus == "needs_review" || existingStatus == "legacy_unverified" || quote.QuoteID == "") {
-		quote.QuoteID = existingID
+	if existingID != "" {
+		existingQuote, err := s.QuoteByID(ctx, existingID)
+		if err != nil {
+			return err
+		}
+		if existingQuote != nil {
+			quote = mergeQuotes(*existingQuote, quote)
+		}
+		if existingStatus == "needs_review" || existingStatus == "legacy_unverified" || quote.QuoteID == "" {
+			quote.QuoteID = existingID
+		}
 	}
 	if quote.QuoteID == "" {
 		sourceURL := ""
@@ -813,21 +822,39 @@ func (s *Store) UpsertQuote(ctx context.Context, quote models.Quote) error {
 	return s.syncQuoteSearch(ctx, quote)
 }
 
-func (s *Store) existingQuote(ctx context.Context, artistID, normalizedText string) (string, string, error) {
-	row := s.db.QueryRowContext(ctx, `
-		SELECT quote_id, provenance_status
+func (s *Store) existingQuote(ctx context.Context, artistID, text string) (string, string, error) {
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT quote_id, provenance_status, text
 		FROM quotes
-		WHERE artist_id = ? AND normalized_text = ?
-		LIMIT 1
-	`, artistID, normalizedText)
-	var quoteID, provenance string
-	if err := row.Scan(&quoteID, &provenance); err != nil {
-		if errors.Is(err, sql.ErrNoRows) {
-			return "", "", nil
-		}
+		WHERE artist_id = ?
+	`, artistID)
+	if err != nil {
 		return "", "", err
 	}
-	return quoteID, provenance, nil
+	defer rows.Close()
+
+	bestID := ""
+	bestProvenance := ""
+	bestScore := 0
+	for rows.Next() {
+		var quoteID, provenance, candidateText string
+		if err := rows.Scan(&quoteID, &provenance, &candidateText); err != nil {
+			return "", "", err
+		}
+		score := search.QuoteMergeScore(text, candidateText)
+		if score > bestScore {
+			bestID = quoteID
+			bestProvenance = provenance
+			bestScore = score
+		}
+	}
+	if err := rows.Err(); err != nil {
+		return "", "", err
+	}
+	if bestScore < 90 {
+		return "", "", nil
+	}
+	return bestID, bestProvenance, nil
 }
 
 func (s *Store) ReplaceArtistRelations(ctx context.Context, artistID string, relations []models.RelatedArtist) error {
@@ -1863,6 +1890,142 @@ func normalizeOffset(offset int) int {
 		return 0
 	}
 	return offset
+}
+
+func mergeQuotes(existing, incoming models.Quote) models.Quote {
+	merged := incoming
+	merged.QuoteID = existing.QuoteID
+	merged.ArtistID = coalesceString(incoming.ArtistID, existing.ArtistID)
+	merged.ArtistName = coalesceString(incoming.ArtistName, existing.ArtistName)
+	merged.Text = preferLongerString(existing.Text, incoming.Text)
+	merged.Tags = dedupeStrings(append(existing.Tags, incoming.Tags...))
+	merged.Evidence = dedupeStrings(append(existing.Evidence, incoming.Evidence...))
+	merged.ConfidenceScore = maxFloat(existing.ConfidenceScore, incoming.ConfidenceScore)
+	merged.FirstSeenAt = earliestTimestamp(existing.FirstSeenAt, incoming.FirstSeenAt)
+	merged.LastVerifiedAt = latestTimestamp(existing.LastVerifiedAt, incoming.LastVerifiedAt)
+
+	preferred := incoming
+	if quotePriority(existing) > quotePriority(incoming) {
+		preferred = existing
+	}
+	merged.ProvenanceStatus = preferred.ProvenanceStatus
+	merged.ProviderOrigin = coalesceString(preferred.ProviderOrigin, coalesceString(existing.ProviderOrigin, incoming.ProviderOrigin))
+	merged.SourceID = coalesceString(preferred.SourceID, coalesceString(existing.SourceID, incoming.SourceID))
+	merged.SourceType = coalesceString(preferred.SourceType, coalesceString(existing.SourceType, incoming.SourceType))
+	merged.WorkTitle = coalesceString(preferred.WorkTitle, coalesceString(existing.WorkTitle, incoming.WorkTitle))
+	merged.License = coalesceString(preferred.License, coalesceString(existing.License, incoming.License))
+	merged.Source = preferredSource(preferred.Source, existing.Source, incoming.Source)
+	if merged.Source != nil && merged.SourceID == "" {
+		merged.SourceID = merged.Source.SourceID
+	}
+	if merged.Year == nil {
+		merged.Year = existing.Year
+	}
+	if merged.Year == nil {
+		merged.Year = incoming.Year
+	}
+	return merged
+}
+
+func quotePriority(quote models.Quote) int {
+	return provenanceRank(quote.ProvenanceStatus)*1000 + int(quote.ConfidenceScore*100)
+}
+
+func provenanceRank(status string) int {
+	switch status {
+	case "verified":
+		return 5
+	case "source_attributed":
+		return 4
+	case "provider_attributed":
+		return 3
+	case "ambiguous":
+		return 2
+	case "needs_review", "legacy_unverified":
+		return 1
+	default:
+		return 0
+	}
+}
+
+func preferredSource(primary *models.Source, fallbacks ...*models.Source) *models.Source {
+	if primary != nil {
+		return primary
+	}
+	for _, candidate := range fallbacks {
+		if candidate != nil {
+			return candidate
+		}
+	}
+	return nil
+}
+
+func coalesceString(values ...string) string {
+	for _, value := range values {
+		if strings.TrimSpace(value) != "" {
+			return value
+		}
+	}
+	return ""
+}
+
+func preferLongerString(left, right string) string {
+	if len(strings.TrimSpace(right)) > len(strings.TrimSpace(left)) {
+		return right
+	}
+	if strings.TrimSpace(left) != "" {
+		return left
+	}
+	return right
+}
+
+func earliestTimestamp(left, right string) string {
+	if left == "" {
+		return right
+	}
+	if right == "" {
+		return left
+	}
+	leftTime, leftErr := time.Parse(time.RFC3339, left)
+	rightTime, rightErr := time.Parse(time.RFC3339, right)
+	if leftErr != nil || rightErr != nil {
+		if left <= right {
+			return left
+		}
+		return right
+	}
+	if leftTime.Before(rightTime) {
+		return left
+	}
+	return right
+}
+
+func latestTimestamp(left, right string) string {
+	if left == "" {
+		return right
+	}
+	if right == "" {
+		return left
+	}
+	leftTime, leftErr := time.Parse(time.RFC3339, left)
+	rightTime, rightErr := time.Parse(time.RFC3339, right)
+	if leftErr != nil || rightErr != nil {
+		if left >= right {
+			return left
+		}
+		return right
+	}
+	if leftTime.After(rightTime) {
+		return left
+	}
+	return right
+}
+
+func maxFloat(left, right float64) float64 {
+	if left > right {
+		return left
+	}
+	return right
 }
 
 func parseOptionalYear(raw string) *int {

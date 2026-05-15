@@ -29,3 +29,12 @@ func TestSimilarityScoreForTypos(t *testing.T) {
 		t.Fatalf("SimilarityScore() = %d, expected typo match", score)
 	}
 }
+
+func TestShouldMergeQuotes(t *testing.T) {
+	if !ShouldMergeQuotes("Work hard in silence.", "Work hard in silence") {
+		t.Fatalf("expected punctuation-only variant to merge")
+	}
+	if ShouldMergeQuotes("Work hard in silence.", "Work harder in private.") {
+		t.Fatalf("expected distinct quote to remain separate")
+	}
+}

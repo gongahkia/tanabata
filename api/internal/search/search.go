@@ -57,6 +57,35 @@ func SourceID(provider, url string) string {
 	return StableHash(provider, strings.TrimSpace(url))
 }
 
+func QuoteFingerprint(input string) string {
+	return strings.ReplaceAll(NormalizeText(input), " ", "")
+}
+
+func QuoteMergeScore(left, right string) int {
+	normalizedLeft := NormalizeText(left)
+	normalizedRight := NormalizeText(right)
+	if normalizedLeft == normalizedRight {
+		return 100
+	}
+	if QuoteFingerprint(left) == QuoteFingerprint(right) {
+		return 98
+	}
+
+	score := SimilarityScore(left, right)
+	leftTokens := strings.Fields(normalizedLeft)
+	rightTokens := strings.Fields(normalizedRight)
+	if overlap := tokenOverlap(leftTokens, rightTokens); overlap >= 0.95 {
+		score = maxInt(score, 95)
+	} else if overlap >= 0.85 && absInt(len(leftTokens)-len(rightTokens)) <= 1 {
+		score = maxInt(score, 90)
+	}
+	return score
+}
+
+func ShouldMergeQuotes(left, right string) bool {
+	return QuoteMergeScore(left, right) >= 90
+}
+
 func SimilarityScore(query, candidate string) int {
 	normalizedQuery := NormalizeText(query)
 	normalizedCandidate := NormalizeText(candidate)
@@ -127,4 +156,40 @@ func min3(a, b, c int) int {
 		return b
 	}
 	return c
+}
+
+func tokenOverlap(left, right []string) float64 {
+	if len(left) == 0 || len(right) == 0 {
+		return 0
+	}
+	counts := map[string]int{}
+	for _, token := range left {
+		counts[token]++
+	}
+	matches := 0
+	for _, token := range right {
+		if counts[token] > 0 {
+			counts[token]--
+			matches++
+		}
+	}
+	denominator := len(left)
+	if len(right) > denominator {
+		denominator = len(right)
+	}
+	return float64(matches) / float64(denominator)
+}
+
+func absInt(value int) int {
+	if value < 0 {
+		return -value
+	}
+	return value
+}
+
+func maxInt(left, right int) int {
+	if left > right {
+		return left
+	}
+	return right
 }
