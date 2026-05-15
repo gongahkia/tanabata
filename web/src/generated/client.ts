@@ -17,6 +17,8 @@ export interface Quote { "quote_id"?: string; "text"?: string; "artist_id"?: str
 
 export interface QuoteProvenance { "quote_id"?: string; "provenance_status"?: string; "confidence_score"?: number; "provider_origin"?: string; "first_seen_at"?: string; "last_verified_at"?: string; "evidence"?: string[]; "source"?: Source; }
 
+export interface ReviewQueueItem { "quote"?: Quote; "reason"?: string; "risk_score"?: number; }
+
 export interface Release { "release_id"?: string; "title"?: string; "year"?: number; "kind"?: string; "provider"?: string; "url"?: string; }
 
 export interface RelatedArtist { "artist_id"?: string; "name"?: string; "relation"?: string; "score"?: number; "provider"?: string; }
@@ -131,6 +133,12 @@ export interface getJobParams {
   "job_id": string;
 }
 
+export interface listReviewQueueParams {
+  "provenance_status"?: "provider_attributed" | "ambiguous" | "needs_review";
+  "limit"?: number;
+  "offset"?: number;
+}
+
 export interface searchCatalogParams {
   "q": string;
 }
@@ -222,6 +230,9 @@ export function createClient(config: ClientConfig = {}) {
   },
   async getJob(params: getJobParams, init?: RequestInit): Promise<{ "data"?: JobRun; }> {
     return request<{ "data"?: JobRun; }>(config.fetchImpl ?? globalThis.fetch.bind(globalThis), baseUrl, `/v1/jobs/${encodeURIComponent(String(params["job_id"]))}`, undefined, init);
+  },
+  async listReviewQueue(params: listReviewQueueParams = {}, init?: RequestInit): Promise<{ "data"?: ReviewQueueItem[]; "meta"?: ListMeta; "pagination"?: Pagination; }> {
+    return request<{ "data"?: ReviewQueueItem[]; "meta"?: ListMeta; "pagination"?: Pagination; }>(config.fetchImpl ?? globalThis.fetch.bind(globalThis), baseUrl, `/v1/review/queue`, { "provenance_status": params["provenance_status"], "limit": params["limit"], "offset": params["offset"] }, init);
   },
   async searchCatalog(params: searchCatalogParams, init?: RequestInit): Promise<{ "data"?: SearchResults; "meta"?: ListMeta; }> {
     return request<{ "data"?: SearchResults; "meta"?: ListMeta; }>(config.fetchImpl ?? globalThis.fetch.bind(globalThis), baseUrl, `/v1/search`, { "q": params["q"] }, init);

@@ -99,6 +99,7 @@ func (s *Server) Router() *gin.Engine {
 		v1.GET("/providers/:provider/errors", s.providerErrors)
 		v1.GET("/jobs", s.jobs)
 		v1.GET("/jobs/:job_id", s.jobByID)
+		v1.GET("/review/queue", s.reviewQueue)
 		v1.GET("/search", s.search)
 		v1.GET("/stats", s.stats)
 		v1.GET("/lyrics", s.lyrics)
@@ -367,6 +368,19 @@ func (s *Server) quoteProvenance(c *gin.Context) {
 		return
 	}
 	dataResponse(c, http.StatusOK, provenance, nil)
+}
+
+func (s *Server) reviewQueue(c *gin.Context) {
+	response, err := s.store.ReviewQueue(c.Request.Context(), models.ReviewQueueFilters{
+		ProvenanceStatus: c.Query("provenance_status"),
+		Limit:            parseInt(c.Query("limit")),
+		Offset:           parseInt(c.Query("offset")),
+	})
+	if err != nil {
+		errorResponse(c, http.StatusInternalServerError, "review_queue_failed", "failed to load review queue", map[string]any{"error": err.Error()})
+		return
+	}
+	listResponse(c, http.StatusOK, response.Data, response.Meta, response.Pagination)
 }
 
 func (s *Server) sourceByID(c *gin.Context) {

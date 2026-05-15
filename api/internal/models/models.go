@@ -99,6 +99,12 @@ type QuoteProvenance struct {
 	Source           *Source  `json:"source,omitempty"`
 }
 
+type ReviewQueueItem struct {
+	Quote     Quote   `json:"quote"`
+	Reason    string  `json:"reason"`
+	RiskScore float64 `json:"risk_score"`
+}
+
 type Source struct {
 	SourceID    string `json:"source_id"`
 	Provider    string `json:"provider"`
@@ -158,6 +164,12 @@ type QuoteFilters struct {
 	Limit            int
 	Offset           int
 	Sort             string
+}
+
+type ReviewQueueFilters struct {
+	ProvenanceStatus string
+	Limit            int
+	Offset           int
 }
 
 type ArtistFilters struct {

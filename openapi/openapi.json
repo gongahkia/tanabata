@@ -420,6 +420,33 @@
         }
       }
     },
+    "/v1/review/queue": {
+      "get": {
+        "operationId": "listReviewQueue",
+        "parameters": [
+          { "name": "provenance_status", "in": "query", "schema": { "type": "string", "enum": ["provider_attributed", "ambiguous", "needs_review"] } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } },
+          { "name": "offset", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Quotes requiring provenance review",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/ReviewQueueItem" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/search": {
       "get": {
         "operationId": "searchCatalog",
@@ -590,6 +617,14 @@
           "last_verified_at": { "type": "string" },
           "evidence": { "type": "array", "items": { "type": "string" } },
           "source": { "$ref": "#/components/schemas/Source" }
+        }
+      },
+      "ReviewQueueItem": {
+        "type": "object",
+        "properties": {
+          "quote": { "$ref": "#/components/schemas/Quote" },
+          "reason": { "type": "string" },
+          "risk_score": { "type": "number" }
         }
       },
       "Release": {
