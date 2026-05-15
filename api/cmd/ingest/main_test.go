@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -202,5 +203,89 @@ func TestRunBootstrapsCuratedQuotesAndExposesAPIState(t *testing.T) {
 	}
 	if response.Data.ProvenanceStatus != "verified" || response.Data.ProviderOrigin != "tanabata_curated" {
 		t.Fatalf("unexpected provenance %+v", response.Data)
+	}
+}
+
+func TestRunRecoversFromFailedCuratedImportWithoutDuplicatingCatalog(t *testing.T) {
+	tempDir := t.TempDir()
+	store, err := catalog.Open(filepath.Join(tempDir, "catalog.sqlite"))
+	if err != nil {
+		t.Fatalf("Open() error = %v", err)
+	}
+	defer store.Close()
+
+	ctx := context.Background()
+	legacyPath := testutil.WriteLegacyQuotes(t, tempDir)
+	badCuratedPath := filepath.Join(tempDir, "bad_curated.json")
+	if err := os.WriteFile(badCuratedPath, []byte(`{"not":"an array"}`), 0o644); err != nil {
+		t.Fatalf("write bad curated bundle: %v", err)
+	}
+	failedOpts := options{
+		bootstrap:   true,
+		catalogPath: filepath.Join(tempDir, "catalog.sqlite"),
+		legacyPath:  legacyPath,
+		curatedPath: badCuratedPath,
+		jobName:     "catalog-recovery-failed",
+	}
+	if err := run(ctx, failedOpts, store, fakeEnricher{store: store}); err == nil {
+		t.Fatalf("run() with bad curated bundle succeeded, want error")
+	}
+	statsAfterFailure, err := store.Stats(ctx)
+	if err != nil {
+		t.Fatalf("Stats() after failure error = %v", err)
+	}
+	jobsAfterFailure, err := store.ListJobs(ctx, 10)
+	if err != nil {
+		t.Fatalf("ListJobs() after failure error = %v", err)
+	}
+	if len(jobsAfterFailure) != 1 || jobsAfterFailure[0].Status != "failed" {
+		t.Fatalf("expected failed recovery job, got %+v", jobsAfterFailure)
+	}
+	var failedCurated bool
+	for _, item := range jobsAfterFailure[0].Items {
+		if item.Provider == "tanabata_curated" && item.Status == "failed" {
+			failedCurated = true
+		}
+	}
+	if len(jobsAfterFailure[0].Items) != 2 || !failedCurated {
+		t.Fatalf("expected failed curated item after bootstrap, got %+v", jobsAfterFailure[0].Items)
+	}
+
+	goodOpts := failedOpts
+	goodOpts.curatedPath = testutil.WriteCuratedQuotes(t, tempDir)
+	goodOpts.jobName = "catalog-recovery-succeeded"
+	if err := run(ctx, goodOpts, store, fakeEnricher{store: store}); err != nil {
+		t.Fatalf("run() recovery error = %v", err)
+	}
+	statsAfterRecovery, err := store.Stats(ctx)
+	if err != nil {
+		t.Fatalf("Stats() after recovery error = %v", err)
+	}
+	if statsAfterRecovery["quotes"].(int) <= statsAfterFailure["quotes"].(int) {
+		t.Fatalf("recovery did not import curated quotes: before=%v after=%v", statsAfterFailure["quotes"], statsAfterRecovery["quotes"])
+	}
+
+	if err := run(ctx, goodOpts, store, fakeEnricher{store: store}); err != nil {
+		t.Fatalf("second idempotent run error = %v", err)
+	}
+	statsAfterIdempotentRun, err := store.Stats(ctx)
+	if err != nil {
+		t.Fatalf("Stats() after idempotent run error = %v", err)
+	}
+	if statsAfterIdempotentRun["quotes"] != statsAfterRecovery["quotes"] {
+		t.Fatalf("second run duplicated quotes: before=%v after=%v", statsAfterRecovery["quotes"], statsAfterIdempotentRun["quotes"])
+	}
+	jobs, err := store.ListJobs(ctx, 10)
+	if err != nil {
+		t.Fatalf("ListJobs() after recovery error = %v", err)
+	}
+	var succeeded int
+	for _, job := range jobs {
+		if job.Status == "succeeded" {
+			succeeded++
+		}
+	}
+	if succeeded != 2 {
+		t.Fatalf("expected two successful recovery/idempotency jobs, got %+v", jobs)
 	}
 }
