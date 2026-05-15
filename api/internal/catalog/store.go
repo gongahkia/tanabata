@@ -422,6 +422,118 @@ func (s *Store) SeedFromLegacyJSON(ctx context.Context, legacyPath string) error
 	return s.rebuildSearchIndices(ctx)
 }
 
+func (s *Store) ImportCuratedQuotes(ctx context.Context, bundlePath string) (int, error) {
+	content, err := os.ReadFile(bundlePath)
+	if err != nil {
+		return 0, fmt.Errorf("read curated quotes: %w", err)
+	}
+	var records []models.CuratedQuoteRecord
+	if err := json.Unmarshal(content, &records); err != nil {
+		return 0, fmt.Errorf("decode curated quotes: %w", err)
+	}
+
+	imported := 0
+	for _, record := range records {
+		artistName := strings.TrimSpace(record.ArtistName)
+		if artistName == "" || strings.TrimSpace(record.Text) == "" {
+			continue
+		}
+
+		artistID, err := s.ResolveArtistID(ctx, artistName)
+		if err != nil {
+			return imported, err
+		}
+		artist := &models.Artist{
+			ArtistID: artistID,
+			Name:     artistName,
+			Aliases:  dedupeStrings(append(record.Aliases, artistName)),
+			Genres:   []string{},
+			Links:    []models.ArtistLink{},
+			ProviderStatus: map[string]string{
+				"tanabata_curated": "imported",
+			},
+		}
+		if artistID == "" {
+			artist.ArtistID = search.ArtistID(artistName, "")
+		} else if existing, err := s.ArtistByID(ctx, artistID); err != nil {
+			return imported, err
+		} else if existing != nil {
+			artist = existing
+			artist.Aliases = dedupeStrings(append(existing.Aliases, record.Aliases...))
+			if artist.ProviderStatus == nil {
+				artist.ProviderStatus = map[string]string{}
+			}
+			artist.ProviderStatus["tanabata_curated"] = "imported"
+		}
+		if err := s.UpsertArtist(ctx, *artist); err != nil {
+			return imported, err
+		}
+
+		source := record.Source
+		if source != nil {
+			if source.SourceID == "" {
+				source.SourceID = search.SourceID(source.Provider, source.URL)
+			}
+			if source.Provider == "" {
+				source.Provider = "tanabata_curated"
+			}
+			if source.License == "" {
+				source.License = record.License
+			}
+			if err := s.UpsertSource(ctx, *source); err != nil {
+				return imported, err
+			}
+		}
+
+		providerOrigin := strings.TrimSpace(record.ProviderOrigin)
+		if providerOrigin == "" {
+			if source != nil && source.Provider != "" {
+				providerOrigin = source.Provider
+			} else {
+				providerOrigin = "tanabata_curated"
+			}
+		}
+		license := strings.TrimSpace(record.License)
+		if license == "" && source != nil {
+			license = source.License
+		}
+		firstSeenAt := strings.TrimSpace(record.FirstSeenAt)
+		if firstSeenAt == "" && source != nil {
+			firstSeenAt = source.RetrievedAt
+		}
+		lastVerifiedAt := strings.TrimSpace(record.LastVerifiedAt)
+		if lastVerifiedAt == "" {
+			lastVerifiedAt = firstSeenAt
+		}
+		sourceID := ""
+		if source != nil {
+			sourceID = source.SourceID
+		}
+
+		if err := s.UpsertQuote(ctx, models.Quote{
+			Text:             strings.TrimSpace(record.Text),
+			ArtistID:         artist.ArtistID,
+			ArtistName:       artistName,
+			SourceID:         sourceID,
+			SourceType:       record.SourceType,
+			WorkTitle:        record.WorkTitle,
+			Tags:             record.Tags,
+			ProvenanceStatus: record.ProvenanceStatus,
+			ConfidenceScore:  record.ConfidenceScore,
+			ProviderOrigin:   providerOrigin,
+			Evidence:         record.Evidence,
+			License:          license,
+			FirstSeenAt:      firstSeenAt,
+			LastVerifiedAt:   lastVerifiedAt,
+			Source:           source,
+		}); err != nil {
+			return imported, err
+		}
+		imported++
+	}
+	return imported, nil
+}
+
 func (s *Store) RefreshSearchIndices(ctx context.Context) error {
 	return s.rebuildSearchIndices(ctx)
 }
@@ -1650,7 +1762,7 @@ func (s *Store) artistAliases(ctx context.Context, artistID string) ([]string, e
 		return nil, err
 	}
 	defer rows.Close()
-	var aliases []string
+	aliases := []string{}
 	for rows.Next() {
 		var alias string
 		if err := rows.Scan(&alias); err != nil {
@@ -1669,7 +1781,7 @@ func (s *Store) artistLinks(ctx context.Context, artistID string) ([]models.Arti
 		return nil, err
 	}
 	defer rows.Close()
-	var links []models.ArtistLink
+	links := []models.ArtistLink{}
 	for rows.Next() {
 		var link models.ArtistLink
 		if err := rows.Scan(&link.Provider, &link.Kind, &link.URL, &link.ExternalID); err != nil {
@@ -1688,7 +1800,7 @@ func (s *Store) artistGenres(ctx context.Context, artistID string) ([]string, er
 		return nil, err
 	}
 	defer rows.Close()
-	var genres []string
+	genres := []string{}
 	for rows.Next() {
 		var tag string
 		if err := rows.Scan(&tag); err != nil {
@@ -1705,7 +1817,7 @@ func (s *Store) quoteTags(ctx context.Context, quoteID string) ([]string, error)
 		return nil, err
 	}
 	defer rows.Close()
-	var tags []string
+	tags := []string{}
 	for rows.Next() {
 		var tag string
 		if err := rows.Scan(&tag); err != nil {
@@ -1724,7 +1836,7 @@ func (s *Store) quoteEvidence(ctx context.Context, quoteID string) ([]string, er
 		return nil, err
 	}
 	defer rows.Close()
-	var evidence []string
+	evidence := []string{}
 	for rows.Next() {
 		var item string
 		if err := rows.Scan(&item); err != nil {

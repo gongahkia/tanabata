@@ -131,6 +131,23 @@ type LegacyQuote struct {
 	Text   string `json:"text"`
 }
 
+type CuratedQuoteRecord struct {
+	ArtistName       string   `json:"artist_name"`
+	Aliases          []string `json:"aliases,omitempty"`
+	Text             string   `json:"text"`
+	SourceType       string   `json:"source_type,omitempty"`
+	WorkTitle        string   `json:"work_title,omitempty"`
+	Tags             []string `json:"tags,omitempty"`
+	ProvenanceStatus string   `json:"provenance_status"`
+	ConfidenceScore  float64  `json:"confidence_score"`
+	ProviderOrigin   string   `json:"provider_origin,omitempty"`
+	Evidence         []string `json:"evidence,omitempty"`
+	License          string   `json:"license,omitempty"`
+	FirstSeenAt      string   `json:"first_seen_at,omitempty"`
+	LastVerifiedAt   string   `json:"last_verified_at,omitempty"`
+	Source           *Source  `json:"source,omitempty"`
+}
+
 type QuoteFilters struct {
 	Artist           string
 	ArtistID         string
