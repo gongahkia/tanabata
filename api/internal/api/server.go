@@ -27,10 +27,11 @@ type Server struct {
 	lrclib            *providers.LRCLIBProvider
 	lyricsOVH         *providers.LyricsOVHProvider
 	providerInventory []models.ProviderSummary
+	contractValidator *runtimeContractValidator
 }
 
 func NewServer(store *catalog.Store, telemetry *observability.Telemetry) *Server {
-	return &Server{
+	server := &Server{
 		store:     store,
 		telemetry: telemetry,
 		logger:    slog.Default(),
@@ -48,6 +49,12 @@ func NewServer(store *catalog.Store, telemetry *observability.Telemetry) *Server
 			{Provider: "wikiquote", Category: "enrichment", Enabled: true},
 		},
 	}
+	if contractValidationEnabled() {
+		if err := server.enableContractValidation(os.Getenv(contractSpecPathEnv)); err != nil {
+			server.logger.Error("openapi_contract_validation_disabled", "error", err)
+		}
+	}
+	return server
 }
 
 func (s *Server) Router() *gin.Engine {
@@ -56,6 +63,9 @@ func (s *Server) Router() *gin.Engine {
 	router.Use(s.corsMiddleware())
 	router.Use(s.structuredLogger())
 	router.Use(s.recoveryMiddleware())
+	if s.contractValidator != nil {
+		router.Use(s.contractValidator.middleware())
+	}
 	if s.telemetry != nil {
 		router.Use(s.telemetry.Middleware())
 		router.GET("/metrics", s.telemetry.MetricsHandler())
