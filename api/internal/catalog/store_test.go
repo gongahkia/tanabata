@@ -2,33 +2,21 @@ package catalog
 
 import (
 	"context"
-	"encoding/json"
-	"os"
 	"path/filepath"
 	"testing"
 	"time"
 
 	"github.com/gongahkia/tanabata/api/internal/models"
 	"github.com/gongahkia/tanabata/api/internal/search"
+	"github.com/gongahkia/tanabata/api/internal/testutil"
 )
 
 func newSeededStore(t *testing.T) (*Store, context.Context) {
 	t.Helper()
 	tempDir := t.TempDir()
 	dbPath := filepath.Join(tempDir, "catalog.sqlite")
-	legacyPath := filepath.Join(tempDir, "quotes.json")
-	payload := []models.LegacyQuote{
-		{Author: "Frank Ocean", Text: "Work hard in silence."},
-		{Author: "Frank Ocean", Text: "Be yourself."},
-		{Author: "Taylor Swift", Text: "Just keep dancing."},
-	}
-	content, err := json.Marshal(payload)
-	if err != nil {
-		t.Fatalf("marshal legacy payload: %v", err)
-	}
-	if err := osWriteFile(legacyPath, content); err != nil {
-		t.Fatalf("write legacy payload: %v", err)
-	}
+	legacyPath := testutil.WriteLegacyQuotes(t, tempDir)
+	curatedPath := testutil.WriteCuratedQuotes(t, tempDir)
 	store, err := Open(dbPath)
 	if err != nil {
 		t.Fatalf("open store: %v", err)
@@ -36,6 +24,11 @@ func newSeededStore(t *testing.T) (*Store, context.Context) {
 	ctx := context.Background()
 	if err := store.SeedFromLegacyJSON(ctx, legacyPath); err != nil {
 		t.Fatalf("seed store: %v", err)
+	}
+	if imported, err := store.ImportCuratedQuotes(ctx, curatedPath); err != nil {
+		t.Fatalf("import curated quotes: %v", err)
+	} else if imported != len(testutil.CuratedQuotes()) {
+		t.Fatalf("imported %d curated quotes, want %d", imported, len(testutil.CuratedQuotes()))
 	}
 	return store, ctx
 }
@@ -48,8 +41,8 @@ func TestSeedFromLegacyJSONAndFilters(t *testing.T) {
 	if err != nil {
 		t.Fatalf("ListArtists() error = %v", err)
 	}
-	if artists.Pagination.Total != 2 {
-		t.Fatalf("ListArtists() total = %d, want 2", artists.Pagination.Total)
+	if artists.Pagination.Total != 4 {
+		t.Fatalf("ListArtists() total = %d, want 4", artists.Pagination.Total)
 	}
 
 	quotes, err := store.ListQuotes(ctx, models.QuoteFilters{
@@ -77,8 +70,8 @@ func TestSeedFromLegacyJSONAndFilters(t *testing.T) {
 	if err != nil {
 		t.Fatalf("ListQuotes() error = %v", err)
 	}
-	if len(quotes.Data) != 2 {
-		t.Fatalf("ListQuotes() len = %d, want 2", len(quotes.Data))
+	if len(quotes.Data) != 3 {
+		t.Fatalf("ListQuotes() len = %d, want 3", len(quotes.Data))
 	}
 }
 
@@ -131,8 +124,8 @@ func TestUpsertQuoteReplacesLegacyRecord(t *testing.T) {
 	if err != nil {
 		t.Fatalf("ListQuotes() error = %v", err)
 	}
-	if len(quotes.Data) != 2 {
-		t.Fatalf("expected quote reconciliation to keep total at 2, got %d", len(quotes.Data))
+	if len(quotes.Data) != 3 {
+		t.Fatalf("expected quote reconciliation to keep total at 3, got %d", len(quotes.Data))
 	}
 	var upgraded bool
 	for _, quote := range quotes.Data {
@@ -142,6 +135,179 @@ func TestUpsertQuoteReplacesLegacyRecord(t *testing.T) {
 	}
 	if !upgraded {
 		t.Fatalf("expected legacy quote to be upgraded with provenance")
+	}
+}
+
+func TestUpsertQuoteMergesNearDuplicateAcrossProviders(t *testing.T) {
+	store, ctx := newSeededStore(t)
+	defer store.Close()
+
+	artistID, err := store.ResolveArtistID(ctx, "Frank Ocean")
+	if err != nil {
+		t.Fatalf("ResolveArtistID() error = %v", err)
+	}
+	source := models.Source{
+		SourceID:    search.SourceID("wikiquote", "https://en.wikiquote.org/wiki/Frank_Ocean#Quotes"),
+		Provider:    "wikiquote",
+		URL:         "https://en.wikiquote.org/wiki/Frank_Ocean#Quotes",
+		Title:       "Frank Ocean - Quotes",
+		Publisher:   "Wikiquote",
+		License:     "CC-BY-SA-4.0",
+		RetrievedAt: "2026-05-01T00:00:00Z",
+	}
+	if err := store.UpsertSource(ctx, source); err != nil {
+		t.Fatalf("UpsertSource() error = %v", err)
+	}
+	if err := store.UpsertQuote(ctx, models.Quote{
+		Text:             "Work hard in silence",
+		ArtistID:         artistID,
+		ArtistName:       "Frank Ocean",
+		SourceID:         source.SourceID,
+		SourceType:       "wikiquote",
+		WorkTitle:        "Quotes",
+		Tags:             []string{"discipline"},
+		ProvenanceStatus: "source_attributed",
+		ConfidenceScore:  0.92,
+		ProviderOrigin:   "wikiquote",
+		Evidence:         []string{"Matched against a maintained Wikiquote page."},
+		License:          source.License,
+		FirstSeenAt:      source.RetrievedAt,
+		LastVerifiedAt:   source.RetrievedAt,
+		Source:           &source,
+	}); err != nil {
+		t.Fatalf("UpsertQuote() error = %v", err)
+	}
+
+	quotes, err := store.ListQuotes(ctx, models.QuoteFilters{ArtistID: artistID, Limit: 10})
+	if err != nil {
+		t.Fatalf("ListQuotes() error = %v", err)
+	}
+	if len(quotes.Data) != 3 {
+		t.Fatalf("expected near-duplicate merge to keep total at 3, got %d", len(quotes.Data))
+	}
+	var merged *models.Quote
+	for idx := range quotes.Data {
+		if search.ShouldMergeQuotes(quotes.Data[idx].Text, "Work hard in silence.") {
+			merged = &quotes.Data[idx]
+			break
+		}
+	}
+	if merged == nil {
+		t.Fatalf("expected merged quote in %+v", quotes.Data)
+	}
+	if merged.ProvenanceStatus != "source_attributed" || merged.ProviderOrigin != "wikiquote" {
+		t.Fatalf("unexpected merged quote %+v", merged)
+	}
+	if len(merged.Evidence) < 2 || len(merged.Tags) != 1 || merged.Source == nil || merged.Source.Provider != "wikiquote" {
+		t.Fatalf("expected merged evidence, tags, and source metadata, got %+v", merged)
+	}
+}
+
+func TestUpsertQuoteKeepsDistinctQuotesWhenBelowMergeThreshold(t *testing.T) {
+	store, ctx := newSeededStore(t)
+	defer store.Close()
+
+	artistID, err := store.ResolveArtistID(ctx, "Frank Ocean")
+	if err != nil {
+		t.Fatalf("ResolveArtistID() error = %v", err)
+	}
+	if err := store.UpsertQuote(ctx, models.Quote{
+		Text:             "Work harder in private.",
+		ArtistID:         artistID,
+		ArtistName:       "Frank Ocean",
+		ProvenanceStatus: "provider_attributed",
+		ConfidenceScore:  0.65,
+		ProviderOrigin:   "tanabata_curated",
+		Evidence:         []string{"Intentionally distinct quote variant for merge-boundary coverage."},
+		FirstSeenAt:      "2026-05-02T00:00:00Z",
+		LastVerifiedAt:   "2026-05-02T00:00:00Z",
+	}); err != nil {
+		t.Fatalf("UpsertQuote() error = %v", err)
+	}
+
+	quotes, err := store.ListQuotes(ctx, models.QuoteFilters{ArtistID: artistID, Limit: 10})
+	if err != nil {
+		t.Fatalf("ListQuotes() error = %v", err)
+	}
+	if len(quotes.Data) != 4 {
+		t.Fatalf("expected distinct quote to increase total to 4, got %d", len(quotes.Data))
+	}
+}
+
+func TestUpsertQuoteDoesNotDowngradeBetterProvenanceOnMerge(t *testing.T) {
+	store, ctx := newSeededStore(t)
+	defer store.Close()
+
+	artistID, err := store.ResolveArtistID(ctx, "Frank Ocean")
+	if err != nil {
+		t.Fatalf("ResolveArtistID() error = %v", err)
+	}
+	if err := store.UpsertQuote(ctx, models.Quote{
+		Text:             "Make the work precise enough that it can survive your mood",
+		ArtistID:         artistID,
+		ArtistName:       "Frank Ocean",
+		ProvenanceStatus: "provider_attributed",
+		ConfidenceScore:  0.5,
+		ProviderOrigin:   "provider_digest",
+		Evidence:         []string{"Provider-only paraphrase candidate."},
+		FirstSeenAt:      "2026-04-05T00:00:00Z",
+		LastVerifiedAt:   "2026-04-05T00:00:00Z",
+	}); err != nil {
+		t.Fatalf("UpsertQuote() error = %v", err)
+	}
+
+	quotes, err := store.ListQuotes(ctx, models.QuoteFilters{
+		Query:  "precise enough",
+		Limit:  10,
+		Offset: 0,
+	})
+	if err != nil || len(quotes.Data) == 0 {
+		t.Fatalf("ListQuotes() err=%v quotes=%+v", err, quotes.Data)
+	}
+	if quotes.Data[0].ProvenanceStatus != "verified" || quotes.Data[0].ProviderOrigin != "tanabata_curated" {
+		t.Fatalf("expected stronger provenance to survive merge, got %+v", quotes.Data[0])
+	}
+	if len(quotes.Data[0].Evidence) < 3 {
+		t.Fatalf("expected evidence to accumulate, got %+v", quotes.Data[0].Evidence)
+	}
+}
+
+func TestImportCuratedQuotesExpandsProvenanceCoverage(t *testing.T) {
+	store, ctx := newSeededStore(t)
+	defer store.Close()
+
+	tests := []struct {
+		status string
+		want   string
+	}{
+		{status: "verified", want: "Make the work precise enough that it can survive your mood."},
+		{status: "source_attributed", want: "The part people keep is usually the part that felt dangerous to say."},
+		{status: "provider_attributed", want: "You can hear when a song is trying to be brave instead of simply being honest."},
+		{status: "ambiguous", want: "If the quote keeps changing between sources, the disagreement is part of the record."},
+		{status: "needs_review", want: "Work hard in silence."},
+	}
+	for _, tc := range tests {
+		t.Run(tc.status, func(t *testing.T) {
+			quotes, err := store.ListQuotes(ctx, models.QuoteFilters{
+				ProvenanceStatus: tc.status,
+				Limit:            10,
+			})
+			if err != nil {
+				t.Fatalf("ListQuotes() error = %v", err)
+			}
+			if len(quotes.Data) == 0 {
+				t.Fatalf("expected quote for status %s", tc.status)
+			}
+			found := false
+			for _, quote := range quotes.Data {
+				if quote.Text == tc.want {
+					found = true
+				}
+			}
+			if !found {
+				t.Fatalf("expected %q in results %+v", tc.want, quotes.Data)
+			}
+		})
 	}
 }
 
@@ -238,6 +404,22 @@ func TestProviderCacheJobsAndSummaries(t *testing.T) {
 	}
 }
 
+func TestProviderCacheExpiresAndRefreshes(t *testing.T) {
+	store, ctx := newSeededStore(t)
+	defer store.Close()
+
+	if err := store.SetProviderCache(ctx, "lrclib", "lyrics", "coldplay-yellow", `{"lyrics":"stale"}`, -time.Minute); err != nil {
+		t.Fatalf("SetProviderCache() error = %v", err)
+	}
+	payload, refreshedAt, expiresAt, ok, err := store.GetProviderCache(ctx, "lrclib", "lyrics", "coldplay-yellow")
+	if err != nil {
+		t.Fatalf("GetProviderCache() error = %v", err)
+	}
+	if ok || payload != "" || refreshedAt != "" || expiresAt != "" {
+		t.Fatalf("expected expired cache miss, got ok=%v payload=%q refreshed=%q expires=%q", ok, payload, refreshedAt, expiresAt)
+	}
+}
+
 func TestQuoteProvenanceFiltersAndRefreshSearch(t *testing.T) {
 	store, ctx := newSeededStore(t)
 	defer store.Close()
@@ -285,15 +467,25 @@ func TestQuoteProvenanceFiltersAndRefreshSearch(t *testing.T) {
 	if err != nil {
 		t.Fatalf("ListQuotes() error = %v", err)
 	}
-	if len(filtered.Data) != 1 || filtered.Data[0].ProvenanceStatus != "verified" {
+	if len(filtered.Data) == 0 {
 		t.Fatalf("unexpected filtered quotes %+v", filtered.Data)
 	}
+	var selected *models.Quote
+	for idx := range filtered.Data {
+		if filtered.Data[idx].Text == "Be yourself." {
+			selected = &filtered.Data[idx]
+			break
+		}
+	}
+	if selected == nil {
+		t.Fatalf("expected verified upgraded quote in %+v", filtered.Data)
+	}
 
-	provenance, err := store.QuoteProvenance(ctx, filtered.Data[0].QuoteID)
+	provenance, err := store.QuoteProvenance(ctx, selected.QuoteID)
 	if err != nil {
 		t.Fatalf("QuoteProvenance() error = %v", err)
 	}
-	if provenance == nil || provenance.ProviderOrigin != "wikiquote" || len(provenance.Evidence) != 2 {
+	if provenance == nil || provenance.ProviderOrigin != "wikiquote" || len(provenance.Evidence) < 2 {
 		t.Fatalf("unexpected provenance %+v", provenance)
 	}
 
@@ -307,8 +499,4 @@ func TestQuoteProvenanceFiltersAndRefreshSearch(t *testing.T) {
 	if len(searchResponse.Data.Quotes) == 0 {
 		t.Fatalf("expected refreshed search indices to find quote")
 	}
-}
-
-func osWriteFile(path string, data []byte) error {
-	return os.WriteFile(path, data, 0o644)
 }
