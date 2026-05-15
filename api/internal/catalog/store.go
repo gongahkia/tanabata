@@ -222,6 +222,24 @@ func (s *Store) init(ctx context.Context) error {
 			error_message TEXT NOT NULL DEFAULT '',
 			FOREIGN KEY (job_id) REFERENCES jobs(job_id) ON DELETE CASCADE
 		);`,
+		`CREATE TABLE IF NOT EXISTS ingestion_snapshots (
+			snapshot_id TEXT PRIMARY KEY,
+			job_id TEXT NOT NULL DEFAULT '',
+			phase TEXT NOT NULL,
+			captured_at TEXT NOT NULL,
+			counts_json TEXT NOT NULL
+		);`,
+		`CREATE TABLE IF NOT EXISTS ingestion_audit_events (
+			event_id TEXT PRIMARY KEY,
+			job_id TEXT NOT NULL DEFAULT '',
+			job_item_id TEXT NOT NULL DEFAULT '',
+			provider TEXT NOT NULL DEFAULT '',
+			target TEXT NOT NULL DEFAULT '',
+			action TEXT NOT NULL,
+			status TEXT NOT NULL,
+			occurred_at TEXT NOT NULL,
+			details TEXT NOT NULL DEFAULT ''
+		);`,
 		`CREATE INDEX IF NOT EXISTS idx_artist_aliases_normalized ON artist_aliases(normalized_alias);`,
 		`CREATE INDEX IF NOT EXISTS idx_quotes_artist_provenance ON quotes(artist_id, provenance_status, confidence_score DESC);`,
 		`CREATE INDEX IF NOT EXISTS idx_quotes_source ON quotes(source_id);`,
@@ -229,6 +247,8 @@ func (s *Store) init(ctx context.Context) error {
 		`CREATE INDEX IF NOT EXISTS idx_provider_runs_lookup ON provider_runs(provider, status, started_at DESC);`,
 		`CREATE INDEX IF NOT EXISTS idx_provider_errors_lookup ON provider_errors(provider, occurred_at DESC);`,
 		`CREATE INDEX IF NOT EXISTS idx_job_items_lookup ON job_items(job_id, provider, started_at DESC);`,
+		`CREATE INDEX IF NOT EXISTS idx_ingestion_snapshots_job ON ingestion_snapshots(job_id, captured_at DESC);`,
+		`CREATE INDEX IF NOT EXISTS idx_ingestion_audit_job ON ingestion_audit_events(job_id, occurred_at DESC);`,
 		`CREATE VIRTUAL TABLE IF NOT EXISTS artist_search USING fts5(
 			artist_id UNINDEXED,
 			name,
@@ -1524,20 +1544,9 @@ func (s *Store) Stats(ctx context.Context) (map[string]any, error) {
 	if err != nil {
 		return nil, err
 	}
-	counts := map[string]int{}
-	for key, query := range map[string]string{
-		"artists":         `SELECT COUNT(*) FROM artists`,
-		"quotes":          `SELECT COUNT(*) FROM quotes`,
-		"sources":         `SELECT COUNT(*) FROM quote_sources`,
-		"releases":        `SELECT COUNT(*) FROM releases`,
-		"related_artists": `SELECT COUNT(*) FROM artist_relations`,
-		"jobs":            `SELECT COUNT(*) FROM jobs`,
-	} {
-		var count int
-		if err := s.db.QueryRowContext(ctx, query).Scan(&count); err != nil {
-			return nil, err
-		}
-		counts[key] = count
+	counts, err := s.catalogCounts(ctx)
+	if err != nil {
+		return nil, err
 	}
 	return map[string]any{
 		"artists":          counts["artists"],
@@ -1698,6 +1707,133 @@ func (s *Store) RecordJobItem(ctx context.Context, item models.JobItem) error {
 			error_message = excluded.error_message
 	`, item.JobItemID, item.JobID, item.Provider, item.Target, item.Status, item.StartedAt, item.FinishedAt, item.Details, item.ErrorMessage)
 	return err
+}
+
+func (s *Store) CaptureIngestionSnapshot(ctx context.Context, jobID, phase string, capturedAt time.Time) (models.IngestionSnapshot, error) {
+	if capturedAt.IsZero() {
+		capturedAt = time.Now().UTC()
+	}
+	counts, err := s.catalogCounts(ctx)
+	if err != nil {
+		return models.IngestionSnapshot{}, err
+	}
+	snapshot := models.IngestionSnapshot{
+		SnapshotID: search.StableHash("ingestion-snapshot", jobID, phase, capturedAt.Format(time.RFC3339Nano)),
+		JobID:      jobID,
+		Phase:      phase,
+		CapturedAt: capturedAt.Format(time.RFC3339),
+		Counts:     counts,
+	}
+	countsJSON, err := json.Marshal(snapshot.Counts)
+	if err != nil {
+		return models.IngestionSnapshot{}, err
+	}
+	_, err = s.db.ExecContext(ctx, `
+		INSERT INTO ingestion_snapshots(snapshot_id, job_id, phase, captured_at, counts_json)
+		VALUES(?, ?, ?, ?, ?)
+		ON CONFLICT(snapshot_id) DO UPDATE SET
+			job_id = excluded.job_id,
+			phase = excluded.phase,
+			captured_at = excluded.captured_at,
+			counts_json = excluded.counts_json
+	`, snapshot.SnapshotID, snapshot.JobID, snapshot.Phase, snapshot.CapturedAt, string(countsJSON))
+	if err != nil {
+		return models.IngestionSnapshot{}, err
+	}
+	return snapshot, nil
+}
+
+func (s *Store) ListIngestionSnapshots(ctx context.Context, jobID string, limit int) ([]models.IngestionSnapshot, error) {
+	query := `SELECT snapshot_id, job_id, phase, captured_at, counts_json FROM ingestion_snapshots`
+	args := []any{}
+	if jobID != "" {
+		query += ` WHERE job_id = ?`
+		args = append(args, jobID)
+	}
+	query += ` ORDER BY captured_at DESC, snapshot_id DESC LIMIT ?`
+	args = append(args, normalizeLimit(limit))
+	rows, err := s.db.QueryContext(ctx, query, args...)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var snapshots []models.IngestionSnapshot
+	for rows.Next() {
+		var snapshot models.IngestionSnapshot
+		var countsJSON string
+		if err := rows.Scan(&snapshot.SnapshotID, &snapshot.JobID, &snapshot.Phase, &snapshot.CapturedAt, &countsJSON); err != nil {
+			return nil, err
+		}
+		if err := json.Unmarshal([]byte(countsJSON), &snapshot.Counts); err != nil {
+			return nil, err
+		}
+		snapshots = append(snapshots, snapshot)
+	}
+	return snapshots, rows.Err()
+}
+
+func (s *Store) RecordIngestionAuditEvent(ctx context.Context, event models.IngestionAuditEvent) error {
+	if event.EventID == "" {
+		event.EventID = search.StableHash("ingestion-audit", event.JobID, event.JobItemID, event.Provider, event.Target, event.Action, event.Status, event.OccurredAt, event.Details)
+	}
+	_, err := s.db.ExecContext(ctx, `
+		INSERT INTO ingestion_audit_events(event_id, job_id, job_item_id, provider, target, action, status, occurred_at, details)
+		VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)
+		ON CONFLICT(event_id) DO UPDATE SET
+			job_id = excluded.job_id,
+			job_item_id = excluded.job_item_id,
+			provider = excluded.provider,
+			target = excluded.target,
+			action = excluded.action,
+			status = excluded.status,
+			occurred_at = excluded.occurred_at,
+			details = excluded.details
+	`, event.EventID, event.JobID, event.JobItemID, event.Provider, event.Target, event.Action, event.Status, event.OccurredAt, event.Details)
+	return err
+}
+
+func (s *Store) ListIngestionAuditEvents(ctx context.Context, jobID string, limit int) ([]models.IngestionAuditEvent, error) {
+	query := `SELECT event_id, job_id, job_item_id, provider, target, action, status, occurred_at, details FROM ingestion_audit_events`
+	args := []any{}
+	if jobID != "" {
+		query += ` WHERE job_id = ?`
+		args = append(args, jobID)
+	}
+	query += ` ORDER BY occurred_at DESC, event_id DESC LIMIT ?`
+	args = append(args, normalizeLimit(limit))
+	rows, err := s.db.QueryContext(ctx, query, args...)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var events []models.IngestionAuditEvent
+	for rows.Next() {
+		var event models.IngestionAuditEvent
+		if err := rows.Scan(&event.EventID, &event.JobID, &event.JobItemID, &event.Provider, &event.Target, &event.Action, &event.Status, &event.OccurredAt, &event.Details); err != nil {
+			return nil, err
+		}
+		events = append(events, event)
+	}
+	return events, rows.Err()
+}
+
+func (s *Store) catalogCounts(ctx context.Context) (map[string]int, error) {
+	counts := map[string]int{}
+	for key, query := range map[string]string{
+		"artists":         `SELECT COUNT(*) FROM artists`,
+		"quotes":          `SELECT COUNT(*) FROM quotes`,
+		"sources":         `SELECT COUNT(*) FROM quote_sources`,
+		"releases":        `SELECT COUNT(*) FROM releases`,
+		"related_artists": `SELECT COUNT(*) FROM artist_relations`,
+		"jobs":            `SELECT COUNT(*) FROM jobs`,
+	} {
+		var count int
+		if err := s.db.QueryRowContext(ctx, query).Scan(&count); err != nil {
+			return nil, err
+		}
+		counts[key] = count
+	}
+	return counts, nil
 }
 
 func (s *Store) ListJobs(ctx context.Context, limit int) ([]models.JobRun, error) {

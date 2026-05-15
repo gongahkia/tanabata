@@ -234,3 +234,23 @@ type JobItem struct {
 	Details      string `json:"details,omitempty"`
 	ErrorMessage string `json:"error_message,omitempty"`
 }
+
+type IngestionSnapshot struct {
+	SnapshotID string         `json:"snapshot_id"`
+	JobID      string         `json:"job_id,omitempty"`
+	Phase      string         `json:"phase"`
+	CapturedAt string         `json:"captured_at"`
+	Counts     map[string]int `json:"counts"`
+}
+
+type IngestionAuditEvent struct {
+	EventID    string `json:"event_id"`
+	JobID      string `json:"job_id,omitempty"`
+	JobItemID  string `json:"job_item_id,omitempty"`
+	Provider   string `json:"provider,omitempty"`
+	Target     string `json:"target,omitempty"`
+	Action     string `json:"action"`
+	Status     string `json:"status"`
+	OccurredAt string `json:"occurred_at"`
+	Details    string `json:"details,omitempty"`
+}
