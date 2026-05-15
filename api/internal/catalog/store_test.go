@@ -659,3 +659,74 @@ func TestSearchRankingIsDeterministic(t *testing.T) {
 		t.Fatalf("second result status = %q, want verified before provider_attributed", response.Data.Quotes[1].ProvenanceStatus)
 	}
 }
+
+func TestIngestionSnapshotsAndAuditEventsPersist(t *testing.T) {
+	store, ctx := newSeededStore(t)
+	defer store.Close()
+
+	started := time.Now().UTC().Add(-2 * time.Minute)
+	job := models.JobRun{
+		JobID:     "snapshot-job-1",
+		Name:      "curated-import",
+		Scope:     "curated",
+		Status:    "running",
+		StartedAt: started.Format(time.RFC3339),
+	}
+	if err := store.RecordJob(ctx, job); err != nil {
+		t.Fatalf("RecordJob() error = %v", err)
+	}
+	before, err := store.CaptureIngestionSnapshot(ctx, job.JobID, "before", started)
+	if err != nil {
+		t.Fatalf("CaptureIngestionSnapshot(before) error = %v", err)
+	}
+	artistID, err := store.ResolveArtistID(ctx, "Frank Ocean")
+	if err != nil {
+		t.Fatalf("ResolveArtistID() error = %v", err)
+	}
+	if err := store.UpsertQuote(ctx, models.Quote{
+		Text:             "Audit snapshots should explain catalog deltas.",
+		ArtistID:         artistID,
+		ArtistName:       "Frank Ocean",
+		ProvenanceStatus: "source_attributed",
+		ConfidenceScore:  0.9,
+		LastVerifiedAt:   time.Now().UTC().Format(time.RFC3339),
+	}); err != nil {
+		t.Fatalf("UpsertQuote() error = %v", err)
+	}
+	after, err := store.CaptureIngestionSnapshot(ctx, job.JobID, "after", started.Add(time.Minute))
+	if err != nil {
+		t.Fatalf("CaptureIngestionSnapshot(after) error = %v", err)
+	}
+	if after.Counts["quotes"] != before.Counts["quotes"]+1 {
+		t.Fatalf("quote count delta = %d -> %d, want +1", before.Counts["quotes"], after.Counts["quotes"])
+	}
+
+	event := models.IngestionAuditEvent{
+		EventID:    "audit-event-1",
+		JobID:      job.JobID,
+		Provider:   "tanabata_curated",
+		Target:     "quote:Audit snapshots should explain catalog deltas.",
+		Action:     "upsert_quote",
+		Status:     "succeeded",
+		OccurredAt: started.Add(30 * time.Second).Format(time.RFC3339),
+		Details:    "created quote",
+	}
+	if err := store.RecordIngestionAuditEvent(ctx, event); err != nil {
+		t.Fatalf("RecordIngestionAuditEvent() error = %v", err)
+	}
+
+	snapshots, err := store.ListIngestionSnapshots(ctx, job.JobID, 10)
+	if err != nil {
+		t.Fatalf("ListIngestionSnapshots() error = %v", err)
+	}
+	if len(snapshots) != 2 || snapshots[0].Phase != "after" || snapshots[1].Phase != "before" {
+		t.Fatalf("unexpected snapshots %+v", snapshots)
+	}
+	events, err := store.ListIngestionAuditEvents(ctx, job.JobID, 10)
+	if err != nil {
+		t.Fatalf("ListIngestionAuditEvents() error = %v", err)
+	}
+	if len(events) != 1 || events[0].Action != "upsert_quote" || events[0].Status != "succeeded" {
+		t.Fatalf("unexpected audit events %+v", events)
+	}
+}
