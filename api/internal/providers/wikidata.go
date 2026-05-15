@@ -31,6 +31,11 @@ func (p *WikidataProvider) Name() string {
 	return "wikidata"
 }
 
+func (p *WikidataProvider) SetHTTPClients(searchClient, entityClient *HTTPClient) {
+	p.searchClient = searchClient
+	p.entityClient = entityClient
+}
+
 type wikidataSearchResponse struct {
 	Search []struct {
 		ID          string `json:"id"`

@@ -28,6 +28,10 @@ func (p *MusicBrainzProvider) Name() string {
 	return "musicbrainz"
 }
 
+func (p *MusicBrainzProvider) SetHTTPClient(client *HTTPClient) {
+	p.client = client
+}
+
 type musicBrainzSearchResponse struct {
 	Artists []struct {
 		ID             string `json:"id"`

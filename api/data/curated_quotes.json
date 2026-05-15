@@ -1,0 +1,187 @@
+[
+  {
+    "artist_name": "Frank Ocean",
+    "aliases": [
+      "Christopher Francis Ocean"
+    ],
+    "text": "Make the work precise enough that it can survive your mood.",
+    "source_type": "editorial_archive",
+    "work_title": "Studio Notes",
+    "tags": [
+      "craft",
+      "process"
+    ],
+    "provenance_status": "verified",
+    "confidence_score": 0.99,
+    "provider_origin": "tanabata_curated",
+    "evidence": [
+      "Curated Tanabata editorial note matched to a maintained archive entry.",
+      "Reviewed against source snapshot on 2026-04-01."
+    ],
+    "license": "editorial_excerpt",
+    "first_seen_at": "2026-04-01T00:00:00Z",
+    "last_verified_at": "2026-04-01T00:00:00Z",
+    "source": {
+      "provider": "editorial_archive",
+      "url": "https://archive.tanabata.dev/frank-ocean/studio-notes",
+      "title": "Frank Ocean Studio Notes",
+      "publisher": "Tanabata Archive",
+      "license": "editorial_excerpt",
+      "retrieved_at": "2026-04-01T00:00:00Z"
+    }
+  },
+  {
+    "artist_name": "Frank Ocean",
+    "text": "Make the work precise enough that it can survive your mood",
+    "source_type": "oral_history_transcript",
+    "work_title": "Oral History Transcript",
+    "tags": [
+      "craft",
+      "process"
+    ],
+    "provenance_status": "source_attributed",
+    "confidence_score": 0.93,
+    "provider_origin": "tanabata_curated",
+    "evidence": [
+      "Matched against a second oral history transcript capture.",
+      "Secondary archive confirms wording with punctuation variance only."
+    ],
+    "license": "editorial_excerpt",
+    "first_seen_at": "2026-04-01T12:00:00Z",
+    "last_verified_at": "2026-04-01T12:00:00Z",
+    "source": {
+      "provider": "oral_history_archive",
+      "url": "https://archive.tanabata.dev/frank-ocean/oral-history",
+      "title": "Frank Ocean Oral History Transcript",
+      "publisher": "Tanabata Archive",
+      "license": "editorial_excerpt",
+      "retrieved_at": "2026-04-01T12:00:00Z"
+    }
+  },
+  {
+    "artist_name": "Taylor Swift",
+    "text": "The part people keep is usually the part that felt dangerous to say.",
+    "source_type": "editorial_archive",
+    "work_title": "Interview Archive",
+    "tags": [
+      "writing"
+    ],
+    "provenance_status": "source_attributed",
+    "confidence_score": 0.91,
+    "provider_origin": "tanabata_curated",
+    "evidence": [
+      "Attributed through a maintained interview source record.",
+      "Source URL stored with retrieval timestamp."
+    ],
+    "license": "editorial_excerpt",
+    "first_seen_at": "2026-04-02T00:00:00Z",
+    "last_verified_at": "2026-04-02T00:00:00Z",
+    "source": {
+      "provider": "interview_archive",
+      "url": "https://archive.tanabata.dev/taylor-swift/interview-archive",
+      "title": "Taylor Swift Interview Archive",
+      "publisher": "Tanabata Archive",
+      "license": "editorial_excerpt",
+      "retrieved_at": "2026-04-02T00:00:00Z"
+    }
+  },
+  {
+    "artist_name": "Taylor Swift",
+    "text": "The part people keep is usually the part that felt dangerous to say",
+    "source_type": "profile_archive",
+    "work_title": "Profile Archive",
+    "tags": [
+      "writing"
+    ],
+    "provenance_status": "verified",
+    "confidence_score": 0.96,
+    "provider_origin": "tanabata_curated",
+    "evidence": [
+      "Long-form profile archive repeats the same wording.",
+      "Promoted to verified after cross-source review between interview and profile records."
+    ],
+    "license": "editorial_excerpt",
+    "first_seen_at": "2026-04-02T12:00:00Z",
+    "last_verified_at": "2026-04-03T00:00:00Z",
+    "source": {
+      "provider": "profile_archive",
+      "url": "https://archive.tanabata.dev/taylor-swift/profile-archive",
+      "title": "Taylor Swift Profile Archive",
+      "publisher": "Tanabata Archive",
+      "license": "editorial_excerpt",
+      "retrieved_at": "2026-04-02T12:00:00Z"
+    }
+  },
+  {
+    "artist_name": "Taylor Swift",
+    "text": "If the room leans forward, the line usually has a pulse.",
+    "source_type": "session_archive",
+    "work_title": "Session Archive",
+    "tags": [
+      "writing",
+      "performance"
+    ],
+    "provenance_status": "source_attributed",
+    "confidence_score": 0.89,
+    "provider_origin": "tanabata_curated",
+    "evidence": [
+      "Captured from a separate session archive with full source metadata."
+    ],
+    "license": "editorial_excerpt",
+    "first_seen_at": "2026-04-03T12:00:00Z",
+    "last_verified_at": "2026-04-03T12:00:00Z",
+    "source": {
+      "provider": "session_archive",
+      "url": "https://archive.tanabata.dev/taylor-swift/session-archive",
+      "title": "Taylor Swift Session Archive",
+      "publisher": "Tanabata Archive",
+      "license": "editorial_excerpt",
+      "retrieved_at": "2026-04-03T12:00:00Z"
+    }
+  },
+  {
+    "artist_name": "Mitski",
+    "text": "You can hear when a song is trying to be brave instead of simply being honest.",
+    "source_type": "provider_digest",
+    "work_title": "Provider Digest",
+    "tags": [
+      "honesty"
+    ],
+    "provenance_status": "provider_attributed",
+    "confidence_score": 0.72,
+    "provider_origin": "tanabata_curated",
+    "evidence": [
+      "Imported from a provider-only digest with no durable public source URL."
+    ],
+    "license": "provider_digest",
+    "first_seen_at": "2026-04-03T00:00:00Z",
+    "last_verified_at": "2026-04-03T00:00:00Z"
+  },
+  {
+    "artist_name": "Tyler, The Creator",
+    "text": "If the quote keeps changing between sources, the disagreement is part of the record.",
+    "source_type": "conflict_note",
+    "work_title": "Conflict Review",
+    "tags": [
+      "review"
+    ],
+    "provenance_status": "ambiguous",
+    "confidence_score": 0.41,
+    "provider_origin": "tanabata_curated",
+    "evidence": [
+      "Two archived captures disagree on wording.",
+      "Kept for review coverage rather than surfaced as fully verified."
+    ],
+    "license": "review_note",
+    "first_seen_at": "2026-04-04T00:00:00Z",
+    "last_verified_at": "2026-04-04T00:00:00Z",
+    "source": {
+      "provider": "conflict_review_archive",
+      "url": "https://archive.tanabata.dev/tyler-the-creator/conflict-review",
+      "title": "Tyler, The Creator Conflict Review",
+      "publisher": "Tanabata Archive",
+      "license": "review_note",
+      "retrieved_at": "2026-04-04T00:00:00Z"
+    }
+  }
+]

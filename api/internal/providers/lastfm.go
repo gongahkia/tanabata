@@ -32,6 +32,14 @@ func (p *LastFMProvider) Name() string {
 	return "lastfm"
 }
 
+func (p *LastFMProvider) SetHTTPClient(client *HTTPClient) {
+	p.client = client
+}
+
+func (p *LastFMProvider) SetAPIKey(apiKey string) {
+	p.apiKey = apiKey
+}
+
 func (p *LastFMProvider) Enabled() bool {
 	return strings.TrimSpace(p.apiKey) != ""
 }
