@@ -16,6 +16,9 @@ func dataResponse[T any](c *gin.Context, status int, data T, meta any) {
 }
 
 func listResponse[T any](c *gin.Context, status int, data []T, meta any, pagination models.Pagination) {
+	if data == nil {
+		data = []T{}
+	}
 	paginationCopy := pagination
 	c.JSON(status, models.APIResponse[[]T]{
 		Data:       data,
