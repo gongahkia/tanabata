@@ -55,10 +55,7 @@ func (s *Server) Router() *gin.Engine {
 	router.Use(requestIDMiddleware())
 	router.Use(s.corsMiddleware())
 	router.Use(s.structuredLogger())
-	router.Use(gin.CustomRecovery(func(c *gin.Context, recovered any) {
-		s.logger.Error("request panic", "request_id", c.GetString("request_id"), "error", recovered)
-		errorResponse(c, http.StatusInternalServerError, "internal_error", "unexpected server error", nil)
-	}))
+	router.Use(s.recoveryMiddleware())
 	if s.telemetry != nil {
 		router.Use(s.telemetry.Middleware())
 		router.GET("/metrics", s.telemetry.MetricsHandler())

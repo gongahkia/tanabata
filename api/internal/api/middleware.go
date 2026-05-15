@@ -2,6 +2,7 @@ package api
 
 import (
 	"log/slog"
+	"net/http"
 	"os"
 	"time"
 
@@ -40,4 +41,15 @@ func (s *Server) structuredLogger() gin.HandlerFunc {
 			"remote_addr", c.ClientIP(),
 		)
 	}
+}
+
+func (s *Server) recoveryMiddleware() gin.HandlerFunc {
+	logger := s.logger
+	if logger == nil {
+		logger = slog.New(slog.NewJSONHandler(os.Stdout, nil))
+	}
+	return gin.CustomRecovery(func(c *gin.Context, recovered any) {
+		logger.Error("request panic", "request_id", c.GetString("request_id"), "error", recovered)
+		errorResponse(c, http.StatusInternalServerError, "internal_error", "unexpected server error", nil)
+	})
 }
