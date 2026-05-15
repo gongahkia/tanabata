@@ -82,6 +82,7 @@ func TestOpenAPIContractRuntimeResponses(t *testing.T) {
 		{name: "jobs", path: "/v1/jobs?limit=5"},
 		{name: "job detail", path: "/v1/jobs/contract-job-1"},
 		{name: "review queue", path: "/v1/review/queue?limit=5"},
+		{name: "stale quote review", path: "/v1/review/stale?limit=5"},
 		{name: "search", path: "/v1/search?q=frank"},
 		{name: "stats", path: "/v1/stats"},
 		{name: "lyrics", path: "/v1/lyrics?artist=Coldplay&track=Yellow&provider=lrclib"},

@@ -13,7 +13,7 @@ export interface Artist { "artist_id"?: string; "name"?: string; "aliases"?: str
 
 export interface Source { "source_id"?: string; "provider"?: string; "url"?: string; "title"?: string; "publisher"?: string; "license"?: string; "retrieved_at"?: string; }
 
-export interface Quote { "quote_id"?: string; "text"?: string; "artist_id"?: string; "artist_name"?: string; "source_id"?: string; "source_type"?: string; "work_title"?: string; "year"?: number; "tags"?: string[]; "provenance_status"?: string; "confidence_score"?: number; "provider_origin"?: string; "evidence"?: string[]; "license"?: string; "first_seen_at"?: string; "last_verified_at"?: string; "source"?: Source; }
+export interface Quote { "quote_id"?: string; "text"?: string; "artist_id"?: string; "artist_name"?: string; "source_id"?: string; "source_type"?: string; "work_title"?: string; "year"?: number; "tags"?: string[]; "provenance_status"?: string; "confidence_score"?: number; "provider_origin"?: string; "evidence"?: string[]; "license"?: string; "first_seen_at"?: string; "last_verified_at"?: string; "freshness_status"?: "fresh" | "aging" | "stale" | "unknown"; "freshness_age_days"?: number; "freshness_reason"?: string; "source"?: Source; }
 
 export interface QuoteProvenance { "quote_id"?: string; "provenance_status"?: string; "confidence_score"?: number; "provider_origin"?: string; "first_seen_at"?: string; "last_verified_at"?: string; "evidence"?: string[]; "source"?: Source; }
 
@@ -139,6 +139,11 @@ export interface listReviewQueueParams {
   "offset"?: number;
 }
 
+export interface listStaleQuotesParams {
+  "limit"?: number;
+  "offset"?: number;
+}
+
 export interface searchCatalogParams {
   "q": string;
 }
@@ -233,6 +238,9 @@ export function createClient(config: ClientConfig = {}) {
   },
   async listReviewQueue(params: listReviewQueueParams = {}, init?: RequestInit): Promise<{ "data"?: ReviewQueueItem[]; "meta"?: ListMeta; "pagination"?: Pagination; }> {
     return request<{ "data"?: ReviewQueueItem[]; "meta"?: ListMeta; "pagination"?: Pagination; }>(config.fetchImpl ?? globalThis.fetch.bind(globalThis), baseUrl, `/v1/review/queue`, { "provenance_status": params["provenance_status"], "limit": params["limit"], "offset": params["offset"] }, init);
+  },
+  async listStaleQuotes(params: listStaleQuotesParams = {}, init?: RequestInit): Promise<{ "data"?: Quote[]; "meta"?: ListMeta; "pagination"?: Pagination; }> {
+    return request<{ "data"?: Quote[]; "meta"?: ListMeta; "pagination"?: Pagination; }>(config.fetchImpl ?? globalThis.fetch.bind(globalThis), baseUrl, `/v1/review/stale`, { "limit": params["limit"], "offset": params["offset"] }, init);
   },
   async searchCatalog(params: searchCatalogParams, init?: RequestInit): Promise<{ "data"?: SearchResults; "meta"?: ListMeta; }> {
     return request<{ "data"?: SearchResults; "meta"?: ListMeta; }>(config.fetchImpl ?? globalThis.fetch.bind(globalThis), baseUrl, `/v1/search`, { "q": params["q"] }, init);
