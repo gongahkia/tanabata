@@ -20,7 +20,11 @@ func listResponse[T any](c *gin.Context, status int, data []T, meta any, paginat
 		data = []T{}
 	}
 	paginationCopy := pagination
-	c.JSON(status, models.APIResponse[[]T]{
+	c.JSON(status, struct {
+		Data       []T                `json:"data"`
+		Meta       any                `json:"meta,omitempty"`
+		Pagination *models.Pagination `json:"pagination,omitempty"`
+	}{
 		Data:       data,
 		Meta:       meta,
 		Pagination: &paginationCopy,
