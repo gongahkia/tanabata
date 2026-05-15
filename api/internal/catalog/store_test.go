@@ -523,3 +523,39 @@ func TestQuoteProvenanceFiltersAndRefreshSearch(t *testing.T) {
 		t.Fatalf("expected refreshed search indices to find quote")
 	}
 }
+
+func TestReviewQueuePrioritizesWeakProvenance(t *testing.T) {
+	store, ctx := newSeededStore(t)
+	defer store.Close()
+
+	response, err := store.ReviewQueue(ctx, models.ReviewQueueFilters{Limit: 10})
+	if err != nil {
+		t.Fatalf("ReviewQueue() error = %v", err)
+	}
+	if len(response.Data) == 0 {
+		t.Fatalf("expected weak-provenance quotes in review queue")
+	}
+	for _, item := range response.Data {
+		switch item.Quote.ProvenanceStatus {
+		case "needs_review", "ambiguous", "provider_attributed":
+		default:
+			t.Fatalf("unexpected queue status %q", item.Quote.ProvenanceStatus)
+		}
+		if item.Reason == "" {
+			t.Fatalf("expected review reason for %+v", item.Quote)
+		}
+		if item.RiskScore <= 0 || item.RiskScore > 1 {
+			t.Fatalf("risk score = %f, want within (0,1]", item.RiskScore)
+		}
+	}
+
+	filtered, err := store.ReviewQueue(ctx, models.ReviewQueueFilters{ProvenanceStatus: "needs_review", Limit: 10})
+	if err != nil {
+		t.Fatalf("ReviewQueue(needs_review) error = %v", err)
+	}
+	for _, item := range filtered.Data {
+		if item.Quote.ProvenanceStatus != "needs_review" {
+			t.Fatalf("filtered status = %q, want needs_review", item.Quote.ProvenanceStatus)
+		}
+	}
+}

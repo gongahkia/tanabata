@@ -242,6 +242,30 @@ func TestProviderRunsErrorsAndJobsEndpoints(t *testing.T) {
 	}
 }
 
+func TestReviewQueueEndpoint(t *testing.T) {
+	server, store := seededServer(t)
+	defer store.Close()
+
+	recorder := httptest.NewRecorder()
+	request := httptest.NewRequest(http.MethodGet, "/v1/review/queue?limit=5", nil)
+	server.Router().ServeHTTP(recorder, request)
+	if recorder.Code != http.StatusOK {
+		t.Fatalf("status = %d, want 200 body=%s", recorder.Code, recorder.Body.String())
+	}
+	var response struct {
+		Data []models.ReviewQueueItem `json:"data"`
+	}
+	if err := json.Unmarshal(recorder.Body.Bytes(), &response); err != nil {
+		t.Fatalf("decode response: %v", err)
+	}
+	if len(response.Data) == 0 {
+		t.Fatalf("expected review queue items")
+	}
+	if response.Data[0].Reason == "" {
+		t.Fatalf("expected queue reason")
+	}
+}
+
 func TestErrorEnvelopeAndRequestID(t *testing.T) {
 	server, store := seededServer(t)
 	defer store.Close()

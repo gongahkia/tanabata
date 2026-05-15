@@ -1115,6 +1115,113 @@ func (s *Store) QuoteProvenance(ctx context.Context, quoteID string) (*models.Qu
 	}, nil
 }
 
+func (s *Store) ReviewQueue(ctx context.Context, filters models.ReviewQueueFilters) (models.ListResponse[models.ReviewQueueItem], error) {
+	response := models.ListResponse[models.ReviewQueueItem]{}
+	statuses := []string{"needs_review", "ambiguous", "provider_attributed"}
+	var where []string
+	var args []any
+	if filters.ProvenanceStatus != "" {
+		where = append(where, "quotes.provenance_status = ?")
+		args = append(args, filters.ProvenanceStatus)
+	} else {
+		where = append(where, "quotes.provenance_status IN (?, ?, ?)")
+		for _, status := range statuses {
+			args = append(args, status)
+		}
+	}
+	whereClause := ""
+	if len(where) > 0 {
+		whereClause = " WHERE " + strings.Join(where, " AND ")
+	}
+	countQuery := `SELECT COUNT(*) FROM quotes` + whereClause
+	if err := s.db.QueryRowContext(ctx, countQuery, args...).Scan(&response.Pagination.Total); err != nil {
+		return response, err
+	}
+	response.Pagination.Limit = normalizeLimit(filters.Limit)
+	response.Pagination.Offset = normalizeOffset(filters.Offset)
+	meta, err := s.Meta(ctx)
+	if err != nil {
+		return response, err
+	}
+	response.Meta = meta
+
+	query := `
+		SELECT quote_id, provenance_status, confidence_score
+		FROM quotes` + whereClause + `
+		ORDER BY
+			CASE provenance_status
+				WHEN 'needs_review' THEN 0
+				WHEN 'ambiguous' THEN 1
+				WHEN 'provider_attributed' THEN 2
+				ELSE 3
+			END ASC,
+			confidence_score ASC,
+			COALESCE(last_verified_at, '') ASC,
+			quote_id ASC
+		LIMIT ? OFFSET ?`
+	queryArgs := append(append([]any{}, args...), response.Pagination.Limit, response.Pagination.Offset)
+	rows, err := s.db.QueryContext(ctx, query, queryArgs...)
+	if err != nil {
+		return response, err
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var quoteID string
+		var status string
+		var confidence float64
+		if err := rows.Scan(&quoteID, &status, &confidence); err != nil {
+			return response, err
+		}
+		quote, err := s.QuoteByID(ctx, quoteID)
+		if err != nil {
+			return response, err
+		}
+		if quote == nil {
+			continue
+		}
+		response.Data = append(response.Data, models.ReviewQueueItem{
+			Quote:     *quote,
+			Reason:    reviewReason(status, confidence),
+			RiskScore: reviewRiskScore(status, confidence),
+		})
+	}
+	return response, rows.Err()
+}
+
+func reviewReason(status string, confidence float64) string {
+	switch {
+	case status == "needs_review":
+		return "explicitly flagged for editorial review"
+	case status == "ambiguous":
+		return "attribution is ambiguous across available evidence"
+	case status == "provider_attributed":
+		return "only provider-level attribution is available"
+	case confidence < 0.5:
+		return "low confidence score"
+	default:
+		return "manual review recommended"
+	}
+}
+
+func reviewRiskScore(status string, confidence float64) float64 {
+	base := map[string]float64{
+		"needs_review":        1.0,
+		"ambiguous":           0.85,
+		"provider_attributed": 0.65,
+	}[status]
+	if base == 0 {
+		base = 0.5
+	}
+	score := base + (1-confidence)*0.25
+	if score > 1 {
+		return 1
+	}
+	if score < 0 {
+		return 0
+	}
+	return score
+}
+
 func (s *Store) ListArtists(ctx context.Context, filters models.ArtistFilters) (models.ListResponse[models.Artist], error) {
 	response := models.ListResponse[models.Artist]{}
 	base := `
