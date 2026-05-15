@@ -447,6 +447,32 @@
         }
       }
     },
+    "/v1/review/stale": {
+      "get": {
+        "operationId": "listStaleQuotes",
+        "parameters": [
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } },
+          { "name": "offset", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Quotes with stale or missing verification metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Quote" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/search": {
       "get": {
         "operationId": "searchCatalog",
@@ -603,6 +629,9 @@
           "license": { "type": "string" },
           "first_seen_at": { "type": "string" },
           "last_verified_at": { "type": "string" },
+          "freshness_status": { "type": "string", "enum": ["fresh", "aging", "stale", "unknown"] },
+          "freshness_age_days": { "type": "integer" },
+          "freshness_reason": { "type": "string" },
           "source": { "$ref": "#/components/schemas/Source" }
         }
       },

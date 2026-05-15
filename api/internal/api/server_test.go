@@ -266,6 +266,48 @@ func TestReviewQueueEndpoint(t *testing.T) {
 	}
 }
 
+func TestStaleQuotesEndpoint(t *testing.T) {
+	server, store := seededServer(t)
+	defer store.Close()
+
+	artistID, err := store.ResolveArtistID(context.Background(), "Frank Ocean")
+	if err != nil {
+		t.Fatalf("ResolveArtistID() error = %v", err)
+	}
+	if err := store.UpsertQuote(context.Background(), models.Quote{
+		Text:             "A deliberately stale verification marker.",
+		ArtistID:         artistID,
+		ArtistName:       "Frank Ocean",
+		ProvenanceStatus: "source_attributed",
+		ConfidenceScore:  0.9,
+		LastVerifiedAt:   time.Now().UTC().AddDate(0, 0, -220).Format(time.RFC3339),
+	}); err != nil {
+		t.Fatalf("UpsertQuote() error = %v", err)
+	}
+
+	recorder := httptest.NewRecorder()
+	request := httptest.NewRequest(http.MethodGet, "/v1/review/stale?limit=10", nil)
+	server.Router().ServeHTTP(recorder, request)
+	if recorder.Code != http.StatusOK {
+		t.Fatalf("status = %d, want 200 body=%s", recorder.Code, recorder.Body.String())
+	}
+	var response struct {
+		Data []models.Quote `json:"data"`
+	}
+	if err := json.Unmarshal(recorder.Body.Bytes(), &response); err != nil {
+		t.Fatalf("decode response: %v", err)
+	}
+	var found bool
+	for _, quote := range response.Data {
+		if quote.Text == "A deliberately stale verification marker." && quote.FreshnessStatus == "stale" {
+			found = true
+		}
+	}
+	if !found {
+		t.Fatalf("expected stale quote with freshness metadata, got %+v", response.Data)
+	}
+}
+
 func TestErrorEnvelopeAndRequestID(t *testing.T) {
 	server, store := seededServer(t)
 	defer store.Close()

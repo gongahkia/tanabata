@@ -85,6 +85,9 @@ type Quote struct {
 	License          string   `json:"license,omitempty"`
 	FirstSeenAt      string   `json:"first_seen_at,omitempty"`
 	LastVerifiedAt   string   `json:"last_verified_at,omitempty"`
+	FreshnessStatus  string   `json:"freshness_status,omitempty"`
+	FreshnessAgeDays *int     `json:"freshness_age_days,omitempty"`
+	FreshnessReason  string   `json:"freshness_reason,omitempty"`
 	Source           *Source  `json:"source,omitempty"`
 }
 

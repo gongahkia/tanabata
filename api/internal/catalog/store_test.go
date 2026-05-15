@@ -559,3 +559,48 @@ func TestReviewQueuePrioritizesWeakProvenance(t *testing.T) {
 		}
 	}
 }
+
+func TestStaleQuotesUsesFreshnessPolicy(t *testing.T) {
+	store, ctx := newSeededStore(t)
+	defer store.Close()
+
+	artistID, err := store.ResolveArtistID(ctx, "Frank Ocean")
+	if err != nil {
+		t.Fatalf("ResolveArtistID() error = %v", err)
+	}
+	oldVerifiedAt := time.Now().UTC().AddDate(0, 0, -220).Format(time.RFC3339)
+	if err := store.UpsertQuote(ctx, models.Quote{
+		Text:             "Freshness policy should surface old verification timestamps.",
+		ArtistID:         artistID,
+		ArtistName:       "Frank Ocean",
+		SourceType:       "interview",
+		WorkTitle:        "Archive",
+		ProvenanceStatus: "source_attributed",
+		ConfidenceScore:  0.88,
+		ProviderOrigin:   "test",
+		LastVerifiedAt:   oldVerifiedAt,
+	}); err != nil {
+		t.Fatalf("UpsertQuote() error = %v", err)
+	}
+
+	response, err := store.StaleQuotes(ctx, models.ReviewQueueFilters{Limit: 20})
+	if err != nil {
+		t.Fatalf("StaleQuotes() error = %v", err)
+	}
+	var found *models.Quote
+	for i := range response.Data {
+		if response.Data[i].Text == "Freshness policy should surface old verification timestamps." {
+			found = &response.Data[i]
+			break
+		}
+	}
+	if found == nil {
+		t.Fatalf("expected stale quote in response")
+	}
+	if found.FreshnessStatus != "stale" {
+		t.Fatalf("freshness status = %q, want stale", found.FreshnessStatus)
+	}
+	if found.FreshnessAgeDays == nil || *found.FreshnessAgeDays < 180 {
+		t.Fatalf("freshness age = %v, want >= 180", found.FreshnessAgeDays)
+	}
+}

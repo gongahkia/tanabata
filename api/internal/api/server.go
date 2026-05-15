@@ -100,6 +100,7 @@ func (s *Server) Router() *gin.Engine {
 		v1.GET("/jobs", s.jobs)
 		v1.GET("/jobs/:job_id", s.jobByID)
 		v1.GET("/review/queue", s.reviewQueue)
+		v1.GET("/review/stale", s.staleQuotes)
 		v1.GET("/search", s.search)
 		v1.GET("/stats", s.stats)
 		v1.GET("/lyrics", s.lyrics)
@@ -378,6 +379,18 @@ func (s *Server) reviewQueue(c *gin.Context) {
 	})
 	if err != nil {
 		errorResponse(c, http.StatusInternalServerError, "review_queue_failed", "failed to load review queue", map[string]any{"error": err.Error()})
+		return
+	}
+	listResponse(c, http.StatusOK, response.Data, response.Meta, response.Pagination)
+}
+
+func (s *Server) staleQuotes(c *gin.Context) {
+	response, err := s.store.StaleQuotes(c.Request.Context(), models.ReviewQueueFilters{
+		Limit:  parseInt(c.Query("limit")),
+		Offset: parseInt(c.Query("offset")),
+	})
+	if err != nil {
+		errorResponse(c, http.StatusInternalServerError, "stale_quotes_failed", "failed to load stale quote review set", map[string]any{"error": err.Error()})
 		return
 	}
 	listResponse(c, http.StatusOK, response.Data, response.Meta, response.Pagination)

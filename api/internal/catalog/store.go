@@ -21,6 +21,8 @@ import (
 
 const snapshotVersionKey = "snapshot_version"
 const activeProvidersKey = "active_providers"
+const quoteFreshnessStaleAfter = 180 * 24 * time.Hour
+const quoteFreshnessAgingAfter = 90 * 24 * time.Hour
 
 type Store struct {
 	db *sql.DB
@@ -1188,6 +1190,51 @@ func (s *Store) ReviewQueue(ctx context.Context, filters models.ReviewQueueFilte
 	return response, rows.Err()
 }
 
+func (s *Store) StaleQuotes(ctx context.Context, filters models.ReviewQueueFilters) (models.ListResponse[models.Quote], error) {
+	response := models.ListResponse[models.Quote]{}
+	where := `WHERE COALESCE(last_verified_at, '') = ''
+		OR datetime(last_verified_at) IS NULL
+		OR datetime(last_verified_at) <= datetime('now', '-180 days')`
+	if err := s.db.QueryRowContext(ctx, `SELECT COUNT(*) FROM quotes `+where).Scan(&response.Pagination.Total); err != nil {
+		return response, err
+	}
+	response.Pagination.Limit = normalizeLimit(filters.Limit)
+	response.Pagination.Offset = normalizeOffset(filters.Offset)
+	meta, err := s.Meta(ctx)
+	if err != nil {
+		return response, err
+	}
+	response.Meta = meta
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT quote_id
+		FROM quotes
+		`+where+`
+		ORDER BY
+			CASE WHEN COALESCE(last_verified_at, '') = '' OR datetime(last_verified_at) IS NULL THEN 0 ELSE 1 END ASC,
+			COALESCE(last_verified_at, '') ASC,
+			confidence_score ASC,
+			quote_id ASC
+		LIMIT ? OFFSET ?`, response.Pagination.Limit, response.Pagination.Offset)
+	if err != nil {
+		return response, err
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var quoteID string
+		if err := rows.Scan(&quoteID); err != nil {
+			return response, err
+		}
+		quote, err := s.QuoteByID(ctx, quoteID)
+		if err != nil {
+			return response, err
+		}
+		if quote != nil {
+			response.Data = append(response.Data, *quote)
+		}
+	}
+	return response, rows.Err()
+}
+
 func reviewReason(status string, confidence float64) string {
 	switch {
 	case status == "needs_review":
@@ -1859,7 +1906,38 @@ func (s *Store) scanQuoteRow(ctx context.Context, scanner interface{ Scan(dest .
 		quote.Source, _ = s.SourceByID(ctx, quote.SourceID)
 	}
 	quote.Year = parseOptionalYear(year)
+	applyQuoteFreshness(&quote, time.Now().UTC())
 	return quote, nil
+}
+
+func applyQuoteFreshness(quote *models.Quote, now time.Time) {
+	if quote.LastVerifiedAt == "" {
+		quote.FreshnessStatus = "unknown"
+		quote.FreshnessReason = "quote has not been verified against a source"
+		return
+	}
+	verifiedAt, err := time.Parse(time.RFC3339, quote.LastVerifiedAt)
+	if err != nil {
+		quote.FreshnessStatus = "unknown"
+		quote.FreshnessReason = "last_verified_at is not parseable"
+		return
+	}
+	age := int(now.Sub(verifiedAt).Hours() / 24)
+	if age < 0 {
+		age = 0
+	}
+	quote.FreshnessAgeDays = &age
+	switch {
+	case now.Sub(verifiedAt) >= quoteFreshnessStaleAfter:
+		quote.FreshnessStatus = "stale"
+		quote.FreshnessReason = "last source verification is older than 180 days"
+	case now.Sub(verifiedAt) >= quoteFreshnessAgingAfter:
+		quote.FreshnessStatus = "aging"
+		quote.FreshnessReason = "last source verification is older than 90 days"
+	default:
+		quote.FreshnessStatus = "fresh"
+		quote.FreshnessReason = "recently verified against source metadata"
+	}
 }
 
 func (s *Store) scanArtistRow(ctx context.Context, scanner interface{ Scan(dest ...any) error }) (models.Artist, error) {
