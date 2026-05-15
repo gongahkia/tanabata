@@ -1798,13 +1798,34 @@ func (s *Store) searchQuotes(ctx context.Context, query string, limit int) ([]mo
 	if fts == "" {
 		return nil, nil
 	}
+	normalized := search.NormalizeText(query)
 	rows, err := s.db.QueryContext(ctx, `
-		SELECT quote_id
+		SELECT quote_search.quote_id
 		FROM quote_search
+		JOIN quotes ON quotes.quote_id = quote_search.quote_id
+		JOIN artists ON artists.artist_id = quotes.artist_id
 		WHERE quote_search MATCH ?
-		ORDER BY bm25(quote_search), quote_id
+		ORDER BY
+			CASE
+				WHEN quotes.normalized_text = ? THEN 0
+				WHEN quotes.normalized_text LIKE ? THEN 1
+				WHEN lower(artists.name) = ? THEN 2
+				ELSE 3
+			END ASC,
+			bm25(quote_search) ASC,
+			CASE quotes.provenance_status
+				WHEN 'verified' THEN 0
+				WHEN 'source_attributed' THEN 1
+				WHEN 'provider_attributed' THEN 2
+				WHEN 'ambiguous' THEN 3
+				WHEN 'needs_review' THEN 4
+				ELSE 5
+			END ASC,
+			quotes.confidence_score DESC,
+			COALESCE(quotes.last_verified_at, '') DESC,
+			quotes.quote_id ASC
 		LIMIT ?
-	`, fts, limit)
+	`, fts, normalized, normalized+"%", strings.ToLower(strings.TrimSpace(query)), limit)
 	if err != nil {
 		return nil, err
 	}

@@ -604,3 +604,58 @@ func TestStaleQuotesUsesFreshnessPolicy(t *testing.T) {
 		t.Fatalf("freshness age = %v, want >= 180", found.FreshnessAgeDays)
 	}
 }
+
+func TestSearchRankingIsDeterministic(t *testing.T) {
+	store, ctx := newSeededStore(t)
+	defer store.Close()
+
+	artistID, err := store.ResolveArtistID(ctx, "Frank Ocean")
+	if err != nil {
+		t.Fatalf("ResolveArtistID() error = %v", err)
+	}
+	quotes := []models.Quote{
+		{
+			Text:             "rankingtopic exact and intentionally weak",
+			ArtistID:         artistID,
+			ArtistName:       "Frank Ocean",
+			ProvenanceStatus: "needs_review",
+			ConfidenceScore:  0.2,
+			LastVerifiedAt:   time.Now().UTC().Format(time.RFC3339),
+		},
+		{
+			Text:             "Verified dolphins mention rankingtopic under moonlight.",
+			ArtistID:         artistID,
+			ArtistName:       "Frank Ocean",
+			ProvenanceStatus: "verified",
+			ConfidenceScore:  0.95,
+			LastVerifiedAt:   time.Now().UTC().Format(time.RFC3339),
+		},
+		{
+			Text:             "Provider skyscrapers cite rankingtopic during storms.",
+			ArtistID:         artistID,
+			ArtistName:       "Frank Ocean",
+			ProvenanceStatus: "provider_attributed",
+			ConfidenceScore:  0.99,
+			LastVerifiedAt:   time.Now().UTC().Format(time.RFC3339),
+		},
+	}
+	for _, quote := range quotes {
+		if err := store.UpsertQuote(ctx, quote); err != nil {
+			t.Fatalf("UpsertQuote(%q) error = %v", quote.Text, err)
+		}
+	}
+
+	response, err := store.Search(ctx, "rankingtopic")
+	if err != nil {
+		t.Fatalf("Search() error = %v", err)
+	}
+	if len(response.Data.Quotes) < 3 {
+		t.Fatalf("Search() returned %d quotes, want at least 3", len(response.Data.Quotes))
+	}
+	if response.Data.Quotes[0].Text != "rankingtopic exact and intentionally weak" {
+		t.Fatalf("first result = %q, want exact-prefix result", response.Data.Quotes[0].Text)
+	}
+	if response.Data.Quotes[1].ProvenanceStatus != "verified" {
+		t.Fatalf("second result status = %q, want verified before provider_attributed", response.Data.Quotes[1].ProvenanceStatus)
+	}
+}
