@@ -72,6 +72,7 @@
           { "name": "tag", "in": "query", "schema": { "type": "string" } },
           { "name": "source", "in": "query", "schema": { "type": "string" } },
           { "name": "provenance_status", "in": "query", "schema": { "type": "string", "enum": ["verified", "source_attributed", "provider_attributed", "ambiguous", "needs_review"] } },
+          { "name": "freshness_status", "in": "query", "schema": { "type": "string", "enum": ["fresh", "aging", "stale", "unknown"] } },
           { "name": "limit", "in": "query", "schema": { "type": "integer" } },
           { "name": "offset", "in": "query", "schema": { "type": "integer" } }
         ],
@@ -178,6 +179,7 @@
           { "name": "tag", "in": "query", "schema": { "type": "string" } },
           { "name": "source", "in": "query", "schema": { "type": "string" } },
           { "name": "provenance_status", "in": "query", "schema": { "type": "string", "enum": ["verified", "source_attributed", "provider_attributed", "ambiguous", "needs_review"] } },
+          { "name": "freshness_status", "in": "query", "schema": { "type": "string", "enum": ["fresh", "aging", "stale", "unknown"] } },
           { "name": "sort", "in": "query", "schema": { "type": "string" } },
           { "name": "limit", "in": "query", "schema": { "type": "integer" } },
           { "name": "offset", "in": "query", "schema": { "type": "integer" } }

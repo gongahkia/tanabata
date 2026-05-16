@@ -1033,6 +1033,18 @@ func (s *Store) ListQuotes(ctx context.Context, filters models.QuoteFilters) (mo
 		where = append(where, `quotes.provenance_status = ?`)
 		args = append(args, filters.ProvenanceStatus)
 	}
+	if filters.FreshnessStatus != "" {
+		switch filters.FreshnessStatus {
+		case "unknown":
+			where = append(where, `(COALESCE(quotes.last_verified_at, '') = '' OR datetime(quotes.last_verified_at) IS NULL)`)
+		case "stale":
+			where = append(where, `datetime(quotes.last_verified_at) <= datetime('now', '-180 days')`)
+		case "aging":
+			where = append(where, `datetime(quotes.last_verified_at) > datetime('now', '-180 days') AND datetime(quotes.last_verified_at) <= datetime('now', '-90 days')`)
+		case "fresh":
+			where = append(where, `datetime(quotes.last_verified_at) > datetime('now', '-90 days')`)
+		}
+	}
 	if len(where) > 0 {
 		whereClause := " WHERE " + strings.Join(where, " AND ")
 		queryParts = append(queryParts, whereClause)

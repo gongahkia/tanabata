@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
 import App from "./App";
@@ -9,6 +9,9 @@ const responseMap: Record<string, unknown> = {
       artists: [{ artist_id: "frank", name: "Frank Ocean", aliases: [], genres: [], links: [], provider_status: {}, life_span: {} }],
       quotes: [{ quote_id: "q1", text: "Work hard in silence.", artist_id: "frank", artist_name: "Frank Ocean", tags: [], provenance_status: "source_attributed", confidence_score: 0.9 }]
     }
+  },
+  "/v1/quotes?q=frank&provenance_status=verified&limit=20": {
+    data: [{ quote_id: "q2", text: "Verified filter result.", artist_id: "frank", artist_name: "Frank Ocean", tags: [], provenance_status: "verified", confidence_score: 0.98 }]
   },
   "/v1/artists/frank": {
     data: {
@@ -109,6 +112,19 @@ it("renders API error state", async () => {
 
   await waitFor(() => expect(screen.getByText("Search failed")).toBeInTheDocument());
   expect(screen.getByText("upstream unavailable")).toBeInTheDocument();
+});
+
+it("applies discovery quote filters through the generated client", async () => {
+  render(
+    <MemoryRouter initialEntries={["/"]}>
+      <App />
+    </MemoryRouter>
+  );
+
+  await waitFor(() => expect(screen.getByText("Work hard in silence.")).toBeInTheDocument());
+  fireEvent.change(screen.getByLabelText("Provenance"), { target: { value: "verified" } });
+
+  await waitFor(() => expect(screen.getByText("Verified filter result.")).toBeInTheDocument());
 });
 
 it("renders system page", async () => {

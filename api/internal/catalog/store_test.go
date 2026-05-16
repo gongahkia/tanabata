@@ -604,6 +604,16 @@ func TestStaleQuotesUsesFreshnessPolicy(t *testing.T) {
 	if found.FreshnessAgeDays == nil || *found.FreshnessAgeDays < 180 {
 		t.Fatalf("freshness age = %v, want >= 180", found.FreshnessAgeDays)
 	}
+
+	filtered, err := store.ListQuotes(ctx, models.QuoteFilters{FreshnessStatus: "stale", Limit: 20})
+	if err != nil {
+		t.Fatalf("ListQuotes(stale) error = %v", err)
+	}
+	for _, quote := range filtered.Data {
+		if quote.FreshnessStatus != "stale" && quote.FreshnessStatus != "unknown" {
+			t.Fatalf("unexpected freshness status in stale filter: %+v", quote)
+		}
+	}
 }
 
 func TestSearchRankingIsDeterministic(t *testing.T) {

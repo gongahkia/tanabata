@@ -19,6 +19,9 @@ type LoadState<T> = {
   data: T;
 };
 
+type ProvenanceFilter = "" | "verified" | "source_attributed" | "provider_attributed" | "ambiguous" | "needs_review";
+type FreshnessFilter = "" | "fresh" | "aging" | "stale" | "unknown";
+
 function App() {
   return (
     <div className="shell">
@@ -50,6 +53,9 @@ function App() {
 
 function DiscoveryPage() {
   const [query, setQuery] = useState("frank");
+  const [provenanceFilter, setProvenanceFilter] = useState<ProvenanceFilter>("");
+  const [freshnessFilter, setFreshnessFilter] = useState<FreshnessFilter>("");
+  const [sourceFilter, setSourceFilter] = useState("");
   const deferredQuery = useDeferredValue(query);
   const [state, setState] = useState<LoadState<SearchResults>>({
     loading: true,
@@ -65,13 +71,31 @@ function DiscoveryPage() {
     }
     let active = true;
     setState((current) => ({ ...current, loading: true, error: "" }));
-    apiClient
-      .searchCatalog({ q: nextQuery })
+    const hasQuoteFilters = provenanceFilter || freshnessFilter || sourceFilter;
+    const searchRequest = apiClient.searchCatalog({ q: nextQuery });
+    const quoteRequest = hasQuoteFilters
+      ? apiClient.listQuotes({
+          q: nextQuery,
+          provenance_status: provenanceFilter || undefined,
+          freshness_status: freshnessFilter || undefined,
+          source: sourceFilter || undefined,
+          limit: 20
+        })
+      : null;
+    Promise.all([searchRequest, quoteRequest])
       .then((response) => {
         if (!active) {
           return;
         }
-        setState({ loading: false, error: "", data: response.data ?? { artists: [], quotes: [] } });
+        const [searchResponse, quoteResponse] = response;
+        setState({
+          loading: false,
+          error: "",
+          data: {
+            artists: searchResponse.data?.artists ?? [],
+            quotes: quoteResponse ? quoteResponse.data ?? [] : searchResponse.data?.quotes ?? []
+          }
+        });
       })
       .catch((error: Error) => {
         if (!active) {
@@ -82,7 +106,7 @@ function DiscoveryPage() {
     return () => {
       active = false;
     };
-  }, [deferredQuery]);
+  }, [deferredQuery, freshnessFilter, provenanceFilter, sourceFilter]);
 
   return (
     <section className="panel stack">
@@ -94,6 +118,38 @@ function DiscoveryPage() {
         <label className="search">
           <span>Search</span>
           <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Frank Ocean, hope, ambition..." />
+        </label>
+      </div>
+      <div className="filters" aria-label="Discovery filters">
+        <label>
+          <span>Provenance</span>
+          <select value={provenanceFilter} onChange={(event) => setProvenanceFilter(event.target.value as ProvenanceFilter)}>
+            <option value="">Any provenance</option>
+            <option value="verified">Verified</option>
+            <option value="source_attributed">Source attributed</option>
+            <option value="provider_attributed">Provider attributed</option>
+            <option value="ambiguous">Ambiguous</option>
+            <option value="needs_review">Needs review</option>
+          </select>
+        </label>
+        <label>
+          <span>Freshness</span>
+          <select value={freshnessFilter} onChange={(event) => setFreshnessFilter(event.target.value as FreshnessFilter)}>
+            <option value="">Any freshness</option>
+            <option value="fresh">Fresh</option>
+            <option value="aging">Aging</option>
+            <option value="stale">Stale</option>
+            <option value="unknown">Unknown</option>
+          </select>
+        </label>
+        <label>
+          <span>Source</span>
+          <select value={sourceFilter} onChange={(event) => setSourceFilter(event.target.value)}>
+            <option value="">Any source</option>
+            <option value="wikiquote">Wikiquote</option>
+            <option value="tanabata_curated">Curated</option>
+            <option value="quotefancy">QuoteFancy</option>
+          </select>
         </label>
       </div>
 
