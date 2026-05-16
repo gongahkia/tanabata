@@ -1,90 +1,134 @@
-# Tanabata
 
-Tanabata is a read-only music knowledge product built around quote discovery, provenance, provider health, and ingestion visibility.
 
-It is deliberately shaped as a backend-focused portfolio project:
-- a Go API over a SQLite catalog
-- an explicit ingestion pipeline instead of startup mutation
-- FTS-backed catalog search
-- provider run and error tracking
-- OpenAPI contracts for every `/v1` backend surface
+# `Tanabata`
 
-## Product Surface
+A read-only REST API for music quotes, provenance, provider health, and ingestion history.
 
-### API
-- Legacy endpoints remain for compatibility:
-  - `/quotes`
-  - `/quotes/random`
-  - `/quotes/{author}`
-- The main product surface lives under `/v1`:
-  - `/v1/search`
-  - `/v1/artists`
-  - `/v1/quotes`
-  - `/v1/quotes/{quote_id}/provenance`
-  - `/v1/providers`
-  - `/v1/providers/{provider}/runs`
-  - `/v1/providers/{provider}/errors`
-  - `/v1/jobs`
-  - `/v1/jobs/{job_id}/snapshots`
-  - `/v1/jobs/{job_id}/audit`
-  - `/v1/timeline`
-  - `/v1/review/queue`
-  - `/v1/review/stale`
-  - `/v1/stats`
-  - `/v1/integrity`
-  - `/v1/lyrics`
+Built with Go, SQLite, FTS5, OpenAPI, Prometheus, and OpenTelemetry.
 
-### Backend Demo Surfaces
-- Quote provenance:
-  `/v1/quotes/{quote_id}/provenance`
-- Provider and system status:
-  `/v1/providers`, `/v1/stats`, `/v1/integrity`, `/health`, `/metrics`
-- Ingestion timeline:
-  `/v1/timeline`, `/v1/jobs`, `/v1/jobs/{job_id}/snapshots`, `/v1/jobs/{job_id}/audit`
+## Usage
 
-## Architecture
+### `GET` `/v1/search?q=frank`
 
-- Serving path:
-  The API starts from a prebuilt catalog and does not mutate data on startup.
-- Ingestion path:
-  `api/cmd/ingest` seeds and enriches the catalog as tracked jobs.
-- Search path:
-  SQLite FTS5 indices back artist and quote search.
-- Provider path:
-  Enrichment and runtime providers record runs and failures, and runtime calls can be cached.
+```json
+{
+  "data": {
+    "artists": [
+      {
+        "artist_id": "tanabata:frank-ocean",
+        "name": "Frank Ocean"
+      }
+    ],
+    "quotes": [
+      {
+        "quote_id": "d37edeaab5a095648aec95beb9944482",
+        "text": "Work hard in silence.",
+        "artist_name": "Frank Ocean",
+        "provenance_status": "verified",
+        "confidence_score": 0.99
+      }
+    ]
+  }
+}
+```
 
-More detail lives in [docs/architecture.md](/Users/gongahkia/Desktop/coding/projects/tanabata/docs/architecture.md) and the ADRs under [docs/adr](/Users/gongahkia/Desktop/coding/projects/tanabata/docs/adr).
+### `GET` `/v1/quotes/{quote_id}/provenance`
 
-## Local Development
+```json
+{
+  "data": {
+    "quote_id": "d37edeaab5a095648aec95beb9944482",
+    "provenance_status": "verified",
+    "confidence_score": 0.99,
+    "provider_origin": "tanabata_curated",
+    "evidence": [
+      "Curated Tanabata editorial note matched to a maintained archive entry."
+    ],
+    "source": {
+      "provider": "editorial_archive",
+      "url": "https://archive.tanabata.dev/frank-ocean/studio-notes"
+    }
+  }
+}
+```
 
-### Backend
-```bash
+### `GET` `/v1/providers`
+
+```json
+{
+  "data": [
+    {
+      "provider": "wikiquote",
+      "category": "enrichment",
+      "enabled": true,
+      "last_status": "success",
+      "recent_error_count": 0
+    }
+  ]
+}
+```
+
+### `GET` `/v1/timeline`
+
+```json
+{
+  "data": [
+    {
+      "event_id": "golden-job",
+      "kind": "job",
+      "title": "catalog-refresh",
+      "status": "succeeded",
+      "at": "2026-05-16T00:00:00Z"
+    }
+  ]
+}
+```
+
+> [!NOTE]
+> The main API surface lives under `/v1`. Legacy `/quotes`, `/quotes/random`, and `/quotes/{author}` routes are kept for compatibility only.
+
+## API
+
+- `GET /v1/artists`
+- `GET /v1/quotes`
+- `GET /v1/search`
+- `GET /v1/providers`
+- `GET /v1/jobs`
+- `GET /v1/jobs/{job_id}?include=audit,snapshots`
+- `GET /v1/review/queue`
+- `GET /v1/review/stale`
+- `GET /v1/stats`
+- `GET /v1/integrity`
+- `GET /livez`, `GET /readyz`, `GET /health`, `GET /metrics`
+
+OpenAPI: [`openapi/openapi.json`](openapi/openapi.json)
+
+## Development
+
+```shell
 make test
 make ingest
 make run
 ```
 
-### Docker Compose
-```bash
+## Docker
+
+```shell
 docker compose up --build
 ```
 
-The compose setup expects the catalog to live in `api/data/catalog.sqlite`. Run `make ingest` first if you need to rebuild it locally.
+```shell
+./scripts/api-container-smoke-benchmark.sh
+./scripts/compose-smoke.sh
+```
 
-## Contracts
+## Operations
 
-- OpenAPI source of truth:
-  [openapi/openapi.json](/Users/gongahkia/Desktop/coding/projects/tanabata/openapi/openapi.json)
+- Architecture: [`docs/architecture.md`](docs/architecture.md)
+- Runbook: [`docs/runbook.md`](docs/runbook.md)
+- Quality model: [`docs/quality-model.md`](docs/quality-model.md)
+- Benchmarks: [`docs/benchmarks.md`](docs/benchmarks.md)
 
-## Observability and Ops
+## License
 
-- `/livez`, `/readyz`, `/health`, `/metrics`
-- request IDs and structured logs
-- Prometheus metrics
-- OpenTelemetry spans via stdout exporter
-- multi-stage API container build
-- CI for backend tests, coverage floor, linting, and container smoke test
-
-## Screens
-
-The original architecture reference is available at [asset/reference/architecture.png](/Users/gongahkia/Desktop/coding/projects/tanabata/asset/reference/architecture.png).
+No license specified.
