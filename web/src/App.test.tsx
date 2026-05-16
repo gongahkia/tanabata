@@ -68,6 +68,39 @@ it("renders discovery results from the generated client", async () => {
   expect(screen.getByText("Work hard in silence.")).toBeInTheDocument();
 });
 
+it("renders empty discovery states", async () => {
+  globalThis.fetch = vi.fn(async () => {
+    return new Response(JSON.stringify({ data: { artists: [], quotes: [] } }), { status: 200, headers: { "Content-Type": "application/json" } });
+  }) as typeof fetch;
+
+  render(
+    <MemoryRouter initialEntries={["/"]}>
+      <App />
+    </MemoryRouter>
+  );
+
+  await waitFor(() => expect(screen.getByText("No artists found")).toBeInTheDocument());
+  expect(screen.getByText("No quotes found")).toBeInTheDocument();
+});
+
+it("renders API error state", async () => {
+  globalThis.fetch = vi.fn(async () => {
+    return new Response(JSON.stringify({ error: { code: "search_failed", message: "upstream unavailable" } }), {
+      status: 503,
+      headers: { "Content-Type": "application/json" }
+    });
+  }) as typeof fetch;
+
+  render(
+    <MemoryRouter initialEntries={["/"]}>
+      <App />
+    </MemoryRouter>
+  );
+
+  await waitFor(() => expect(screen.getByText("Search failed")).toBeInTheDocument());
+  expect(screen.getByText("upstream unavailable")).toBeInTheDocument();
+});
+
 it("renders system page", async () => {
   render(
     <MemoryRouter initialEntries={["/system"]}>

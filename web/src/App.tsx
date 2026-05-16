@@ -97,12 +97,15 @@ function DiscoveryPage() {
         </label>
       </div>
 
-      {state.error ? <p className="error">{state.error}</p> : null}
+      {state.error ? <ErrorState title="Search failed" message={state.error} /> : null}
 
       <div className="grid">
         <section className="card">
           <h3>Artists</h3>
-          {state.loading ? <p>Loading artists...</p> : null}
+          {state.loading ? <LoadingState label="Loading artists" /> : null}
+          {!state.loading && !state.error && (state.data.artists ?? []).length === 0 ? (
+            <EmptyState title="No artists found" message="Try a broader artist name, alias, or genre-linked phrase." />
+          ) : null}
           <ul className="list">
             {(state.data.artists ?? []).map((artist) => (
               <li key={artist.artist_id}>
@@ -115,7 +118,10 @@ function DiscoveryPage() {
 
         <section className="card">
           <h3>Quotes</h3>
-          {state.loading ? <p>Loading quotes...</p> : null}
+          {state.loading ? <LoadingState label="Loading quotes" /> : null}
+          {!state.loading && !state.error && (state.data.quotes ?? []).length === 0 ? (
+            <EmptyState title="No quotes found" message="Search relevance is strict; try fewer terms or a known artist." />
+          ) : null}
           <ul className="list">
             {(state.data.quotes ?? []).map((quote) => (
               <li key={quote.quote_id}>
@@ -171,8 +177,9 @@ function ArtistPage() {
       <Link className="back" to="/">
         Back to discovery
       </Link>
-      {artist.loading ? <p>Loading artist...</p> : null}
-      {artist.error ? <p className="error">{artist.error}</p> : null}
+      {artist.loading ? <LoadingState label="Loading artist" /> : null}
+      {artist.error ? <ErrorState title="Artist failed to load" message={artist.error} /> : null}
+      {!artist.loading && !artist.error && !artist.data ? <EmptyState title="Artist not found" message="This catalog entry is not available." /> : null}
       {artist.data ? (
         <>
           <div className="section-head">
@@ -196,6 +203,7 @@ function ArtistPage() {
           <div className="grid">
             <section className="card">
               <h3>Quotes</h3>
+              {quotes.length === 0 ? <EmptyState title="No quotes yet" message="This artist has no attributed quotes in the current catalog." /> : null}
               <ul className="list">
                 {quotes.map((quote) => (
                   <li key={quote.quote_id}>
@@ -207,6 +215,7 @@ function ArtistPage() {
             </section>
             <section className="card">
               <h3>Releases</h3>
+              {releases.length === 0 ? <EmptyState title="No releases yet" message="MusicBrainz enrichment has not added releases for this artist." /> : null}
               <ul className="list">
                 {releases.map((release) => (
                   <li key={release.release_id}>
@@ -218,6 +227,7 @@ function ArtistPage() {
             </section>
             <section className="card">
               <h3>Related</h3>
+              {related.length === 0 ? <EmptyState title="No related artists yet" message="Last.fm similarity data is not available for this artist." /> : null}
               <ul className="list">
                 {related.map((item) => (
                   <li key={`${item.artist_id}-${item.provider}`}>
@@ -265,8 +275,9 @@ function QuotePage() {
       <Link className="back" to="/">
         Back to discovery
       </Link>
-      {quote.loading ? <p>Loading quote...</p> : null}
-      {quote.error ? <p className="error">{quote.error}</p> : null}
+      {quote.loading ? <LoadingState label="Loading quote" /> : null}
+      {quote.error ? <ErrorState title="Quote failed to load" message={quote.error} /> : null}
+      {!quote.loading && !quote.error && !quote.data ? <EmptyState title="Quote not found" message="This quote ID is not present in the catalog." /> : null}
       {quote.data ? (
         <>
           <blockquote className="quote-card">
@@ -346,10 +357,11 @@ function SystemPage() {
           <h2>Provider health, freshness, and ingestion history.</h2>
         </div>
       </div>
-      {error ? <p className="error">{error}</p> : null}
+      {error ? <ErrorState title="System state failed to load" message={error} /> : null}
       <div className="grid">
         <section className="card">
           <h3>Catalog Stats</h3>
+          {!error && Object.keys(stats).length === 0 ? <EmptyState title="No stats reported" message="The API returned an empty stats payload." /> : null}
           <ul className="list">
             {Object.entries(stats).map(([key, value]) => (
               <li key={key}>
@@ -361,6 +373,7 @@ function SystemPage() {
         </section>
         <section className="card">
           <h3>Providers</h3>
+          {!error && providers.length === 0 ? <EmptyState title="No providers configured" message="Provider inventory is empty for this environment." /> : null}
           <ul className="list">
             {providers.map((provider) => (
               <li key={provider.provider}>
@@ -372,6 +385,7 @@ function SystemPage() {
         </section>
         <section className="card">
           <h3>Recent Jobs</h3>
+          {!error && jobs.length === 0 ? <EmptyState title="No ingestion jobs yet" message="Run the ingestion CLI to populate job history." /> : null}
           <ul className="list">
             {jobs.map((job) => (
               <li key={job.job_id}>
@@ -383,6 +397,33 @@ function SystemPage() {
         </section>
       </div>
     </section>
+  );
+}
+
+function LoadingState({ label }: { label: string }) {
+  return (
+    <div className="state state-loading" role="status" aria-live="polite">
+      <span className="spinner" aria-hidden="true" />
+      <span>{label}...</span>
+    </div>
+  );
+}
+
+function EmptyState({ title, message }: { title: string; message: string }) {
+  return (
+    <div className="state state-empty">
+      <strong>{title}</strong>
+      <span>{message}</span>
+    </div>
+  );
+}
+
+function ErrorState({ title, message }: { title: string; message: string }) {
+  return (
+    <div className="state state-error" role="alert">
+      <strong>{title}</strong>
+      <span>{message}</span>
+    </div>
   );
 }
 
