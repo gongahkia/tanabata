@@ -59,15 +59,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: docker build -t tanabata-api ./api
-      - run: docker run -d --name tanabata-api -p 8080:8080 tanabata-api
-      - run: |
-          for i in {1..20}; do
-            if curl -fsS http://127.0.0.1:8080/readyz >/dev/null; then
-              exit 0
-            fi
-            sleep 1
-          done
-          exit 1
-      - run: curl -fsS http://127.0.0.1:8080/v1/providers
+      - run: ./scripts/api-container-smoke-benchmark.sh
       - run: docker build -t tanabata-web ./web
