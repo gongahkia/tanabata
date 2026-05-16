@@ -481,7 +481,8 @@
       "get": {
         "operationId": "listTimeline",
         "parameters": [
-          { "name": "limit", "in": "query", "schema": { "type": "integer" } }
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } },
+          { "name": "cursor", "in": "query", "schema": { "type": "string" } }
         ],
         "responses": {
           "200": {
@@ -559,7 +560,9 @@
       "get": {
         "operationId": "searchCatalog",
         "parameters": [
-          { "name": "q", "in": "query", "required": true, "schema": { "type": "string" } }
+          { "name": "q", "in": "query", "required": true, "schema": { "type": "string" } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } },
+          { "name": "cursor", "in": "query", "schema": { "type": "string" } }
         ],
         "responses": {
           "200": {
