@@ -3,6 +3,7 @@ package catalog
 import (
 	"context"
 	"path/filepath"
+	"strings"
 	"testing"
 	"time"
 
@@ -752,5 +753,36 @@ func TestProviderCooldownPersistsAndAppearsInSummary(t *testing.T) {
 	}
 	if len(summaries) != 1 || summaries[0].CooldownUntil == "" || summaries[0].CooldownReason != "rate limited" {
 		t.Fatalf("expected cooldown summary, got %+v", summaries)
+	}
+}
+
+func TestProviderCacheInvalidationPolicies(t *testing.T) {
+	store, ctx := newSeededStore(t)
+	defer store.Close()
+
+	if err := store.SetProviderCache(ctx, "lrclib", "lyrics", "fresh", `{"lyrics":"fresh"}`, time.Hour); err != nil {
+		t.Fatalf("SetProviderCache(fresh) error = %v", err)
+	}
+	if err := store.SetProviderCache(ctx, "lrclib", "lyrics", "expired", `{"lyrics":"expired"}`, -time.Hour); err != nil {
+		t.Fatalf("SetProviderCache(expired) error = %v", err)
+	}
+	if _, _, _, ok, err := store.GetProviderCache(ctx, "lrclib", "lyrics", "expired"); err != nil || ok {
+		t.Fatalf("expired cache ok=%v err=%v, want miss", ok, err)
+	}
+	removed, err := store.PurgeExpiredProviderCache(ctx, time.Now().UTC())
+	if err != nil {
+		t.Fatalf("PurgeExpiredProviderCache() error = %v", err)
+	}
+	if removed != 1 {
+		t.Fatalf("removed = %d, want 1", removed)
+	}
+	if payload, _, _, ok, err := store.GetProviderCache(ctx, "lrclib", "lyrics", "fresh"); err != nil || !ok || !strings.Contains(payload, "fresh") {
+		t.Fatalf("fresh cache payload=%q ok=%v err=%v", payload, ok, err)
+	}
+	if err := store.DeleteProviderCache(ctx, "lrclib", "lyrics", "fresh"); err != nil {
+		t.Fatalf("DeleteProviderCache() error = %v", err)
+	}
+	if _, _, _, ok, err := store.GetProviderCache(ctx, "lrclib", "lyrics", "fresh"); err != nil || ok {
+		t.Fatalf("deleted cache ok=%v err=%v, want miss", ok, err)
 	}
 }

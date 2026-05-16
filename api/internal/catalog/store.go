@@ -1719,6 +1719,29 @@ func (s *Store) SetProviderCache(ctx context.Context, provider, kind, key, paylo
 	return err
 }
 
+func (s *Store) DeleteProviderCache(ctx context.Context, provider, kind, key string) error {
+	_, err := s.db.ExecContext(ctx, `
+		DELETE FROM provider_cache
+		WHERE provider = ? AND kind = ? AND cache_key = ?
+	`, provider, kind, key)
+	return err
+}
+
+func (s *Store) PurgeExpiredProviderCache(ctx context.Context, now time.Time) (int, error) {
+	result, err := s.db.ExecContext(ctx, `
+		DELETE FROM provider_cache
+		WHERE expires_at < ?
+	`, now.UTC().Format(time.RFC3339))
+	if err != nil {
+		return 0, err
+	}
+	removed, err := result.RowsAffected()
+	if err != nil {
+		return 0, err
+	}
+	return int(removed), nil
+}
+
 func (s *Store) RecordJob(ctx context.Context, job models.JobRun) error {
 	_, err := s.db.ExecContext(ctx, `
 		INSERT INTO jobs(job_id, name, scope, status, started_at, finished_at, details, error_message)
