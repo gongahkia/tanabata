@@ -1,10 +1,14 @@
 
 
-# `Tanabata`
+# Tanabata
 
 A read-only REST API for music quotes, provenance, provider health, and ingestion history.
 
-Built with Go, SQLite, FTS5, OpenAPI, Prometheus, and OpenTelemetry.
+## Stack
+
+* *Backend*: [Go](https://go.dev/), [OpenAPI](https://www.openapis.org/)
+* *DB*: [SQLite](https://www.sqlite.org/), [FTS5](https://www.sqlite.org/fts5.html)
+* *Observability*: [Prometheus](https://prometheus.io/), [OpenTelemetry](https://opentelemetry.io/)
 
 ## Usage
 
@@ -83,9 +87,6 @@ Built with Go, SQLite, FTS5, OpenAPI, Prometheus, and OpenTelemetry.
   ]
 }
 ```
-
-> [!NOTE]
-> The main API surface lives under `/v1`. Legacy `/quotes`, `/quotes/random`, and `/quotes/{author}` routes are kept for compatibility only.
 
 ## API
 
