@@ -209,12 +209,49 @@ a {
   color: var(--accent-strong);
 }
 
-.error {
-  color: #8f1d0d;
-}
-
 .evidence li {
   justify-content: flex-start;
+}
+
+.state {
+  display: grid;
+  gap: 6px;
+  margin: 8px 0 14px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.state-loading {
+  display: flex;
+  align-items: center;
+}
+
+.state-empty strong,
+.state-error strong {
+  color: var(--ink);
+}
+
+.state-error {
+  color: #8f1d0d;
+  background: rgba(143, 29, 13, 0.08);
+}
+
+.spinner {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: 2px solid rgba(127, 47, 31, 0.18);
+  border-top-color: var(--accent-strong);
+  animation: spin 760ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 900px) {
