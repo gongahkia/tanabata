@@ -76,6 +76,38 @@ func TestSeedFromLegacyJSONAndFilters(t *testing.T) {
 	}
 }
 
+func TestSchemaMigrationsAreRecordedAndIdempotent(t *testing.T) {
+	tempDir := t.TempDir()
+	dbPath := filepath.Join(tempDir, "catalog.sqlite")
+	store, err := Open(dbPath)
+	if err != nil {
+		t.Fatalf("Open() error = %v", err)
+	}
+	migrations, err := store.AppliedMigrations(context.Background())
+	if err != nil {
+		t.Fatalf("AppliedMigrations() error = %v", err)
+	}
+	if len(migrations) != len(catalogMigrations) {
+		t.Fatalf("migrations len = %d, want %d: %+v", len(migrations), len(catalogMigrations), migrations)
+	}
+	if err := store.Close(); err != nil {
+		t.Fatalf("Close() error = %v", err)
+	}
+
+	reopened, err := Open(dbPath)
+	if err != nil {
+		t.Fatalf("Open(reopened) error = %v", err)
+	}
+	defer reopened.Close()
+	reopenedMigrations, err := reopened.AppliedMigrations(context.Background())
+	if err != nil {
+		t.Fatalf("AppliedMigrations(reopened) error = %v", err)
+	}
+	if strings.Join(reopenedMigrations, ",") != strings.Join(migrations, ",") {
+		t.Fatalf("migrations changed after reopen: before=%+v after=%+v", migrations, reopenedMigrations)
+	}
+}
+
 func TestUpsertQuoteReplacesLegacyRecord(t *testing.T) {
 	store, ctx := newSeededStore(t)
 	defer store.Close()
