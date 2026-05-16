@@ -222,15 +222,17 @@ type ProviderCooldown struct {
 }
 
 type JobRun struct {
-	JobID        string    `json:"job_id"`
-	Name         string    `json:"name"`
-	Scope        string    `json:"scope,omitempty"`
-	Status       string    `json:"status"`
-	StartedAt    string    `json:"started_at"`
-	FinishedAt   string    `json:"finished_at,omitempty"`
-	Details      string    `json:"details,omitempty"`
-	ErrorMessage string    `json:"error_message,omitempty"`
-	Items        []JobItem `json:"items,omitempty"`
+	JobID        string                `json:"job_id"`
+	Name         string                `json:"name"`
+	Scope        string                `json:"scope,omitempty"`
+	Status       string                `json:"status"`
+	StartedAt    string                `json:"started_at"`
+	FinishedAt   string                `json:"finished_at,omitempty"`
+	Details      string                `json:"details,omitempty"`
+	ErrorMessage string                `json:"error_message,omitempty"`
+	Items        []JobItem             `json:"items,omitempty"`
+	Snapshots    []IngestionSnapshot   `json:"snapshots,omitempty"`
+	AuditEvents  []IngestionAuditEvent `json:"audit_events,omitempty"`
 }
 
 type JobItem struct {
