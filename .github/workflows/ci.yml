@@ -1,4 +1,4 @@
-name: CI
+name: Tanabata CI/CD on push
 
 on:
   push:
