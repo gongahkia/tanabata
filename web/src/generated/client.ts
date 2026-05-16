@@ -35,6 +35,8 @@ export interface JobRun { "job_id"?: string; "name"?: string; "scope"?: string; 
 
 export interface SearchResults { "artists"?: Artist[]; "quotes"?: Quote[]; }
 
+export interface IntegrityReport { "ok"?: boolean; "checked_at"?: string; "sqlite"?: string; "counts"?: Record<string, number>; "issues"?: string[]; }
+
 export interface LyricsResult { "provider"?: string; "artist"?: string; "track"?: string; "lyrics"?: string; "synced_lyrics"?: string; "source_url"?: string; }
 
 export interface SetlistArtist { "name"?: string; "mbid"?: string; }
@@ -247,6 +249,9 @@ export function createClient(config: ClientConfig = {}) {
   },
   async getStats(init?: RequestInit): Promise<{ "data"?: Record<string, unknown>; }> {
     return request<{ "data"?: Record<string, unknown>; }>(config.fetchImpl ?? globalThis.fetch.bind(globalThis), baseUrl, "/v1/stats", undefined, init);
+  },
+  async getIntegrity(init?: RequestInit): Promise<{ "data"?: IntegrityReport; }> {
+    return request<{ "data"?: IntegrityReport; }>(config.fetchImpl ?? globalThis.fetch.bind(globalThis), baseUrl, "/v1/integrity", undefined, init);
   },
   async getLyrics(params: getLyricsParams, init?: RequestInit): Promise<{ "data"?: LyricsResult; "meta"?: Record<string, unknown>; }> {
     return request<{ "data"?: LyricsResult; "meta"?: Record<string, unknown>; }>(config.fetchImpl ?? globalThis.fetch.bind(globalThis), baseUrl, `/v1/lyrics`, { "artist": params["artist"], "track": params["track"], "provider": params["provider"] }, init);

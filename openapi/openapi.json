@@ -520,6 +520,26 @@
         }
       }
     },
+    "/v1/integrity": {
+      "get": {
+        "operationId": "getIntegrity",
+        "responses": {
+          "200": {
+            "description": "Catalog integrity report",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "$ref": "#/components/schemas/IntegrityReport" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/lyrics": {
       "get": {
         "operationId": "getLyrics",
@@ -745,6 +765,16 @@
         "properties": {
           "artists": { "type": "array", "items": { "$ref": "#/components/schemas/Artist" } },
           "quotes": { "type": "array", "items": { "$ref": "#/components/schemas/Quote" } }
+        }
+      },
+      "IntegrityReport": {
+        "type": "object",
+        "properties": {
+          "ok": { "type": "boolean" },
+          "checked_at": { "type": "string" },
+          "sqlite": { "type": "string" },
+          "counts": { "type": "object", "additionalProperties": { "type": "integer" } },
+          "issues": { "type": "array", "items": { "type": "string" } }
         }
       },
       "LyricsResult": {
