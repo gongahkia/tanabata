@@ -169,6 +169,27 @@ func (s *Store) AppliedMigrations(ctx context.Context) ([]string, error) {
 	return migrations, rows.Err()
 }
 
+func (s *Store) indexNames(ctx context.Context) (map[string]bool, error) {
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT name
+		FROM sqlite_master
+		WHERE type = 'index'
+	`)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	indexes := map[string]bool{}
+	for rows.Next() {
+		var name string
+		if err := rows.Scan(&name); err != nil {
+			return nil, err
+		}
+		indexes[name] = true
+	}
+	return indexes, rows.Err()
+}
+
 func (s *Store) migrate(ctx context.Context) error {
 	if err := s.ensureColumn(ctx, "provider_errors", "error_kind", `ALTER TABLE provider_errors ADD COLUMN error_kind TEXT NOT NULL DEFAULT ''`); err != nil {
 		return err
