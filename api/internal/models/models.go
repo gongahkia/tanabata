@@ -192,6 +192,8 @@ type ProviderSummary struct {
 	LastSuccessful   string `json:"last_successful,omitempty"`
 	LastErrorAt      string `json:"last_error_at,omitempty"`
 	RecentErrorCount int    `json:"recent_error_count"`
+	CooldownUntil    string `json:"cooldown_until,omitempty"`
+	CooldownReason   string `json:"cooldown_reason,omitempty"`
 }
 
 type ProviderRun struct {
@@ -209,6 +211,13 @@ type ProviderError struct {
 	OccurredAt string `json:"occurred_at"`
 	Context    string `json:"context,omitempty"`
 	Message    string `json:"message"`
+}
+
+type ProviderCooldown struct {
+	Provider  string `json:"provider"`
+	Until     string `json:"until"`
+	Reason    string `json:"reason,omitempty"`
+	UpdatedAt string `json:"updated_at"`
 }
 
 type JobRun struct {

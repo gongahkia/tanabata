@@ -27,6 +27,8 @@ type Service struct {
 	lastfm      *LastFMProvider
 }
 
+const providerFailureCooldown = 5 * time.Minute
+
 func NewService(store *catalog.Store, telemetry *observability.Telemetry) *Service {
 	return &Service{
 		store:       store,
@@ -143,6 +145,9 @@ func (s *Service) applyMusicBrainz(ctx context.Context, artist *models.Artist) (
 			Details:    details,
 		})
 	}
+	if skipped, detail, err := s.providerCooldownSkip(ctx, s.musicBrainz.Name(), startedAt); err != nil || skipped {
+		return "skipped", detail, err
+	}
 
 	candidate, err := s.musicBrainz.SearchArtist(ctx, artist.Name)
 	if err != nil {
@@ -201,6 +206,9 @@ func (s *Service) applyWikidata(ctx context.Context, artist *models.Artist) (str
 			Details:    details,
 		})
 	}
+	if skipped, detail, err := s.providerCooldownSkip(ctx, s.wikidata.Name(), startedAt); err != nil || skipped {
+		return "skipped", detail, err
+	}
 	data, err := s.wikidata.SearchArtist(ctx, artist.Name)
 	if err != nil {
 		if recordErr := s.recordProviderFailure(ctx, s.wikidata.Name(), artist.ArtistID, artist.Name, startedAt, err); recordErr != nil {
@@ -235,6 +243,9 @@ func (s *Service) applyWikiquote(ctx context.Context, artist *models.Artist) (st
 			FinishedAt: time.Now().UTC(),
 			Details:    details,
 		})
+	}
+	if skipped, detail, err := s.providerCooldownSkip(ctx, s.wikiquote.Name(), startedAt); err != nil || skipped {
+		return "skipped", detail, err
 	}
 
 	title := artist.WikiquoteTitle
@@ -313,6 +324,9 @@ func (s *Service) applyLastFM(ctx context.Context, artist *models.Artist) (strin
 			Details:    details,
 		})
 	}
+	if skipped, detail, err := s.providerCooldownSkip(ctx, s.lastfm.Name(), startedAt); err != nil || skipped {
+		return "skipped", detail, err
+	}
 	data, err := s.lastfm.ArtistInfo(ctx, *artist)
 	if err != nil {
 		if recordErr := s.recordProviderFailure(ctx, s.lastfm.Name(), artist.ArtistID, artist.Name, startedAt, err); recordErr != nil {
@@ -351,6 +365,9 @@ func (s *Service) applyLastFM(ctx context.Context, artist *models.Artist) (strin
 }
 
 func (s *Service) recordProviderFailure(ctx context.Context, provider, artistID, contextValue string, startedAt time.Time, err error) error {
+	if cooldownErr := s.store.SetProviderCooldown(ctx, provider, time.Now().UTC().Add(providerFailureCooldown), err.Error()); cooldownErr != nil {
+		return cooldownErr
+	}
 	return s.store.RecordProviderError(ctx, catalog.ProviderError{
 		ErrorID:    search.StableHash(provider, artistID, err.Error(), startedAt.Format(time.RFC3339Nano)),
 		Provider:   provider,
@@ -358,6 +375,14 @@ func (s *Service) recordProviderFailure(ctx context.Context, provider, artistID,
 		Context:    contextValue,
 		Message:    err.Error(),
 	})
+}
+
+func (s *Service) providerCooldownSkip(ctx context.Context, provider string, now time.Time) (bool, string, error) {
+	cooldown, active, err := s.store.ProviderCooldown(ctx, provider, now)
+	if err != nil || !active {
+		return false, "", err
+	}
+	return true, fmt.Sprintf("%s:cooldown until %s", provider, cooldown.Until), nil
 }
 
 func overallStatus(statuses []string) string {

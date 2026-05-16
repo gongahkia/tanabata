@@ -686,7 +686,9 @@
           "last_status": { "type": "string" },
           "last_successful": { "type": "string" },
           "last_error_at": { "type": "string" },
-          "recent_error_count": { "type": "integer" }
+          "recent_error_count": { "type": "integer" },
+          "cooldown_until": { "type": "string" },
+          "cooldown_reason": { "type": "string" }
         }
       },
       "ProviderRun": {

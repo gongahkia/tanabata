@@ -730,3 +730,27 @@ func TestIngestionSnapshotsAndAuditEventsPersist(t *testing.T) {
 		t.Fatalf("unexpected audit events %+v", events)
 	}
 }
+
+func TestProviderCooldownPersistsAndAppearsInSummary(t *testing.T) {
+	store, ctx := newSeededStore(t)
+	defer store.Close()
+
+	until := time.Now().UTC().Add(15 * time.Minute)
+	if err := store.SetProviderCooldown(ctx, "wikiquote", until, "rate limited"); err != nil {
+		t.Fatalf("SetProviderCooldown() error = %v", err)
+	}
+	cooldown, active, err := store.ProviderCooldown(ctx, "wikiquote", time.Now().UTC())
+	if err != nil {
+		t.Fatalf("ProviderCooldown() error = %v", err)
+	}
+	if !active || cooldown == nil || cooldown.Reason != "rate limited" {
+		t.Fatalf("unexpected cooldown active=%v value=%+v", active, cooldown)
+	}
+	summaries, err := store.ProviderSummaries(ctx, []models.ProviderSummary{{Provider: "wikiquote", Enabled: true}})
+	if err != nil {
+		t.Fatalf("ProviderSummaries() error = %v", err)
+	}
+	if len(summaries) != 1 || summaries[0].CooldownUntil == "" || summaries[0].CooldownReason != "rate limited" {
+		t.Fatalf("expected cooldown summary, got %+v", summaries)
+	}
+}

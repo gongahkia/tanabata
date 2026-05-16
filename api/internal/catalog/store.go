@@ -200,6 +200,12 @@ func (s *Store) init(ctx context.Context) error {
 			expires_at TEXT NOT NULL,
 			PRIMARY KEY (provider, kind, cache_key)
 		);`,
+		`CREATE TABLE IF NOT EXISTS provider_cooldowns (
+			provider TEXT PRIMARY KEY,
+			until TEXT NOT NULL,
+			reason TEXT NOT NULL DEFAULT '',
+			updated_at TEXT NOT NULL
+		);`,
 		`CREATE TABLE IF NOT EXISTS jobs (
 			job_id TEXT PRIMARY KEY,
 			name TEXT NOT NULL,
@@ -246,6 +252,7 @@ func (s *Store) init(ctx context.Context) error {
 		`CREATE INDEX IF NOT EXISTS idx_quote_tags_tag ON quote_tags(tag);`,
 		`CREATE INDEX IF NOT EXISTS idx_provider_runs_lookup ON provider_runs(provider, status, started_at DESC);`,
 		`CREATE INDEX IF NOT EXISTS idx_provider_errors_lookup ON provider_errors(provider, occurred_at DESC);`,
+		`CREATE INDEX IF NOT EXISTS idx_provider_cooldowns_until ON provider_cooldowns(until);`,
 		`CREATE INDEX IF NOT EXISTS idx_job_items_lookup ON job_items(job_id, provider, started_at DESC);`,
 		`CREATE INDEX IF NOT EXISTS idx_ingestion_snapshots_job ON ingestion_snapshots(job_id, captured_at DESC);`,
 		`CREATE INDEX IF NOT EXISTS idx_ingestion_audit_job ON ingestion_audit_events(job_id, occurred_at DESC);`,
@@ -1606,6 +1613,38 @@ func (s *Store) ProviderErrors(ctx context.Context, provider string, limit int) 
 	return failures, rows.Err()
 }
 
+func (s *Store) SetProviderCooldown(ctx context.Context, provider string, until time.Time, reason string) error {
+	_, err := s.db.ExecContext(ctx, `
+		INSERT INTO provider_cooldowns(provider, until, reason, updated_at)
+		VALUES(?, ?, ?, ?)
+		ON CONFLICT(provider) DO UPDATE SET
+			until = excluded.until,
+			reason = excluded.reason,
+			updated_at = excluded.updated_at
+	`, provider, until.UTC().Format(time.RFC3339), reason, time.Now().UTC().Format(time.RFC3339))
+	return err
+}
+
+func (s *Store) ProviderCooldown(ctx context.Context, provider string, now time.Time) (*models.ProviderCooldown, bool, error) {
+	row := s.db.QueryRowContext(ctx, `
+		SELECT provider, until, reason, updated_at
+		FROM provider_cooldowns
+		WHERE provider = ?
+	`, provider)
+	var cooldown models.ProviderCooldown
+	if err := row.Scan(&cooldown.Provider, &cooldown.Until, &cooldown.Reason, &cooldown.UpdatedAt); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, false, nil
+		}
+		return nil, false, err
+	}
+	until, err := time.Parse(time.RFC3339, cooldown.Until)
+	if err != nil {
+		return &cooldown, false, nil
+	}
+	return &cooldown, now.UTC().Before(until), nil
+}
+
 func (s *Store) ProviderSummaries(ctx context.Context, configured []models.ProviderSummary) ([]models.ProviderSummary, error) {
 	summaries := make([]models.ProviderSummary, 0, len(configured))
 	for _, item := range configured {
@@ -1639,6 +1678,10 @@ func (s *Store) ProviderSummaries(ctx context.Context, configured []models.Provi
 			ORDER BY occurred_at DESC
 			LIMIT 1
 		`, item.Provider).Scan(&summary.LastErrorAt)
+		if cooldown, active, err := s.ProviderCooldown(ctx, item.Provider, time.Now().UTC()); err == nil && active {
+			summary.CooldownUntil = cooldown.Until
+			summary.CooldownReason = cooldown.Reason
+		}
 		summaries = append(summaries, summary)
 	}
 	sort.SliceStable(summaries, func(i, j int) bool {

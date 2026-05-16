@@ -6,7 +6,9 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"path/filepath"
+	"strings"
 	"testing"
+	"time"
 
 	"github.com/gongahkia/tanabata/api/internal/catalog"
 	"github.com/gongahkia/tanabata/api/internal/models"
@@ -70,6 +72,47 @@ func TestServiceEnrichArtistRecordsPartialFailure(t *testing.T) {
 	}
 	if len(failures) != 1 {
 		t.Fatalf("expected one provider failure, got %+v", failures)
+	}
+}
+
+func TestServiceSkipsProviderDuringCooldown(t *testing.T) {
+	store, ctx := newServiceStore(t)
+	defer store.Close()
+
+	musicBrainzHits := 0
+	musicBrainz := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		musicBrainzHits++
+		t.Fatalf("musicbrainz should not be called during cooldown")
+	}))
+	defer musicBrainz.Close()
+
+	emptyWikidata := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewEncoder(w).Encode(map[string]any{"search": []any{}})
+	}))
+	defer emptyWikidata.Close()
+
+	emptyWikiquote := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_, _ = w.Write([]byte(`["frank ocean",[],[],[]]`))
+	}))
+	defer emptyWikiquote.Close()
+
+	if err := store.SetProviderCooldown(ctx, "musicbrainz", time.Now().UTC().Add(time.Hour), "previous timeout"); err != nil {
+		t.Fatalf("SetProviderCooldown() error = %v", err)
+	}
+	service := NewService(store, nil)
+	service.musicBrainz.SetHTTPClient(NewHTTPClient(musicBrainz.URL))
+	service.wikidata.SetHTTPClients(NewHTTPClient(emptyWikidata.URL), NewHTTPClient(emptyWikidata.URL))
+	service.wikiquote.SetHTTPClient(NewHTTPClient(emptyWikiquote.URL))
+
+	result, err := service.EnrichArtist(ctx, "Frank Ocean")
+	if err != nil {
+		t.Fatalf("EnrichArtist() error = %v", err)
+	}
+	if musicBrainzHits != 0 {
+		t.Fatalf("musicbrainz hits = %d, want 0", musicBrainzHits)
+	}
+	if !strings.Contains(result.Details, "musicbrainz:cooldown") {
+		t.Fatalf("expected cooldown detail, got %+v", result)
 	}
 }
 
