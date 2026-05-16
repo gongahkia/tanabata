@@ -809,6 +809,7 @@
         "properties": {
           "error_id": { "type": "string" },
           "provider": { "type": "string" },
+          "kind": { "type": "string", "enum": ["timeout", "rate_limit", "parse_error", "not_found", "bad_upstream", "network"] },
           "occurred_at": { "type": "string" },
           "context": { "type": "string" },
           "message": { "type": "string" }

@@ -40,6 +40,7 @@ type ProviderRun struct {
 type ProviderError struct {
 	ErrorID    string
 	Provider   string
+	Kind       string
 	OccurredAt time.Time
 	Context    string
 	Message    string
@@ -169,6 +170,9 @@ func (s *Store) AppliedMigrations(ctx context.Context) ([]string, error) {
 }
 
 func (s *Store) migrate(ctx context.Context) error {
+	if err := s.ensureColumn(ctx, "provider_errors", "error_kind", `ALTER TABLE provider_errors ADD COLUMN error_kind TEXT NOT NULL DEFAULT ''`); err != nil {
+		return err
+	}
 	if err := s.ensureColumn(ctx, "quotes", "provider_origin", `ALTER TABLE quotes ADD COLUMN provider_origin TEXT NOT NULL DEFAULT ''`); err != nil {
 		return err
 	}
@@ -522,9 +526,9 @@ func (s *Store) RecordProviderRun(ctx context.Context, run ProviderRun) error {
 
 func (s *Store) RecordProviderError(ctx context.Context, failure ProviderError) error {
 	_, err := s.db.ExecContext(ctx, `
-		INSERT INTO provider_errors(error_id, provider, occurred_at, context, message)
-		VALUES(?, ?, ?, ?, ?)
-	`, failure.ErrorID, failure.Provider, failure.OccurredAt.UTC().Format(time.RFC3339), failure.Context, failure.Message)
+		INSERT INTO provider_errors(error_id, provider, error_kind, occurred_at, context, message)
+		VALUES(?, ?, ?, ?, ?, ?)
+	`, failure.ErrorID, failure.Provider, failure.Kind, failure.OccurredAt.UTC().Format(time.RFC3339), failure.Context, failure.Message)
 	return err
 }
 
@@ -1530,7 +1534,7 @@ func (s *Store) ProviderRuns(ctx context.Context, provider string, limit int) ([
 
 func (s *Store) ProviderErrors(ctx context.Context, provider string, limit int) ([]models.ProviderError, error) {
 	rows, err := s.db.QueryContext(ctx, `
-		SELECT error_id, provider, occurred_at, context, message
+		SELECT error_id, provider, error_kind, occurred_at, context, message
 		FROM provider_errors
 		WHERE provider = ?
 		ORDER BY occurred_at DESC
@@ -1543,7 +1547,7 @@ func (s *Store) ProviderErrors(ctx context.Context, provider string, limit int) 
 	var failures []models.ProviderError
 	for rows.Next() {
 		var failure models.ProviderError
-		if err := rows.Scan(&failure.ErrorID, &failure.Provider, &failure.OccurredAt, &failure.Context, &failure.Message); err != nil {
+		if err := rows.Scan(&failure.ErrorID, &failure.Provider, &failure.Kind, &failure.OccurredAt, &failure.Context, &failure.Message); err != nil {
 			return nil, err
 		}
 		failures = append(failures, failure)

@@ -3,8 +3,10 @@ package providers
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
+	"net"
 	"net/http"
 	"net/url"
 	"strings"
@@ -26,10 +28,44 @@ type HTTPClient struct {
 	provider    string
 	attempts    int
 	backoff     time.Duration
+	retryBudget int
 	minInterval time.Duration
 	lastRequest time.Time
 	mu          sync.Mutex
+	sem         chan struct{}
 	telemetry   *observability.Telemetry
+}
+
+type FailureKind string
+
+const (
+	FailureTimeout     FailureKind = "timeout"
+	FailureRateLimit   FailureKind = "rate_limit"
+	FailureParseError  FailureKind = "parse_error"
+	FailureNotFound    FailureKind = "not_found"
+	FailureBadUpstream FailureKind = "bad_upstream"
+	FailureNetwork     FailureKind = "network"
+)
+
+type ProviderFailure struct {
+	Kind       FailureKind
+	StatusCode int
+	Message    string
+	Err        error
+}
+
+func (e *ProviderFailure) Error() string {
+	if e.Message != "" {
+		return e.Message
+	}
+	if e.Err != nil {
+		return e.Err.Error()
+	}
+	return string(e.Kind)
+}
+
+func (e *ProviderFailure) Unwrap() error {
+	return e.Err
 }
 
 func NewHTTPClient(baseURL string) *HTTPClient {
@@ -39,9 +75,11 @@ func NewHTTPClient(baseURL string) *HTTPClient {
 		client: &http.Client{
 			Timeout: 20 * time.Second,
 		},
-		provider: "external",
-		attempts: 3,
-		backoff:  200 * time.Millisecond,
+		provider:    "external",
+		attempts:    3,
+		backoff:     200 * time.Millisecond,
+		retryBudget: 2,
+		sem:         make(chan struct{}, 2),
 	}
 }
 
@@ -65,12 +103,35 @@ func (c *HTTPClient) ConfigureProvider(name string, telemetry *observability.Tel
 	return c
 }
 
+func (c *HTTPClient) SetRetryBudget(attempts int, backoff time.Duration) *HTTPClient {
+	if attempts < 1 {
+		attempts = 1
+	}
+	c.attempts = attempts
+	c.retryBudget = attempts - 1
+	if backoff > 0 {
+		c.backoff = backoff
+	}
+	return c
+}
+
+func (c *HTTPClient) SetMaxConcurrent(maxConcurrent int) *HTTPClient {
+	if maxConcurrent < 1 {
+		maxConcurrent = 1
+	}
+	c.sem = make(chan struct{}, maxConcurrent)
+	return c
+}
+
 func (c *HTTPClient) JSON(ctx context.Context, path string, query url.Values, headers map[string]string, target any) error {
 	body, err := c.do(ctx, path, query, headers)
 	if err != nil {
 		return err
 	}
-	return json.Unmarshal(body, target)
+	if err := json.Unmarshal(body, target); err != nil {
+		return &ProviderFailure{Kind: FailureParseError, Message: "provider parse error: " + err.Error(), Err: err}
+	}
+	return nil
 }
 
 func (c *HTTPClient) Text(ctx context.Context, path string, query url.Values, headers map[string]string) (string, error) {
@@ -88,6 +149,9 @@ func (c *HTTPClient) do(ctx context.Context, path string, query url.Values, head
 	}
 	var lastErr error
 	for attempt := 1; attempt <= c.attempts; attempt++ {
+		if attempt > 1 && attempt-1 > c.retryBudget {
+			break
+		}
 		if err := c.waitTurn(); err != nil {
 			return nil, err
 		}
@@ -125,10 +189,16 @@ func (c *HTTPClient) do(ctx context.Context, path string, query url.Values, head
 			req.Header.Set(key, value)
 		}
 
-		res, err := c.client.Do(req)
+		release, err := c.acquireSlot(spanCtx)
 		if err != nil {
-			lastErr = err
 			done(err)
+			return nil, err
+		}
+		res, err := c.client.Do(req)
+		release()
+		if err != nil {
+			lastErr = classifyTransportFailure(err)
+			done(lastErr)
 			if attempt == c.attempts {
 				break
 			}
@@ -138,8 +208,8 @@ func (c *HTTPClient) do(ctx context.Context, path string, query url.Values, head
 		body, readErr := io.ReadAll(io.LimitReader(res.Body, 512<<10))
 		_ = res.Body.Close()
 		if readErr != nil {
-			lastErr = readErr
-			done(readErr)
+			lastErr = &ProviderFailure{Kind: FailureNetwork, Message: "provider response read failed: " + readErr.Error(), Err: readErr}
+			done(lastErr)
 			if attempt == c.attempts {
 				break
 			}
@@ -147,7 +217,7 @@ func (c *HTTPClient) do(ctx context.Context, path string, query url.Values, head
 			continue
 		}
 		if res.StatusCode >= 500 || res.StatusCode == http.StatusTooManyRequests {
-			lastErr = fmt.Errorf("provider request failed: %s %s", res.Status, strings.TrimSpace(string(body)))
+			lastErr = failureFromStatus(res.StatusCode, res.Status, body)
 			done(lastErr)
 			if attempt == c.attempts {
 				break
@@ -156,7 +226,7 @@ func (c *HTTPClient) do(ctx context.Context, path string, query url.Values, head
 			continue
 		}
 		if res.StatusCode >= 400 {
-			err := fmt.Errorf("provider request failed: %s %s", res.Status, strings.TrimSpace(string(body)))
+			err := failureFromStatus(res.StatusCode, res.Status, body)
 			done(err)
 			return nil, err
 		}
@@ -164,6 +234,18 @@ func (c *HTTPClient) do(ctx context.Context, path string, query url.Values, head
 		return body, nil
 	}
 	return nil, lastErr
+}
+
+func (c *HTTPClient) acquireSlot(ctx context.Context) (func(), error) {
+	if c.sem == nil {
+		return func() {}, nil
+	}
+	select {
+	case c.sem <- struct{}{}:
+		return func() { <-c.sem }, nil
+	case <-ctx.Done():
+		return func() {}, classifyTransportFailure(ctx.Err())
+	}
 }
 
 func (c *HTTPClient) waitTurn() error {
@@ -178,4 +260,48 @@ func (c *HTTPClient) waitTurn() error {
 	}
 	c.lastRequest = time.Now()
 	return nil
+}
+
+func failureFromStatus(statusCode int, status string, body []byte) *ProviderFailure {
+	kind := FailureBadUpstream
+	switch statusCode {
+	case http.StatusTooManyRequests:
+		kind = FailureRateLimit
+	case http.StatusNotFound:
+		kind = FailureNotFound
+	}
+	message := strings.TrimSpace(string(body))
+	if message == "" {
+		message = status
+	}
+	return &ProviderFailure{
+		Kind:       kind,
+		StatusCode: statusCode,
+		Message:    fmt.Sprintf("provider request failed: %s %s", status, message),
+	}
+}
+
+func classifyTransportFailure(err error) error {
+	if err == nil {
+		return nil
+	}
+	if errors.Is(err, context.DeadlineExceeded) || errors.Is(err, context.Canceled) {
+		return &ProviderFailure{Kind: FailureTimeout, Message: err.Error(), Err: err}
+	}
+	var netErr net.Error
+	if errors.As(err, &netErr) && netErr.Timeout() {
+		return &ProviderFailure{Kind: FailureTimeout, Message: err.Error(), Err: err}
+	}
+	return &ProviderFailure{Kind: FailureNetwork, Message: err.Error(), Err: err}
+}
+
+func ClassifyFailure(err error) string {
+	var failure *ProviderFailure
+	if errors.As(err, &failure) {
+		return string(failure.Kind)
+	}
+	if errors.Is(err, context.DeadlineExceeded) || errors.Is(err, context.Canceled) {
+		return string(FailureTimeout)
+	}
+	return string(FailureBadUpstream)
 }
