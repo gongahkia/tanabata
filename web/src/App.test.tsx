@@ -32,7 +32,17 @@ const responseMap: Record<string, unknown> = {
     data: [{ artist_id: "sza", name: "SZA", relation: "similar", score: 0.5, provider: "lastfm" }]
   },
   "/v1/quotes/q1": {
-    data: { quote_id: "q1", text: "Work hard in silence.", artist_id: "frank", artist_name: "Frank Ocean", tags: [], provenance_status: "source_attributed", confidence_score: 0.9 }
+    data: {
+      quote_id: "q1",
+      text: "Work hard in silence.",
+      artist_id: "frank",
+      artist_name: "Frank Ocean",
+      tags: [],
+      provenance_status: "source_attributed",
+      confidence_score: 0.9,
+      freshness_status: "fresh",
+      freshness_reason: "recently verified"
+    }
   },
   "/v1/quotes/q1/provenance": {
     data: {
@@ -41,7 +51,7 @@ const responseMap: Record<string, unknown> = {
       confidence_score: 0.9,
       provider_origin: "wikiquote",
       evidence: ["Matched Wikiquote page", "Source URL: https://example.com"],
-      source: { url: "https://example.com" }
+      source: { provider: "wikiquote", title: "Frank Ocean Quotes", url: "https://example.com" }
     }
   },
   "/v1/providers": { data: [] },
@@ -133,4 +143,6 @@ it("renders quote provenance page", async () => {
   await waitFor(() => expect(screen.getByText("Provenance")).toBeInTheDocument());
   expect(screen.getByText("Matched Wikiquote page")).toBeInTheDocument();
   expect(screen.getByText("Inspect source")).toBeInTheDocument();
+  expect(screen.getByText("Source Comparison")).toBeInTheDocument();
+  expect(screen.getByText("fresh: recently verified")).toBeInTheDocument();
 });
