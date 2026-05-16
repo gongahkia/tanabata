@@ -23,7 +23,7 @@ export interface Release { "release_id"?: string; "title"?: string; "year"?: num
 
 export interface RelatedArtist { "artist_id"?: string; "name"?: string; "relation"?: string; "score"?: number; "provider"?: string; }
 
-export interface ProviderSummary { "provider"?: string; "category"?: string; "enabled"?: boolean; "last_status"?: string; "last_successful"?: string; "last_error_at"?: string; "recent_error_count"?: number; }
+export interface ProviderSummary { "provider"?: string; "category"?: string; "enabled"?: boolean; "last_status"?: string; "last_successful"?: string; "last_error_at"?: string; "recent_error_count"?: number; "cooldown_until"?: string; "cooldown_reason"?: string; }
 
 export interface ProviderRun { "run_id"?: string; "provider"?: string; "status"?: string; "started_at"?: string; "finished_at"?: string; "details"?: string; }
 
