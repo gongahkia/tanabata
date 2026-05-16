@@ -1,7 +1,9 @@
 package api
 
 import (
+	"bytes"
 	"encoding/json"
+	"log/slog"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -49,6 +51,45 @@ func TestCORSMiddlewareOptionsAndOrigin(t *testing.T) {
 	}
 	if got := recorder.Header().Get("Access-Control-Allow-Headers"); !strings.Contains(got, "X-Request-ID") {
 		t.Fatalf("Access-Control-Allow-Headers = %q", got)
+	}
+}
+
+func TestStructuredLoggerEmitsStableRequestFields(t *testing.T) {
+	server, store := seededServer(t)
+	defer store.Close()
+
+	var logs bytes.Buffer
+	server.logger = slog.New(slog.NewJSONHandler(&logs, nil))
+
+	recorder := httptest.NewRecorder()
+	request := httptest.NewRequest(http.MethodGet, "/v1/search?q=frank", nil)
+	request.Header.Set("X-Request-ID", "log-test-request")
+	server.Router().ServeHTTP(recorder, request)
+	if recorder.Code != http.StatusOK {
+		t.Fatalf("status = %d, want 200 body=%s", recorder.Code, recorder.Body.String())
+	}
+
+	var payload map[string]any
+	if err := json.Unmarshal(bytes.TrimSpace(logs.Bytes()), &payload); err != nil {
+		t.Fatalf("decode log payload: %v body=%s", err, logs.String())
+	}
+	assertLogField(t, payload, "msg", "http_request")
+	assertLogField(t, payload, "request_id", "log-test-request")
+	assertLogField(t, payload, "method", http.MethodGet)
+	assertLogField(t, payload, "path", "/v1/search")
+	assertLogField(t, payload, "route", "/v1/search")
+	if payload["status"].(float64) != http.StatusOK {
+		t.Fatalf("status field = %v, want %d", payload["status"], http.StatusOK)
+	}
+	if _, ok := payload["duration_ms"].(float64); !ok {
+		t.Fatalf("duration_ms field = %T, want number", payload["duration_ms"])
+	}
+}
+
+func assertLogField(t *testing.T, payload map[string]any, key, want string) {
+	t.Helper()
+	if got := payload[key]; got != want {
+		t.Fatalf("%s = %v, want %q", key, got, want)
 	}
 }
 
