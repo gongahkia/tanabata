@@ -57,8 +57,20 @@ const responseMap: Record<string, unknown> = {
       source: { provider: "wikiquote", title: "Frank Ocean Quotes", url: "https://example.com" }
     }
   },
-  "/v1/providers": { data: [] },
+  "/v1/providers": { data: [{ provider: "wikiquote", enabled: true, last_status: "success", last_successful: "2026-05-16T00:00:00Z", recent_error_count: 0 }] },
   "/v1/jobs?limit=10": { data: [] },
+  "/v1/jobs?limit=20": {
+    data: [
+      {
+        job_id: "job1",
+        name: "catalog-refresh",
+        status: "succeeded",
+        started_at: "2026-05-16T00:00:00Z",
+        details: "imported=4",
+        items: [{ job_item_id: "item1", provider: "tanabata_curated", status: "succeeded", target: "bootstrap:data" }]
+      }
+    ]
+  },
   "/v1/stats": { data: { artists: 1, quotes: 1 } }
 };
 
@@ -161,4 +173,16 @@ it("renders quote provenance page", async () => {
   expect(screen.getByText("Inspect source")).toBeInTheDocument();
   expect(screen.getByText("Source Comparison")).toBeInTheDocument();
   expect(screen.getByText("fresh: recently verified")).toBeInTheDocument();
+});
+
+it("renders catalog timeline page", async () => {
+  render(
+    <MemoryRouter initialEntries={["/timeline"]}>
+      <App />
+    </MemoryRouter>
+  );
+
+  await waitFor(() => expect(screen.getByText("catalog-refresh")).toBeInTheDocument());
+  expect(screen.getByText(/tanabata_curated: succeeded/)).toBeInTheDocument();
+  expect(screen.getByText("wikiquote")).toBeInTheDocument();
 });
