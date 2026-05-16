@@ -1,0 +1,67 @@
+{
+  "data": [
+    {
+      "category": "enrichment",
+      "enabled": false,
+      "provider": "lastfm",
+      "recent_error_count": 0
+    },
+    {
+      "category": "runtime",
+      "enabled": true,
+      "provider": "lrclib",
+      "recent_error_count": 0
+    },
+    {
+      "category": "runtime",
+      "enabled": true,
+      "provider": "lyricsovh",
+      "recent_error_count": 0
+    },
+    {
+      "category": "enrichment",
+      "enabled": true,
+      "provider": "musicbrainz",
+      "recent_error_count": 0
+    },
+    {
+      "category": "bootstrap",
+      "enabled": true,
+      "last_status": "success",
+      "last_successful": "\u003ctimestamp\u003e",
+      "provider": "quotefancy",
+      "recent_error_count": 0
+    },
+    {
+      "category": "runtime",
+      "enabled": false,
+      "provider": "setlistfm",
+      "recent_error_count": 0
+    },
+    {
+      "category": "enrichment",
+      "enabled": true,
+      "provider": "wikidata",
+      "recent_error_count": 0
+    },
+    {
+      "category": "enrichment",
+      "enabled": true,
+      "last_status": "success",
+      "last_successful": "\u003ctimestamp\u003e",
+      "provider": "wikiquote",
+      "recent_error_count": 0
+    }
+  ],
+  "meta": {
+    "active_providers": [
+      "quotefancy"
+    ],
+    "snapshot_version": "\u003ctimestamp\u003e"
+  },
+  "pagination": {
+    "limit": 8,
+    "offset": 0,
+    "total": 8
+  }
+}

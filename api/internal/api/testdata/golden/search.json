@@ -1,0 +1,133 @@
+{
+  "data": {
+    "artists": [
+      {
+        "aliases": [
+          "Christopher Francis Ocean",
+          "Frank Ocean",
+          "Frank-Ocean"
+        ],
+        "artist_id": "tanabata:frank-ocean",
+        "genres": [],
+        "life_span": {},
+        "links": [
+          {
+            "kind": "source_home",
+            "provider": "quotefancy",
+            "url": "https://quotefancy.com"
+          }
+        ],
+        "name": "Frank Ocean",
+        "provider_status": {
+          "legacy": "seeded",
+          "tanabata_curated": "imported"
+        }
+      }
+    ],
+    "quotes": [
+      {
+        "artist_id": "tanabata:frank-ocean",
+        "artist_name": "Frank Ocean",
+        "confidence_score": 0.25,
+        "evidence": [
+          "Imported from QuoteFancy during legacy bootstrap; requires manual verification."
+        ],
+        "first_seen_at": "\u003ctimestamp\u003e",
+        "freshness_age_days": 0,
+        "freshness_reason": "recently verified against source metadata",
+        "freshness_status": "fresh",
+        "last_verified_at": "\u003ctimestamp\u003e",
+        "license": "unknown",
+        "provenance_status": "needs_review",
+        "provider_origin": "quotefancy",
+        "quote_id": "a504bfcf8bad20659a3c8ab8218b63e4",
+        "source": {
+          "license": "unknown",
+          "provider": "quotefancy",
+          "publisher": "QuoteFancy",
+          "retrieved_at": "\u003ctimestamp\u003e",
+          "source_id": "a47e3c0d77e89ea7b74a89a29d581557",
+          "title": "QuoteFancy legacy import",
+          "url": "https://quotefancy.com"
+        },
+        "source_id": "a47e3c0d77e89ea7b74a89a29d581557",
+        "source_type": "legacy_scrape",
+        "tags": [],
+        "text": "Be yourself."
+      },
+      {
+        "artist_id": "tanabata:frank-ocean",
+        "artist_name": "Frank Ocean",
+        "confidence_score": 0.25,
+        "evidence": [
+          "Imported from QuoteFancy during legacy bootstrap; requires manual verification."
+        ],
+        "first_seen_at": "\u003ctimestamp\u003e",
+        "freshness_age_days": 0,
+        "freshness_reason": "recently verified against source metadata",
+        "freshness_status": "fresh",
+        "last_verified_at": "\u003ctimestamp\u003e",
+        "license": "unknown",
+        "provenance_status": "needs_review",
+        "provider_origin": "quotefancy",
+        "quote_id": "17e4f30147beaec15cf613c4058a6d77",
+        "source": {
+          "license": "unknown",
+          "provider": "quotefancy",
+          "publisher": "QuoteFancy",
+          "retrieved_at": "\u003ctimestamp\u003e",
+          "source_id": "a47e3c0d77e89ea7b74a89a29d581557",
+          "title": "QuoteFancy legacy import",
+          "url": "https://quotefancy.com"
+        },
+        "source_id": "a47e3c0d77e89ea7b74a89a29d581557",
+        "source_type": "legacy_scrape",
+        "tags": [],
+        "text": "Work hard in silence."
+      },
+      {
+        "artist_id": "tanabata:frank-ocean",
+        "artist_name": "Frank Ocean",
+        "confidence_score": 0.99,
+        "evidence": [
+          "Curated Tanabata editorial note matched to a maintained archive entry.",
+          "Matched against a second oral history transcript capture.",
+          "Reviewed against source snapshot on 2026-04-01.",
+          "Secondary archive confirms wording with punctuation variance only."
+        ],
+        "first_seen_at": "\u003ctimestamp\u003e",
+        "freshness_age_days": 0,
+        "freshness_reason": "recently verified against source metadata",
+        "freshness_status": "fresh",
+        "last_verified_at": "\u003ctimestamp\u003e",
+        "license": "editorial_excerpt",
+        "provenance_status": "verified",
+        "provider_origin": "tanabata_curated",
+        "quote_id": "d37edeaab5a095648aec95beb9944482",
+        "source": {
+          "license": "editorial_excerpt",
+          "provider": "editorial_archive",
+          "publisher": "Tanabata Archive",
+          "retrieved_at": "\u003ctimestamp\u003e",
+          "source_id": "d54d386dd76ed84abe8a04d8462d5381",
+          "title": "Frank Ocean Studio Notes",
+          "url": "https://archive.tanabata.dev/frank-ocean/studio-notes"
+        },
+        "source_id": "d54d386dd76ed84abe8a04d8462d5381",
+        "source_type": "editorial_archive",
+        "tags": [
+          "craft",
+          "process"
+        ],
+        "text": "Make the work precise enough that it can survive your mood.",
+        "work_title": "Studio Notes"
+      }
+    ]
+  },
+  "meta": {
+    "active_providers": [
+      "quotefancy"
+    ],
+    "snapshot_version": "\u003ctimestamp\u003e"
+  }
+}

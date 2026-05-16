@@ -1,0 +1,25 @@
+{
+  "data": {
+    "confidence_score": 0.99,
+    "evidence": [
+      "Curated Tanabata editorial note matched to a maintained archive entry.",
+      "Matched against a second oral history transcript capture.",
+      "Reviewed against source snapshot on 2026-04-01.",
+      "Secondary archive confirms wording with punctuation variance only."
+    ],
+    "first_seen_at": "\u003ctimestamp\u003e",
+    "last_verified_at": "\u003ctimestamp\u003e",
+    "provenance_status": "verified",
+    "provider_origin": "tanabata_curated",
+    "quote_id": "d37edeaab5a095648aec95beb9944482",
+    "source": {
+      "license": "editorial_excerpt",
+      "provider": "editorial_archive",
+      "publisher": "Tanabata Archive",
+      "retrieved_at": "\u003ctimestamp\u003e",
+      "source_id": "d54d386dd76ed84abe8a04d8462d5381",
+      "title": "Frank Ocean Studio Notes",
+      "url": "https://archive.tanabata.dev/frank-ocean/studio-notes"
+    }
+  }
+}

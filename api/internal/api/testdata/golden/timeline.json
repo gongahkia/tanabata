@@ -1,0 +1,67 @@
+{
+  "data": [
+    {
+      "at": "\u003ctimestamp\u003e",
+      "event_id": "provider:quotefancy",
+      "kind": "provider",
+      "metadata": {
+        "enabled": true,
+        "last_error_at": "",
+        "last_successful": "\u003ctimestamp\u003e",
+        "recent_error_count": 0
+      },
+      "status": "success",
+      "title": "quotefancy"
+    },
+    {
+      "at": "\u003ctimestamp\u003e",
+      "details": "golden fixture",
+      "event_id": "golden-job",
+      "kind": "job",
+      "metadata": {
+        "finished_at": "\u003ctimestamp\u003e",
+        "item_count": 1,
+        "scope": "bootstrap",
+        "started_at": "\u003ctimestamp\u003e"
+      },
+      "status": "succeeded",
+      "title": "golden-catalog-refresh"
+    },
+    {
+      "at": "\u003ctimestamp\u003e",
+      "details": "imported curated quotes",
+      "event_id": "golden-job-item",
+      "kind": "job_item",
+      "metadata": {
+        "job_id": "golden-job",
+        "target": "bootstrap:data/curated_quotes.json"
+      },
+      "status": "succeeded",
+      "title": "tanabata_curated"
+    },
+    {
+      "at": "\u003ctimestamp\u003e",
+      "event_id": "provider:wikiquote",
+      "kind": "provider",
+      "metadata": {
+        "enabled": true,
+        "last_error_at": "",
+        "last_successful": "\u003ctimestamp\u003e",
+        "recent_error_count": 0
+      },
+      "status": "success",
+      "title": "wikiquote"
+    }
+  ],
+  "meta": {
+    "active_providers": [
+      "quotefancy"
+    ],
+    "snapshot_version": "\u003ctimestamp\u003e"
+  },
+  "pagination": {
+    "limit": 4,
+    "offset": 0,
+    "total": 4
+  }
+}
