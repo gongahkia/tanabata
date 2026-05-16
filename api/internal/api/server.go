@@ -6,6 +6,7 @@ import (
 	"log/slog"
 	"net/http"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -99,6 +100,9 @@ func (s *Server) Router() *gin.Engine {
 		v1.GET("/providers/:provider/errors", s.providerErrors)
 		v1.GET("/jobs", s.jobs)
 		v1.GET("/jobs/:job_id", s.jobByID)
+		v1.GET("/jobs/:job_id/snapshots", s.jobSnapshots)
+		v1.GET("/jobs/:job_id/audit", s.jobAuditEvents)
+		v1.GET("/timeline", s.timeline)
 		v1.GET("/review/queue", s.reviewQueue)
 		v1.GET("/review/stale", s.staleQuotes)
 		v1.GET("/search", s.search)
@@ -481,6 +485,115 @@ func (s *Server) jobByID(c *gin.Context) {
 	dataResponse(c, http.StatusOK, job, nil)
 }
 
+func (s *Server) jobSnapshots(c *gin.Context) {
+	snapshots, err := s.store.ListIngestionSnapshots(c.Request.Context(), c.Param("job_id"), parseLimit(c.Query("limit"), 20))
+	if err != nil {
+		errorResponse(c, http.StatusInternalServerError, "job_snapshots_failed", "failed to load ingestion snapshots", map[string]any{"error": err.Error()})
+		return
+	}
+	meta, err := s.store.Meta(c.Request.Context())
+	if err != nil {
+		errorResponse(c, http.StatusInternalServerError, "job_snapshots_failed", "failed to load service metadata", map[string]any{"error": err.Error()})
+		return
+	}
+	listResponse(c, http.StatusOK, snapshots, meta, models.Pagination{Limit: len(snapshots), Offset: 0, Total: len(snapshots)})
+}
+
+func (s *Server) jobAuditEvents(c *gin.Context) {
+	events, err := s.store.ListIngestionAuditEvents(c.Request.Context(), c.Param("job_id"), parseLimit(c.Query("limit"), 20))
+	if err != nil {
+		errorResponse(c, http.StatusInternalServerError, "job_audit_failed", "failed to load ingestion audit events", map[string]any{"error": err.Error()})
+		return
+	}
+	meta, err := s.store.Meta(c.Request.Context())
+	if err != nil {
+		errorResponse(c, http.StatusInternalServerError, "job_audit_failed", "failed to load service metadata", map[string]any{"error": err.Error()})
+		return
+	}
+	listResponse(c, http.StatusOK, events, meta, models.Pagination{Limit: len(events), Offset: 0, Total: len(events)})
+}
+
+func (s *Server) timeline(c *gin.Context) {
+	limit := parseLimit(c.Query("limit"), 50)
+	jobs, err := s.store.ListJobs(c.Request.Context(), limit)
+	if err != nil {
+		errorResponse(c, http.StatusInternalServerError, "timeline_failed", "failed to load ingestion jobs", map[string]any{"error": err.Error()})
+		return
+	}
+	providers, err := s.store.ProviderSummaries(c.Request.Context(), s.providerInventory)
+	if err != nil {
+		errorResponse(c, http.StatusInternalServerError, "timeline_failed", "failed to load provider summaries", map[string]any{"error": err.Error()})
+		return
+	}
+	events := make([]models.TimelineEvent, 0, len(jobs)+len(providers))
+	for _, job := range jobs {
+		events = append(events, models.TimelineEvent{
+			EventID: job.JobID,
+			Kind:    "job",
+			Title:   job.Name,
+			Status:  job.Status,
+			At:      firstNonEmpty(job.FinishedAt, job.StartedAt),
+			Details: job.Details,
+			Metadata: map[string]any{
+				"scope":       job.Scope,
+				"item_count":  len(job.Items),
+				"started_at":  job.StartedAt,
+				"finished_at": job.FinishedAt,
+			},
+		})
+		for _, item := range job.Items {
+			events = append(events, models.TimelineEvent{
+				EventID: item.JobItemID,
+				Kind:    "job_item",
+				Title:   item.Provider,
+				Status:  item.Status,
+				At:      firstNonEmpty(item.FinishedAt, item.StartedAt),
+				Details: item.Details,
+				Metadata: map[string]any{
+					"job_id": job.JobID,
+					"target": item.Target,
+				},
+			})
+		}
+	}
+	for _, provider := range providers {
+		at := firstNonEmpty(provider.CooldownUntil, provider.LastErrorAt, provider.LastSuccessful)
+		if at == "" {
+			continue
+		}
+		status := firstNonEmpty(provider.LastStatus, "observed")
+		if provider.CooldownUntil != "" {
+			status = "cooldown"
+		}
+		events = append(events, models.TimelineEvent{
+			EventID: "provider:" + provider.Provider,
+			Kind:    "provider",
+			Title:   provider.Provider,
+			Status:  status,
+			At:      at,
+			Details: provider.CooldownReason,
+			Metadata: map[string]any{
+				"enabled":            provider.Enabled,
+				"recent_error_count": provider.RecentErrorCount,
+				"last_successful":    provider.LastSuccessful,
+				"last_error_at":      provider.LastErrorAt,
+			},
+		})
+	}
+	sort.SliceStable(events, func(i, j int) bool {
+		return events[i].At > events[j].At
+	})
+	if len(events) > limit {
+		events = events[:limit]
+	}
+	meta, err := s.store.Meta(c.Request.Context())
+	if err != nil {
+		errorResponse(c, http.StatusInternalServerError, "timeline_failed", "failed to load service metadata", map[string]any{"error": err.Error()})
+		return
+	}
+	listResponse(c, http.StatusOK, events, meta, models.Pagination{Limit: len(events), Offset: 0, Total: len(events)})
+}
+
 func (s *Server) search(c *gin.Context) {
 	query := strings.TrimSpace(c.Query("q"))
 	if query == "" {
@@ -587,6 +700,15 @@ func parseInt(value string) int {
 		return 0
 	}
 	return parsed
+}
+
+func firstNonEmpty(values ...string) string {
+	for _, value := range values {
+		if strings.TrimSpace(value) != "" {
+			return value
+		}
+	}
+	return ""
 }
 
 func parseLimit(value string, fallback int) int {

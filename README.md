@@ -7,7 +7,7 @@ It is deliberately shaped as a backend-focused portfolio project:
 - an explicit ingestion pipeline instead of startup mutation
 - FTS-backed catalog search
 - provider run and error tracking
-- a small TypeScript frontend driven by a generated client from OpenAPI
+- OpenAPI contracts for every `/v1` backend surface
 
 ## Product Surface
 
@@ -25,18 +25,22 @@ It is deliberately shaped as a backend-focused portfolio project:
   - `/v1/providers/{provider}/runs`
   - `/v1/providers/{provider}/errors`
   - `/v1/jobs`
+  - `/v1/jobs/{job_id}/snapshots`
+  - `/v1/jobs/{job_id}/audit`
+  - `/v1/timeline`
+  - `/v1/review/queue`
+  - `/v1/review/stale`
   - `/v1/stats`
+  - `/v1/integrity`
   - `/v1/lyrics`
 
-### Web App
-- `/`
-  Discovery and search
-- `/artists/:artistId`
-  Artist detail with quotes, releases, and related artists
-- `/quotes/:quoteId`
-  Quote detail with provenance
-- `/system`
-  Provider health, freshness, and ingestion history
+### Backend Demo Surfaces
+- Quote provenance:
+  `/v1/quotes/{quote_id}/provenance`
+- Provider and system status:
+  `/v1/providers`, `/v1/stats`, `/v1/integrity`, `/health`, `/metrics`
+- Ingestion timeline:
+  `/v1/timeline`, `/v1/jobs`, `/v1/jobs/{job_id}/snapshots`, `/v1/jobs/{job_id}/audit`
 
 ## Architecture
 
@@ -60,13 +64,6 @@ make ingest
 make run
 ```
 
-### Frontend
-```bash
-cd web
-npm install
-npm run dev
-```
-
 ### Docker Compose
 ```bash
 docker compose up --build
@@ -78,15 +75,6 @@ The compose setup expects the catalog to live in `api/data/catalog.sqlite`. Run 
 
 - OpenAPI source of truth:
   [openapi/openapi.json](/Users/gongahkia/Desktop/coding/projects/tanabata/openapi/openapi.json)
-- Generated client:
-  [web/src/generated/client.ts](/Users/gongahkia/Desktop/coding/projects/tanabata/web/src/generated/client.ts)
-
-Regenerate the client with:
-
-```bash
-cd web
-npm run generate:client
-```
 
 ## Observability and Ops
 
@@ -95,8 +83,8 @@ npm run generate:client
 - Prometheus metrics
 - OpenTelemetry spans via stdout exporter
 - multi-stage API container build
-- CI for backend tests, coverage floor, linting, generated-client drift, frontend test/build, and container smoke test
+- CI for backend tests, coverage floor, linting, and container smoke test
 
 ## Screens
 
-The repo now contains both the backend and the demo frontend. The original architecture reference is still available at [asset/reference/architecture.png](/Users/gongahkia/Desktop/coding/projects/tanabata/asset/reference/architecture.png).
+The original architecture reference is available at [asset/reference/architecture.png](/Users/gongahkia/Desktop/coding/projects/tanabata/asset/reference/architecture.png).

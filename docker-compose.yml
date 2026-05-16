@@ -9,13 +9,3 @@ services:
       - ./api/data:/app/data
     ports:
       - "18080:8080"
-
-  web:
-    build:
-      context: ./web
-    environment:
-      VITE_API_BASE_URL: http://localhost:18080
-    ports:
-      - "15173:5173"
-    depends_on:
-      - api
