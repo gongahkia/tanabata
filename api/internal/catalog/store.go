@@ -1567,6 +1567,44 @@ func (s *Store) Stats(ctx context.Context) (map[string]any, error) {
 	}, nil
 }
 
+func (s *Store) IntegrityReport(ctx context.Context) (models.IntegrityReport, error) {
+	report := models.IntegrityReport{
+		OK:        true,
+		CheckedAt: time.Now().UTC().Format(time.RFC3339),
+		Counts:    map[string]int{},
+		Issues:    []string{},
+	}
+	if err := s.db.QueryRowContext(ctx, `PRAGMA integrity_check`).Scan(&report.SQLite); err != nil {
+		return report, err
+	}
+	if report.SQLite != "ok" {
+		report.OK = false
+		report.Issues = append(report.Issues, "sqlite_integrity_check_failed")
+	}
+	checks := map[string]string{
+		"quotes_missing_artist": `SELECT COUNT(*) FROM quotes LEFT JOIN artists ON artists.artist_id = quotes.artist_id WHERE artists.artist_id IS NULL`,
+		"quotes_missing_source": `SELECT COUNT(*) FROM quotes WHERE source_id <> '' AND source_id NOT IN (SELECT source_id FROM quote_sources)`,
+		"tags_missing_quote":    `SELECT COUNT(*) FROM quote_tags LEFT JOIN quotes ON quotes.quote_id = quote_tags.quote_id WHERE quotes.quote_id IS NULL`,
+		"evidence_missing_quote": `SELECT COUNT(*) FROM quote_evidence
+			LEFT JOIN quotes ON quotes.quote_id = quote_evidence.quote_id
+			WHERE quotes.quote_id IS NULL`,
+		"job_items_missing_job": `SELECT COUNT(*) FROM job_items LEFT JOIN jobs ON jobs.job_id = job_items.job_id WHERE jobs.job_id IS NULL`,
+	}
+	for name, query := range checks {
+		var count int
+		if err := s.db.QueryRowContext(ctx, query).Scan(&count); err != nil {
+			return report, err
+		}
+		report.Counts[name] = count
+		if count > 0 {
+			report.OK = false
+			report.Issues = append(report.Issues, name)
+		}
+	}
+	sort.Strings(report.Issues)
+	return report, nil
+}
+
 func (s *Store) ProviderRuns(ctx context.Context, provider string, limit int) ([]models.ProviderRun, error) {
 	rows, err := s.db.QueryContext(ctx, `
 		SELECT run_id, provider, status, started_at, finished_at, details

@@ -103,6 +103,7 @@ func (s *Server) Router() *gin.Engine {
 		v1.GET("/review/stale", s.staleQuotes)
 		v1.GET("/search", s.search)
 		v1.GET("/stats", s.stats)
+		v1.GET("/integrity", s.integrity)
 		v1.GET("/lyrics", s.lyrics)
 	}
 
@@ -499,6 +500,15 @@ func (s *Server) stats(c *gin.Context) {
 		return
 	}
 	dataResponse(c, http.StatusOK, stats, nil)
+}
+
+func (s *Server) integrity(c *gin.Context) {
+	report, err := s.store.IntegrityReport(c.Request.Context())
+	if err != nil {
+		errorResponse(c, http.StatusInternalServerError, "integrity_failed", "failed to run catalog integrity checks", map[string]any{"error": err.Error()})
+		return
+	}
+	dataResponse(c, http.StatusOK, report, nil)
 }
 
 func (s *Server) lyrics(c *gin.Context) {

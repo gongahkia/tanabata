@@ -263,3 +263,11 @@ type IngestionAuditEvent struct {
 	OccurredAt string `json:"occurred_at"`
 	Details    string `json:"details,omitempty"`
 }
+
+type IntegrityReport struct {
+	OK        bool           `json:"ok"`
+	CheckedAt string         `json:"checked_at"`
+	SQLite    string         `json:"sqlite"`
+	Counts    map[string]int `json:"counts"`
+	Issues    []string       `json:"issues"`
+}

@@ -308,6 +308,25 @@ func TestStaleQuotesEndpoint(t *testing.T) {
 	}
 }
 
+func TestIntegrityEndpoint(t *testing.T) {
+	server, store := seededServer(t)
+	defer store.Close()
+
+	recorder := httptest.NewRecorder()
+	request := httptest.NewRequest(http.MethodGet, "/v1/integrity", nil)
+	server.Router().ServeHTTP(recorder, request)
+	if recorder.Code != http.StatusOK {
+		t.Fatalf("status = %d, want 200 body=%s", recorder.Code, recorder.Body.String())
+	}
+	var response models.APIResponse[models.IntegrityReport]
+	if err := json.Unmarshal(recorder.Body.Bytes(), &response); err != nil {
+		t.Fatalf("decode response: %v", err)
+	}
+	if !response.Data.OK || response.Data.SQLite != "ok" {
+		t.Fatalf("unexpected integrity response %+v", response.Data)
+	}
+}
+
 func TestErrorEnvelopeAndRequestID(t *testing.T) {
 	server, store := seededServer(t)
 	defer store.Close()

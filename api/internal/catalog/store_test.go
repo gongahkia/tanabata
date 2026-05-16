@@ -786,3 +786,21 @@ func TestProviderCacheInvalidationPolicies(t *testing.T) {
 		t.Fatalf("deleted cache ok=%v err=%v, want miss", ok, err)
 	}
 }
+
+func TestIntegrityReportPassesForSeededCatalog(t *testing.T) {
+	store, ctx := newSeededStore(t)
+	defer store.Close()
+
+	report, err := store.IntegrityReport(ctx)
+	if err != nil {
+		t.Fatalf("IntegrityReport() error = %v", err)
+	}
+	if !report.OK || report.SQLite != "ok" || len(report.Issues) != 0 {
+		t.Fatalf("unexpected integrity report %+v", report)
+	}
+	for _, key := range []string{"quotes_missing_artist", "quotes_missing_source", "tags_missing_quote", "evidence_missing_quote", "job_items_missing_job"} {
+		if _, ok := report.Counts[key]; !ok {
+			t.Fatalf("missing integrity count %q in %+v", key, report.Counts)
+		}
+	}
+}
