@@ -242,6 +242,8 @@ func TestProviderRunsErrorsAndJobsEndpoints(t *testing.T) {
 		{path: "/v1/providers/wikiquote/errors", want: "error-1"},
 		{path: "/v1/jobs", want: "job-1"},
 		{path: "/v1/jobs/job-1", want: "job-1"},
+		{path: "/v1/jobs/job-1?include=audit,snapshots", want: "audit_events"},
+		{path: "/v1/jobs/job-1?include=audit,snapshots", want: "snapshots"},
 		{path: "/v1/jobs/job-1/snapshots", want: "after"},
 		{path: "/v1/jobs/job-1/audit", want: "audit-1"},
 		{path: "/v1/timeline", want: "catalog-refresh"},

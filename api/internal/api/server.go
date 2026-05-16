@@ -482,6 +482,23 @@ func (s *Server) jobByID(c *gin.Context) {
 		errorResponse(c, http.StatusNotFound, "job_not_found", "job not found", nil)
 		return
 	}
+	includes := parseInclude(c.Query("include"))
+	if includes["snapshots"] {
+		snapshots, err := s.store.ListIngestionSnapshots(c.Request.Context(), job.JobID, parseLimit(c.Query("snapshot_limit"), 20))
+		if err != nil {
+			errorResponse(c, http.StatusInternalServerError, "job_lookup_failed", "failed to load ingestion snapshots", map[string]any{"error": err.Error()})
+			return
+		}
+		job.Snapshots = snapshots
+	}
+	if includes["audit"] || includes["audit_events"] {
+		events, err := s.store.ListIngestionAuditEvents(c.Request.Context(), job.JobID, parseLimit(c.Query("audit_limit"), 20))
+		if err != nil {
+			errorResponse(c, http.StatusInternalServerError, "job_lookup_failed", "failed to load ingestion audit events", map[string]any{"error": err.Error()})
+			return
+		}
+		job.AuditEvents = events
+	}
 	dataResponse(c, http.StatusOK, job, nil)
 }
 
@@ -709,6 +726,17 @@ func firstNonEmpty(values ...string) string {
 		}
 	}
 	return ""
+}
+
+func parseInclude(value string) map[string]bool {
+	includes := map[string]bool{}
+	for _, part := range strings.Split(value, ",") {
+		part = strings.TrimSpace(strings.ToLower(part))
+		if part != "" {
+			includes[part] = true
+		}
+	}
+	return includes
 }
 
 func parseLimit(value string, fallback int) int {
