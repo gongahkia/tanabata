@@ -532,7 +532,7 @@ func (s *Server) jobAuditEvents(c *gin.Context) {
 
 func (s *Server) timeline(c *gin.Context) {
 	limit := parseLimit(c.Query("limit"), 50)
-	jobs, err := s.store.ListJobs(c.Request.Context(), limit)
+	jobs, err := s.store.ListJobs(c.Request.Context(), limit+1)
 	if err != nil {
 		errorResponse(c, http.StatusInternalServerError, "timeline_failed", "failed to load ingestion jobs", map[string]any{"error": err.Error()})
 		return
@@ -600,15 +600,13 @@ func (s *Server) timeline(c *gin.Context) {
 	sort.SliceStable(events, func(i, j int) bool {
 		return events[i].At > events[j].At
 	})
-	if len(events) > limit {
-		events = events[:limit]
-	}
+	events, nextCursor := paginateTimelineEvents(events, c.Query("cursor"), limit)
 	meta, err := s.store.Meta(c.Request.Context())
 	if err != nil {
 		errorResponse(c, http.StatusInternalServerError, "timeline_failed", "failed to load service metadata", map[string]any{"error": err.Error()})
 		return
 	}
-	listResponse(c, http.StatusOK, events, meta, models.Pagination{Limit: len(events), Offset: 0, Total: len(events)})
+	listResponse(c, http.StatusOK, events, cursorMeta(meta, nextCursor), models.Pagination{Limit: len(events), Offset: 0, Total: len(events)})
 }
 
 func (s *Server) search(c *gin.Context) {
@@ -617,12 +615,15 @@ func (s *Server) search(c *gin.Context) {
 		errorResponse(c, http.StatusBadRequest, "missing_query", "q is required", nil)
 		return
 	}
-	response, err := s.store.Search(c.Request.Context(), query)
+	limit := parseLimit(c.Query("limit"), 10)
+	response, err := s.store.SearchWithLimit(c.Request.Context(), query, limit+1)
 	if err != nil {
 		errorResponse(c, http.StatusInternalServerError, "search_failed", "failed to search catalog", map[string]any{"error": err.Error()})
 		return
 	}
-	dataResponse(c, http.StatusOK, response.Data, response.Meta)
+	quotes, nextCursor := paginateQuotes(response.Data.Quotes, c.Query("cursor"), limit)
+	response.Data.Quotes = quotes
+	dataResponse(c, http.StatusOK, response.Data, cursorMeta(response.Meta, nextCursor))
 }
 
 func (s *Server) stats(c *gin.Context) {
@@ -737,6 +738,64 @@ func parseInclude(value string) map[string]bool {
 		}
 	}
 	return includes
+}
+
+func cursorMeta(meta models.ListMeta, nextCursor string) models.CursorMeta {
+	return models.CursorMeta{
+		SnapshotVersion: meta.SnapshotVersion,
+		ActiveProviders: meta.ActiveProviders,
+		NextCursor:      nextCursor,
+	}
+}
+
+func paginateQuotes(quotes []models.Quote, cursor string, limit int) ([]models.Quote, string) {
+	start := 0
+	if cursor != "" {
+		start = len(quotes)
+		for i, quote := range quotes {
+			if quote.QuoteID == cursor {
+				start = i + 1
+				break
+			}
+		}
+	}
+	if start > len(quotes) {
+		start = len(quotes)
+	}
+	end := start + limit
+	if end > len(quotes) {
+		end = len(quotes)
+	}
+	nextCursor := ""
+	if end < len(quotes) && end > start {
+		nextCursor = quotes[end-1].QuoteID
+	}
+	return quotes[start:end], nextCursor
+}
+
+func paginateTimelineEvents(events []models.TimelineEvent, cursor string, limit int) ([]models.TimelineEvent, string) {
+	start := 0
+	if cursor != "" {
+		start = len(events)
+		for i, event := range events {
+			if event.EventID == cursor {
+				start = i + 1
+				break
+			}
+		}
+	}
+	if start > len(events) {
+		start = len(events)
+	}
+	end := start + limit
+	if end > len(events) {
+		end = len(events)
+	}
+	nextCursor := ""
+	if end < len(events) && end > start {
+		nextCursor = events[end-1].EventID
+	}
+	return events[start:end], nextCursor
 }
 
 func parseLimit(value string, fallback int) int {

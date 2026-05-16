@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"testing"
 	"time"
@@ -85,6 +86,45 @@ func TestV1SearchEndpoint(t *testing.T) {
 	}
 	if len(response.Data.Artists) == 0 || len(response.Data.Quotes) == 0 {
 		t.Fatalf("expected artist and quote search results")
+	}
+}
+
+func TestSearchCursorPagination(t *testing.T) {
+	server, store := seededServer(t)
+	defer store.Close()
+
+	recorder := httptest.NewRecorder()
+	request := httptest.NewRequest(http.MethodGet, "/v1/search?q=frank&limit=1", nil)
+	server.Router().ServeHTTP(recorder, request)
+	if recorder.Code != http.StatusOK {
+		t.Fatalf("status = %d, want 200 body=%s", recorder.Code, recorder.Body.String())
+	}
+	var first struct {
+		Data models.SearchResults `json:"data"`
+		Meta models.CursorMeta    `json:"meta"`
+	}
+	if err := json.Unmarshal(recorder.Body.Bytes(), &first); err != nil {
+		t.Fatalf("decode first response: %v", err)
+	}
+	if first.Meta.NextCursor == "" || len(first.Data.Quotes) != 1 {
+		t.Fatalf("expected first page cursor and one quote, got %+v", first)
+	}
+
+	recorder = httptest.NewRecorder()
+	request = httptest.NewRequest(http.MethodGet, "/v1/search?q=frank&limit=1&cursor="+first.Meta.NextCursor, nil)
+	server.Router().ServeHTTP(recorder, request)
+	if recorder.Code != http.StatusOK {
+		t.Fatalf("status = %d, want 200 body=%s", recorder.Code, recorder.Body.String())
+	}
+	var second struct {
+		Data models.SearchResults `json:"data"`
+		Meta models.CursorMeta    `json:"meta"`
+	}
+	if err := json.Unmarshal(recorder.Body.Bytes(), &second); err != nil {
+		t.Fatalf("decode second response: %v", err)
+	}
+	if len(second.Data.Quotes) != 1 || second.Data.Quotes[0].QuoteID == first.Data.Quotes[0].QuoteID {
+		t.Fatalf("expected stable second page, first=%+v second=%+v", first.Data.Quotes, second.Data.Quotes)
 	}
 }
 
@@ -260,6 +300,60 @@ func TestProviderRunsErrorsAndJobsEndpoints(t *testing.T) {
 				t.Fatalf("expected body to contain %q, got %s", tc.want, body)
 			}
 		})
+	}
+}
+
+func TestTimelineCursorPagination(t *testing.T) {
+	server, store := seededServer(t)
+	defer store.Close()
+
+	ctx := context.Background()
+	now := time.Now().UTC()
+	for i := 0; i < 3; i++ {
+		timestamp := now.Add(time.Duration(-i) * time.Minute).Format(time.RFC3339)
+		if err := store.RecordJob(ctx, models.JobRun{
+			JobID:      "timeline-job-" + strconv.Itoa(i),
+			Name:       "timeline-job",
+			Status:     "succeeded",
+			StartedAt:  timestamp,
+			FinishedAt: timestamp,
+		}); err != nil {
+			t.Fatalf("RecordJob() error = %v", err)
+		}
+	}
+
+	recorder := httptest.NewRecorder()
+	request := httptest.NewRequest(http.MethodGet, "/v1/timeline?limit=1", nil)
+	server.Router().ServeHTTP(recorder, request)
+	if recorder.Code != http.StatusOK {
+		t.Fatalf("status = %d, want 200 body=%s", recorder.Code, recorder.Body.String())
+	}
+	var first struct {
+		Data []models.TimelineEvent `json:"data"`
+		Meta models.CursorMeta      `json:"meta"`
+	}
+	if err := json.Unmarshal(recorder.Body.Bytes(), &first); err != nil {
+		t.Fatalf("decode first response: %v", err)
+	}
+	if len(first.Data) != 1 || first.Meta.NextCursor == "" {
+		t.Fatalf("expected first timeline cursor, got %+v", first)
+	}
+
+	recorder = httptest.NewRecorder()
+	request = httptest.NewRequest(http.MethodGet, "/v1/timeline?limit=1&cursor="+first.Meta.NextCursor, nil)
+	server.Router().ServeHTTP(recorder, request)
+	if recorder.Code != http.StatusOK {
+		t.Fatalf("status = %d, want 200 body=%s", recorder.Code, recorder.Body.String())
+	}
+	var second struct {
+		Data []models.TimelineEvent `json:"data"`
+		Meta models.CursorMeta      `json:"meta"`
+	}
+	if err := json.Unmarshal(recorder.Body.Bytes(), &second); err != nil {
+		t.Fatalf("decode second response: %v", err)
+	}
+	if len(second.Data) != 1 || second.Data[0].EventID == first.Data[0].EventID {
+		t.Fatalf("expected stable second timeline page, first=%+v second=%+v", first.Data, second.Data)
 	}
 }
 

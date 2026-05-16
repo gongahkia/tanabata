@@ -11,6 +11,12 @@ type ListMeta struct {
 	ActiveProviders []string `json:"active_providers"`
 }
 
+type CursorMeta struct {
+	SnapshotVersion string   `json:"snapshot_version"`
+	ActiveProviders []string `json:"active_providers"`
+	NextCursor      string   `json:"next_cursor,omitempty"`
+}
+
 type APIError struct {
 	Code    string         `json:"code"`
 	Message string         `json:"message"`

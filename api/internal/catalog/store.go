@@ -1414,6 +1414,10 @@ func (s *Store) SourceByID(ctx context.Context, sourceID string) (*models.Source
 }
 
 func (s *Store) Search(ctx context.Context, query string) (models.SearchResponse, error) {
+	return s.SearchWithLimit(ctx, query, 10)
+}
+
+func (s *Store) SearchWithLimit(ctx context.Context, query string, limit int) (models.SearchResponse, error) {
 	response := models.SearchResponse{}
 	meta, err := s.Meta(ctx)
 	if err != nil {
@@ -1421,23 +1425,24 @@ func (s *Store) Search(ctx context.Context, query string) (models.SearchResponse
 	}
 	response.Meta = meta
 
-	artists, err := s.searchArtists(ctx, query, 10)
+	limit = normalizeLimit(limit)
+	artists, err := s.searchArtists(ctx, query, limit)
 	if err != nil {
 		return response, err
 	}
-	quotes, err := s.searchQuotes(ctx, query, 10)
+	quotes, err := s.searchQuotes(ctx, query, limit)
 	if err != nil {
 		return response, err
 	}
 	if len(artists) == 0 {
-		fallback, err := s.ListArtists(ctx, models.ArtistFilters{Query: query, Limit: 10, Offset: 0})
+		fallback, err := s.ListArtists(ctx, models.ArtistFilters{Query: query, Limit: limit, Offset: 0})
 		if err != nil {
 			return response, err
 		}
 		artists = fallback.Data
 	}
 	if len(quotes) == 0 {
-		fallback, err := s.ListQuotes(ctx, models.QuoteFilters{Query: query, Limit: 10, Offset: 0})
+		fallback, err := s.ListQuotes(ctx, models.QuoteFilters{Query: query, Limit: limit, Offset: 0})
 		if err != nil {
 			return response, err
 		}
