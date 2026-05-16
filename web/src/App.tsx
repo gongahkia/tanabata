@@ -313,11 +313,50 @@ function QuotePage() {
                   Inspect source
                 </a>
               ) : null}
+              <ProvenanceComparison quote={quote.data} provenance={provenance} />
             </section>
           ) : null}
         </>
       ) : null}
     </section>
+  );
+}
+
+function ProvenanceComparison({ quote, provenance }: { quote: Quote; provenance: QuoteProvenance }) {
+  const rows = [
+    {
+      label: "Verification",
+      primary: provenance.provenance_status,
+      comparison: quote.freshness_status ? `${quote.freshness_status}: ${quote.freshness_reason ?? "freshness policy"}` : "freshness unavailable"
+    },
+    {
+      label: "Source",
+      primary: provenance.source?.title || provenance.source?.url || quote.source_type || "No source",
+      comparison: provenance.source?.provider || provenance.provider_origin || "No provider"
+    },
+    {
+      label: "Evidence",
+      primary: `${(provenance.evidence ?? []).length} evidence items`,
+      comparison: `confidence ${(provenance.confidence_score ?? 0).toFixed(2)}`
+    }
+  ];
+
+  return (
+    <div className="comparison-panel">
+      <div>
+        <p className="eyebrow">Source Comparison</p>
+        <h4>Why this quote is trusted or queued</h4>
+      </div>
+      <ul>
+        {rows.map((row) => (
+          <li key={row.label}>
+            <span>{row.label}</span>
+            <strong>{row.primary}</strong>
+            <em>{row.comparison}</em>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 

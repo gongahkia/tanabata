@@ -213,6 +213,51 @@ a {
   justify-content: flex-start;
 }
 
+.comparison-panel {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+  padding: 16px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(189, 74, 50, 0.1), rgba(73, 118, 110, 0.1));
+  border: 1px solid var(--line);
+}
+
+.comparison-panel h4 {
+  margin: 4px 0 0;
+}
+
+.comparison-panel ul {
+  display: grid;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.comparison-panel li {
+  display: grid;
+  grid-template-columns: 0.8fr 1.4fr 1fr;
+  gap: 12px;
+  align-items: start;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.comparison-panel li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.comparison-panel span,
+.comparison-panel em {
+  color: var(--muted);
+}
+
+.comparison-panel em {
+  font-style: normal;
+}
+
 .state {
   display: grid;
   gap: 6px;
