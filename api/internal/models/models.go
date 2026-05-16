@@ -209,6 +209,7 @@ type ProviderRun struct {
 type ProviderError struct {
 	ErrorID    string `json:"error_id"`
 	Provider   string `json:"provider"`
+	Kind       string `json:"kind,omitempty"`
 	OccurredAt string `json:"occurred_at"`
 	Context    string `json:"context,omitempty"`
 	Message    string `json:"message"`

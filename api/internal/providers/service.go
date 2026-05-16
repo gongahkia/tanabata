@@ -371,6 +371,7 @@ func (s *Service) recordProviderFailure(ctx context.Context, provider, artistID,
 	return s.store.RecordProviderError(ctx, catalog.ProviderError{
 		ErrorID:    search.StableHash(provider, artistID, err.Error(), startedAt.Format(time.RFC3339Nano)),
 		Provider:   provider,
+		Kind:       ClassifyFailure(err),
 		OccurredAt: time.Now().UTC(),
 		Context:    contextValue,
 		Message:    err.Error(),

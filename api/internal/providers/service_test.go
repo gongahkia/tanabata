@@ -73,6 +73,9 @@ func TestServiceEnrichArtistRecordsPartialFailure(t *testing.T) {
 	if len(failures) != 1 {
 		t.Fatalf("expected one provider failure, got %+v", failures)
 	}
+	if failures[0].Kind != string(FailureBadUpstream) {
+		t.Fatalf("failure kind = %q, want bad_upstream", failures[0].Kind)
+	}
 }
 
 func TestServiceSkipsProviderDuringCooldown(t *testing.T) {

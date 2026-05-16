@@ -121,6 +121,7 @@ var catalogMigrations = []schemaMigration{
 			`CREATE TABLE IF NOT EXISTS provider_errors (
 				error_id TEXT PRIMARY KEY,
 				provider TEXT NOT NULL,
+				error_kind TEXT NOT NULL DEFAULT '',
 				occurred_at TEXT NOT NULL,
 				context TEXT NOT NULL DEFAULT '',
 				message TEXT NOT NULL

@@ -283,6 +283,74 @@ func TestHTTPClientReturnsErrorAfterRetries(t *testing.T) {
 	if err == nil || !strings.Contains(err.Error(), "provider request failed") {
 		t.Fatalf("expected upstream error, got %v", err)
 	}
+	if got := ClassifyFailure(err); got != string(FailureBadUpstream) {
+		t.Fatalf("ClassifyFailure() = %q, want bad_upstream", got)
+	}
+}
+
+func TestHTTPClientClassifiesRateLimitAndParseErrors(t *testing.T) {
+	t.Run("rate limit", func(t *testing.T) {
+		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			http.Error(w, "slow down", http.StatusTooManyRequests)
+		}))
+		defer server.Close()
+
+		client := NewHTTPClient(server.URL).SetRetryBudget(1, time.Millisecond)
+		var payload map[string]string
+		err := client.JSON(context.Background(), "/", nil, nil, &payload)
+		if got := ClassifyFailure(err); got != string(FailureRateLimit) {
+			t.Fatalf("ClassifyFailure() = %q, want rate_limit; err=%v", got, err)
+		}
+	})
+
+	t.Run("parse error", func(t *testing.T) {
+		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			_, _ = w.Write([]byte(`not-json`))
+		}))
+		defer server.Close()
+
+		client := NewHTTPClient(server.URL)
+		var payload map[string]string
+		err := client.JSON(context.Background(), "/", nil, nil, &payload)
+		if got := ClassifyFailure(err); got != string(FailureParseError) {
+			t.Fatalf("ClassifyFailure() = %q, want parse_error; err=%v", got, err)
+		}
+	})
+}
+
+func TestHTTPClientConcurrencyLimit(t *testing.T) {
+	var inFlight atomic.Int32
+	var maxSeen atomic.Int32
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		current := inFlight.Add(1)
+		for {
+			previous := maxSeen.Load()
+			if current <= previous || maxSeen.CompareAndSwap(previous, current) {
+				break
+			}
+		}
+		time.Sleep(20 * time.Millisecond)
+		inFlight.Add(-1)
+		_ = json.NewEncoder(w).Encode(map[string]string{"status": "ok"})
+	}))
+	defer server.Close()
+
+	client := NewHTTPClient(server.URL).SetMaxConcurrent(1)
+	done := make(chan error, 3)
+	for i := 0; i < 3; i++ {
+		go func() {
+			var payload map[string]string
+			done <- client.JSON(context.Background(), "/", nil, nil, &payload)
+		}()
+	}
+	for i := 0; i < 3; i++ {
+		if err := <-done; err != nil {
+			t.Fatalf("JSON() error = %v", err)
+		}
+	}
+	if got := maxSeen.Load(); got != 1 {
+		t.Fatalf("max concurrent requests = %d, want 1", got)
+	}
 }
 
 func TestHTTPClientContextCancellation(t *testing.T) {
