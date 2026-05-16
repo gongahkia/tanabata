@@ -1,16 +1,55 @@
+[![](https://img.shields.io/badge/tanabata_1.0.0-passing-green)](https://github.com/gongahkia/tanabata/releases/tag/1.0.0) 
+![](https://github.com/gongahkia/tanabata/actions/workflows/scrape.yml/badge.svg)
+![](https://img.shields.io/badge/tanabata_1.0.0-deployment_down-orange)
 
+> [!WARNING]  
+> [`Tanabata`](https://github.com/gongahkia/tanabata)'s Render deployment is inactive as of 16 May 2026.  
 
-# Tanabata
+# `Tanabata`
 
-A read-only REST API for music quotes, provenance, provider health, and ingestion history.
+Small read-only [REST API](#api) for musician quotes with [built-in provenance & ingestion history](#architecture).
 
 ## Stack
 
 * *Backend*: [Go](https://go.dev/), [OpenAPI](https://www.openapis.org/)
 * *DB*: [SQLite](https://www.sqlite.org/), [FTS5](https://www.sqlite.org/fts5.html)
 * *Observability*: [Prometheus](https://prometheus.io/), [OpenTelemetry](https://opentelemetry.io/)
+* *Package*: [Docker](https://www.docker.com/)
 
 ## Usage
+
+The below instructions are for locally running `Tanabata`.
+
+1. First clone the repo locally on your machine.
+
+```console
+$ git clone https://github.com/gongahkia/tanabata
+```
+
+2. Then run `Tanabata` with any of the below.
+
+### make
+
+```console
+$ make test
+$ make ingest
+$ make run
+```
+
+### docker
+
+```console
+$ docker compose up --build
+```
+
+### shell
+
+```console
+$ ./scripts/api-container-smoke-benchmark.sh
+$ ./scripts/compose-smoke.sh
+```
+
+## API
 
 ### `GET` `/v1/search?q=frank`
 
@@ -90,46 +129,30 @@ A read-only REST API for music quotes, provenance, provider health, and ingestio
 
 ## API
 
-- `GET /v1/artists`
-- `GET /v1/quotes`
-- `GET /v1/search`
-- `GET /v1/providers`
-- `GET /v1/jobs`
-- `GET /v1/jobs/{job_id}?include=audit,snapshots`
-- `GET /v1/review/queue`
-- `GET /v1/review/stale`
-- `GET /v1/stats`
-- `GET /v1/integrity`
-- `GET /livez`, `GET /readyz`, `GET /health`, `GET /metrics`
+See [`openapi/openapi.json`](openapi/openapi.json) for more details.
 
-OpenAPI: [`openapi/openapi.json`](openapi/openapi.json)
+* `GET /v1/artists`
+* `GET /v1/quotes`
+* `GET /v1/search`
+* `GET /v1/providers`
+* `GET /v1/jobs`
+* `GET /v1/jobs/{job_id}?include=audit,snapshots`
+* `GET /v1/review/queue`
+* `GET /v1/review/stale`
+* `GET /v1/stats`
+* `GET /v1/integrity`
+* `GET /livez`, `GET /readyz`, `GET /health`, `GET /metrics`
 
-## Development
+## Architecture
 
-```shell
-make test
-make ingest
-make run
-```
+![](./asset/reference/architecture.png)
 
-## Docker
+## Other notes
 
-```shell
-docker compose up --build
-```
+`Tanabata` is heavily inspired by [`kanye.rest`](https://github.com/ajzbc/kanye.rest).
 
-```shell
-./scripts/api-container-smoke-benchmark.sh
-./scripts/compose-smoke.sh
-```
+## Reference
 
-## Operations
+The name `Tanabata` is in reference to [Tanabata](https://sakamoto-days.fandom.com/wiki/Tanabata) (七夕), a new member of the [Order](https://sakamoto-days.fandom.com/wiki/Order) recruited during the [JAA Jail Arc](https://sakamoto-days.fandom.com/wiki/JAA_Jail_Arc). He emerges as an antagonist in the [New JAA Arc](https://sakamoto-days.fandom.com/wiki/New_JAA_Arc) as part of the ongoing manga series [Sakamoto Days](https://sakamoto-days.fandom.com/wiki/Sakamoto_Days_Wiki).
 
-- Architecture: [`docs/architecture.md`](docs/architecture.md)
-- Runbook: [`docs/runbook.md`](docs/runbook.md)
-- Quality model: [`docs/quality-model.md`](docs/quality-model.md)
-- Benchmarks: [`docs/benchmarks.md`](docs/benchmarks.md)
-
-## License
-
-No license specified.
+![](./asset/logo/tanabata.webp)
