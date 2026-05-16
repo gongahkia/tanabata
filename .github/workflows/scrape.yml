@@ -1,4 +1,4 @@
-name: Catalog Refresh
+name: Tanabata Catalog Refresh
 
 on:
   workflow_dispatch:
