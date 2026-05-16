@@ -164,6 +164,7 @@ type QuoteFilters struct {
 	Tag              string
 	Source           string
 	ProvenanceStatus string
+	FreshnessStatus  string
 	Limit            int
 	Offset           int
 	Sort             string

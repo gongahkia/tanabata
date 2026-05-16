@@ -68,6 +68,7 @@ export interface getArtistQuotesParams {
   "tag"?: string;
   "source"?: string;
   "provenance_status"?: "verified" | "source_attributed" | "provider_attributed" | "ambiguous" | "needs_review";
+  "freshness_status"?: "fresh" | "aging" | "stale" | "unknown";
   "limit"?: number;
   "offset"?: number;
 }
@@ -91,6 +92,7 @@ export interface listQuotesParams {
   "tag"?: string;
   "source"?: string;
   "provenance_status"?: "verified" | "source_attributed" | "provider_attributed" | "ambiguous" | "needs_review";
+  "freshness_status"?: "fresh" | "aging" | "stale" | "unknown";
   "sort"?: string;
   "limit"?: number;
   "offset"?: number;
@@ -197,7 +199,7 @@ export function createClient(config: ClientConfig = {}) {
     return request<{ "data"?: Artist; }>(config.fetchImpl ?? globalThis.fetch.bind(globalThis), baseUrl, `/v1/artists/${encodeURIComponent(String(params["artist_id"]))}`, undefined, init);
   },
   async getArtistQuotes(params: getArtistQuotesParams, init?: RequestInit): Promise<{ "data"?: Quote[]; "meta"?: ListMeta; "pagination"?: Pagination; }> {
-    return request<{ "data"?: Quote[]; "meta"?: ListMeta; "pagination"?: Pagination; }>(config.fetchImpl ?? globalThis.fetch.bind(globalThis), baseUrl, `/v1/artists/${encodeURIComponent(String(params["artist_id"]))}/quotes`, { "q": params["q"], "tag": params["tag"], "source": params["source"], "provenance_status": params["provenance_status"], "limit": params["limit"], "offset": params["offset"] }, init);
+    return request<{ "data"?: Quote[]; "meta"?: ListMeta; "pagination"?: Pagination; }>(config.fetchImpl ?? globalThis.fetch.bind(globalThis), baseUrl, `/v1/artists/${encodeURIComponent(String(params["artist_id"]))}/quotes`, { "q": params["q"], "tag": params["tag"], "source": params["source"], "provenance_status": params["provenance_status"], "freshness_status": params["freshness_status"], "limit": params["limit"], "offset": params["offset"] }, init);
   },
   async getArtistRelated(params: getArtistRelatedParams, init?: RequestInit): Promise<{ "data"?: RelatedArtist[]; "meta"?: ListMeta; "pagination"?: Pagination; }> {
     return request<{ "data"?: RelatedArtist[]; "meta"?: ListMeta; "pagination"?: Pagination; }>(config.fetchImpl ?? globalThis.fetch.bind(globalThis), baseUrl, `/v1/artists/${encodeURIComponent(String(params["artist_id"]))}/related`, undefined, init);
@@ -209,7 +211,7 @@ export function createClient(config: ClientConfig = {}) {
     return request<{ "data"?: Setlist[]; "meta"?: Record<string, unknown>; }>(config.fetchImpl ?? globalThis.fetch.bind(globalThis), baseUrl, `/v1/artists/${encodeURIComponent(String(params["artist_id"]))}/setlists`, undefined, init);
   },
   async listQuotes(params: listQuotesParams = {}, init?: RequestInit): Promise<{ "data"?: Quote[]; "meta"?: ListMeta; "pagination"?: Pagination; }> {
-    return request<{ "data"?: Quote[]; "meta"?: ListMeta; "pagination"?: Pagination; }>(config.fetchImpl ?? globalThis.fetch.bind(globalThis), baseUrl, `/v1/quotes`, { "artist": params["artist"], "artist_id": params["artist_id"], "q": params["q"], "tag": params["tag"], "source": params["source"], "provenance_status": params["provenance_status"], "sort": params["sort"], "limit": params["limit"], "offset": params["offset"] }, init);
+    return request<{ "data"?: Quote[]; "meta"?: ListMeta; "pagination"?: Pagination; }>(config.fetchImpl ?? globalThis.fetch.bind(globalThis), baseUrl, `/v1/quotes`, { "artist": params["artist"], "artist_id": params["artist_id"], "q": params["q"], "tag": params["tag"], "source": params["source"], "provenance_status": params["provenance_status"], "freshness_status": params["freshness_status"], "sort": params["sort"], "limit": params["limit"], "offset": params["offset"] }, init);
   },
   async getRandomQuote(params: getRandomQuoteParams = {}, init?: RequestInit): Promise<{ "data"?: Quote; }> {
     return request<{ "data"?: Quote; }>(config.fetchImpl ?? globalThis.fetch.bind(globalThis), baseUrl, `/v1/quotes/random`, { "artist": params["artist"], "artist_id": params["artist_id"], "q": params["q"], "tag": params["tag"], "source": params["source"], "provenance_status": params["provenance_status"] }, init);

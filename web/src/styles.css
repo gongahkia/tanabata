@@ -133,6 +133,28 @@ a {
   font: inherit;
 }
 
+.filters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.filters label {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+}
+
+.filters select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.84);
+  color: var(--ink);
+  font: inherit;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -302,6 +324,7 @@ a {
 @media (max-width: 900px) {
   .hero,
   .section-head,
+  .filters,
   .grid {
     grid-template-columns: 1fr;
   }
