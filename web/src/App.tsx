@@ -36,6 +36,7 @@ function App() {
         <nav className="nav">
           <NavLink to="/">Discovery</NavLink>
           <NavLink to="/system">System</NavLink>
+          <NavLink to="/timeline">Timeline</NavLink>
         </nav>
       </header>
 
@@ -45,6 +46,7 @@ function App() {
           <Route path="/artists/:artistId" element={<ArtistPage />} />
           <Route path="/quotes/:quoteId" element={<QuotePage />} />
           <Route path="/system" element={<SystemPage />} />
+          <Route path="/timeline" element={<TimelinePage />} />
         </Routes>
       </main>
     </div>
@@ -490,6 +492,95 @@ function SystemPage() {
             ))}
           </ul>
         </section>
+      </div>
+    </section>
+  );
+}
+
+function TimelinePage() {
+  const [jobs, setJobs] = useState<JobRun[]>([]);
+  const [providers, setProviders] = useState<ProviderSummary[]>([]);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let active = true;
+    Promise.all([apiClient.listJobs({ limit: 20 }), apiClient.listProviders()])
+      .then(([jobsResponse, providersResponse]) => {
+        if (!active) {
+          return;
+        }
+        setJobs(jobsResponse.data ?? []);
+        setProviders(providersResponse.data ?? []);
+        setLoading(false);
+      })
+      .catch((loadError: Error) => {
+        if (!active) {
+          return;
+        }
+        setError(loadError.message);
+        setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const providerEvents = providers
+    .filter((provider) => provider.last_successful || provider.last_error_at || provider.cooldown_until)
+    .map((provider) => ({
+      id: provider.provider,
+      title: provider.provider,
+      status: provider.cooldown_until ? "cooldown" : provider.last_status || "observed",
+      at: provider.cooldown_until || provider.last_error_at || provider.last_successful || "",
+      detail: provider.cooldown_reason || `${provider.recent_error_count ?? 0} recent errors`
+    }));
+
+  return (
+    <section className="panel stack">
+      <div className="section-head">
+        <div>
+          <p className="eyebrow">Timeline</p>
+          <h2>Catalog runs, provider state, and ingestion item outcomes.</h2>
+        </div>
+      </div>
+      {loading ? <LoadingState label="Loading timeline" /> : null}
+      {error ? <ErrorState title="Timeline failed to load" message={error} /> : null}
+      {!loading && !error && jobs.length === 0 && providerEvents.length === 0 ? (
+        <EmptyState title="No timeline events yet" message="Run ingestion or provider enrichment to build operational history." />
+      ) : null}
+      <div className="timeline">
+        {jobs.map((job) => (
+          <article className="timeline-item" key={job.job_id}>
+            <span className={`status-dot status-${job.status}`} />
+            <div>
+              <p className="eyebrow">{job.started_at}</p>
+              <h3>{job.name}</h3>
+              <p>{job.details || job.scope || "No job details recorded."}</p>
+              <span>{job.status}</span>
+              {(job.items ?? []).length > 0 ? (
+                <ul>
+                  {(job.items ?? []).map((item) => (
+                    <li key={item.job_item_id}>
+                      {item.provider}: {item.status} {item.target ? `(${item.target})` : ""}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+          </article>
+        ))}
+        {providerEvents.map((event) => (
+          <article className="timeline-item" key={event.id}>
+            <span className={`status-dot status-${event.status}`} />
+            <div>
+              <p className="eyebrow">{event.at}</p>
+              <h3>{event.title}</h3>
+              <p>{event.detail}</p>
+              <span>{event.status}</span>
+            </div>
+          </article>
+        ))}
       </div>
     </section>
   );

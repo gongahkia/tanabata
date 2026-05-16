@@ -280,6 +280,62 @@ a {
   font-style: normal;
 }
 
+.timeline {
+  display: grid;
+  gap: 16px;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.timeline-item h3 {
+  margin: 4px 0 6px;
+}
+
+.timeline-item p {
+  margin: 0 0 8px;
+  color: var(--muted);
+}
+
+.timeline-item ul {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  color: var(--muted);
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  margin-top: 6px;
+  border-radius: 999px;
+  background: var(--muted);
+  box-shadow: 0 0 0 6px rgba(95, 91, 80, 0.12);
+}
+
+.status-succeeded,
+.status-success {
+  background: #49766e;
+  box-shadow: 0 0 0 6px rgba(73, 118, 110, 0.14);
+}
+
+.status-failed,
+.status-cooldown {
+  background: #8f1d0d;
+  box-shadow: 0 0 0 6px rgba(143, 29, 13, 0.12);
+}
+
+.status-partial {
+  background: var(--accent);
+  box-shadow: 0 0 0 6px rgba(189, 74, 50, 0.14);
+}
+
 .state {
   display: grid;
   gap: 6px;
