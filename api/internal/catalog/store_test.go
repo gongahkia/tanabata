@@ -108,6 +108,33 @@ func TestSchemaMigrationsAreRecordedAndIdempotent(t *testing.T) {
 	}
 }
 
+func TestCommonQueryIndexesExist(t *testing.T) {
+	store, ctx := newSeededStore(t)
+	defer store.Close()
+
+	required := map[string]string{
+		"artist aliases":       "idx_artist_aliases_normalized",
+		"quote filters":        "idx_quotes_artist_provenance",
+		"quote source filters": "idx_quotes_source",
+		"tag filters":          "idx_quote_tags_tag",
+		"provider runs":        "idx_provider_runs_lookup",
+		"provider errors":      "idx_provider_errors_lookup",
+		"provider cooldowns":   "idx_provider_cooldowns_until",
+		"job item timeline":    "idx_job_items_lookup",
+		"job snapshots":        "idx_ingestion_snapshots_job",
+		"job audit":            "idx_ingestion_audit_job",
+	}
+	indexes, err := store.indexNames(ctx)
+	if err != nil {
+		t.Fatalf("indexNames() error = %v", err)
+	}
+	for label, indexName := range required {
+		if !indexes[indexName] {
+			t.Fatalf("missing index for %s: %s", label, indexName)
+		}
+	}
+}
+
 func TestUpsertQuoteReplacesLegacyRecord(t *testing.T) {
 	store, ctx := newSeededStore(t)
 	defer store.Close()
