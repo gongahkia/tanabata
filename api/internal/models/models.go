@@ -265,6 +265,16 @@ type IngestionAuditEvent struct {
 	Details    string `json:"details,omitempty"`
 }
 
+type TimelineEvent struct {
+	EventID  string         `json:"event_id"`
+	Kind     string         `json:"kind"`
+	Title    string         `json:"title"`
+	Status   string         `json:"status,omitempty"`
+	At       string         `json:"at"`
+	Details  string         `json:"details,omitempty"`
+	Metadata map[string]any `json:"metadata,omitempty"`
+}
+
 type IntegrityReport struct {
 	OK        bool           `json:"ok"`
 	CheckedAt string         `json:"checked_at"`

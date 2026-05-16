@@ -217,6 +217,22 @@ func TestProviderRunsErrorsAndJobsEndpoints(t *testing.T) {
 	}); err != nil {
 		t.Fatalf("RecordJobItem() error = %v", err)
 	}
+	if _, err := store.CaptureIngestionSnapshot(ctx, "job-1", "after", time.Now().UTC()); err != nil {
+		t.Fatalf("CaptureIngestionSnapshot() error = %v", err)
+	}
+	if err := store.RecordIngestionAuditEvent(ctx, models.IngestionAuditEvent{
+		EventID:    "audit-1",
+		JobID:      "job-1",
+		JobItemID:  "item-1",
+		Provider:   "quotefancy",
+		Target:     "bootstrap:data",
+		Action:     "seed",
+		Status:     "succeeded",
+		OccurredAt: time.Now().UTC().Format(time.RFC3339),
+		Details:    "seeded",
+	}); err != nil {
+		t.Fatalf("RecordIngestionAuditEvent() error = %v", err)
+	}
 
 	tests := []struct {
 		path string
@@ -226,6 +242,9 @@ func TestProviderRunsErrorsAndJobsEndpoints(t *testing.T) {
 		{path: "/v1/providers/wikiquote/errors", want: "error-1"},
 		{path: "/v1/jobs", want: "job-1"},
 		{path: "/v1/jobs/job-1", want: "job-1"},
+		{path: "/v1/jobs/job-1/snapshots", want: "after"},
+		{path: "/v1/jobs/job-1/audit", want: "audit-1"},
+		{path: "/v1/timeline", want: "catalog-refresh"},
 	}
 	for _, tc := range tests {
 		t.Run(tc.path, func(t *testing.T) {

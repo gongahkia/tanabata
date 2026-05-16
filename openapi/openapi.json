@@ -422,6 +422,83 @@
         }
       }
     },
+    "/v1/jobs/{job_id}/snapshots": {
+      "get": {
+        "operationId": "listJobSnapshots",
+        "parameters": [
+          { "name": "job_id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ingestion job snapshots",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/IngestionSnapshot" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/jobs/{job_id}/audit": {
+      "get": {
+        "operationId": "listJobAuditEvents",
+        "parameters": [
+          { "name": "job_id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ingestion job audit events",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/IngestionAuditEvent" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/timeline": {
+      "get": {
+        "operationId": "listTimeline",
+        "parameters": [
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operational timeline combining jobs, job items, and provider state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/TimelineEvent" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/review/queue": {
       "get": {
         "operationId": "listReviewQueue",
@@ -760,6 +837,42 @@
           "details": { "type": "string" },
           "error_message": { "type": "string" },
           "items": { "type": "array", "items": { "$ref": "#/components/schemas/JobItem" } }
+        }
+      },
+      "IngestionSnapshot": {
+        "type": "object",
+        "properties": {
+          "snapshot_id": { "type": "string" },
+          "job_id": { "type": "string" },
+          "phase": { "type": "string" },
+          "captured_at": { "type": "string" },
+          "counts": { "type": "object", "additionalProperties": { "type": "integer" } }
+        }
+      },
+      "IngestionAuditEvent": {
+        "type": "object",
+        "properties": {
+          "event_id": { "type": "string" },
+          "job_id": { "type": "string" },
+          "job_item_id": { "type": "string" },
+          "provider": { "type": "string" },
+          "target": { "type": "string" },
+          "action": { "type": "string" },
+          "status": { "type": "string" },
+          "occurred_at": { "type": "string" },
+          "details": { "type": "string" }
+        }
+      },
+      "TimelineEvent": {
+        "type": "object",
+        "properties": {
+          "event_id": { "type": "string" },
+          "kind": { "type": "string" },
+          "title": { "type": "string" },
+          "status": { "type": "string" },
+          "at": { "type": "string" },
+          "details": { "type": "string" },
+          "metadata": { "type": "object", "additionalProperties": true }
         }
       },
       "SearchResults": {

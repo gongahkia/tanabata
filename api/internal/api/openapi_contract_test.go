@@ -56,6 +56,22 @@ func TestOpenAPIContractRuntimeResponses(t *testing.T) {
 	}); err != nil {
 		t.Fatalf("RecordJobItem() error = %v", err)
 	}
+	if _, err := store.CaptureIngestionSnapshot(ctx, "contract-job-1", "after", time.Now().UTC()); err != nil {
+		t.Fatalf("CaptureIngestionSnapshot() error = %v", err)
+	}
+	if err := store.RecordIngestionAuditEvent(ctx, models.IngestionAuditEvent{
+		EventID:    "contract-audit-1",
+		JobID:      "contract-job-1",
+		JobItemID:  "contract-item-1",
+		Provider:   "tanabata_curated",
+		Target:     "bootstrap:data/curated_quotes.json",
+		Action:     "import",
+		Status:     "succeeded",
+		OccurredAt: time.Now().UTC().Format(time.RFC3339),
+		Details:    "imported=4 curated quotes",
+	}); err != nil {
+		t.Fatalf("RecordIngestionAuditEvent() error = %v", err)
+	}
 
 	quotes, err := store.ListQuotes(ctx, models.QuoteFilters{Limit: 10})
 	if err != nil || len(quotes.Data) == 0 {
@@ -81,6 +97,9 @@ func TestOpenAPIContractRuntimeResponses(t *testing.T) {
 		{name: "provider runs", path: "/v1/providers/wikiquote/runs?limit=5"},
 		{name: "jobs", path: "/v1/jobs?limit=5"},
 		{name: "job detail", path: "/v1/jobs/contract-job-1"},
+		{name: "job snapshots", path: "/v1/jobs/contract-job-1/snapshots?limit=5"},
+		{name: "job audit", path: "/v1/jobs/contract-job-1/audit?limit=5"},
+		{name: "timeline", path: "/v1/timeline?limit=5"},
 		{name: "review queue", path: "/v1/review/queue?limit=5"},
 		{name: "stale quote review", path: "/v1/review/stale?limit=5"},
 		{name: "search", path: "/v1/search?q=frank"},
