@@ -1,0 +1,90 @@
+[
+  {
+    "artist_name": "Radiohead",
+    "work_title": "Creep",
+    "event_name": "A Moon Shaped Pool Tour",
+    "venue": "Optimus Alive",
+    "city": "Lisbon",
+    "country": "Portugal",
+    "performed_at": "2016-07-08",
+    "position_in_set": 19,
+    "notes": "First live Creep in seven years; widely reported as a one-off resurrection.",
+    "status": "verified",
+    "confidence_score": 0.98,
+    "provider_origin": "tanabata_curated",
+    "evidence": [
+      {
+        "excerpt": "Radiohead played 'Creep' for the first time in seven years during their 8 July 2016 set at Optimus Alive in Lisbon.",
+        "source_url": "https://www.nme.com/news/music/radiohead-86-1198820",
+        "evidence_kind": "journalism",
+        "weight": 1.0
+      }
+    ]
+  },
+  {
+    "artist_name": "Radiohead",
+    "work_title": "Creep",
+    "event_name": "A Moon Shaped Pool Tour",
+    "venue": "Roundhouse",
+    "city": "London",
+    "country": "United Kingdom",
+    "performed_at": "2016-05-26",
+    "position_in_set": 22,
+    "notes": "An earlier surprise return to the song on the same touring cycle.",
+    "status": "source_attributed",
+    "confidence_score": 0.9,
+    "provider_origin": "tanabata_curated",
+    "evidence": [
+      {
+        "excerpt": "Radiohead returned to 'Creep' during a Roundhouse residency in May 2016.",
+        "source_url": "https://www.theguardian.com/music/2016/may/27/radiohead-roundhouse-review",
+        "evidence_kind": "journalism",
+        "weight": 0.9
+      }
+    ]
+  },
+  {
+    "artist_name": "Oasis",
+    "work_title": "Wonderwall",
+    "event_name": "Definitely Maybe Tour",
+    "venue": "Sheffield Arena",
+    "city": "Sheffield",
+    "country": "United Kingdom",
+    "performed_at": "1995-04-22",
+    "position_in_set": 8,
+    "notes": "Among the earliest documented live appearances of Wonderwall before its single release.",
+    "status": "source_attributed",
+    "confidence_score": 0.85,
+    "provider_origin": "tanabata_curated",
+    "evidence": [
+      {
+        "excerpt": "Set lists from Oasis's Definitely Maybe tour show Wonderwall introduced in spring 1995, ahead of the studio release in October.",
+        "source_url": "https://www.setlist.fm/setlists/oasis-bd6f9d4.html",
+        "evidence_kind": "setlist_archive",
+        "weight": 0.85
+      }
+    ]
+  },
+  {
+    "artist_name": "Bob Dylan",
+    "work_title": "All Along the Watchtower",
+    "event_name": "Never Ending Tour",
+    "venue": "Théâtre Antique",
+    "city": "Vienne",
+    "country": "France",
+    "performed_at": "2019-07-12",
+    "position_in_set": 16,
+    "notes": "By the late 2010s, Watchtower had become a regular Never Ending Tour closer.",
+    "status": "verified",
+    "confidence_score": 0.95,
+    "provider_origin": "tanabata_curated",
+    "evidence": [
+      {
+        "excerpt": "Setlist archives record All Along the Watchtower as a closing-set staple of Dylan's 2019 European leg.",
+        "source_url": "https://www.setlist.fm/setlists/bob-dylan-13d6b9af.html",
+        "evidence_kind": "setlist_archive",
+        "weight": 0.9
+      }
+    ]
+  }
+]
