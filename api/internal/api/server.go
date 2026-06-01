@@ -88,11 +88,33 @@ func (s *Server) Router() *gin.Engine {
 		v1.GET("/artists/:artist_id/related", s.artistRelated)
 		v1.GET("/artists/:artist_id/releases", s.artistReleases)
 		v1.GET("/artists/:artist_id/setlists", s.artistSetlists)
+		v1.GET("/artists/:artist_id/recordings", s.artistRecordings)
+		v1.GET("/artists/:artist_id/performances", s.artistPerformances)
+		v1.GET("/artists/:artist_id/performances/stats", s.artistPerformanceStats)
 
 		v1.GET("/quotes", s.listQuotes)
 		v1.GET("/quotes/random", s.randomQuote)
 		v1.GET("/quotes/:quote_id", s.quoteByID)
 		v1.GET("/quotes/:quote_id/provenance", s.quoteProvenance)
+		v1.GET("/quotes/:quote_id/lineage", s.quoteLineage)
+
+		v1.GET("/works", s.listWorks)
+		v1.GET("/works/:work_id", s.workByID)
+		v1.GET("/works/:work_id/recordings", s.workRecordings)
+		v1.GET("/works/:work_id/credits", s.workCredits)
+		v1.GET("/works/:work_id/performances", s.workPerformances)
+
+		v1.GET("/recordings", s.listRecordings)
+		v1.GET("/recordings/:recording_id", s.recordingByID)
+		v1.GET("/recordings/:recording_id/samples", s.recordingOutgoingSamples)
+		v1.GET("/recordings/:recording_id/sampled_by", s.recordingIncomingSamples)
+		v1.GET("/samples/:sample_id", s.sampleByID)
+
+		v1.GET("/performances/:performance_id", s.performanceByID)
+
+		v1.GET("/claims", s.listClaims)
+		v1.GET("/claims/:claim_id", s.claimByID)
+		v1.GET("/disputes", s.disputes)
 
 		v1.GET("/sources/:source_id", s.sourceByID)
 		v1.GET("/providers", s.providers)
