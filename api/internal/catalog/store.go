@@ -1492,6 +1492,14 @@ func (s *Store) Stats(ctx context.Context) (map[string]any, error) {
 		"releases":         counts["releases"],
 		"related_artists":  counts["related_artists"],
 		"jobs":             counts["jobs"],
+		"works":            counts["works"],
+		"recordings":       counts["recordings"],
+		"samples":          counts["samples"],
+		"work_credits":     counts["work_credits"],
+		"performances":     counts["performances"],
+		"claims":           counts["claims"],
+		"claim_evidence":   counts["claim_evidence"],
+		"quote_merges":     counts["quote_merges"],
 		"snapshot_version": meta.SnapshotVersion,
 		"active_providers": meta.ActiveProviders,
 	}, nil
@@ -1518,7 +1526,13 @@ func (s *Store) IntegrityReport(ctx context.Context) (models.IntegrityReport, er
 		"evidence_missing_quote": `SELECT COUNT(*) FROM quote_evidence
 			LEFT JOIN quotes ON quotes.quote_id = quote_evidence.quote_id
 			WHERE quotes.quote_id IS NULL`,
-		"job_items_missing_job": `SELECT COUNT(*) FROM job_items LEFT JOIN jobs ON jobs.job_id = job_items.job_id WHERE jobs.job_id IS NULL`,
+		"job_items_missing_job":      `SELECT COUNT(*) FROM job_items LEFT JOIN jobs ON jobs.job_id = job_items.job_id WHERE jobs.job_id IS NULL`,
+		"recordings_missing_artist":  `SELECT COUNT(*) FROM recordings LEFT JOIN artists ON artists.artist_id = recordings.artist_id WHERE artists.artist_id IS NULL`,
+		"samples_missing_source":     `SELECT COUNT(*) FROM samples LEFT JOIN recordings ON recordings.recording_id = samples.source_recording_id WHERE recordings.recording_id IS NULL`,
+		"samples_missing_derivative": `SELECT COUNT(*) FROM samples LEFT JOIN recordings ON recordings.recording_id = samples.derivative_recording_id WHERE recordings.recording_id IS NULL`,
+		"credits_missing_work":       `SELECT COUNT(*) FROM work_credits LEFT JOIN works ON works.work_id = work_credits.work_id WHERE works.work_id IS NULL`,
+		"performances_missing_artist": `SELECT COUNT(*) FROM performances LEFT JOIN artists ON artists.artist_id = performances.artist_id WHERE artists.artist_id IS NULL`,
+		"claim_evidence_missing_claim": `SELECT COUNT(*) FROM claim_evidence LEFT JOIN claims ON claims.claim_id = claim_evidence.claim_id WHERE claims.claim_id IS NULL`,
 	}
 	for name, query := range checks {
 		var count int
@@ -1860,6 +1874,14 @@ func (s *Store) catalogCounts(ctx context.Context) (map[string]int, error) {
 		"releases":        `SELECT COUNT(*) FROM releases`,
 		"related_artists": `SELECT COUNT(*) FROM artist_relations`,
 		"jobs":            `SELECT COUNT(*) FROM jobs`,
+		"works":           `SELECT COUNT(*) FROM works`,
+		"recordings":      `SELECT COUNT(*) FROM recordings`,
+		"samples":         `SELECT COUNT(*) FROM samples`,
+		"work_credits":    `SELECT COUNT(*) FROM work_credits`,
+		"performances":    `SELECT COUNT(*) FROM performances`,
+		"claims":          `SELECT COUNT(*) FROM claims`,
+		"claim_evidence":  `SELECT COUNT(*) FROM claim_evidence`,
+		"quote_merges":    `SELECT COUNT(*) FROM quote_merge_log`,
 	} {
 		var count int
 		if err := s.db.QueryRowContext(ctx, query).Scan(&count); err != nil {
@@ -2040,6 +2062,12 @@ func (s *Store) rebuildSearchIndices(ctx context.Context) error {
 		if err := s.syncQuoteSearch(ctx, quote); err != nil {
 			return err
 		}
+	}
+	if err := s.rebuildRecordingSearch(ctx); err != nil {
+		return err
+	}
+	if err := s.rebuildWorkSearch(ctx); err != nil {
+		return err
 	}
 	return nil
 }
