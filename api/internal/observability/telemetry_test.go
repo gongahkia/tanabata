@@ -17,7 +17,9 @@ func TestTelemetryMiddlewareAndMetricsHandler(t *testing.T) {
 	if err != nil {
 		t.Fatalf("New() error = %v", err)
 	}
-	defer telemetry.Shutdown(context.Background())
+	defer func() {
+		_ = telemetry.Shutdown(context.Background())
+	}()
 
 	router := gin.New()
 	router.Use(func(c *gin.Context) {

@@ -101,7 +101,7 @@ func (p *WikidataProvider) SearchArtist(ctx context.Context, query string) (*Wik
 		data.WikiquoteTitle = ""
 		var filtered []models.ArtistLink
 		for _, link := range data.Links {
-			if !(link.Provider == "wikiquote" && link.Kind == "page") {
+			if link.Provider != "wikiquote" || link.Kind != "page" {
 				filtered = append(filtered, link)
 			}
 		}

@@ -1,0 +1,9 @@
+version: "2"
+
+linters:
+  settings:
+    errcheck:
+      exclude-functions:
+        - (*database/sql.Rows).Close
+        - (*database/sql.Tx).Rollback
+        - (*github.com/gongahkia/tanabata/api/internal/catalog.Store).Close

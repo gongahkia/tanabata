@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -125,6 +126,77 @@ func TestFinalizeJobPersistsState(t *testing.T) {
 	}
 	if stored.Status != "partial" || stored.Details != "bootstrap,partial" || stored.FinishedAt == "" {
 		t.Fatalf("unexpected stored job %+v", stored)
+	}
+}
+
+func TestImportLineageBundleLifecycle(t *testing.T) {
+	tempDir := t.TempDir()
+	store, err := catalog.Open(filepath.Join(tempDir, "catalog.sqlite"))
+	if err != nil {
+		t.Fatalf("Open() error = %v", err)
+	}
+	defer store.Close()
+
+	ctx := context.Background()
+	jobID := "lineage-job-1"
+	if err := store.RecordJob(ctx, models.JobRun{
+		JobID:     jobID,
+		Name:      "lineage-import",
+		Status:    "running",
+		StartedAt: time.Now().UTC().Format(time.RFC3339),
+	}); err != nil {
+		t.Fatalf("RecordJob() error = %v", err)
+	}
+
+	statuses := []string{}
+	if err := importLineageBundle(ctx, store, jobID, lineageBundle{name: "samples"}, &statuses); err != nil {
+		t.Fatalf("empty bundle path error = %v", err)
+	}
+	if err := importLineageBundle(ctx, store, jobID, lineageBundle{name: "samples", path: filepath.Join(tempDir, "missing.json")}, &statuses); err != nil {
+		t.Fatalf("missing bundle path error = %v", err)
+	}
+	if len(statuses) != 0 {
+		t.Fatalf("empty and missing bundles changed statuses: %+v", statuses)
+	}
+
+	bundlePath := filepath.Join(tempDir, "samples.json")
+	if err := os.WriteFile(bundlePath, []byte(`[]`), 0o644); err != nil {
+		t.Fatalf("write bundle fixture: %v", err)
+	}
+	seedCalled := false
+	if err := importLineageBundle(ctx, store, jobID, lineageBundle{
+		name:     "samples",
+		path:     bundlePath,
+		provider: "tanabata_curated",
+		seed: func(context.Context) (int, error) {
+			seedCalled = true
+			return 3, nil
+		},
+	}, &statuses); err != nil {
+		t.Fatalf("successful bundle import error = %v", err)
+	}
+	if !seedCalled || len(statuses) != 1 || statuses[0] != "succeeded" {
+		t.Fatalf("unexpected successful import state seedCalled=%v statuses=%+v", seedCalled, statuses)
+	}
+
+	err = importLineageBundle(ctx, store, jobID, lineageBundle{
+		name:     "works",
+		path:     bundlePath,
+		provider: "tanabata_curated",
+		seed: func(context.Context) (int, error) {
+			return 0, errors.New("fixture import failed")
+		},
+	}, &statuses)
+	if err == nil || !strings.Contains(err.Error(), "import works") {
+		t.Fatalf("failed bundle import error = %v", err)
+	}
+
+	jobs, err := store.ListJobs(ctx, 1)
+	if err != nil {
+		t.Fatalf("ListJobs() error = %v", err)
+	}
+	if len(jobs) != 1 || len(jobs[0].Items) != 2 {
+		t.Fatalf("expected two recorded lineage items, got %+v", jobs)
 	}
 }
 

@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"flag"
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -38,7 +37,7 @@ func main() {
 	}
 }
 
-func backupCatalog(sourcePath, destinationPath string) error {
+func backupCatalog(sourcePath, destinationPath string) (err error) {
 	if err := os.MkdirAll(filepath.Dir(destinationPath), 0o755); err != nil {
 		return err
 	}
@@ -46,13 +45,21 @@ func backupCatalog(sourcePath, destinationPath string) error {
 	if err != nil {
 		return err
 	}
-	defer source.Close()
+	defer func() {
+		if closeErr := source.Close(); err == nil && closeErr != nil {
+			err = closeErr
+		}
+	}()
 
 	destination, err := os.Create(destinationPath)
 	if err != nil {
 		return err
 	}
-	defer destination.Close()
+	defer func() {
+		if closeErr := destination.Close(); err == nil && closeErr != nil {
+			err = closeErr
+		}
+	}()
 
 	if _, err := io.Copy(destination, source); err != nil {
 		return err
@@ -88,8 +95,4 @@ func exportCatalog(ctx context.Context, catalogPath, destinationPath string) err
 		return err
 	}
 	return os.WriteFile(destinationPath, append(content, '\n'), 0o644)
-}
-
-func usage() string {
-	return fmt.Sprintf("catalog -catalog data/catalog.sqlite [-backup path] [-export path]")
 }
