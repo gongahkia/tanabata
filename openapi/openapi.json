@@ -625,6 +625,450 @@
         }
       }
     },
+    "/v1/works": {
+      "get": {
+        "operationId": "listWorks",
+        "parameters": [
+          { "name": "q", "in": "query", "schema": { "type": "string" } },
+          { "name": "artist_id", "in": "query", "schema": { "type": "string" } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } },
+          { "name": "offset", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Works",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Work" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/works/{work_id}": {
+      "get": {
+        "operationId": "getWork",
+        "parameters": [
+          { "name": "work_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Work detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "data": { "$ref": "#/components/schemas/Work" } }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/works/{work_id}/recordings": {
+      "get": {
+        "operationId": "getWorkRecordings",
+        "parameters": [
+          { "name": "work_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cover lineage: every recording of this work",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Recording" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/works/{work_id}/credits": {
+      "get": {
+        "operationId": "getWorkCredits",
+        "parameters": [
+          { "name": "work_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Songwriting and producer credits attached to the work",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/WorkCredit" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/works/{work_id}/performances": {
+      "get": {
+        "operationId": "getWorkPerformances",
+        "parameters": [
+          { "name": "work_id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "year", "in": "query", "schema": { "type": "string" } },
+          { "name": "sort", "in": "query", "schema": { "type": "string", "enum": ["asc", "desc"] } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } },
+          { "name": "offset", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Documented performances of this work",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Performance" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/recordings": {
+      "get": {
+        "operationId": "listRecordings",
+        "parameters": [
+          { "name": "artist_id", "in": "query", "schema": { "type": "string" } },
+          { "name": "work_id", "in": "query", "schema": { "type": "string" } },
+          { "name": "q", "in": "query", "schema": { "type": "string" } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } },
+          { "name": "offset", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Recordings",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Recording" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/recordings/{recording_id}": {
+      "get": {
+        "operationId": "getRecording",
+        "parameters": [
+          { "name": "recording_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Recording detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "data": { "$ref": "#/components/schemas/Recording" } }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/recordings/{recording_id}/samples": {
+      "get": {
+        "operationId": "getRecordingOutgoingSamples",
+        "parameters": [
+          { "name": "recording_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Recordings sampled by this recording (ancestors)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/SampleEdge" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/recordings/{recording_id}/sampled_by": {
+      "get": {
+        "operationId": "getRecordingIncomingSamples",
+        "parameters": [
+          { "name": "recording_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Recordings that sampled this recording (descendants)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/SampleEdge" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/samples/{sample_id}": {
+      "get": {
+        "operationId": "getSample",
+        "parameters": [
+          { "name": "sample_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sample edge detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "data": { "$ref": "#/components/schemas/SampleEdge" } }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/performances/{performance_id}": {
+      "get": {
+        "operationId": "getPerformance",
+        "parameters": [
+          { "name": "performance_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Performance detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "data": { "$ref": "#/components/schemas/Performance" } }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/artists/{artist_id}/recordings": {
+      "get": {
+        "operationId": "getArtistRecordings",
+        "parameters": [
+          { "name": "artist_id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } },
+          { "name": "offset", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Recordings attributed to this artist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Recording" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/artists/{artist_id}/performances": {
+      "get": {
+        "operationId": "getArtistPerformances",
+        "parameters": [
+          { "name": "artist_id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "work_id", "in": "query", "schema": { "type": "string" } },
+          { "name": "year", "in": "query", "schema": { "type": "string" } },
+          { "name": "sort", "in": "query", "schema": { "type": "string", "enum": ["asc", "desc"] } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } },
+          { "name": "offset", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Documented performances by this artist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Performance" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/artists/{artist_id}/performances/stats": {
+      "get": {
+        "operationId": "getArtistPerformanceStats",
+        "parameters": [
+          { "name": "artist_id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "work_id", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Aggregate performance stats: first/last/gap/venues",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "data": { "$ref": "#/components/schemas/PerformanceStats" } }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/claims": {
+      "get": {
+        "operationId": "listClaims",
+        "parameters": [
+          { "name": "kind", "in": "query", "schema": { "type": "string", "enum": ["attribution", "sample", "credit", "cover", "performance"] } },
+          { "name": "status", "in": "query", "schema": { "type": "string" } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } },
+          { "name": "offset", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Unified claim feed across the catalog",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Claim" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/claims/{claim_id}": {
+      "get": {
+        "operationId": "getClaim",
+        "parameters": [
+          { "name": "claim_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Claim with hydrated evidence",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "data": { "$ref": "#/components/schemas/Claim" } }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/disputes": {
+      "get": {
+        "operationId": "listDisputes",
+        "parameters": [
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cross-cutting feed of contested claims",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Dispute" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/quotes/{quote_id}/lineage": {
+      "get": {
+        "operationId": "getQuoteLineage",
+        "parameters": [
+          { "name": "quote_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Chronological supporting + refuting evidence trail for an attribution claim",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "data": { "$ref": "#/components/schemas/QuoteLineage" } }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/lyrics": {
       "get": {
         "operationId": "getLyrics",
@@ -949,6 +1393,194 @@
           "venue": { "$ref": "#/components/schemas/SetlistVenue" },
           "sets": { "type": "object", "additionalProperties": true },
           "lastUpdated": { "type": "string" }
+        }
+      },
+      "Work": {
+        "type": "object",
+        "properties": {
+          "work_id": { "type": "string" },
+          "mbid": { "type": "string" },
+          "title": { "type": "string" },
+          "iswc": { "type": "string" },
+          "language": { "type": "string" },
+          "created_year": { "type": "string" },
+          "primary_artist_id": { "type": "string" },
+          "primary_artist_name": { "type": "string" },
+          "notes": { "type": "string" },
+          "recording_count": { "type": "integer" },
+          "credit_count": { "type": "integer" },
+          "disputed_credit_count": { "type": "integer" },
+          "tags": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "Recording": {
+        "type": "object",
+        "properties": {
+          "recording_id": { "type": "string" },
+          "mbid": { "type": "string" },
+          "work_id": { "type": "string" },
+          "work_title": { "type": "string" },
+          "artist_id": { "type": "string" },
+          "artist_name": { "type": "string" },
+          "title": { "type": "string" },
+          "duration_ms": { "type": "integer" },
+          "released_year": { "type": "string" },
+          "release_id": { "type": "string" },
+          "isrc": { "type": "string" },
+          "is_original": { "type": "boolean" },
+          "notes": { "type": "string" },
+          "sample_outgoing_count": { "type": "integer" },
+          "sample_incoming_count": { "type": "integer" }
+        }
+      },
+      "SampleEdge": {
+        "type": "object",
+        "properties": {
+          "sample_id": { "type": "string" },
+          "source_recording": { "$ref": "#/components/schemas/Recording" },
+          "derivative_recording": { "$ref": "#/components/schemas/Recording" },
+          "kind": { "type": "string" },
+          "source_offset_ms": { "type": "integer" },
+          "derivative_offset_ms": { "type": "integer" },
+          "duration_ms": { "type": "integer" },
+          "notes": { "type": "string" },
+          "claim": { "$ref": "#/components/schemas/ClaimView" }
+        }
+      },
+      "WorkCredit": {
+        "type": "object",
+        "properties": {
+          "credit_id": { "type": "string" },
+          "work_id": { "type": "string" },
+          "credited_artist_id": { "type": "string" },
+          "credited_name": { "type": "string" },
+          "role": { "type": "string" },
+          "is_disputed": { "type": "boolean" },
+          "notes": { "type": "string" },
+          "claim": { "$ref": "#/components/schemas/ClaimView" }
+        }
+      },
+      "Performance": {
+        "type": "object",
+        "properties": {
+          "performance_id": { "type": "string" },
+          "artist_id": { "type": "string" },
+          "artist_name": { "type": "string" },
+          "work_id": { "type": "string" },
+          "work_title": { "type": "string" },
+          "recording_id": { "type": "string" },
+          "event_name": { "type": "string" },
+          "venue": { "type": "string" },
+          "city": { "type": "string" },
+          "country": { "type": "string" },
+          "performed_at": { "type": "string" },
+          "setlistfm_id": { "type": "string" },
+          "position_in_set": { "type": "integer" },
+          "notes": { "type": "string" },
+          "claim": { "$ref": "#/components/schemas/ClaimView" }
+        }
+      },
+      "PerformanceStats": {
+        "type": "object",
+        "properties": {
+          "artist_id": { "type": "string" },
+          "work_id": { "type": "string" },
+          "work_title": { "type": "string" },
+          "total_performed": { "type": "integer" },
+          "first_performed_at": { "type": "string" },
+          "last_performed_at": { "type": "string" },
+          "gap_days": { "type": "integer" },
+          "average_gap_days": { "type": "number" },
+          "distinct_venues": { "type": "integer" },
+          "distinct_countries": { "type": "integer" }
+        }
+      },
+      "Claim": {
+        "type": "object",
+        "properties": {
+          "claim_id": { "type": "string" },
+          "kind": { "type": "string" },
+          "subject_type": { "type": "string" },
+          "subject_id": { "type": "string" },
+          "object_type": { "type": "string" },
+          "object_id": { "type": "string" },
+          "relation": { "type": "string" },
+          "status": { "type": "string" },
+          "confidence_score": { "type": "number" },
+          "provider_origin": { "type": "string" },
+          "source_id": { "type": "string" },
+          "asserted_at": { "type": "string" },
+          "last_verified_at": { "type": "string" },
+          "notes": { "type": "string" },
+          "source": { "$ref": "#/components/schemas/Source" },
+          "supporting_evidence_count": { "type": "integer" },
+          "refuting_evidence_count": { "type": "integer" },
+          "evidence": { "type": "array", "items": { "$ref": "#/components/schemas/ClaimEvidence" } }
+        }
+      },
+      "ClaimView": {
+        "type": "object",
+        "properties": {
+          "claim_id": { "type": "string" },
+          "status": { "type": "string" },
+          "confidence_score": { "type": "number" },
+          "provider_origin": { "type": "string" },
+          "supporting_evidence_count": { "type": "integer" },
+          "refuting_evidence_count": { "type": "integer" }
+        }
+      },
+      "ClaimEvidence": {
+        "type": "object",
+        "properties": {
+          "evidence_id": { "type": "string" },
+          "claim_id": { "type": "string" },
+          "supports": { "type": "boolean" },
+          "source_id": { "type": "string" },
+          "excerpt": { "type": "string" },
+          "source_url": { "type": "string" },
+          "archived_url": { "type": "string" },
+          "evidence_kind": { "type": "string" },
+          "weight": { "type": "number" },
+          "recorded_at": { "type": "string" },
+          "source": { "$ref": "#/components/schemas/Source" }
+        }
+      },
+      "Dispute": {
+        "type": "object",
+        "properties": {
+          "claim": { "$ref": "#/components/schemas/Claim" },
+          "subject_label": { "type": "string" },
+          "object_label": { "type": "string" },
+          "human_description": { "type": "string" }
+        }
+      },
+      "QuoteMergeLog": {
+        "type": "object",
+        "properties": {
+          "merge_id": { "type": "string" },
+          "winner_quote_id": { "type": "string" },
+          "loser_quote_id": { "type": "string" },
+          "merge_score": { "type": "integer" },
+          "reason": { "type": "string" },
+          "merged_at": { "type": "string" },
+          "job_id": { "type": "string" }
+        }
+      },
+      "QuoteLineage": {
+        "type": "object",
+        "properties": {
+          "quote_id": { "type": "string" },
+          "text": { "type": "string" },
+          "attributed_to_id": { "type": "string" },
+          "attributed_to_name": { "type": "string" },
+          "provenance_status": { "type": "string" },
+          "confidence_score": { "type": "number" },
+          "earliest_evidence_at": { "type": "string" },
+          "latest_evidence_at": { "type": "string" },
+          "supporting_evidence": { "type": "array", "items": { "$ref": "#/components/schemas/ClaimEvidence" } },
+          "refuting_evidence": { "type": "array", "items": { "$ref": "#/components/schemas/ClaimEvidence" } },
+          "rival_claims": { "type": "array", "items": { "$ref": "#/components/schemas/Claim" } },
+          "merge_history": { "type": "array", "items": { "$ref": "#/components/schemas/QuoteMergeLog" } }
         }
       }
     }
