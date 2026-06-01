@@ -217,4 +217,139 @@ var catalogMigrations = []schemaMigration{
 			);`,
 		},
 	},
+	{
+		Version: 4,
+		Name:    "lineage_claims_and_entities",
+		Statements: []string{
+			`CREATE TABLE IF NOT EXISTS works (
+				work_id TEXT PRIMARY KEY,
+				mbid TEXT NOT NULL DEFAULT '',
+				title TEXT NOT NULL,
+				normalized_title TEXT NOT NULL,
+				iswc TEXT NOT NULL DEFAULT '',
+				language TEXT NOT NULL DEFAULT '',
+				created_year TEXT NOT NULL DEFAULT '',
+				primary_artist_id TEXT NOT NULL DEFAULT '',
+				notes TEXT NOT NULL DEFAULT ''
+			);`, // primary_artist_id is enforced in code (allows '' for orphan works)
+			`CREATE TABLE IF NOT EXISTS recordings (
+				recording_id TEXT PRIMARY KEY,
+				mbid TEXT NOT NULL DEFAULT '',
+				work_id TEXT NOT NULL DEFAULT '',
+				artist_id TEXT NOT NULL,
+				title TEXT NOT NULL,
+				normalized_title TEXT NOT NULL,
+				duration_ms INTEGER NOT NULL DEFAULT 0,
+				released_year TEXT NOT NULL DEFAULT '',
+				release_id TEXT NOT NULL DEFAULT '',
+				isrc TEXT NOT NULL DEFAULT '',
+				is_original INTEGER NOT NULL DEFAULT 0,
+				notes TEXT NOT NULL DEFAULT '',
+				FOREIGN KEY (artist_id) REFERENCES artists(artist_id) ON DELETE CASCADE
+			);`, // work_id and release_id are optional cross-refs, enforced in code
+			`CREATE TABLE IF NOT EXISTS samples (
+				sample_id TEXT PRIMARY KEY,
+				source_recording_id TEXT NOT NULL,
+				derivative_recording_id TEXT NOT NULL,
+				kind TEXT NOT NULL DEFAULT 'direct_sample',
+				source_offset_ms INTEGER NOT NULL DEFAULT 0,
+				derivative_offset_ms INTEGER NOT NULL DEFAULT 0,
+				duration_ms INTEGER NOT NULL DEFAULT 0,
+				notes TEXT NOT NULL DEFAULT '',
+				FOREIGN KEY (source_recording_id) REFERENCES recordings(recording_id) ON DELETE CASCADE,
+				FOREIGN KEY (derivative_recording_id) REFERENCES recordings(recording_id) ON DELETE CASCADE
+			);`,
+			`CREATE TABLE IF NOT EXISTS work_credits (
+				credit_id TEXT PRIMARY KEY,
+				work_id TEXT NOT NULL,
+				credited_artist_id TEXT NOT NULL DEFAULT '',
+				credited_name TEXT NOT NULL,
+				role TEXT NOT NULL,
+				is_disputed INTEGER NOT NULL DEFAULT 0,
+				notes TEXT NOT NULL DEFAULT '',
+				FOREIGN KEY (work_id) REFERENCES works(work_id) ON DELETE CASCADE
+			);`, // credited_artist_id may be empty for credits naming a contributor without an artist row
+			`CREATE TABLE IF NOT EXISTS performances (
+				performance_id TEXT PRIMARY KEY,
+				artist_id TEXT NOT NULL,
+				work_id TEXT NOT NULL DEFAULT '',
+				recording_id TEXT NOT NULL DEFAULT '',
+				event_name TEXT NOT NULL DEFAULT '',
+				venue TEXT NOT NULL DEFAULT '',
+				city TEXT NOT NULL DEFAULT '',
+				country TEXT NOT NULL DEFAULT '',
+				performed_at TEXT NOT NULL,
+				setlistfm_id TEXT NOT NULL DEFAULT '',
+				position_in_set INTEGER NOT NULL DEFAULT 0,
+				notes TEXT NOT NULL DEFAULT '',
+				FOREIGN KEY (artist_id) REFERENCES artists(artist_id) ON DELETE CASCADE
+			);`, // work_id and recording_id are optional cross-refs, enforced in code
+			`CREATE TABLE IF NOT EXISTS claims (
+				claim_id TEXT PRIMARY KEY,
+				kind TEXT NOT NULL,
+				subject_type TEXT NOT NULL,
+				subject_id TEXT NOT NULL,
+				object_type TEXT NOT NULL,
+				object_id TEXT NOT NULL,
+				relation TEXT NOT NULL DEFAULT '',
+				status TEXT NOT NULL,
+				confidence_score REAL NOT NULL DEFAULT 0,
+				provider_origin TEXT NOT NULL DEFAULT '',
+				source_id TEXT NOT NULL DEFAULT '',
+				asserted_at TEXT NOT NULL,
+				last_verified_at TEXT NOT NULL DEFAULT '',
+				notes TEXT NOT NULL DEFAULT ''
+			);`,
+			`CREATE TABLE IF NOT EXISTS claim_evidence (
+				evidence_id TEXT PRIMARY KEY,
+				claim_id TEXT NOT NULL,
+				supports INTEGER NOT NULL DEFAULT 1,
+				source_id TEXT NOT NULL DEFAULT '',
+				excerpt TEXT NOT NULL,
+				source_url TEXT NOT NULL DEFAULT '',
+				archived_url TEXT NOT NULL DEFAULT '',
+				evidence_kind TEXT NOT NULL DEFAULT 'manual_note',
+				weight REAL NOT NULL DEFAULT 1.0,
+				recorded_at TEXT NOT NULL,
+				FOREIGN KEY (claim_id) REFERENCES claims(claim_id) ON DELETE CASCADE
+			);`,
+			`CREATE TABLE IF NOT EXISTS quote_merge_log (
+				merge_id TEXT PRIMARY KEY,
+				winner_quote_id TEXT NOT NULL,
+				loser_quote_id TEXT NOT NULL,
+				merge_score INTEGER NOT NULL,
+				reason TEXT NOT NULL,
+				merged_at TEXT NOT NULL,
+				job_id TEXT NOT NULL DEFAULT ''
+			);`,
+			`CREATE INDEX IF NOT EXISTS idx_recordings_artist ON recordings(artist_id);`,
+			`CREATE INDEX IF NOT EXISTS idx_recordings_work ON recordings(work_id);`,
+			`CREATE INDEX IF NOT EXISTS idx_recordings_mbid ON recordings(mbid);`,
+			`CREATE INDEX IF NOT EXISTS idx_works_mbid ON works(mbid);`,
+			`CREATE INDEX IF NOT EXISTS idx_works_title ON works(normalized_title);`,
+			`CREATE INDEX IF NOT EXISTS idx_samples_source ON samples(source_recording_id);`,
+			`CREATE INDEX IF NOT EXISTS idx_samples_derivative ON samples(derivative_recording_id);`,
+			`CREATE INDEX IF NOT EXISTS idx_work_credits_work ON work_credits(work_id);`,
+			`CREATE INDEX IF NOT EXISTS idx_work_credits_artist ON work_credits(credited_artist_id);`,
+			`CREATE INDEX IF NOT EXISTS idx_performances_artist ON performances(artist_id, performed_at DESC);`,
+			`CREATE INDEX IF NOT EXISTS idx_performances_work ON performances(work_id, performed_at DESC);`,
+			`CREATE INDEX IF NOT EXISTS idx_claims_subject ON claims(subject_type, subject_id, kind);`,
+			`CREATE INDEX IF NOT EXISTS idx_claims_object ON claims(object_type, object_id, kind);`,
+			`CREATE INDEX IF NOT EXISTS idx_claims_status ON claims(status, kind);`,
+			`CREATE INDEX IF NOT EXISTS idx_claim_evidence_claim ON claim_evidence(claim_id, supports);`,
+			`CREATE INDEX IF NOT EXISTS idx_quote_merge_winner ON quote_merge_log(winner_quote_id);`,
+			`CREATE VIRTUAL TABLE IF NOT EXISTS recording_search USING fts5(
+				recording_id UNINDEXED,
+				artist_id UNINDEXED,
+				artist_name,
+				title,
+				work_title
+			);`,
+			`CREATE VIRTUAL TABLE IF NOT EXISTS work_search USING fts5(
+				work_id UNINDEXED,
+				title,
+				primary_artist_name
+			);`,
+		},
+	},
 }
