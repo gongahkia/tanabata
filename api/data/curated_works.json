@@ -1,0 +1,218 @@
+[
+  {
+    "title": "Hallelujah",
+    "primary_artist_name": "Leonard Cohen",
+    "created_year": "1984",
+    "language": "en",
+    "notes": "Cohen's hymn-like ballad became one of the most-covered songs in recorded music.",
+    "credits": [
+      {
+        "credited_name": "Leonard Cohen",
+        "role": "composer",
+        "is_disputed": false,
+        "status": "verified",
+        "confidence_score": 1.0,
+        "provider_origin": "tanabata_curated",
+        "evidence": [
+          {
+            "excerpt": "Cohen wrote the song and recorded it for his 1984 album Various Positions; it took him roughly five years to finish.",
+            "source_url": "https://en.wikipedia.org/wiki/Hallelujah_(Leonard_Cohen_song)",
+            "evidence_kind": "encyclopedia_entry",
+            "weight": 1.0
+          }
+        ]
+      }
+    ],
+    "covers": [
+      {
+        "artist_name": "Leonard Cohen",
+        "recording_title": "Hallelujah",
+        "released_year": "1984",
+        "is_original": true,
+        "notes": "Original studio recording on Various Positions.",
+        "status": "verified",
+        "confidence_score": 1.0,
+        "provider_origin": "tanabata_curated",
+        "evidence": [
+          {
+            "excerpt": "First released on Various Positions (Passport Records, 1984).",
+            "source_url": "https://en.wikipedia.org/wiki/Various_Positions",
+            "evidence_kind": "encyclopedia_entry",
+            "weight": 1.0
+          }
+        ]
+      },
+      {
+        "artist_name": "Jeff Buckley",
+        "recording_title": "Hallelujah",
+        "released_year": "1994",
+        "is_original": false,
+        "notes": "Released on Grace; widely regarded as the definitive cover.",
+        "status": "verified",
+        "confidence_score": 1.0,
+        "provider_origin": "tanabata_curated",
+        "evidence": [
+          {
+            "excerpt": "Buckley's recording of Hallelujah, released on Grace in 1994, popularised the song far beyond Cohen's original audience.",
+            "source_url": "https://en.wikipedia.org/wiki/Grace_(Jeff_Buckley_album)",
+            "evidence_kind": "encyclopedia_entry",
+            "weight": 1.0
+          }
+        ]
+      },
+      {
+        "artist_name": "John Cale",
+        "recording_title": "Hallelujah",
+        "released_year": "1991",
+        "is_original": false,
+        "notes": "Cale's version on I'm Your Fan introduced the verses that Buckley later sang.",
+        "status": "verified",
+        "confidence_score": 0.98,
+        "provider_origin": "tanabata_curated",
+        "evidence": [
+          {
+            "excerpt": "Cale recorded a stripped-down arrangement on the 1991 tribute album I'm Your Fan, selecting verses faxed to him by Cohen.",
+            "source_url": "https://en.wikipedia.org/wiki/I%27m_Your_Fan",
+            "evidence_kind": "encyclopedia_entry",
+            "weight": 1.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "All Along the Watchtower",
+    "primary_artist_name": "Bob Dylan",
+    "created_year": "1967",
+    "language": "en",
+    "notes": "Dylan's original was famously eclipsed by Hendrix's rendition.",
+    "credits": [
+      {
+        "credited_name": "Bob Dylan",
+        "role": "composer",
+        "status": "verified",
+        "confidence_score": 1.0,
+        "provider_origin": "tanabata_curated",
+        "evidence": [
+          {
+            "excerpt": "Written and recorded by Dylan for his John Wesley Harding album in late 1967.",
+            "source_url": "https://en.wikipedia.org/wiki/All_Along_the_Watchtower",
+            "evidence_kind": "encyclopedia_entry",
+            "weight": 1.0
+          }
+        ]
+      }
+    ],
+    "covers": [
+      {
+        "artist_name": "Bob Dylan",
+        "recording_title": "All Along the Watchtower",
+        "released_year": "1967",
+        "is_original": true,
+        "status": "verified",
+        "confidence_score": 1.0,
+        "provider_origin": "tanabata_curated"
+      },
+      {
+        "artist_name": "Jimi Hendrix",
+        "recording_title": "All Along the Watchtower",
+        "released_year": "1968",
+        "is_original": false,
+        "notes": "Hendrix's electric arrangement reshaped how Dylan himself later performed the song.",
+        "status": "verified",
+        "confidence_score": 1.0,
+        "provider_origin": "tanabata_curated",
+        "evidence": [
+          {
+            "excerpt": "Dylan eventually said Hendrix's version felt closer to what he had originally heard in his head.",
+            "source_url": "https://en.wikipedia.org/wiki/All_Along_the_Watchtower",
+            "evidence_kind": "encyclopedia_entry",
+            "weight": 1.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Stan",
+    "primary_artist_name": "Eminem",
+    "created_year": "2000",
+    "language": "en",
+    "notes": "Eminem's narrative single uses the chorus from Dido's 'Thank You' as a structural hook.",
+    "credits": [
+      {
+        "credited_name": "Marshall Mathers",
+        "role": "composer",
+        "status": "verified",
+        "confidence_score": 1.0,
+        "provider_origin": "tanabata_curated"
+      },
+      {
+        "credited_name": "Dido Armstrong",
+        "role": "composer",
+        "status": "verified",
+        "confidence_score": 1.0,
+        "provider_origin": "tanabata_curated",
+        "evidence": [
+          {
+            "excerpt": "Co-written by Marshall Mathers, Paul Herman and Dido (Armstrong), per BMI registration.",
+            "source_url": "https://en.wikipedia.org/wiki/Stan_(song)",
+            "evidence_kind": "encyclopedia_entry",
+            "weight": 1.0
+          }
+        ]
+      },
+      {
+        "credited_name": "Paul Herman",
+        "role": "producer",
+        "status": "verified",
+        "confidence_score": 1.0,
+        "provider_origin": "tanabata_curated"
+      }
+    ]
+  },
+  {
+    "title": "Bittersweet Symphony",
+    "primary_artist_name": "The Verve",
+    "created_year": "1997",
+    "language": "en",
+    "notes": "A famously disputed credit: songwriting was reassigned to Jagger/Richards over a sampled orchestral version of 'The Last Time', then returned to Richard Ashcroft in 2019.",
+    "credits": [
+      {
+        "credited_name": "Richard Ashcroft",
+        "role": "composer",
+        "is_disputed": true,
+        "status": "ambiguous",
+        "confidence_score": 0.6,
+        "provider_origin": "tanabata_curated",
+        "notes": "Initially credited, then stripped after litigation, then returned in 2019.",
+        "evidence": [
+          {
+            "excerpt": "Allen Klein, who controlled the rights to The Last Time, demanded 100% of the songwriting royalties; Ashcroft regained writing credits in 2019.",
+            "source_url": "https://www.bbc.co.uk/news/entertainment-arts-48354607",
+            "evidence_kind": "journalism",
+            "weight": 1.0
+          }
+        ]
+      },
+      {
+        "credited_name": "Mick Jagger",
+        "role": "composer",
+        "is_disputed": true,
+        "status": "ambiguous",
+        "confidence_score": 0.4,
+        "provider_origin": "tanabata_curated",
+        "notes": "Credited 1997-2019 due to the lawsuit; later relinquished."
+      },
+      {
+        "credited_name": "Keith Richards",
+        "role": "composer",
+        "is_disputed": true,
+        "status": "ambiguous",
+        "confidence_score": 0.4,
+        "provider_origin": "tanabata_curated",
+        "notes": "Credited 1997-2019 due to the lawsuit; later relinquished."
+      }
+    ]
+  }
+]
