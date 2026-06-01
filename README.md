@@ -156,4 +156,6 @@ See [`openapi/openapi.json`](openapi/openapi.json) for more details.
 
 The name `Tanabata` is in reference to [Tanabata](https://sakamoto-days.fandom.com/wiki/Tanabata) (七夕), a new member of the [Order](https://sakamoto-days.fandom.com/wiki/Order) recruited during the [JAA Jail Arc](https://sakamoto-days.fandom.com/wiki/JAA_Jail_Arc). He emerges as an antagonist in the [New JAA Arc](https://sakamoto-days.fandom.com/wiki/New_JAA_Arc) as part of the ongoing manga series [Sakamoto Days](https://sakamoto-days.fandom.com/wiki/Sakamoto_Days_Wiki).
 
-![](./asset/logo/tanabata.webp)
+<div align="centre">
+    <img src="./asset/logo/tanabata.webp">
+</div>
