@@ -12,7 +12,7 @@ FROM alpine:3.20
 RUN adduser -D -u 10001 tanabata
 WORKDIR /app
 COPY --from=build /tanabata /usr/local/bin/tanabata
-COPY --from=build /src/data /app/data
+COPY --chown=tanabata:tanabata --from=build /src/data /app/data
 
 EXPOSE 8080
 USER tanabata

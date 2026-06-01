@@ -1,8 +1,6 @@
 package api
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
 
 	"github.com/gongahkia/tanabata/api/internal/models"
@@ -39,8 +37,4 @@ func errorResponse(c *gin.Context, status int, code, message string, details map
 			Details: details,
 		},
 	})
-}
-
-func ok(c *gin.Context) {
-	c.Status(http.StatusOK)
 }
