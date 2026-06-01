@@ -1,0 +1,139 @@
+[
+  {
+    "attributed_to_name": "Jimi Hendrix",
+    "text": "Knowledge speaks, but wisdom listens.",
+    "tags": ["wisdom", "popular_misattribution"],
+    "status": "ambiguous",
+    "confidence_score": 0.35,
+    "provider_origin": "tanabata_curated",
+    "license": "tanabata_v2_editorial",
+    "notes": "Widely circulated as a Hendrix quote, but with no documented interview, lyric, or contemporaneous print source.",
+    "supporting_evidence": [
+      {
+        "excerpt": "The quote is reproduced on countless quote-aggregator sites attributed to Jimi Hendrix without a primary citation.",
+        "source_url": "https://quoteinvestigator.com/",
+        "evidence_kind": "aggregator_evidence",
+        "weight": 0.3
+      }
+    ],
+    "refuting_evidence": [
+      {
+        "excerpt": "No published interview, broadcast, or lyric in the Hendrix archive contains this phrasing.",
+        "source_url": "https://www.openculture.com/category/music",
+        "evidence_kind": "archival_negative",
+        "weight": 0.9
+      },
+      {
+        "excerpt": "The earliest verifiable appearance in print predates Hendrix and is unattributed.",
+        "source_url": "https://en.wikiquote.org/wiki/Talk:Jimi_Hendrix",
+        "evidence_kind": "talk_page_audit",
+        "weight": 0.8
+      }
+    ]
+  },
+  {
+    "attributed_to_name": "Kurt Cobain",
+    "text": "I'd rather be hated for who I am than loved for who I am not.",
+    "tags": ["identity", "popular_misattribution"],
+    "status": "ambiguous",
+    "confidence_score": 0.3,
+    "provider_origin": "tanabata_curated",
+    "license": "tanabata_v2_editorial",
+    "notes": "Routinely attributed to Cobain online; the closest documented predecessor is André Gide, decades earlier.",
+    "supporting_evidence": [
+      {
+        "excerpt": "The phrasing surfaces in fan-made tribute posts and image macros attributed to Cobain.",
+        "source_url": "https://en.wikiquote.org/wiki/Kurt_Cobain",
+        "evidence_kind": "aggregator_evidence",
+        "weight": 0.3
+      }
+    ],
+    "refuting_evidence": [
+      {
+        "excerpt": "A nearly identical line appears in André Gide's autobiography 'If It Die...' (1924), long before Cobain.",
+        "source_url": "https://en.wikiquote.org/wiki/Andr%C3%A9_Gide",
+        "evidence_kind": "literary_record",
+        "weight": 0.9
+      }
+    ],
+    "actually_said_by_name": "André Gide"
+  },
+  {
+    "attributed_to_name": "John Lennon",
+    "text": "When I was 5 years old, my mother always told me that happiness was the key to life.",
+    "tags": ["happiness", "popular_misattribution"],
+    "status": "needs_review",
+    "confidence_score": 0.4,
+    "provider_origin": "tanabata_curated",
+    "license": "tanabata_v2_editorial",
+    "notes": "The longer version of this anecdote is widely shared as Lennon; the earliest verifiable instances are uncited and from years after his death.",
+    "supporting_evidence": [
+      {
+        "excerpt": "The quotation is reprinted on motivational sites and social posts attributed to Lennon with no primary source.",
+        "source_url": "https://en.wikiquote.org/wiki/John_Lennon",
+        "evidence_kind": "aggregator_evidence",
+        "weight": 0.4
+      }
+    ],
+    "refuting_evidence": [
+      {
+        "excerpt": "No verifiable interview or letter by Lennon contains this story.",
+        "source_url": "https://en.wikiquote.org/wiki/Talk:John_Lennon",
+        "evidence_kind": "talk_page_audit",
+        "weight": 0.8
+      }
+    ]
+  },
+  {
+    "attributed_to_name": "Bob Marley",
+    "text": "Truth is, everybody is going to hurt you. You just gotta find the ones worth suffering for.",
+    "tags": ["love", "popular_misattribution"],
+    "status": "ambiguous",
+    "confidence_score": 0.25,
+    "provider_origin": "tanabata_curated",
+    "license": "tanabata_v2_editorial",
+    "notes": "Spread virally on Tumblr and Pinterest as a Marley quote; not present in any documented interview or lyric.",
+    "supporting_evidence": [
+      {
+        "excerpt": "Image macros and tribute posts circulate this phrasing as Marley.",
+        "source_url": "https://en.wikiquote.org/wiki/Bob_Marley",
+        "evidence_kind": "aggregator_evidence",
+        "weight": 0.3
+      }
+    ],
+    "refuting_evidence": [
+      {
+        "excerpt": "Marley's recorded interviews and lyric corpus contain no instance of the phrasing.",
+        "source_url": "https://en.wikiquote.org/wiki/Talk:Bob_Marley",
+        "evidence_kind": "talk_page_audit",
+        "weight": 0.9
+      }
+    ]
+  },
+  {
+    "attributed_to_name": "Frank Ocean",
+    "text": "When you're happy, you enjoy the music. When you're sad, you understand the lyrics.",
+    "tags": ["music", "popular_misattribution"],
+    "status": "refuted",
+    "confidence_score": 0.2,
+    "provider_origin": "tanabata_curated",
+    "license": "tanabata_v2_editorial",
+    "notes": "Frequently posted as Frank Ocean; the line is widely attributed elsewhere (often to Frank Sinatra or anonymous) and predates Ocean's career.",
+    "supporting_evidence": [
+      {
+        "excerpt": "Social posts attribute the quote to Frank Ocean without citation.",
+        "source_url": "https://en.wikiquote.org/wiki/Frank_Ocean",
+        "evidence_kind": "aggregator_evidence",
+        "weight": 0.2
+      }
+    ],
+    "refuting_evidence": [
+      {
+        "excerpt": "Earlier print and forum appearances of the phrase pre-date Ocean's recording career and attribute it to Frank Sinatra or treat it as unattributed.",
+        "source_url": "https://en.wikiquote.org/wiki/Talk:Frank_Ocean",
+        "evidence_kind": "talk_page_audit",
+        "weight": 0.95
+      }
+    ]
+  }
+]
