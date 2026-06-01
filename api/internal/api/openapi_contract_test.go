@@ -81,6 +81,61 @@ func TestOpenAPIContractRuntimeResponses(t *testing.T) {
 	quoteID := quotes.Data[0].QuoteID
 	sourceID := quotes.Data[0].SourceID
 
+	// Seed lineage entities so the new contract endpoints have records to return.
+	dataDir := filepath.Join("..", "..", "data")
+	if _, err := store.SeedCuratedSamples(ctx, filepath.Join(dataDir, "curated_samples.json"), "contract-lineage-samples"); err != nil {
+		t.Fatalf("SeedCuratedSamples error = %v", err)
+	}
+	if _, err := store.SeedCuratedWorks(ctx, filepath.Join(dataDir, "curated_works.json"), "contract-lineage-works"); err != nil {
+		t.Fatalf("SeedCuratedWorks error = %v", err)
+	}
+	if _, err := store.SeedCuratedPerformances(ctx, filepath.Join(dataDir, "curated_performances.json"), "contract-lineage-perfs"); err != nil {
+		t.Fatalf("SeedCuratedPerformances error = %v", err)
+	}
+	if _, err := store.SeedCuratedMisquotes(ctx, filepath.Join(dataDir, "curated_misquotes.json"), "contract-lineage-misquotes"); err != nil {
+		t.Fatalf("SeedCuratedMisquotes error = %v", err)
+	}
+	if err := store.RefreshSearchIndices(ctx); err != nil {
+		t.Fatalf("RefreshSearchIndices error = %v", err)
+	}
+
+	works, err := store.ListWorks(ctx, models.WorkFilters{Limit: 5})
+	if err != nil || len(works.Data) == 0 {
+		t.Fatalf("ListWorks() err=%v count=%d", err, len(works.Data))
+	}
+	workID := works.Data[0].WorkID
+	recordings, err := store.ListRecordings(ctx, models.RecordingFilters{Limit: 100})
+	if err != nil || len(recordings.Data) == 0 {
+		t.Fatalf("ListRecordings() err=%v count=%d", err, len(recordings.Data))
+	}
+	// Pick a recording with a documented sample edge for the sample lookup.
+	var recordingID, sampleID string
+	for _, recording := range recordings.Data {
+		edges, err := store.OutgoingSamples(ctx, recording.RecordingID)
+		if err != nil {
+			t.Fatalf("OutgoingSamples error = %v", err)
+		}
+		if len(edges) > 0 {
+			recordingID = recording.RecordingID
+			sampleID = edges[0].SampleID
+			break
+		}
+	}
+	if sampleID == "" {
+		t.Fatalf("expected at least one sample edge after seeding lineage bundles")
+	}
+	performances, err := store.ListPerformances(ctx, models.PerformanceFilters{Limit: 5})
+	if err != nil || len(performances.Data) == 0 {
+		t.Fatalf("ListPerformances() err=%v count=%d", err, len(performances.Data))
+	}
+	performanceID := performances.Data[0].PerformanceID
+	performanceArtistID := performances.Data[0].ArtistID
+	claims, err := store.ListClaims(ctx, models.ClaimFilters{Limit: 5})
+	if err != nil || len(claims.Data) == 0 {
+		t.Fatalf("ListClaims() err=%v count=%d", err, len(claims.Data))
+	}
+	claimID := claims.Data[0].ClaimID
+
 	validator := newOpenAPIContractValidator(t)
 	tests := []struct {
 		name string
@@ -89,9 +144,27 @@ func TestOpenAPIContractRuntimeResponses(t *testing.T) {
 		{name: "list artists", path: "/v1/artists"},
 		{name: "artist detail", path: "/v1/artists/" + artistID},
 		{name: "artist quotes", path: "/v1/artists/" + artistID + "/quotes?limit=5"},
+		{name: "artist recordings", path: "/v1/artists/" + performanceArtistID + "/recordings?limit=5"},
+		{name: "artist performances", path: "/v1/artists/" + performanceArtistID + "/performances?limit=5"},
+		{name: "artist performance stats", path: "/v1/artists/" + performanceArtistID + "/performances/stats"},
 		{name: "quote list", path: "/v1/quotes?limit=5"},
 		{name: "quote detail", path: "/v1/quotes/" + quoteID},
 		{name: "quote provenance", path: "/v1/quotes/" + quoteID + "/provenance"},
+		{name: "quote lineage", path: "/v1/quotes/" + quoteID + "/lineage"},
+		{name: "works list", path: "/v1/works?limit=5"},
+		{name: "work detail", path: "/v1/works/" + workID},
+		{name: "work recordings (covers)", path: "/v1/works/" + workID + "/recordings"},
+		{name: "work credits", path: "/v1/works/" + workID + "/credits"},
+		{name: "work performances", path: "/v1/works/" + workID + "/performances?limit=5"},
+		{name: "recordings list", path: "/v1/recordings?limit=5"},
+		{name: "recording detail", path: "/v1/recordings/" + recordingID},
+		{name: "recording outgoing samples", path: "/v1/recordings/" + recordingID + "/samples"},
+		{name: "recording incoming samples", path: "/v1/recordings/" + recordingID + "/sampled_by"},
+		{name: "sample detail", path: "/v1/samples/" + sampleID},
+		{name: "performance detail", path: "/v1/performances/" + performanceID},
+		{name: "claims list", path: "/v1/claims?limit=5"},
+		{name: "claim detail", path: "/v1/claims/" + claimID},
+		{name: "disputes", path: "/v1/disputes?limit=10"},
 		{name: "source detail", path: "/v1/sources/" + sourceID},
 		{name: "providers", path: "/v1/providers"},
 		{name: "provider runs", path: "/v1/providers/wikiquote/runs?limit=5"},
