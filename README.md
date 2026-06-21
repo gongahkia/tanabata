@@ -3,9 +3,6 @@
 ![](https://github.com/gongahkia/tanabata/actions/workflows/ci.yml/badge.svg)
 ![](https://img.shields.io/badge/tanabata_1.0.0-deployment_down-orange)
 
-> [!WARNING]  
-> [`Tanabata`](https://github.com/gongahkia/tanabata)'s Render deployment is inactive as of 1 June 2026.  
-
 # `Tanabata`
 
 Small read-only [REST API](#api) for musician quotes with [built-in provenance, lineage & ingestion history](#architecture).
