@@ -60,13 +60,61 @@ func TestLivenessAndReadinessEndpoints(t *testing.T) {
 	server, store := seededServer(t)
 	defer store.Close()
 
-	for _, path := range []string{"/livez", "/readyz"} {
-		recorder := httptest.NewRecorder()
-		request := httptest.NewRequest(http.MethodGet, path, nil)
-		server.Router().ServeHTTP(recorder, request)
-		if recorder.Code != http.StatusOK {
-			t.Fatalf("%s status = %d, want 200", path, recorder.Code)
-		}
+	livez := httptest.NewRecorder()
+	server.Router().ServeHTTP(livez, httptest.NewRequest(http.MethodGet, "/livez", nil))
+	if livez.Code != http.StatusOK {
+		t.Fatalf("/livez status = %d, want 200", livez.Code)
+	}
+
+	readyz := httptest.NewRecorder()
+	server.Router().ServeHTTP(readyz, httptest.NewRequest(http.MethodGet, "/readyz", nil))
+	if readyz.Code != http.StatusOK {
+		t.Fatalf("/readyz status = %d, want 200", readyz.Code)
+	}
+	if readyz.Body.Len() > 64 {
+		t.Fatalf("/readyz body length = %d, want <= 64 body=%s", readyz.Body.Len(), readyz.Body.String())
+	}
+	var response struct {
+		Data struct {
+			Status string `json:"status"`
+		} `json:"data"`
+		Meta any `json:"meta,omitempty"`
+	}
+	if err := json.Unmarshal(readyz.Body.Bytes(), &response); err != nil {
+		t.Fatalf("decode /readyz response: %v", err)
+	}
+	if response.Data.Status != "ready" {
+		t.Fatalf("/readyz status data = %q, want ready body=%s", response.Data.Status, readyz.Body.String())
+	}
+	if strings.Contains(readyz.Body.String(), "meta") {
+		t.Fatalf("/readyz response includes meta body=%s", readyz.Body.String())
+	}
+}
+
+func TestReadinessFailureReturnsCheckData(t *testing.T) {
+	server, store := seededServer(t)
+	store.Close()
+
+	recorder := httptest.NewRecorder()
+	server.Router().ServeHTTP(recorder, httptest.NewRequest(http.MethodGet, "/readyz", nil))
+	if recorder.Code != http.StatusServiceUnavailable {
+		t.Fatalf("/readyz status = %d, want 503 body=%s", recorder.Code, recorder.Body.String())
+	}
+	var response struct {
+		Data struct {
+			Status string            `json:"status"`
+			Checks map[string]string `json:"checks"`
+		} `json:"data"`
+		Error any `json:"error,omitempty"`
+	}
+	if err := json.Unmarshal(recorder.Body.Bytes(), &response); err != nil {
+		t.Fatalf("decode /readyz failure response: %v", err)
+	}
+	if response.Data.Status != "not_ready" || response.Data.Checks["db"] == "" {
+		t.Fatalf("unexpected /readyz failure response: %s", recorder.Body.String())
+	}
+	if strings.Contains(recorder.Body.String(), "error") {
+		t.Fatalf("/readyz failure response includes error envelope: %s", recorder.Body.String())
 	}
 }
 

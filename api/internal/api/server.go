@@ -142,15 +142,10 @@ func (s *Server) livez(c *gin.Context) {
 
 func (s *Server) readyz(c *gin.Context) {
 	if err := s.store.Ping(c.Request.Context()); err != nil {
-		errorResponse(c, http.StatusServiceUnavailable, "catalog_unavailable", "catalog is not ready", map[string]any{"error": err.Error()})
+		dataResponse(c, http.StatusServiceUnavailable, gin.H{"status": "not_ready", "checks": gin.H{"db": err.Error()}}, nil)
 		return
 	}
-	stats, err := s.store.Stats(c.Request.Context())
-	if err != nil {
-		errorResponse(c, http.StatusServiceUnavailable, "catalog_unavailable", "catalog metadata is unavailable", map[string]any{"error": err.Error()})
-		return
-	}
-	dataResponse(c, http.StatusOK, gin.H{"status": "ready"}, stats)
+	dataResponse(c, http.StatusOK, gin.H{"status": "ready"}, nil)
 }
 
 func (s *Server) health(c *gin.Context) {
