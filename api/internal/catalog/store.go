@@ -828,6 +828,13 @@ func (s *Store) ReplaceReleases(ctx context.Context, artistID string, releases [
 		if _, err := s.db.ExecContext(ctx, `
 			INSERT INTO releases(release_id, artist_id, title, year, kind, provider, url)
 			VALUES(?, ?, ?, ?, ?, ?, ?)
+			ON CONFLICT(release_id) DO UPDATE SET
+				title = excluded.title,
+				year = excluded.year,
+				kind = excluded.kind,
+				provider = excluded.provider,
+				url = excluded.url
+			WHERE releases.artist_id = excluded.artist_id
 		`, release.ReleaseID, artistID, release.Title, year, release.Kind, release.Provider, release.URL); err != nil {
 			return err
 		}

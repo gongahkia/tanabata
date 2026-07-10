@@ -156,6 +156,96 @@ func TestUpsertArtistDeduplicatesLinks(t *testing.T) {
 	}
 }
 
+func TestReplaceReleasesHandlesDuplicateIDs(t *testing.T) {
+	tempDir := t.TempDir()
+	dbPath := filepath.Join(tempDir, "catalog.sqlite")
+	store, err := Open(dbPath)
+	if err != nil {
+		t.Fatalf("Open() error = %v", err)
+	}
+	defer store.Close()
+	ctx := context.Background()
+	artistID := search.ArtistID("Kanye West", "")
+	if err := store.UpsertArtist(ctx, models.Artist{ArtistID: artistID, Name: "Kanye West"}); err != nil {
+		t.Fatalf("UpsertArtist() error = %v", err)
+	}
+	year := 2010
+	if err := store.ReplaceReleases(ctx, artistID, []models.Release{
+		{
+			ReleaseID: "mb:release:duplicate",
+			Title:     "Old Title",
+			Year:      &year,
+			Kind:      "Album",
+			Provider:  "musicbrainz",
+			URL:       "https://musicbrainz.org/release-group/duplicate",
+		},
+		{
+			ReleaseID: "mb:release:duplicate",
+			Title:     "New Title",
+			Year:      &year,
+			Kind:      "Album",
+			Provider:  "musicbrainz",
+			URL:       "https://musicbrainz.org/release-group/duplicate",
+		},
+	}); err != nil {
+		t.Fatalf("ReplaceReleases() error = %v", err)
+	}
+	releases, err := store.Releases(ctx, artistID)
+	if err != nil {
+		t.Fatalf("Releases() error = %v", err)
+	}
+	if len(releases) != 1 {
+		t.Fatalf("releases len = %d, want 1", len(releases))
+	}
+	if releases[0].Title != "New Title" {
+		t.Fatalf("release title = %q, want New Title", releases[0].Title)
+	}
+}
+
+func TestReplaceReleasesIgnoresIDsOwnedByAnotherArtist(t *testing.T) {
+	tempDir := t.TempDir()
+	dbPath := filepath.Join(tempDir, "catalog.sqlite")
+	store, err := Open(dbPath)
+	if err != nil {
+		t.Fatalf("Open() error = %v", err)
+	}
+	defer store.Close()
+	ctx := context.Background()
+	firstArtistID := search.ArtistID("Jay-Z", "")
+	secondArtistID := search.ArtistID("Kanye West", "")
+	if err := store.UpsertArtist(ctx, models.Artist{ArtistID: firstArtistID, Name: "Jay-Z"}); err != nil {
+		t.Fatalf("UpsertArtist(first) error = %v", err)
+	}
+	if err := store.UpsertArtist(ctx, models.Artist{ArtistID: secondArtistID, Name: "Kanye West"}); err != nil {
+		t.Fatalf("UpsertArtist(second) error = %v", err)
+	}
+	releaseID := "mb:release:shared"
+	if err := store.ReplaceReleases(ctx, firstArtistID, []models.Release{
+		{ReleaseID: releaseID, Title: "Watch the Throne", Provider: "musicbrainz"},
+	}); err != nil {
+		t.Fatalf("ReplaceReleases(first) error = %v", err)
+	}
+	if err := store.ReplaceReleases(ctx, secondArtistID, []models.Release{
+		{ReleaseID: releaseID, Title: "Watch the Throne", Provider: "musicbrainz"},
+	}); err != nil {
+		t.Fatalf("ReplaceReleases(second) error = %v", err)
+	}
+	firstReleases, err := store.Releases(ctx, firstArtistID)
+	if err != nil {
+		t.Fatalf("Releases(first) error = %v", err)
+	}
+	secondReleases, err := store.Releases(ctx, secondArtistID)
+	if err != nil {
+		t.Fatalf("Releases(second) error = %v", err)
+	}
+	if len(firstReleases) != 1 {
+		t.Fatalf("first releases len = %d, want 1", len(firstReleases))
+	}
+	if len(secondReleases) != 0 {
+		t.Fatalf("second releases len = %d, want 0", len(secondReleases))
+	}
+}
+
 func TestCommonQueryIndexesExist(t *testing.T) {
 	store, ctx := newSeededStore(t)
 	defer store.Close()
