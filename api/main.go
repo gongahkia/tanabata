@@ -44,7 +44,10 @@ func main() {
 		_ = telemetry.Shutdown(shutdownCtx)
 	}()
 
-	server := httpapi.NewServer(store, telemetry)
+	server, err := httpapi.NewServer(store, telemetry)
+	if err != nil {
+		log.Fatalf("initialize API server: %v", err)
+	}
 	router := server.Router()
 
 	go func() {

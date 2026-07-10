@@ -38,7 +38,11 @@ func seededLineageServer(t *testing.T) (*Server, *catalog.Store) {
 	if err := store.RefreshSearchIndices(ctx); err != nil {
 		t.Fatalf("RefreshSearchIndices error = %v", err)
 	}
-	return NewServer(store, nil), store
+	server, err := NewServer(store, nil)
+	if err != nil {
+		t.Fatalf("NewServer() error = %v", err)
+	}
+	return server, store
 }
 
 func mustJSON(t *testing.T, body []byte, target any) {

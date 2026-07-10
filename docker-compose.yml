@@ -1,7 +1,8 @@
 services:
   api:
     build:
-      context: ./api
+      context: .
+      dockerfile: api/Dockerfile
       args:
         VERSION: ${VERSION:-dev}
         COMMIT: ${COMMIT:-unknown}

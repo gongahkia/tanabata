@@ -32,7 +32,7 @@ type Server struct {
 	contractValidator *runtimeContractValidator
 }
 
-func NewServer(store *catalog.Store, telemetry *observability.Telemetry) *Server {
+func NewServer(store *catalog.Store, telemetry *observability.Telemetry) (*Server, error) {
 	server := &Server{
 		store:     store,
 		telemetry: telemetry,
@@ -53,10 +53,10 @@ func NewServer(store *catalog.Store, telemetry *observability.Telemetry) *Server
 	}
 	if contractValidationEnabled() {
 		if err := server.enableContractValidation(os.Getenv(contractSpecPathEnv)); err != nil {
-			server.logger.Error("openapi_contract_validation_disabled", "error", err)
+			return nil, err
 		}
 	}
-	return server
+	return server, nil
 }
 
 func (s *Server) Router() *gin.Engine {

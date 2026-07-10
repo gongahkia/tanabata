@@ -30,7 +30,8 @@ docker build \
   --build-arg "COMMIT=${COMMIT}" \
   --build-arg "REVISION=${REVISION}" \
   --build-arg "BUILD_DATE=${BUILD_DATE}" \
-  -t "${IMAGE}" ./api
+  -f api/Dockerfile \
+  -t "${IMAGE}" .
 docker run --rm "${IMAGE}" -version | grep -F "Tanabata ${VERSION} (${COMMIT}) built ${BUILD_DATE}" >/dev/null
 docker inspect --format '{{ json .Config.Labels }}' "${IMAGE}" | grep -F "\"org.opencontainers.image.revision\":\"${REVISION}\"" >/dev/null
 cleanup

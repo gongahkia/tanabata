@@ -58,6 +58,7 @@ func defaultOpenAPISpecPath() string {
 		filepath.Join("..", "openapi", "openapi.json"),
 		filepath.Join("openapi", "openapi.json"),
 		filepath.Join("..", "..", "openapi", "openapi.json"),
+		filepath.Join("..", "..", "..", "openapi", "openapi.json"),
 	}
 	for _, candidate := range candidates {
 		if _, err := os.Stat(candidate); err == nil {
@@ -106,7 +107,7 @@ func (v *runtimeContractValidator) middleware() gin.HandlerFunc {
 		c.Next()
 
 		status := recorder.Status()
-		if status < 200 || status >= 300 || len(recorder.body.Bytes()) == 0 {
+		if len(recorder.body.Bytes()) == 0 {
 			return
 		}
 		responseInput := &openapi3filter.ResponseValidationInput{
@@ -175,5 +176,5 @@ func (w *contractBodyRecorder) WriteString(data string) (int, error) {
 
 func contractValidationEnabled() bool {
 	value := strings.TrimSpace(strings.ToLower(os.Getenv(contractValidationEnv)))
-	return value == "1" || value == "true" || value == "yes"
+	return value != "0" && value != "false" && value != "no" && value != "off"
 }

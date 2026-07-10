@@ -1,10 +1,10 @@
 FROM golang:1.25-alpine@sha256:56961d79ea8129efddcc0b8643fd8a5416b4e6228cfd477e3fd61deb2672c587 AS build
 
-WORKDIR /src
-COPY go.mod go.sum ./
+WORKDIR /src/api
+COPY api/go.mod api/go.sum ./
 RUN go mod download
 
-COPY . .
+COPY api/ ./
 ARG VERSION=dev
 ARG COMMIT=unknown
 ARG BUILD_DATE=unknown
@@ -23,7 +23,8 @@ LABEL org.opencontainers.image.source="https://github.com/gongahkia/tanabata" \
 RUN apk add --no-cache tini && adduser -D -u 10001 tanabata
 WORKDIR /app
 COPY --from=build /tanabata /usr/local/bin/tanabata
-COPY --chown=tanabata:tanabata --from=build /src/data /app/data
+COPY --chown=tanabata:tanabata --from=build /src/api/data /app/data
+COPY --chown=tanabata:tanabata openapi /app/openapi
 
 EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 CMD wget -qO- http://localhost:8080/readyz || exit 1

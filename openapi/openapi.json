@@ -32,6 +32,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -65,6 +74,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -90,6 +108,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
           },
           "429": {
             "$ref": "#/components/responses/Error429"
@@ -126,6 +153,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -153,6 +189,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
           },
           "429": {
             "$ref": "#/components/responses/Error429"
@@ -182,6 +227,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -208,6 +262,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
           },
           "429": {
             "$ref": "#/components/responses/Error429"
@@ -246,6 +309,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -277,6 +349,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -302,6 +383,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
           },
           "429": {
             "$ref": "#/components/responses/Error429"
@@ -329,6 +419,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -355,6 +454,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -379,6 +487,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
           },
           "429": {
             "$ref": "#/components/responses/Error429"
@@ -409,6 +526,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -438,6 +564,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -465,6 +600,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
           },
           "429": {
             "$ref": "#/components/responses/Error429"
@@ -495,6 +639,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -523,6 +676,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
           },
           "429": {
             "$ref": "#/components/responses/Error429"
@@ -553,6 +715,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -581,6 +752,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
           },
           "429": {
             "$ref": "#/components/responses/Error429"
@@ -612,6 +792,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -641,6 +830,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -651,7 +849,7 @@
       "get": {
         "operationId": "searchCatalog",
         "parameters": [
-          { "name": "q", "in": "query", "required": true, "schema": { "type": "string" } },
+          { "name": "q", "in": "query", "schema": { "type": "string" } },
           { "name": "limit", "in": "query", "schema": { "type": "integer" } },
           { "name": "cursor", "in": "query", "schema": { "type": "string" } }
         ],
@@ -669,6 +867,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
           },
           "429": {
             "$ref": "#/components/responses/Error429"
@@ -696,6 +903,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -718,6 +934,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
           },
           "429": {
             "$ref": "#/components/responses/Error429"
@@ -750,6 +975,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -773,6 +1007,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
           },
           "429": {
             "$ref": "#/components/responses/Error429"
@@ -802,6 +1045,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -829,6 +1081,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
           },
           "429": {
             "$ref": "#/components/responses/Error429"
@@ -862,6 +1123,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -894,6 +1164,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -917,6 +1196,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
           },
           "429": {
             "$ref": "#/components/responses/Error429"
@@ -946,6 +1234,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -974,6 +1271,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -998,6 +1304,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -1021,6 +1336,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
           },
           "429": {
             "$ref": "#/components/responses/Error429"
@@ -1051,6 +1375,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
           },
           "429": {
             "$ref": "#/components/responses/Error429"
@@ -1085,6 +1418,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -1109,6 +1451,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
           },
           "429": {
             "$ref": "#/components/responses/Error429"
@@ -1141,6 +1492,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -1164,6 +1524,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
           },
           "429": {
             "$ref": "#/components/responses/Error429"
@@ -1193,6 +1562,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -1217,6 +1595,15 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
           "429": {
             "$ref": "#/components/responses/Error429"
           }
@@ -1227,8 +1614,8 @@
       "get": {
         "operationId": "getLyrics",
         "parameters": [
-          { "name": "artist", "in": "query", "required": true, "schema": { "type": "string" } },
-          { "name": "track", "in": "query", "required": true, "schema": { "type": "string" } },
+          { "name": "artist", "in": "query", "schema": { "type": "string" } },
+          { "name": "track", "in": "query", "schema": { "type": "string" } },
           { "name": "provider", "in": "query", "schema": { "type": "string", "enum": ["auto", "lrclib", "lyricsovh"] } }
         ],
         "responses": {
@@ -1245,6 +1632,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
           },
           "429": {
             "$ref": "#/components/responses/Error429"
@@ -1758,6 +2154,45 @@
       }
     },
     "responses": {
+      "Error400": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": { "$ref": "#/components/schemas/APIError" }
+              }
+            }
+          }
+        }
+      },
+      "Error500": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": { "$ref": "#/components/schemas/APIError" }
+              }
+            }
+          }
+        }
+      },
+      "ErrorDefault": {
+        "description": "Error response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": { "$ref": "#/components/schemas/APIError" }
+              }
+            }
+          }
+        }
+      },
       "Error429": {
         "description": "Too Many Requests",
         "headers": {
