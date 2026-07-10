@@ -108,6 +108,54 @@ func TestSchemaMigrationsAreRecordedAndIdempotent(t *testing.T) {
 	}
 }
 
+func TestUpsertArtistDeduplicatesLinks(t *testing.T) {
+	tempDir := t.TempDir()
+	dbPath := filepath.Join(tempDir, "catalog.sqlite")
+	store, err := Open(dbPath)
+	if err != nil {
+		t.Fatalf("Open() error = %v", err)
+	}
+	defer store.Close()
+	ctx := context.Background()
+	artistID := search.ArtistID("Adele", "")
+	link := models.ArtistLink{
+		Provider:   "wikiquote",
+		Kind:       "page",
+		URL:        "https://en.wikiquote.org/wiki/Adele",
+		ExternalID: "old",
+	}
+	if err := store.UpsertArtist(ctx, models.Artist{
+		ArtistID: artistID,
+		Name:     "Adele",
+		Links: []models.ArtistLink{
+			link,
+			{
+				Provider:   link.Provider,
+				Kind:       link.Kind,
+				URL:        link.URL,
+				ExternalID: "new",
+			},
+		},
+	}); err != nil {
+		t.Fatalf("UpsertArtist() error = %v", err)
+	}
+	var count int
+	var externalID string
+	if err := store.db.QueryRowContext(ctx, `
+		SELECT COUNT(*), COALESCE(MAX(external_id), '')
+		FROM artist_links
+		WHERE artist_id = ? AND provider = ? AND kind = ? AND url = ?
+	`, artistID, link.Provider, link.Kind, link.URL).Scan(&count, &externalID); err != nil {
+		t.Fatalf("query artist_links: %v", err)
+	}
+	if count != 1 {
+		t.Fatalf("artist_links count = %d, want 1", count)
+	}
+	if externalID != "new" {
+		t.Fatalf("external_id = %q, want new", externalID)
+	}
+}
+
 func TestCommonQueryIndexesExist(t *testing.T) {
 	store, ctx := newSeededStore(t)
 	defer store.Close()
