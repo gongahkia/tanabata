@@ -101,7 +101,9 @@ func TestLivenessAndReadinessEndpoints(t *testing.T) {
 
 func TestReadinessFailureReturnsCheckData(t *testing.T) {
 	server, store := seededServer(t)
-	store.Close()
+	if err := store.Close(); err != nil {
+		t.Fatalf("close store: %v", err)
+	}
 
 	recorder := httptest.NewRecorder()
 	server.Router().ServeHTTP(recorder, httptest.NewRequest(http.MethodGet, "/readyz", nil))
@@ -132,7 +134,9 @@ func TestInternalErrorsDoNotLeakRawError(t *testing.T) {
 
 	var logs bytes.Buffer
 	server.logger = slog.New(slog.NewJSONHandler(&logs, nil))
-	store.Close()
+	if err := store.Close(); err != nil {
+		t.Fatalf("close store: %v", err)
+	}
 	_, err := store.Stats(context.Background())
 	if err == nil {
 		t.Fatalf("expected closed store error")
@@ -617,7 +621,7 @@ func TestLyricsEndpointRefreshesExpiredCache(t *testing.T) {
 		t.Fatalf("SetProviderCache() error = %v", err)
 	}
 
-	upstream := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	upstream := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		_ = json.NewEncoder(w).Encode(map[string]string{
 			"trackName":   "Yellow",
 			"artistName":  "Coldplay",
@@ -648,13 +652,13 @@ func TestLyricsEndpointFallsBackFromMalformedCacheAndProviderFailure(t *testing.
 		t.Fatalf("SetProviderCache() error = %v", err)
 	}
 
-	lrclibUpstream := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	lrclibUpstream := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		http.Error(w, "broken", http.StatusBadGateway)
 	}))
 	defer lrclibUpstream.Close()
 	server.lrclib.SetHTTPClient(providers.NewHTTPClient(lrclibUpstream.URL))
 
-	lyricsOVHUpstream := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	lyricsOVHUpstream := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		_ = json.NewEncoder(w).Encode(map[string]string{"lyrics": "Fallback lyrics"})
 	}))
 	defer lyricsOVHUpstream.Close()
@@ -676,7 +680,7 @@ func TestLyricsEndpointRequestedProviderFailureReturnsError(t *testing.T) {
 	server, store := seededServer(t)
 	defer store.Close()
 
-	upstream := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	upstream := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		http.Error(w, "broken", http.StatusBadGateway)
 	}))
 	defer upstream.Close()
@@ -718,7 +722,7 @@ func TestSetlistsEndpointUsesProviderAfterExpiredCache(t *testing.T) {
 		t.Fatalf("SetProviderCache() error = %v", err)
 	}
 
-	upstream := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	upstream := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		_ = json.NewEncoder(w).Encode(map[string]any{
 			"setlist": []map[string]any{{
 				"id":        "set-1",

@@ -49,7 +49,7 @@ type ProviderError struct {
 }
 
 func Open(path string) (*Store, error) {
-	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+	if err := os.MkdirAll(filepath.Dir(path), 0o750); err != nil {
 		return nil, fmt.Errorf("create catalog dir: %w", err)
 	}
 	db, err := sql.Open("sqlite", sqliteDSN(path))
@@ -356,7 +356,7 @@ func (s *Store) SeedFromLegacyJSON(ctx context.Context, legacyPath string) error
 		Text   string `json:"text"`
 	}
 
-	content, err := os.ReadFile(legacyPath)
+	content, err := os.ReadFile(legacyPath) // #nosec G304 -- caller-provided import path
 	if err != nil {
 		return fmt.Errorf("read legacy json: %w", err)
 	}
@@ -450,7 +450,7 @@ func (s *Store) SeedFromLegacyJSON(ctx context.Context, legacyPath string) error
 }
 
 func (s *Store) ImportCuratedQuotes(ctx context.Context, bundlePath string) (int, error) {
-	content, err := os.ReadFile(bundlePath)
+	content, err := os.ReadFile(bundlePath) // #nosec G304 -- caller-provided curated bundle path
 	if err != nil {
 		return 0, fmt.Errorf("read curated quotes: %w", err)
 	}
@@ -1671,7 +1671,7 @@ func (s *Store) IntegrityReport(ctx context.Context) (models.IntegrityReport, er
 		report.OK = false
 		report.Issues = append(report.Issues, "sqlite_integrity_check_failed")
 	}
-	checks := map[string]string{
+	checks := map[string]string{ // #nosec G101 -- keys are integrity check names
 		"quotes_missing_artist": `SELECT COUNT(*) FROM quotes LEFT JOIN artists ON artists.artist_id = quotes.artist_id WHERE artists.artist_id IS NULL`,
 		"quotes_missing_source": `SELECT COUNT(*) FROM quotes WHERE source_id <> '' AND source_id NOT IN (SELECT source_id FROM quote_sources)`,
 		"tags_missing_quote":    `SELECT COUNT(*) FROM quote_tags LEFT JOIN quotes ON quotes.quote_id = quote_tags.quote_id WHERE quotes.quote_id IS NULL`,
@@ -2019,7 +2019,7 @@ func (s *Store) ListIngestionAuditEvents(ctx context.Context, jobID string, limi
 
 func (s *Store) catalogCounts(ctx context.Context) (map[string]int, error) {
 	counts := map[string]int{}
-	for key, query := range map[string]string{
+	for key, query := range map[string]string{ // #nosec G101 -- keys are table names
 		"artists":         `SELECT COUNT(*) FROM artists`,
 		"quotes":          `SELECT COUNT(*) FROM quotes`,
 		"sources":         `SELECT COUNT(*) FROM quote_sources`,

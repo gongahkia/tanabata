@@ -33,7 +33,7 @@ func TestServiceEnrichArtistRecordsPartialFailure(t *testing.T) {
 	store, ctx := newServiceStore(t)
 	defer store.Close()
 
-	failingMusicBrainz := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	failingMusicBrainz := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		http.Error(w, "upstream failed", http.StatusBadGateway)
 	}))
 	defer failingMusicBrainz.Close()
@@ -48,7 +48,7 @@ func TestServiceEnrichArtistRecordsPartialFailure(t *testing.T) {
 	}))
 	defer emptyWikidata.Close()
 
-	emptyWikiquote := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	emptyWikiquote := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		_, _ = w.Write([]byte(`["frank ocean",[],[],[]]`))
 	}))
 	defer emptyWikiquote.Close()
@@ -83,18 +83,18 @@ func TestServiceSkipsProviderDuringCooldown(t *testing.T) {
 	defer store.Close()
 
 	musicBrainzHits := 0
-	musicBrainz := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	musicBrainz := httptest.NewServer(http.HandlerFunc(func(_ http.ResponseWriter, _ *http.Request) {
 		musicBrainzHits++
 		t.Fatalf("musicbrainz should not be called during cooldown")
 	}))
 	defer musicBrainz.Close()
 
-	emptyWikidata := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	emptyWikidata := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		_ = json.NewEncoder(w).Encode(map[string]any{"search": []any{}})
 	}))
 	defer emptyWikidata.Close()
 
-	emptyWikiquote := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	emptyWikiquote := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		_, _ = w.Write([]byte(`["frank ocean",[],[],[]]`))
 	}))
 	defer emptyWikiquote.Close()
@@ -135,7 +135,7 @@ func TestServiceEnrichArtistUpsertsAttributedQuote(t *testing.T) {
 	}))
 	defer noMatchMusicBrainz.Close()
 
-	noMatchWikidata := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	noMatchWikidata := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		_ = json.NewEncoder(w).Encode(map[string]any{"search": []any{}})
 	}))
 	defer noMatchWikidata.Close()

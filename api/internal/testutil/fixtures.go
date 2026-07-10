@@ -208,7 +208,7 @@ func writeJSON(t *testing.T, path string, payload any) {
 	if err != nil {
 		t.Fatalf("marshal %s: %v", path, err)
 	}
-	if err := os.WriteFile(path, content, 0o644); err != nil {
+	if err := os.WriteFile(path, content, 0o600); err != nil {
 		t.Fatalf("write %s: %v", path, err)
 	}
 }

@@ -113,7 +113,9 @@ func TestRuntimeContractValidationAllows400Response(t *testing.T) {
 
 func TestRuntimeContractValidationAllows500Response(t *testing.T) {
 	server, store := seededServer(t)
-	store.Close()
+	if err := store.Close(); err != nil {
+		t.Fatalf("close store: %v", err)
+	}
 
 	recorder := httptest.NewRecorder()
 	request := httptest.NewRequest(http.MethodGet, "/v1/stats", nil)

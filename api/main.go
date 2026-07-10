@@ -19,11 +19,17 @@ import (
 )
 
 func main() {
+	if err := run(); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func run() error {
 	versionFlag := flag.Bool("version", false, "print build metadata and exit")
 	flag.Parse()
 	if *versionFlag {
 		fmt.Println(buildinfo.Summary())
-		return
+		return nil
 	}
 
 	catalogPath := envOrDefault("CATALOG_PATH", filepath.Join("data", "catalog.sqlite"))
@@ -31,13 +37,13 @@ func main() {
 
 	store, err := catalog.Open(catalogPath)
 	if err != nil {
-		log.Fatalf("open catalog: %v", err)
+		return fmt.Errorf("open catalog: %w", err)
 	}
 	defer store.Close()
 
 	telemetry, err := observability.New("tanabata-api")
 	if err != nil {
-		log.Fatalf("initialize telemetry: %v", err)
+		return fmt.Errorf("initialize telemetry: %w", err)
 	}
 	defer func() {
 		shutdownCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
@@ -47,25 +53,36 @@ func main() {
 
 	server, err := httpapi.NewServer(store, telemetry)
 	if err != nil {
-		log.Fatalf("initialize API server: %v", err)
+		return fmt.Errorf("initialize API server: %w", err)
 	}
 	router := server.Router()
 	httpServer := newHTTPServer(port, router)
 
+	serverErrors := make(chan error, 1)
 	go func() {
 		if err := httpServer.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			log.Fatalf("start server: %v", err)
+			serverErrors <- fmt.Errorf("start server: %w", err)
+			return
 		}
+		serverErrors <- nil
 	}()
 
 	signals := make(chan os.Signal, 1)
 	signal.Notify(signals, syscall.SIGINT, syscall.SIGTERM)
-	<-signals
+	defer signal.Stop(signals)
+
+	select {
+	case <-signals:
+	case err := <-serverErrors:
+		return err
+	}
+
 	shutdownCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	if err := httpServer.Shutdown(shutdownCtx); err != nil {
-		log.Fatalf("shutdown server: %v", err)
+		return fmt.Errorf("shutdown server: %w", err)
 	}
+	return nil
 }
 
 func envOrDefault(key, fallback string) string {

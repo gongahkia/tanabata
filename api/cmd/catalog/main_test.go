@@ -40,7 +40,7 @@ func TestExportCatalogWritesStatsAndIntegrity(t *testing.T) {
 	if err := exportCatalog(context.Background(), sourcePath, exportPath); err != nil {
 		t.Fatalf("exportCatalog() error = %v", err)
 	}
-	content, err := os.ReadFile(exportPath)
+	content, err := os.ReadFile(exportPath) // #nosec G304 -- test temp path
 	if err != nil {
 		t.Fatalf("ReadFile(export) error = %v", err)
 	}
