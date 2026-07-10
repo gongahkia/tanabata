@@ -838,15 +838,28 @@ func parseLimit(value string, fallback int) int {
 	return parsed
 }
 
+const (
+	allowOriginEnv = "ALLOW_ORIGIN"
+	corsDevEnv     = "TANABATA_CORS_DEV"
+)
+
+type corsPolicy struct {
+	devWildcard    bool
+	allowedOrigins map[string]struct{}
+}
+
 func (s *Server) corsMiddleware() gin.HandlerFunc {
-	allowedOrigin := strings.TrimSpace(strings.TrimRight(strings.TrimSpace(getenv("ALLOW_ORIGIN", "*")), "/"))
-	if allowedOrigin == "" {
-		allowedOrigin = "*"
-	}
+	policy := loadCORSPolicy()
+	s.logCORSPolicy(policy)
 	return func(c *gin.Context) {
-		c.Header("Access-Control-Allow-Origin", allowedOrigin)
-		c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Request-ID")
-		c.Header("Access-Control-Allow-Methods", "GET, OPTIONS")
+		if allowedOrigin := policy.allowedOrigin(c.GetHeader("Origin")); allowedOrigin != "" {
+			c.Header("Access-Control-Allow-Origin", allowedOrigin)
+			c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Request-ID")
+			c.Header("Access-Control-Allow-Methods", "GET, OPTIONS")
+			if allowedOrigin != "*" {
+				c.Header("Vary", "Origin")
+			}
+		}
 		if c.Request.Method == http.MethodOptions {
 			c.AbortWithStatus(http.StatusNoContent)
 			return
@@ -855,9 +868,61 @@ func (s *Server) corsMiddleware() gin.HandlerFunc {
 	}
 }
 
-func getenv(key, fallback string) string {
-	if value := strings.TrimSpace(os.Getenv(key)); value != "" {
-		return value
+func loadCORSPolicy() corsPolicy {
+	if corsDevMode() {
+		return corsPolicy{devWildcard: true}
 	}
-	return fallback
+	policy := corsPolicy{allowedOrigins: map[string]struct{}{}}
+	for _, value := range strings.Split(os.Getenv(allowOriginEnv), ",") {
+		origin := normalizeCORSOrigin(value)
+		if origin == "" || origin == "*" {
+			continue
+		}
+		policy.allowedOrigins[origin] = struct{}{}
+	}
+	return policy
+}
+
+func (p corsPolicy) allowedOrigin(origin string) string {
+	if p.devWildcard {
+		return "*"
+	}
+	normalized := normalizeCORSOrigin(origin)
+	if normalized == "" {
+		return ""
+	}
+	if _, ok := p.allowedOrigins[normalized]; ok {
+		return normalized
+	}
+	return ""
+}
+
+func normalizeCORSOrigin(origin string) string {
+	return strings.TrimRight(strings.TrimSpace(origin), "/")
+}
+
+func corsDevMode() bool {
+	value := strings.TrimSpace(strings.ToLower(os.Getenv(corsDevEnv)))
+	return value == "1" || value == "true" || value == "yes"
+}
+
+func (s *Server) logCORSPolicy(policy corsPolicy) {
+	logger := s.logger
+	if logger == nil {
+		logger = slog.Default()
+	}
+	if policy.devWildcard {
+		logger.Warn("cors_policy_resolved", "mode", "wildcard", "env", corsDevEnv)
+		return
+	}
+	if len(policy.allowedOrigins) == 0 {
+		logger.Info("cors_policy_resolved", "mode", "deny")
+		return
+	}
+	origins := make([]string, 0, len(policy.allowedOrigins))
+	for origin := range policy.allowedOrigins {
+		origins = append(origins, origin)
+	}
+	sort.Strings(origins)
+	logger.Info("cors_policy_resolved", "mode", "allowlist", "origins", strings.Join(origins, ","))
 }

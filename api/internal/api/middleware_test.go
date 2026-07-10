@@ -33,20 +33,48 @@ func TestRequestIDGeneratedWhenMissing(t *testing.T) {
 	}
 }
 
+func TestCORSMiddlewareDenyByDefault(t *testing.T) {
+	t.Setenv(allowOriginEnv, "")
+	t.Setenv(corsDevEnv, "")
+
+	server, store := seededServer(t)
+	defer store.Close()
+
+	recorder := httptest.NewRecorder()
+	request := httptest.NewRequest(http.MethodGet, "/livez", nil)
+	request.Header.Set("Origin", "https://tanabata.dev")
+	server.Router().ServeHTTP(recorder, request)
+
+	if recorder.Code != http.StatusOK {
+		t.Fatalf("status = %d, want 200", recorder.Code)
+	}
+	if got := recorder.Header().Get("Access-Control-Allow-Origin"); got != "" {
+		t.Fatalf("Access-Control-Allow-Origin = %q, want empty", got)
+	}
+	if got := recorder.Header().Get("Access-Control-Allow-Methods"); got != "" {
+		t.Fatalf("Access-Control-Allow-Methods = %q, want empty", got)
+	}
+	if got := recorder.Header().Get("Access-Control-Allow-Headers"); got != "" {
+		t.Fatalf("Access-Control-Allow-Headers = %q, want empty", got)
+	}
+}
+
 func TestCORSMiddlewareOptionsAndOrigin(t *testing.T) {
-	t.Setenv("ALLOW_ORIGIN", "https://tanabata.dev")
+	t.Setenv(allowOriginEnv, "https://a.example,https://b.example")
+	t.Setenv(corsDevEnv, "")
 
 	server, store := seededServer(t)
 	defer store.Close()
 
 	recorder := httptest.NewRecorder()
 	request := httptest.NewRequest(http.MethodOptions, "/v1/quotes", nil)
+	request.Header.Set("Origin", "https://a.example")
 	server.Router().ServeHTTP(recorder, request)
 
 	if recorder.Code != http.StatusNoContent {
 		t.Fatalf("status = %d, want 204", recorder.Code)
 	}
-	if got := recorder.Header().Get("Access-Control-Allow-Origin"); got != "https://tanabata.dev" {
+	if got := recorder.Header().Get("Access-Control-Allow-Origin"); got != "https://a.example" {
 		t.Fatalf("Access-Control-Allow-Origin = %q", got)
 	}
 	if got := recorder.Header().Get("Access-Control-Allow-Methods"); !strings.Contains(got, http.MethodOptions) {
@@ -54,6 +82,31 @@ func TestCORSMiddlewareOptionsAndOrigin(t *testing.T) {
 	}
 	if got := recorder.Header().Get("Access-Control-Allow-Headers"); !strings.Contains(got, "X-Request-ID") {
 		t.Fatalf("Access-Control-Allow-Headers = %q", got)
+	}
+}
+
+func TestCORSMiddlewareDevWildcard(t *testing.T) {
+	t.Setenv(allowOriginEnv, "")
+	t.Setenv(corsDevEnv, "1")
+
+	server, store := seededServer(t)
+	defer store.Close()
+
+	var logs bytes.Buffer
+	server.logger = slog.New(slog.NewJSONHandler(&logs, nil))
+	recorder := httptest.NewRecorder()
+	request := httptest.NewRequest(http.MethodGet, "/livez", nil)
+	request.Header.Set("Origin", "https://tanabata.dev")
+	server.Router().ServeHTTP(recorder, request)
+
+	if recorder.Code != http.StatusOK {
+		t.Fatalf("status = %d, want 200", recorder.Code)
+	}
+	if got := recorder.Header().Get("Access-Control-Allow-Origin"); got != "*" {
+		t.Fatalf("Access-Control-Allow-Origin = %q, want *", got)
+	}
+	if !strings.Contains(logs.String(), `"level":"WARN"`) || !strings.Contains(logs.String(), `"mode":"wildcard"`) {
+		t.Fatalf("expected wildcard warning log, got %s", logs.String())
 	}
 }
 
@@ -168,8 +221,9 @@ func TestStructuredLoggerEmitsStableRequestFields(t *testing.T) {
 		t.Fatalf("status = %d, want 200 body=%s", recorder.Code, recorder.Body.String())
 	}
 
+	lines := bytes.Split(bytes.TrimSpace(logs.Bytes()), []byte("\n"))
 	var payload map[string]any
-	if err := json.Unmarshal(bytes.TrimSpace(logs.Bytes()), &payload); err != nil {
+	if err := json.Unmarshal(lines[len(lines)-1], &payload); err != nil {
 		t.Fatalf("decode log payload: %v body=%s", err, logs.String())
 	}
 	assertLogField(t, payload, "msg", "http_request")
