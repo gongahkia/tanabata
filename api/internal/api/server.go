@@ -143,7 +143,8 @@ func (s *Server) livez(c *gin.Context) {
 
 func (s *Server) readyz(c *gin.Context) {
 	if err := s.store.Ping(c.Request.Context()); err != nil {
-		dataResponse(c, http.StatusServiceUnavailable, gin.H{"status": "not_ready", "checks": gin.H{"db": err.Error()}}, nil)
+		s.logHandlerError(c, http.StatusServiceUnavailable, "readiness_failed", err)
+		dataResponse(c, http.StatusServiceUnavailable, gin.H{"status": "not_ready", "checks": gin.H{"db": "unavailable"}}, nil)
 		return
 	}
 	dataResponse(c, http.StatusOK, gin.H{"status": "ready"}, nil)
@@ -152,7 +153,7 @@ func (s *Server) readyz(c *gin.Context) {
 func (s *Server) health(c *gin.Context) {
 	stats, err := s.store.Stats(c.Request.Context())
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "health_failed", "failed to load service metadata", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "health_failed", "failed to load service metadata", nil, err)
 		return
 	}
 	dataResponse(c, http.StatusOK, gin.H{"status": "ok"}, stats)
@@ -171,7 +172,7 @@ func (s *Server) version(c *gin.Context) {
 func (s *Server) legacyQuotes(c *gin.Context) {
 	quotes, err := s.store.LegacyQuotes(c.Request.Context(), "")
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "legacy_quotes_failed", "failed to list legacy quotes", nil, err)
 		return
 	}
 	c.JSON(http.StatusOK, quotes)
@@ -180,11 +181,11 @@ func (s *Server) legacyQuotes(c *gin.Context) {
 func (s *Server) legacyRandomQuote(c *gin.Context) {
 	quote, err := s.store.RandomLegacyQuote(c.Request.Context())
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "legacy_random_quote_failed", "failed to select legacy quote", nil, err)
 		return
 	}
 	if quote == nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "No quotes available"})
+		errorResponse(c, http.StatusNotFound, "quote_not_found", "quote not found", nil)
 		return
 	}
 	c.JSON(http.StatusOK, quote)
@@ -193,7 +194,7 @@ func (s *Server) legacyRandomQuote(c *gin.Context) {
 func (s *Server) legacyAuthorQuotes(c *gin.Context) {
 	quotes, err := s.store.LegacyQuotes(c.Request.Context(), c.Param("author"))
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "legacy_author_quotes_failed", "failed to list legacy author quotes", nil, err)
 		return
 	}
 	c.JSON(http.StatusOK, quotes)
@@ -209,7 +210,7 @@ func (s *Server) listArtists(c *gin.Context) {
 		Offset:         parseInt(c.Query("offset")),
 	})
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "artist_list_failed", "failed to list artists", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "artist_list_failed", "failed to list artists", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, response.Data, response.Meta, response.Pagination)
@@ -218,7 +219,7 @@ func (s *Server) listArtists(c *gin.Context) {
 func (s *Server) artistByID(c *gin.Context) {
 	artist, err := s.store.ArtistByID(c.Request.Context(), c.Param("artist_id"))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "artist_lookup_failed", "failed to load artist", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "artist_lookup_failed", "failed to load artist", nil, err)
 		return
 	}
 	if artist == nil {
@@ -240,7 +241,7 @@ func (s *Server) artistQuotes(c *gin.Context) {
 		Sort:             c.Query("sort"),
 	})
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "artist_quotes_failed", "failed to list artist quotes", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "artist_quotes_failed", "failed to list artist quotes", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, response.Data, response.Meta, response.Pagination)
@@ -249,12 +250,12 @@ func (s *Server) artistQuotes(c *gin.Context) {
 func (s *Server) artistRelated(c *gin.Context) {
 	meta, err := s.store.Meta(c.Request.Context())
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "artist_related_failed", "failed to load service metadata", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "artist_related_failed", "failed to load service metadata", nil, err)
 		return
 	}
 	related, err := s.store.RelatedArtists(c.Request.Context(), c.Param("artist_id"))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "artist_related_failed", "failed to load related artists", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "artist_related_failed", "failed to load related artists", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, related, meta, models.Pagination{Limit: len(related), Offset: 0, Total: len(related)})
@@ -263,12 +264,12 @@ func (s *Server) artistRelated(c *gin.Context) {
 func (s *Server) artistReleases(c *gin.Context) {
 	meta, err := s.store.Meta(c.Request.Context())
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "artist_releases_failed", "failed to load service metadata", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "artist_releases_failed", "failed to load service metadata", nil, err)
 		return
 	}
 	releases, err := s.store.Releases(c.Request.Context(), c.Param("artist_id"))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "artist_releases_failed", "failed to load releases", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "artist_releases_failed", "failed to load releases", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, releases, meta, models.Pagination{Limit: len(releases), Offset: 0, Total: len(releases)})
@@ -281,7 +282,7 @@ func (s *Server) artistSetlists(c *gin.Context) {
 	}
 	artist, err := s.store.ArtistByID(c.Request.Context(), c.Param("artist_id"))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "artist_lookup_failed", "failed to load artist", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "artist_lookup_failed", "failed to load artist", nil, err)
 		return
 	}
 	if artist == nil {
@@ -306,18 +307,18 @@ func (s *Server) artistSetlists(c *gin.Context) {
 			return
 		}
 	} else if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "provider_cache_failed", "failed to access provider cache", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "provider_cache_failed", "failed to access provider cache", nil, err)
 		return
 	}
 
 	setlists, err := s.setlistFM.ArtistSetlists(c.Request.Context(), artist.MBID)
 	if err != nil {
-		errorResponse(c, http.StatusBadGateway, "provider_request_failed", "failed to fetch setlists", map[string]any{"provider": "setlistfm", "error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusBadGateway, "provider_request_failed", "failed to fetch setlists", map[string]any{"provider": "setlistfm"}, err)
 		return
 	}
 	body, _ := json.Marshal(setlists)
 	if err := s.store.SetProviderCache(c.Request.Context(), "setlistfm", "setlists", cacheKey, string(body), 6*time.Hour); err != nil {
-		errorResponse(c, http.StatusInternalServerError, "provider_cache_failed", "failed to cache setlists", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "provider_cache_failed", "failed to cache setlists", nil, err)
 		return
 	}
 	dataResponse(c, http.StatusOK, setlists, gin.H{
@@ -347,7 +348,7 @@ func (s *Server) listQuotes(c *gin.Context) {
 	}
 	response, err := s.store.ListQuotes(c.Request.Context(), filters)
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "quote_list_failed", "failed to list quotes", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "quote_list_failed", "failed to list quotes", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, response.Data, response.Meta, response.Pagination)
@@ -370,7 +371,7 @@ func (s *Server) randomQuote(c *gin.Context) {
 	}
 	quote, err := s.store.RandomQuote(c.Request.Context(), filters)
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "quote_random_failed", "failed to select quote", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "quote_random_failed", "failed to select quote", nil, err)
 		return
 	}
 	if quote == nil {
@@ -383,7 +384,7 @@ func (s *Server) randomQuote(c *gin.Context) {
 func (s *Server) quoteByID(c *gin.Context) {
 	quote, err := s.store.QuoteByID(c.Request.Context(), c.Param("quote_id"))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "quote_lookup_failed", "failed to load quote", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "quote_lookup_failed", "failed to load quote", nil, err)
 		return
 	}
 	if quote == nil {
@@ -396,7 +397,7 @@ func (s *Server) quoteByID(c *gin.Context) {
 func (s *Server) quoteProvenance(c *gin.Context) {
 	provenance, err := s.store.QuoteProvenance(c.Request.Context(), c.Param("quote_id"))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "quote_provenance_failed", "failed to load quote provenance", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "quote_provenance_failed", "failed to load quote provenance", nil, err)
 		return
 	}
 	if provenance == nil {
@@ -413,7 +414,7 @@ func (s *Server) reviewQueue(c *gin.Context) {
 		Offset:           parseInt(c.Query("offset")),
 	})
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "review_queue_failed", "failed to load review queue", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "review_queue_failed", "failed to load review queue", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, response.Data, response.Meta, response.Pagination)
@@ -425,7 +426,7 @@ func (s *Server) staleQuotes(c *gin.Context) {
 		Offset: parseInt(c.Query("offset")),
 	})
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "stale_quotes_failed", "failed to load stale quote review set", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "stale_quotes_failed", "failed to load stale quote review set", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, response.Data, response.Meta, response.Pagination)
@@ -434,7 +435,7 @@ func (s *Server) staleQuotes(c *gin.Context) {
 func (s *Server) sourceByID(c *gin.Context) {
 	source, err := s.store.SourceByID(c.Request.Context(), c.Param("source_id"))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "source_lookup_failed", "failed to load source", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "source_lookup_failed", "failed to load source", nil, err)
 		return
 	}
 	if source == nil {
@@ -447,12 +448,12 @@ func (s *Server) sourceByID(c *gin.Context) {
 func (s *Server) providers(c *gin.Context) {
 	summaries, err := s.store.ProviderSummaries(c.Request.Context(), s.providerInventory)
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "provider_summary_failed", "failed to load provider summaries", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "provider_summary_failed", "failed to load provider summaries", nil, err)
 		return
 	}
 	meta, err := s.store.Meta(c.Request.Context())
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "provider_summary_failed", "failed to load service metadata", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "provider_summary_failed", "failed to load service metadata", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, summaries, meta, models.Pagination{Limit: len(summaries), Offset: 0, Total: len(summaries)})
@@ -461,12 +462,12 @@ func (s *Server) providers(c *gin.Context) {
 func (s *Server) providerRuns(c *gin.Context) {
 	runs, err := s.store.ProviderRuns(c.Request.Context(), c.Param("provider"), parseLimit(c.Query("limit"), 20))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "provider_runs_failed", "failed to load provider runs", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "provider_runs_failed", "failed to load provider runs", nil, err)
 		return
 	}
 	meta, err := s.store.Meta(c.Request.Context())
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "provider_runs_failed", "failed to load service metadata", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "provider_runs_failed", "failed to load service metadata", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, runs, meta, models.Pagination{Limit: len(runs), Offset: 0, Total: len(runs)})
@@ -475,12 +476,12 @@ func (s *Server) providerRuns(c *gin.Context) {
 func (s *Server) providerErrors(c *gin.Context) {
 	failures, err := s.store.ProviderErrors(c.Request.Context(), c.Param("provider"), parseLimit(c.Query("limit"), 20))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "provider_errors_failed", "failed to load provider errors", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "provider_errors_failed", "failed to load provider errors", nil, err)
 		return
 	}
 	meta, err := s.store.Meta(c.Request.Context())
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "provider_errors_failed", "failed to load service metadata", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "provider_errors_failed", "failed to load service metadata", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, failures, meta, models.Pagination{Limit: len(failures), Offset: 0, Total: len(failures)})
@@ -489,12 +490,12 @@ func (s *Server) providerErrors(c *gin.Context) {
 func (s *Server) jobs(c *gin.Context) {
 	jobs, err := s.store.ListJobs(c.Request.Context(), parseLimit(c.Query("limit"), 20))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "jobs_failed", "failed to load ingestion jobs", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "jobs_failed", "failed to load ingestion jobs", nil, err)
 		return
 	}
 	meta, err := s.store.Meta(c.Request.Context())
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "jobs_failed", "failed to load service metadata", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "jobs_failed", "failed to load service metadata", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, jobs, meta, models.Pagination{Limit: len(jobs), Offset: 0, Total: len(jobs)})
@@ -503,7 +504,7 @@ func (s *Server) jobs(c *gin.Context) {
 func (s *Server) jobByID(c *gin.Context) {
 	job, err := s.store.JobByID(c.Request.Context(), c.Param("job_id"))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "job_lookup_failed", "failed to load ingestion job", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "job_lookup_failed", "failed to load ingestion job", nil, err)
 		return
 	}
 	if job == nil {
@@ -514,7 +515,7 @@ func (s *Server) jobByID(c *gin.Context) {
 	if includes["snapshots"] {
 		snapshots, err := s.store.ListIngestionSnapshots(c.Request.Context(), job.JobID, parseLimit(c.Query("snapshot_limit"), 20))
 		if err != nil {
-			errorResponse(c, http.StatusInternalServerError, "job_lookup_failed", "failed to load ingestion snapshots", map[string]any{"error": err.Error()})
+			s.loggedErrorResponse(c, http.StatusInternalServerError, "job_lookup_failed", "failed to load ingestion snapshots", nil, err)
 			return
 		}
 		job.Snapshots = snapshots
@@ -522,7 +523,7 @@ func (s *Server) jobByID(c *gin.Context) {
 	if includes["audit"] || includes["audit_events"] {
 		events, err := s.store.ListIngestionAuditEvents(c.Request.Context(), job.JobID, parseLimit(c.Query("audit_limit"), 20))
 		if err != nil {
-			errorResponse(c, http.StatusInternalServerError, "job_lookup_failed", "failed to load ingestion audit events", map[string]any{"error": err.Error()})
+			s.loggedErrorResponse(c, http.StatusInternalServerError, "job_lookup_failed", "failed to load ingestion audit events", nil, err)
 			return
 		}
 		job.AuditEvents = events
@@ -533,12 +534,12 @@ func (s *Server) jobByID(c *gin.Context) {
 func (s *Server) jobSnapshots(c *gin.Context) {
 	snapshots, err := s.store.ListIngestionSnapshots(c.Request.Context(), c.Param("job_id"), parseLimit(c.Query("limit"), 20))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "job_snapshots_failed", "failed to load ingestion snapshots", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "job_snapshots_failed", "failed to load ingestion snapshots", nil, err)
 		return
 	}
 	meta, err := s.store.Meta(c.Request.Context())
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "job_snapshots_failed", "failed to load service metadata", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "job_snapshots_failed", "failed to load service metadata", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, snapshots, meta, models.Pagination{Limit: len(snapshots), Offset: 0, Total: len(snapshots)})
@@ -547,12 +548,12 @@ func (s *Server) jobSnapshots(c *gin.Context) {
 func (s *Server) jobAuditEvents(c *gin.Context) {
 	events, err := s.store.ListIngestionAuditEvents(c.Request.Context(), c.Param("job_id"), parseLimit(c.Query("limit"), 20))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "job_audit_failed", "failed to load ingestion audit events", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "job_audit_failed", "failed to load ingestion audit events", nil, err)
 		return
 	}
 	meta, err := s.store.Meta(c.Request.Context())
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "job_audit_failed", "failed to load service metadata", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "job_audit_failed", "failed to load service metadata", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, events, meta, models.Pagination{Limit: len(events), Offset: 0, Total: len(events)})
@@ -562,12 +563,12 @@ func (s *Server) timeline(c *gin.Context) {
 	limit := parseLimit(c.Query("limit"), 50)
 	jobs, err := s.store.ListJobs(c.Request.Context(), limit+1)
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "timeline_failed", "failed to load ingestion jobs", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "timeline_failed", "failed to load ingestion jobs", nil, err)
 		return
 	}
 	providers, err := s.store.ProviderSummaries(c.Request.Context(), s.providerInventory)
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "timeline_failed", "failed to load provider summaries", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "timeline_failed", "failed to load provider summaries", nil, err)
 		return
 	}
 	events := make([]models.TimelineEvent, 0, len(jobs)+len(providers))
@@ -631,7 +632,7 @@ func (s *Server) timeline(c *gin.Context) {
 	events, nextCursor := paginateTimelineEvents(events, c.Query("cursor"), limit)
 	meta, err := s.store.Meta(c.Request.Context())
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "timeline_failed", "failed to load service metadata", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "timeline_failed", "failed to load service metadata", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, events, cursorMeta(meta, nextCursor), models.Pagination{Limit: len(events), Offset: 0, Total: len(events)})
@@ -646,7 +647,7 @@ func (s *Server) search(c *gin.Context) {
 	limit := parseLimit(c.Query("limit"), 10)
 	response, err := s.store.SearchWithLimit(c.Request.Context(), query, limit+1)
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "search_failed", "failed to search catalog", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "search_failed", "failed to search catalog", nil, err)
 		return
 	}
 	quotes, nextCursor := paginateQuotes(response.Data.Quotes, c.Query("cursor"), limit)
@@ -657,7 +658,7 @@ func (s *Server) search(c *gin.Context) {
 func (s *Server) stats(c *gin.Context) {
 	stats, err := s.store.Stats(c.Request.Context())
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "stats_failed", "failed to load stats", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "stats_failed", "failed to load stats", nil, err)
 		return
 	}
 	dataResponse(c, http.StatusOK, stats, nil)
@@ -666,7 +667,7 @@ func (s *Server) stats(c *gin.Context) {
 func (s *Server) integrity(c *gin.Context) {
 	report, err := s.store.IntegrityReport(c.Request.Context())
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "integrity_failed", "failed to run catalog integrity checks", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "integrity_failed", "failed to run catalog integrity checks", nil, err)
 		return
 	}
 	dataResponse(c, http.StatusOK, report, nil)
@@ -684,7 +685,7 @@ func (s *Server) lyrics(c *gin.Context) {
 		result, cached, refreshedAt, expiresAt, err := s.fetchLyrics(c.Request.Context(), providerName, artist, track)
 		if err != nil {
 			if requestedProvider != "auto" {
-				errorResponse(c, http.StatusBadGateway, "provider_request_failed", "failed to fetch lyrics", map[string]any{"provider": providerName, "error": err.Error()})
+				s.loggedErrorResponse(c, http.StatusBadGateway, "provider_request_failed", "failed to fetch lyrics", map[string]any{"provider": providerName}, err)
 				return
 			}
 			continue

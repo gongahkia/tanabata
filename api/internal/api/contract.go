@@ -95,7 +95,8 @@ func (v *runtimeContractValidator) middleware() gin.HandlerFunc {
 			Route:      route,
 		}
 		if err := openapi3filter.ValidateRequest(c.Request.Context(), requestInput); err != nil {
-			errorResponse(c, http.StatusBadRequest, "contract_request_invalid", "request does not match the OpenAPI contract", map[string]any{"error": err.Error()})
+			v.logger.Warn("openapi_contract_request_invalid", "request_id", c.GetString("request_id"), "path", c.Request.URL.Path, "err", err)
+			errorResponse(c, http.StatusBadRequest, "contract_request_invalid", "request does not match the OpenAPI contract", nil)
 			c.Abort()
 			return
 		}

@@ -1,8 +1,11 @@
 package api
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
+	"fmt"
+	"log/slog"
 	"net/http"
 	"net/http/httptest"
 	"path/filepath"
@@ -116,6 +119,38 @@ func TestReadinessFailureReturnsCheckData(t *testing.T) {
 	}
 	if strings.Contains(recorder.Body.String(), "error") {
 		t.Fatalf("/readyz failure response includes error envelope: %s", recorder.Body.String())
+	}
+}
+
+func TestInternalErrorsDoNotLeakRawError(t *testing.T) {
+	server, store := seededServer(t)
+	defer store.Close()
+
+	var logs bytes.Buffer
+	server.logger = slog.New(slog.NewJSONHandler(&logs, nil))
+	store.Close()
+	_, err := store.Stats(context.Background())
+	if err == nil {
+		t.Fatalf("expected closed store error")
+	}
+	rawError := fmt.Sprint(err)
+
+	recorder := httptest.NewRecorder()
+	request := httptest.NewRequest(http.MethodGet, "/v1/stats", nil)
+	request.Header.Set("X-Request-ID", "forced-500-test")
+	server.Router().ServeHTTP(recorder, request)
+
+	if recorder.Code != http.StatusInternalServerError {
+		t.Fatalf("status = %d, want 500 body=%s", recorder.Code, recorder.Body.String())
+	}
+	if strings.Contains(recorder.Body.String(), rawError) {
+		t.Fatalf("response leaked raw error %q body=%s", rawError, recorder.Body.String())
+	}
+	if !strings.Contains(logs.String(), rawError) {
+		t.Fatalf("logs missing raw error %q logs=%s", rawError, logs.String())
+	}
+	if !strings.Contains(logs.String(), "forced-500-test") {
+		t.Fatalf("logs missing request id logs=%s", logs.String())
 	}
 }
 
