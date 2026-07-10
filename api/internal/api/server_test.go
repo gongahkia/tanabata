@@ -38,7 +38,11 @@ func seededServer(t *testing.T) (*Server, *catalog.Store) {
 	if _, err := store.ImportCuratedQuotes(context.Background(), curatedPath); err != nil {
 		t.Fatalf("import curated quotes: %v", err)
 	}
-	return NewServer(store, nil), store
+	server, err := NewServer(store, nil)
+	if err != nil {
+		t.Fatalf("new server: %v", err)
+	}
+	return server, store
 }
 
 func TestLegacyQuotesEndpoint(t *testing.T) {

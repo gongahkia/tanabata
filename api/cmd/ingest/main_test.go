@@ -232,7 +232,10 @@ func TestRunBootstrapsCuratedQuotesAndExposesAPIState(t *testing.T) {
 		t.Fatalf("job status = %q, want succeeded", jobs[0].Status)
 	}
 
-	server := apiServer.NewServer(store, nil)
+	server, err := apiServer.NewServer(store, nil)
+	if err != nil {
+		t.Fatalf("NewServer() error = %v", err)
+	}
 	tests := []struct {
 		path string
 		want string
