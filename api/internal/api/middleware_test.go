@@ -119,7 +119,7 @@ func TestMiddlewareChainOrder(t *testing.T) {
 	for _, middleware := range chain {
 		got = append(got, middleware.name)
 	}
-	want := []string{"request-id", "ratelimit", "cors", "logger", "recovery"}
+	want := []string{"request-id", "ratelimit", "cors", "logger", "body-limit", "recovery"}
 	if !reflect.DeepEqual(got, want) {
 		t.Fatalf("middleware chain = %v, want %v", got, want)
 	}
@@ -206,6 +206,27 @@ func TestRateLimitZeroDisablesMiddleware(t *testing.T) {
 	}
 }
 
+func TestRequestBodyLimitReturns413(t *testing.T) {
+	server, store := seededServer(t)
+	defer store.Close()
+
+	body := bytes.NewReader(bytes.Repeat([]byte("x"), int(maxRequestBodyBytes)+1))
+	recorder := httptest.NewRecorder()
+	request := httptest.NewRequest(http.MethodPost, "/livez", body)
+	server.Router().ServeHTTP(recorder, request)
+
+	if recorder.Code != http.StatusRequestEntityTooLarge {
+		t.Fatalf("status = %d, want 413 body=%s", recorder.Code, recorder.Body.String())
+	}
+	var response models.APIResponse[any]
+	if err := json.Unmarshal(recorder.Body.Bytes(), &response); err != nil {
+		t.Fatalf("decode response: %v", err)
+	}
+	if response.Error == nil || response.Error.Code != "payload_too_large" {
+		t.Fatalf("error = %#v, want payload_too_large", response.Error)
+	}
+}
+
 func TestStructuredLoggerEmitsStableRequestFields(t *testing.T) {
 	server, store := seededServer(t)
 	defer store.Close()
@@ -257,6 +278,7 @@ func TestRecoveryMiddlewareReturnsStructuredError(t *testing.T) {
 	router.Use(server.rateLimitMiddleware())
 	router.Use(server.corsMiddleware())
 	router.Use(server.structuredLogger())
+	router.Use(requestBodyLimitMiddleware())
 	router.Use(server.recoveryMiddleware())
 	router.GET("/panic", func(c *gin.Context) {
 		panic("boom")

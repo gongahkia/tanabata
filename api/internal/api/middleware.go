@@ -21,6 +21,7 @@ func (s *Server) middlewareChain() []namedMiddleware {
 		{name: "ratelimit", handler: s.rateLimitMiddleware()},
 		{name: "cors", handler: s.corsMiddleware()},
 		{name: "logger", handler: s.structuredLogger()},
+		{name: "body-limit", handler: requestBodyLimitMiddleware()},
 		{name: "recovery", handler: s.recoveryMiddleware()},
 	}
 }
