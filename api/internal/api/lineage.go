@@ -18,7 +18,7 @@ func (s *Server) listWorks(c *gin.Context) {
 		Offset:   parseInt(c.Query("offset")),
 	})
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "work_list_failed", "failed to list works", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "work_list_failed", "failed to list works", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, response.Data, response.Meta, response.Pagination)
@@ -28,7 +28,7 @@ func (s *Server) listWorks(c *gin.Context) {
 func (s *Server) workByID(c *gin.Context) {
 	work, err := s.store.WorkByID(c.Request.Context(), c.Param("work_id"))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "work_lookup_failed", "failed to load work", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "work_lookup_failed", "failed to load work", nil, err)
 		return
 	}
 	if work == nil {
@@ -43,12 +43,12 @@ func (s *Server) workByID(c *gin.Context) {
 func (s *Server) workRecordings(c *gin.Context) {
 	recordings, err := s.store.WorkRecordings(c.Request.Context(), c.Param("work_id"))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "work_recordings_failed", "failed to load recordings", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "work_recordings_failed", "failed to load recordings", nil, err)
 		return
 	}
 	meta, err := s.store.Meta(c.Request.Context())
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "work_recordings_failed", "failed to load service metadata", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "work_recordings_failed", "failed to load service metadata", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, recordings, meta, models.Pagination{Limit: len(recordings), Offset: 0, Total: len(recordings)})
@@ -58,12 +58,12 @@ func (s *Server) workRecordings(c *gin.Context) {
 func (s *Server) workCredits(c *gin.Context) {
 	credits, err := s.store.WorkCredits(c.Request.Context(), c.Param("work_id"))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "work_credits_failed", "failed to load credits", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "work_credits_failed", "failed to load credits", nil, err)
 		return
 	}
 	meta, err := s.store.Meta(c.Request.Context())
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "work_credits_failed", "failed to load service metadata", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "work_credits_failed", "failed to load service metadata", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, credits, meta, models.Pagination{Limit: len(credits), Offset: 0, Total: len(credits)})
@@ -79,7 +79,7 @@ func (s *Server) workPerformances(c *gin.Context) {
 		Offset: parseInt(c.Query("offset")),
 	})
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "work_performances_failed", "failed to load performances", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "work_performances_failed", "failed to load performances", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, response.Data, response.Meta, response.Pagination)
@@ -95,7 +95,7 @@ func (s *Server) listRecordings(c *gin.Context) {
 		Offset:   parseInt(c.Query("offset")),
 	})
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "recording_list_failed", "failed to list recordings", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "recording_list_failed", "failed to list recordings", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, response.Data, response.Meta, response.Pagination)
@@ -105,7 +105,7 @@ func (s *Server) listRecordings(c *gin.Context) {
 func (s *Server) recordingByID(c *gin.Context) {
 	recording, err := s.store.RecordingByID(c.Request.Context(), c.Param("recording_id"))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "recording_lookup_failed", "failed to load recording", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "recording_lookup_failed", "failed to load recording", nil, err)
 		return
 	}
 	if recording == nil {
@@ -120,12 +120,12 @@ func (s *Server) recordingByID(c *gin.Context) {
 func (s *Server) recordingOutgoingSamples(c *gin.Context) {
 	edges, err := s.store.OutgoingSamples(c.Request.Context(), c.Param("recording_id"))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "recording_samples_failed", "failed to load samples", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "recording_samples_failed", "failed to load samples", nil, err)
 		return
 	}
 	meta, err := s.store.Meta(c.Request.Context())
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "recording_samples_failed", "failed to load service metadata", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "recording_samples_failed", "failed to load service metadata", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, edges, meta, models.Pagination{Limit: len(edges), Offset: 0, Total: len(edges)})
@@ -136,12 +136,12 @@ func (s *Server) recordingOutgoingSamples(c *gin.Context) {
 func (s *Server) recordingIncomingSamples(c *gin.Context) {
 	edges, err := s.store.IncomingSamples(c.Request.Context(), c.Param("recording_id"))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "recording_sampled_by_failed", "failed to load samples", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "recording_sampled_by_failed", "failed to load samples", nil, err)
 		return
 	}
 	meta, err := s.store.Meta(c.Request.Context())
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "recording_sampled_by_failed", "failed to load service metadata", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "recording_sampled_by_failed", "failed to load service metadata", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, edges, meta, models.Pagination{Limit: len(edges), Offset: 0, Total: len(edges)})
@@ -151,7 +151,7 @@ func (s *Server) recordingIncomingSamples(c *gin.Context) {
 func (s *Server) sampleByID(c *gin.Context) {
 	edge, err := s.store.SampleEdgeByID(c.Request.Context(), c.Param("sample_id"))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "sample_lookup_failed", "failed to load sample", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "sample_lookup_failed", "failed to load sample", nil, err)
 		return
 	}
 	if edge == nil {
@@ -169,7 +169,7 @@ func (s *Server) artistRecordings(c *gin.Context) {
 		Offset:   parseInt(c.Query("offset")),
 	})
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "artist_recordings_failed", "failed to load recordings", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "artist_recordings_failed", "failed to load recordings", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, response.Data, response.Meta, response.Pagination)
@@ -186,7 +186,7 @@ func (s *Server) artistPerformances(c *gin.Context) {
 		Offset:   parseInt(c.Query("offset")),
 	})
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "artist_performances_failed", "failed to load performances", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "artist_performances_failed", "failed to load performances", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, response.Data, response.Meta, response.Pagination)
@@ -196,7 +196,7 @@ func (s *Server) artistPerformances(c *gin.Context) {
 func (s *Server) artistPerformanceStats(c *gin.Context) {
 	stats, err := s.store.PerformanceStats(c.Request.Context(), c.Param("artist_id"), strings.TrimSpace(c.Query("work_id")))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "artist_performance_stats_failed", "failed to compute performance stats", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "artist_performance_stats_failed", "failed to compute performance stats", nil, err)
 		return
 	}
 	dataResponse(c, http.StatusOK, stats, nil)
@@ -206,7 +206,7 @@ func (s *Server) artistPerformanceStats(c *gin.Context) {
 func (s *Server) performanceByID(c *gin.Context) {
 	perf, err := s.store.PerformanceByID(c.Request.Context(), c.Param("performance_id"))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "performance_lookup_failed", "failed to load performance", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "performance_lookup_failed", "failed to load performance", nil, err)
 		return
 	}
 	if perf == nil {
@@ -220,7 +220,7 @@ func (s *Server) performanceByID(c *gin.Context) {
 func (s *Server) claimByID(c *gin.Context) {
 	claim, err := s.store.ClaimByID(c.Request.Context(), c.Param("claim_id"))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "claim_lookup_failed", "failed to load claim", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "claim_lookup_failed", "failed to load claim", nil, err)
 		return
 	}
 	if claim == nil {
@@ -239,7 +239,7 @@ func (s *Server) listClaims(c *gin.Context) {
 		Offset: parseInt(c.Query("offset")),
 	})
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "claim_list_failed", "failed to list claims", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "claim_list_failed", "failed to list claims", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, response.Data, response.Meta, response.Pagination)
@@ -249,12 +249,12 @@ func (s *Server) listClaims(c *gin.Context) {
 func (s *Server) disputes(c *gin.Context) {
 	disputes, err := s.store.Disputes(c.Request.Context(), parseLimit(c.Query("limit"), 20))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "disputes_failed", "failed to load disputes", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "disputes_failed", "failed to load disputes", nil, err)
 		return
 	}
 	meta, err := s.store.Meta(c.Request.Context())
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "disputes_failed", "failed to load service metadata", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "disputes_failed", "failed to load service metadata", nil, err)
 		return
 	}
 	listResponse(c, http.StatusOK, disputes, meta, models.Pagination{Limit: len(disputes), Offset: 0, Total: len(disputes)})
@@ -264,7 +264,7 @@ func (s *Server) disputes(c *gin.Context) {
 func (s *Server) quoteLineage(c *gin.Context) {
 	lineage, err := s.store.QuoteLineage(c.Request.Context(), c.Param("quote_id"))
 	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, "quote_lineage_failed", "failed to load lineage", map[string]any{"error": err.Error()})
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "quote_lineage_failed", "failed to load lineage", nil, err)
 		return
 	}
 	if lineage == nil {
