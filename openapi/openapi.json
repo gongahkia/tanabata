@@ -31,6 +31,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -61,6 +64,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -84,6 +90,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -116,6 +125,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -141,6 +153,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -166,6 +181,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -190,6 +208,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -224,6 +245,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -252,6 +276,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -275,6 +302,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -298,6 +328,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -321,6 +354,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -343,6 +379,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -369,6 +408,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -395,6 +437,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -420,6 +465,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -446,6 +494,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -472,6 +523,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -498,6 +552,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -524,6 +581,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -551,6 +611,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -577,6 +640,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -603,6 +669,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -626,6 +695,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -646,6 +718,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -674,6 +749,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -695,6 +773,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -720,6 +801,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -745,6 +829,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -774,6 +861,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -803,6 +893,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -824,6 +917,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -849,6 +945,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -874,6 +973,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -895,6 +997,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -916,6 +1021,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -943,6 +1051,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -973,6 +1084,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -995,6 +1109,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -1023,6 +1140,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -1044,6 +1164,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -1069,6 +1192,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -1090,6 +1216,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -1116,6 +1245,9 @@
                 }
               }
             }
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         }
       }
@@ -1614,6 +1746,35 @@
           "refuting_evidence": { "type": "array", "items": { "$ref": "#/components/schemas/ClaimEvidence" } },
           "rival_claims": { "type": "array", "items": { "$ref": "#/components/schemas/Claim" } },
           "merge_history": { "type": "array", "items": { "$ref": "#/components/schemas/QuoteMergeLog" } }
+        }
+      },
+      "APIError": {
+        "type": "object",
+        "properties": {
+          "code": { "type": "string" },
+          "message": { "type": "string" },
+          "details": { "type": "object", "additionalProperties": true }
+        }
+      }
+    },
+    "responses": {
+      "Error429": {
+        "description": "Too Many Requests",
+        "headers": {
+          "Retry-After": {
+            "description": "Seconds to wait before retrying",
+            "schema": { "type": "string" }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": { "$ref": "#/components/schemas/APIError" }
+              }
+            }
+          }
         }
       }
     }

@@ -2,16 +2,19 @@ package api
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"log/slog"
 	"net/http"
 	"net/http/httptest"
+	"reflect"
 	"strings"
 	"testing"
 
 	"github.com/gin-gonic/gin"
 
 	"github.com/gongahkia/tanabata/api/internal/models"
+	"github.com/gongahkia/tanabata/api/internal/observability"
 )
 
 func TestRequestIDGeneratedWhenMissing(t *testing.T) {
@@ -51,6 +54,102 @@ func TestCORSMiddlewareOptionsAndOrigin(t *testing.T) {
 	}
 	if got := recorder.Header().Get("Access-Control-Allow-Headers"); !strings.Contains(got, "X-Request-ID") {
 		t.Fatalf("Access-Control-Allow-Headers = %q", got)
+	}
+}
+
+func TestMiddlewareChainOrder(t *testing.T) {
+	server, store := seededServer(t)
+	defer store.Close()
+
+	chain := server.middlewareChain()
+	got := make([]string, 0, len(chain))
+	for _, middleware := range chain {
+		got = append(got, middleware.name)
+	}
+	want := []string{"request-id", "ratelimit", "cors", "logger", "recovery"}
+	if !reflect.DeepEqual(got, want) {
+		t.Fatalf("middleware chain = %v, want %v", got, want)
+	}
+}
+
+func TestRateLimitReturns429WithRetryAfter(t *testing.T) {
+	t.Setenv(rateLimitRPMEnv, "1")
+	t.Setenv(rateLimitBurstEnv, "2")
+
+	server, store := seededServer(t)
+	defer store.Close()
+	router := server.Router()
+
+	for i := range 3 {
+		recorder := httptest.NewRecorder()
+		request := httptest.NewRequest(http.MethodGet, "/v1/search?q=frank", nil)
+		router.ServeHTTP(recorder, request)
+		if i < 2 && recorder.Code != http.StatusOK {
+			t.Fatalf("request %d status = %d, want 200 body=%s", i+1, recorder.Code, recorder.Body.String())
+		}
+		if i == 2 {
+			if recorder.Code != http.StatusTooManyRequests {
+				t.Fatalf("request %d status = %d, want 429 body=%s", i+1, recorder.Code, recorder.Body.String())
+			}
+			if got := recorder.Header().Get("Retry-After"); got == "" {
+				t.Fatalf("Retry-After header missing")
+			}
+			var response models.APIResponse[any]
+			if err := json.Unmarshal(recorder.Body.Bytes(), &response); err != nil {
+				t.Fatalf("decode response: %v", err)
+			}
+			if response.Error == nil || response.Error.Code != "rate_limited" {
+				t.Fatalf("error = %#v, want rate_limited", response.Error)
+			}
+		}
+	}
+}
+
+func TestRateLimitExemptPathsUnderSaturation(t *testing.T) {
+	t.Setenv(rateLimitRPMEnv, "1")
+	t.Setenv(rateLimitBurstEnv, "1")
+
+	server, store := seededServer(t)
+	defer store.Close()
+	telemetry, err := observability.New("tanabata-test")
+	if err != nil {
+		t.Fatalf("telemetry: %v", err)
+	}
+	defer telemetry.Shutdown(context.Background())
+	server.telemetry = telemetry
+	router := server.Router()
+
+	for range 2 {
+		recorder := httptest.NewRecorder()
+		request := httptest.NewRequest(http.MethodGet, "/v1/search?q=frank", nil)
+		router.ServeHTTP(recorder, request)
+	}
+
+	for _, path := range []string{"/livez", "/readyz", "/metrics"} {
+		recorder := httptest.NewRecorder()
+		request := httptest.NewRequest(http.MethodGet, path, nil)
+		router.ServeHTTP(recorder, request)
+		if recorder.Code != http.StatusOK {
+			t.Fatalf("%s status = %d, want 200 body=%s", path, recorder.Code, recorder.Body.String())
+		}
+	}
+}
+
+func TestRateLimitZeroDisablesMiddleware(t *testing.T) {
+	t.Setenv(rateLimitRPMEnv, "0")
+	t.Setenv(rateLimitBurstEnv, "1")
+
+	server, store := seededServer(t)
+	defer store.Close()
+	router := server.Router()
+
+	for i := range 3 {
+		recorder := httptest.NewRecorder()
+		request := httptest.NewRequest(http.MethodGet, "/v1/search?q=frank", nil)
+		router.ServeHTTP(recorder, request)
+		if recorder.Code != http.StatusOK {
+			t.Fatalf("request %d status = %d, want 200 body=%s", i+1, recorder.Code, recorder.Body.String())
+		}
 	}
 }
 
@@ -101,6 +200,7 @@ func TestRecoveryMiddlewareReturnsStructuredError(t *testing.T) {
 
 	router := gin.New()
 	router.Use(requestIDMiddleware())
+	router.Use(server.rateLimitMiddleware())
 	router.Use(server.corsMiddleware())
 	router.Use(server.structuredLogger())
 	router.Use(server.recoveryMiddleware())

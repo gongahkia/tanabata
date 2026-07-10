@@ -61,10 +61,9 @@ func NewServer(store *catalog.Store, telemetry *observability.Telemetry) *Server
 
 func (s *Server) Router() *gin.Engine {
 	router := gin.New()
-	router.Use(requestIDMiddleware())
-	router.Use(s.corsMiddleware())
-	router.Use(s.structuredLogger())
-	router.Use(s.recoveryMiddleware())
+	for _, middleware := range s.middlewareChain() {
+		router.Use(middleware.handler)
+	}
 	if s.contractValidator != nil {
 		router.Use(s.contractValidator.middleware())
 	}
