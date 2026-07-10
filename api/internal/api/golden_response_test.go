@@ -45,15 +45,15 @@ func TestAPIGoldenResponses(t *testing.T) {
 			actual := canonicalGoldenJSON(t, recorder.Body.Bytes())
 			path := filepath.Join("testdata", "golden", tc.name+".json")
 			if *updateGolden {
-				if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+				if err := os.MkdirAll(filepath.Dir(path), 0o750); err != nil {
 					t.Fatalf("MkdirAll() error = %v", err)
 				}
-				if err := os.WriteFile(path, actual, 0o644); err != nil {
+				if err := os.WriteFile(path, actual, 0o600); err != nil {
 					t.Fatalf("WriteFile(%s) error = %v", path, err)
 				}
 				return
 			}
-			expected, err := os.ReadFile(path)
+			expected, err := os.ReadFile(path) // #nosec G304 -- fixed golden testdata path
 			if err != nil {
 				t.Fatalf("ReadFile(%s) error = %v", path, err)
 			}

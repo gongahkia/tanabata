@@ -59,22 +59,29 @@ func (s *Store) RecordSampleEdge(ctx context.Context, edge models.SampleEdge, cl
 
 // IncomingSamples lists every recording that sampled (or was derived from) the given recording.
 func (s *Store) IncomingSamples(ctx context.Context, recordingID string) ([]models.SampleEdge, error) {
-	return s.sampleEdges(ctx, `WHERE samples.source_recording_id = ?`, recordingID)
-}
-
-// OutgoingSamples lists every recording that the given recording sampled.
-func (s *Store) OutgoingSamples(ctx context.Context, recordingID string) ([]models.SampleEdge, error) {
-	return s.sampleEdges(ctx, `WHERE samples.derivative_recording_id = ?`, recordingID)
-}
-
-func (s *Store) sampleEdges(ctx context.Context, where, recordingID string) ([]models.SampleEdge, error) {
 	rows, err := s.db.QueryContext(ctx, `
 		SELECT samples.sample_id, samples.source_recording_id, samples.derivative_recording_id,
 			samples.kind, samples.source_offset_ms, samples.derivative_offset_ms, samples.duration_ms, samples.notes
 		FROM samples
-		`+where+`
+		WHERE samples.source_recording_id = ?
 		ORDER BY samples.kind ASC
 	`, recordingID)
+	return s.sampleEdges(ctx, rows, err)
+}
+
+// OutgoingSamples lists every recording that the given recording sampled.
+func (s *Store) OutgoingSamples(ctx context.Context, recordingID string) ([]models.SampleEdge, error) {
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT samples.sample_id, samples.source_recording_id, samples.derivative_recording_id,
+			samples.kind, samples.source_offset_ms, samples.derivative_offset_ms, samples.duration_ms, samples.notes
+		FROM samples
+		WHERE samples.derivative_recording_id = ?
+		ORDER BY samples.kind ASC
+	`, recordingID)
+	return s.sampleEdges(ctx, rows, err)
+}
+
+func (s *Store) sampleEdges(ctx context.Context, rows *sql.Rows, err error) ([]models.SampleEdge, error) {
 	if err != nil {
 		return nil, err
 	}

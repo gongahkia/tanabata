@@ -226,7 +226,7 @@ func newOpenAPIContractValidator(t *testing.T) *openAPIContractValidator {
 func (v *openAPIContractValidator) validateResponse(t *testing.T, request *http.Request, recorder *httptest.ResponseRecorder) {
 	t.Helper()
 
-	contractRequest, err := http.NewRequestWithContext(
+	contractRequest, err := http.NewRequestWithContext( // #nosec G704 -- local synthetic request for contract routing
 		request.Context(),
 		request.Method,
 		"http://localhost:8080"+request.URL.RequestURI(),

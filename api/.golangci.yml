@@ -1,9 +1,45 @@
 version: "2"
 
+run:
+  timeout: 5m # bound CI runtime
+
 linters:
+  default: none # keep enabled checks explicit
+  enable:
+    - errcheck # unchecked errors
+    - govet # Go vet analyzers
+    - staticcheck # static analysis suite, includes gosimple
+    - ineffassign # ineffective assignments
+    - revive # style and correctness rules
+    - gocritic # bug and performance diagnostics
+    - gosec # security checks
+    - misspell # spelling checks
+    - unparam # unused parameters
+    - exhaustive # enum switch coverage
+    - unused # unused code
+    - prealloc # slice allocation hints
   settings:
     errcheck:
       exclude-functions:
         - (*database/sql.Rows).Close
         - (*database/sql.Tx).Rollback
         - (*github.com/gongahkia/tanabata/api/internal/catalog.Store).Close
+    gocritic:
+      disabled-checks:
+        - ifElseChain # noisy style preference
+    revive:
+      rules:
+        - name: exported # exported docs
+        - name: unexported-return # private return types
+        - name: unused-parameter # dead parameters
+        - name: var-naming # idiomatic names
+  exclusions:
+    rules:
+      - text: "^exported:" # existing exported docs excluded from initial rollout
+        linters:
+          - revive
+
+formatters:
+  enable:
+    - gofmt # Go formatting
+    - goimports # import formatting

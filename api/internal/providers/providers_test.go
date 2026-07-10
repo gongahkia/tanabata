@@ -248,7 +248,7 @@ func TestSetlistProviderDisabledByDefault(t *testing.T) {
 
 func TestHTTPClientRetriesTransientFailure(t *testing.T) {
 	var attempts atomic.Int32
-	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		if attempts.Add(1) == 1 {
 			http.Error(w, "try again", http.StatusBadGateway)
 			return
@@ -271,7 +271,7 @@ func TestHTTPClientRetriesTransientFailure(t *testing.T) {
 }
 
 func TestHTTPClientReturnsErrorAfterRetries(t *testing.T) {
-	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		http.Error(w, "nope", http.StatusBadGateway)
 	}))
 	defer server.Close()
@@ -290,7 +290,7 @@ func TestHTTPClientReturnsErrorAfterRetries(t *testing.T) {
 
 func TestHTTPClientClassifiesRateLimitAndParseErrors(t *testing.T) {
 	t.Run("rate limit", func(t *testing.T) {
-		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 			http.Error(w, "slow down", http.StatusTooManyRequests)
 		}))
 		defer server.Close()
@@ -304,7 +304,7 @@ func TestHTTPClientClassifiesRateLimitAndParseErrors(t *testing.T) {
 	})
 
 	t.Run("parse error", func(t *testing.T) {
-		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 			_, _ = w.Write([]byte(`not-json`))
 		}))
 		defer server.Close()
@@ -321,7 +321,7 @@ func TestHTTPClientClassifiesRateLimitAndParseErrors(t *testing.T) {
 func TestHTTPClientConcurrencyLimit(t *testing.T) {
 	var inFlight atomic.Int32
 	var maxSeen atomic.Int32
-	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		current := inFlight.Add(1)
 		for {
 			previous := maxSeen.Load()
@@ -354,7 +354,7 @@ func TestHTTPClientConcurrencyLimit(t *testing.T) {
 }
 
 func TestHTTPClientContextCancellation(t *testing.T) {
-	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		time.Sleep(50 * time.Millisecond)
 		_ = json.NewEncoder(w).Encode(map[string]string{"status": "late"})
 	}))

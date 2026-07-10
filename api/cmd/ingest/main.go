@@ -36,6 +36,12 @@ type enrichmentService interface {
 }
 
 func main() {
+	if err := runCLI(); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func runCLI() error {
 	var (
 		bootstrap        = flag.Bool("bootstrap", false, "seed the catalog from the legacy quotes.json file")
 		allArtists       = flag.Bool("all", false, "enrich all artists currently in the catalog")
@@ -67,13 +73,14 @@ func main() {
 	}
 	store, err := catalog.Open(opts.catalogPath)
 	if err != nil {
-		log.Fatalf("open catalog: %v", err)
+		return fmt.Errorf("open catalog: %w", err)
 	}
 	defer store.Close()
 
 	if err := run(ctx, opts, store, providers.NewService(store, nil)); err != nil {
-		log.Fatalf("ingest catalog: %v", err)
+		return fmt.Errorf("ingest catalog: %w", err)
 	}
+	return nil
 }
 
 func run(ctx context.Context, opts options, store *catalog.Store, service enrichmentService) error {

@@ -160,7 +160,7 @@ func TestImportLineageBundleLifecycle(t *testing.T) {
 	}
 
 	bundlePath := filepath.Join(tempDir, "samples.json")
-	if err := os.WriteFile(bundlePath, []byte(`[]`), 0o644); err != nil {
+	if err := os.WriteFile(bundlePath, []byte(`[]`), 0o600); err != nil {
 		t.Fatalf("write bundle fixture: %v", err)
 	}
 	seedCalled := false
@@ -292,7 +292,7 @@ func TestRunRecoversFromFailedCuratedImportWithoutDuplicatingCatalog(t *testing.
 	ctx := context.Background()
 	legacyPath := testutil.WriteLegacyQuotes(t, tempDir)
 	badCuratedPath := filepath.Join(tempDir, "bad_curated.json")
-	if err := os.WriteFile(badCuratedPath, []byte(`{"not":"an array"}`), 0o644); err != nil {
+	if err := os.WriteFile(badCuratedPath, []byte(`{"not":"an array"}`), 0o600); err != nil {
 		t.Fatalf("write bad curated bundle: %v", err)
 	}
 	failedOpts := options{

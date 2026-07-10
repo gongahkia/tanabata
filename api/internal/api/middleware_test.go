@@ -168,7 +168,11 @@ func TestRateLimitExemptPathsUnderSaturation(t *testing.T) {
 	if err != nil {
 		t.Fatalf("telemetry: %v", err)
 	}
-	defer telemetry.Shutdown(context.Background())
+	t.Cleanup(func() {
+		if err := telemetry.Shutdown(context.Background()); err != nil {
+			t.Fatalf("telemetry shutdown: %v", err)
+		}
+	})
 	server.telemetry = telemetry
 	router := server.Router()
 
@@ -280,7 +284,7 @@ func TestRecoveryMiddlewareReturnsStructuredError(t *testing.T) {
 	router.Use(server.structuredLogger())
 	router.Use(requestBodyLimitMiddleware())
 	router.Use(server.recoveryMiddleware())
-	router.GET("/panic", func(c *gin.Context) {
+	router.GET("/panic", func(_ *gin.Context) {
 		panic("boom")
 	})
 

@@ -40,7 +40,7 @@ func writeBenchmarkJSON(b *testing.B, path string, payload any) string {
 	if err != nil {
 		b.Fatalf("Marshal(%s) error = %v", path, err)
 	}
-	if err := os.WriteFile(path, content, 0o644); err != nil {
+	if err := os.WriteFile(path, content, 0o600); err != nil {
 		b.Fatalf("WriteFile(%s) error = %v", path, err)
 	}
 	return path

@@ -733,7 +733,7 @@ func (s *Store) recordCuratedEvidence(ctx context.Context, claimID string, items
 
 // decodeJSONFile is a small helper for reading typed seed bundles.
 func decodeJSONFile[T any](path string) ([]T, error) {
-	content, err := os.ReadFile(path)
+	content, err := os.ReadFile(path) // #nosec G304 -- caller-provided seed bundle path
 	if err != nil {
 		return nil, fmt.Errorf("read %s: %w", path, err)
 	}

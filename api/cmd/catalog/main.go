@@ -38,10 +38,10 @@ func main() {
 }
 
 func backupCatalog(sourcePath, destinationPath string) (err error) {
-	if err := os.MkdirAll(filepath.Dir(destinationPath), 0o755); err != nil {
+	if err := os.MkdirAll(filepath.Dir(destinationPath), 0o750); err != nil {
 		return err
 	}
-	source, err := os.Open(sourcePath)
+	source, err := os.Open(sourcePath) // #nosec G304 -- caller-provided backup source path
 	if err != nil {
 		return err
 	}
@@ -51,7 +51,7 @@ func backupCatalog(sourcePath, destinationPath string) (err error) {
 		}
 	}()
 
-	destination, err := os.Create(destinationPath)
+	destination, err := os.OpenFile(destinationPath, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0o600) // #nosec G304 -- caller-provided backup target path
 	if err != nil {
 		return err
 	}
@@ -91,8 +91,8 @@ func exportCatalog(ctx context.Context, catalogPath, destinationPath string) err
 	if err != nil {
 		return err
 	}
-	if err := os.MkdirAll(filepath.Dir(destinationPath), 0o755); err != nil {
+	if err := os.MkdirAll(filepath.Dir(destinationPath), 0o750); err != nil {
 		return err
 	}
-	return os.WriteFile(destinationPath, append(content, '\n'), 0o644)
+	return os.WriteFile(destinationPath, append(content, '\n'), 0o600)
 }
