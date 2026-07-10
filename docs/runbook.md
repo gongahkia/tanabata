@@ -97,6 +97,12 @@ Run the compose smoke test:
 
 Both checks wait for readiness and verify core backend surfaces.
 
+The base Compose file uses a named `catalog-data` volume at `/app/data` to avoid host/catalog write races. For local data hacking, use the dev override to restore the bind mount:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build api
+```
+
 ## Contract Checks
 
 The OpenAPI spec is the backend contract source of truth:

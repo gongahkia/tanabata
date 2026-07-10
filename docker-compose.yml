@@ -10,6 +10,16 @@ services:
       CATALOG_PATH: /app/data/catalog.sqlite
       PORT: "8080"
     volumes:
-      - ./api/data:/app/data
+      - catalog-data:/app/data
     ports:
       - "18080:8080"
+    restart: on-failure:5
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/readyz"]
+      interval: 10s
+      timeout: 3s
+      start_period: 10s
+      retries: 5
+
+volumes:
+  catalog-data:
