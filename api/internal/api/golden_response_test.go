@@ -156,6 +156,12 @@ func normalizeGoldenValue(value any, key string) any {
 		}
 		return typed
 	case string:
+		if key == "freshness_status" {
+			return "<freshness_status>"
+		}
+		if key == "freshness_reason" {
+			return "<freshness_reason>"
+		}
 		if shouldRedactGoldenTimestamp(key, typed) {
 			return "<timestamp>"
 		}
