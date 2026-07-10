@@ -1,9 +1,13 @@
 package catalog
 
 import (
+	"bytes"
 	"context"
+	"fmt"
+	"log/slog"
 	"path/filepath"
 	"strings"
+	"sync"
 	"testing"
 	"time"
 
@@ -105,6 +109,94 @@ func TestSchemaMigrationsAreRecordedAndIdempotent(t *testing.T) {
 	}
 	if strings.Join(reopenedMigrations, ",") != strings.Join(migrations, ",") {
 		t.Fatalf("migrations changed after reopen: before=%+v after=%+v", migrations, reopenedMigrations)
+	}
+}
+
+func TestOpenConfiguresSQLitePragmas(t *testing.T) {
+	tempDir := t.TempDir()
+	dbPath := filepath.Join(tempDir, "catalog.sqlite")
+	store, err := Open(dbPath)
+	if err != nil {
+		t.Fatalf("Open() error = %v", err)
+	}
+	defer store.Close()
+	ctx := context.Background()
+	pragmas, err := resolvedSQLitePragmas(ctx, store.db)
+	if err != nil {
+		t.Fatalf("resolvedSQLitePragmas() error = %v", err)
+	}
+	if pragmas.journalMode != "wal" {
+		t.Fatalf("journal_mode = %q, want wal", pragmas.journalMode)
+	}
+	if pragmas.busyTimeout != 5000 {
+		t.Fatalf("busy_timeout = %d, want 5000", pragmas.busyTimeout)
+	}
+	if pragmas.foreignKeys != 1 {
+		t.Fatalf("foreign_keys = %d, want 1", pragmas.foreignKeys)
+	}
+	if pragmas.synchronous != 1 {
+		t.Fatalf("synchronous = %d, want 1", pragmas.synchronous)
+	}
+	if pragmas.tempStore != 2 {
+		t.Fatalf("temp_store = %d, want 2", pragmas.tempStore)
+	}
+}
+
+func TestOpenLogsSQLitePragmas(t *testing.T) {
+	var logs bytes.Buffer
+	previous := slog.Default()
+	slog.SetDefault(slog.New(slog.NewTextHandler(&logs, nil)))
+	defer slog.SetDefault(previous)
+
+	store, err := Open(filepath.Join(t.TempDir(), "catalog.sqlite"))
+	if err != nil {
+		t.Fatalf("Open() error = %v", err)
+	}
+	defer store.Close()
+	output := logs.String()
+	for _, field := range []string{"sqlite_pragmas_configured", "journal_mode=wal", "busy_timeout=5000", "foreign_keys=1", "synchronous=1", "temp_store=2", "max_open_conns=1"} {
+		if !strings.Contains(output, field) {
+			t.Fatalf("startup log missing %q: %s", field, output)
+		}
+	}
+}
+
+func TestConcurrentUpsertArtistDoesNotLock(t *testing.T) {
+	store, err := Open(filepath.Join(t.TempDir(), "catalog.sqlite"))
+	if err != nil {
+		t.Fatalf("Open() error = %v", err)
+	}
+	defer store.Close()
+	ctx := context.Background()
+	var wg sync.WaitGroup
+	errs := make(chan error, 32)
+	for idx := range 32 {
+		wg.Add(1)
+		go func(idx int) {
+			defer wg.Done()
+			name := fmt.Sprintf("Concurrent Artist %02d", idx)
+			for range 20 {
+				if err := store.UpsertArtist(ctx, models.Artist{
+					ArtistID: search.ArtistID(name, ""),
+					Name:     name,
+					Aliases:  []string{name},
+					ProviderStatus: map[string]string{
+						"test": "concurrent",
+					},
+				}); err != nil {
+					errs <- err
+					return
+				}
+			}
+		}(idx)
+	}
+	wg.Wait()
+	close(errs)
+	for err := range errs {
+		if strings.Contains(strings.ToLower(err.Error()), "database is locked") {
+			t.Fatalf("concurrent upsert locked database: %v", err)
+		}
+		t.Fatalf("concurrent upsert error: %v", err)
 	}
 }
 

@@ -111,19 +111,30 @@ func (s *Store) ListRecordings(ctx context.Context, filters models.RecordingFilt
 	if err != nil {
 		return response, err
 	}
-	defer rows.Close()
+	recordings := []models.Recording{}
 	for rows.Next() {
 		recording, err := scanRecording(rows)
 		if err != nil {
+			_ = rows.Close()
 			return response, err
 		}
-		if err := s.hydrateRecordingDegrees(ctx, &recording); err != nil {
-			return response, err
-		}
-		response.Data = append(response.Data, recording)
+		recordings = append(recordings, recording)
 	}
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return response, err
+	}
+	if err := rows.Close(); err != nil {
+		return response, err
+	}
+	for idx := range recordings {
+		if err := s.hydrateRecordingDegrees(ctx, &recordings[idx]); err != nil {
+			return response, err
+		}
+	}
+	response.Data = recordings
 	response.Pagination = models.Pagination{Limit: limit, Offset: offset, Total: total}
-	return response, rows.Err()
+	return response, nil
 }
 
 // ArtistRecordings lists every recording for an artist (used by /v1/artists/{id}/recordings).
@@ -207,17 +218,28 @@ func (s *Store) rebuildRecordingSearch(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	defer rows.Close()
+	ids := []string{}
 	for rows.Next() {
 		var id string
 		if err := rows.Scan(&id); err != nil {
+			_ = rows.Close()
 			return err
 		}
+		ids = append(ids, id)
+	}
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return err
+	}
+	if err := rows.Close(); err != nil {
+		return err
+	}
+	for _, id := range ids {
 		if err := s.syncRecordingSearch(ctx, id); err != nil {
 			return err
 		}
 	}
-	return rows.Err()
+	return nil
 }
 
 // ResolveRecordingByTitle finds a recording by artist + title, optionally creating it.

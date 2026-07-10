@@ -174,22 +174,31 @@ func (s *Store) ClaimEvidence(ctx context.Context, claimID string) ([]models.Cla
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
 	evidence := []models.ClaimEvidence{}
 	for rows.Next() {
 		ev := models.ClaimEvidence{}
 		var supports int
 		if err := rows.Scan(&ev.EvidenceID, &ev.ClaimID, &supports, &ev.SourceID,
 			&ev.Excerpt, &ev.SourceURL, &ev.ArchivedURL, &ev.EvidenceKind, &ev.Weight, &ev.RecordedAt); err != nil {
+			_ = rows.Close()
 			return nil, err
 		}
 		ev.Supports = supports == 1
-		if ev.SourceID != "" {
-			ev.Source, _ = s.SourceByID(ctx, ev.SourceID)
-		}
 		evidence = append(evidence, ev)
 	}
-	return evidence, rows.Err()
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return nil, err
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	for idx := range evidence {
+		if evidence[idx].SourceID != "" {
+			evidence[idx].Source, _ = s.SourceByID(ctx, evidence[idx].SourceID)
+		}
+	}
+	return evidence, nil
 }
 
 // ListClaims paginates claims with filters.
@@ -227,20 +236,31 @@ func (s *Store) ListClaims(ctx context.Context, filters models.ClaimFilters) (mo
 	if err != nil {
 		return response, err
 	}
-	defer rows.Close()
+	claims := []models.Claim{}
 	for rows.Next() {
 		claim := models.Claim{}
 		if err := scanClaim(rows, &claim); err != nil {
+			_ = rows.Close()
 			return response, err
 		}
-		claim.SupportingCount, claim.RefutingCount, err = s.evidenceCounts(ctx, claim.ClaimID)
+		claims = append(claims, claim)
+	}
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return response, err
+	}
+	if err := rows.Close(); err != nil {
+		return response, err
+	}
+	for idx := range claims {
+		claims[idx].SupportingCount, claims[idx].RefutingCount, err = s.evidenceCounts(ctx, claims[idx].ClaimID)
 		if err != nil {
 			return response, err
 		}
-		response.Data = append(response.Data, claim)
 	}
+	response.Data = claims
 	response.Pagination = models.Pagination{Limit: limit, Offset: offset, Total: total}
-	return response, rows.Err()
+	return response, nil
 }
 
 // Disputes returns claims whose status indicates contested provenance.
@@ -254,26 +274,37 @@ func (s *Store) Disputes(ctx context.Context, limit int) ([]models.Dispute, erro
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
-	disputes := []models.Dispute{}
+	claims := []models.Claim{}
 	for rows.Next() {
 		claim := models.Claim{}
 		if err := scanClaim(rows, &claim); err != nil {
+			_ = rows.Close()
 			return nil, err
 		}
-		claim.SupportingCount, claim.RefutingCount, err = s.evidenceCounts(ctx, claim.ClaimID)
+		claims = append(claims, claim)
+	}
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return nil, err
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	disputes := []models.Dispute{}
+	for idx := range claims {
+		claims[idx].SupportingCount, claims[idx].RefutingCount, err = s.evidenceCounts(ctx, claims[idx].ClaimID)
 		if err != nil {
 			return nil, err
 		}
-		subjectLabel, objectLabel := s.describeClaim(ctx, claim)
+		subjectLabel, objectLabel := s.describeClaim(ctx, claims[idx])
 		disputes = append(disputes, models.Dispute{
-			Claim:            claim,
+			Claim:            claims[idx],
 			SubjectLabel:     subjectLabel,
 			ObjectLabel:      objectLabel,
-			HumanDescription: humanizeDispute(claim, subjectLabel, objectLabel),
+			HumanDescription: humanizeDispute(claims[idx], subjectLabel, objectLabel),
 		})
 	}
-	return disputes, rows.Err()
+	return disputes, nil
 }
 
 // QuoteLineage assembles all evidence and rivals for a quote attribution.
@@ -302,25 +333,36 @@ func (s *Store) QuoteLineage(ctx context.Context, quoteID string) (*models.Quote
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	claims := []models.Claim{}
 	for rows.Next() {
 		claim := models.Claim{}
 		if err := scanClaim(rows, &claim); err != nil {
+			_ = rows.Close()
 			return nil, err
 		}
-		claim.Evidence, err = s.ClaimEvidence(ctx, claim.ClaimID)
+		claims = append(claims, claim)
+	}
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return nil, err
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	for idx := range claims {
+		claims[idx].Evidence, err = s.ClaimEvidence(ctx, claims[idx].ClaimID)
 		if err != nil {
 			return nil, err
 		}
-		for _, ev := range claim.Evidence {
+		for _, ev := range claims[idx].Evidence {
 			if ev.Supports {
 				lineage.Supporting = append(lineage.Supporting, ev)
 			} else {
 				lineage.Refuting = append(lineage.Refuting, ev)
 			}
 		}
-		if claim.ObjectType == "artist" && claim.ObjectID != quote.ArtistID {
-			lineage.RivalClaims = append(lineage.RivalClaims, claim)
+		if claims[idx].ObjectType == "artist" && claims[idx].ObjectID != quote.ArtistID {
+			lineage.RivalClaims = append(lineage.RivalClaims, claims[idx])
 		}
 	}
 	for _, ev := range lineage.Supporting {
