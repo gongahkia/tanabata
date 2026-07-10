@@ -1,0 +1,47 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-added-large-files
+
+  - repo: local
+    hooks:
+      - id: gofmt
+        name: gofmt
+        entry: gofmt -w
+        language: system
+        types: [go]
+
+      - id: goimports
+        name: goimports
+        entry: goimports -w
+        language: golang
+        types: [go]
+        additional_dependencies:
+          - golang.org/x/tools/cmd/goimports@v0.28.0
+
+      - id: golangci-lint
+        name: golangci-lint
+        entry: bash -c 'cd api && golangci-lint run ./...'
+        language: system
+        pass_filenames: false
+        types: [go]
+
+      - id: yamllint
+        name: yamllint
+        entry: yamllint
+        language: python
+        args:
+          - -d
+          - "{extends: default, rules: {document-start: disable, truthy: disable, line-length: disable}}"
+        files: ^(\.github/.*\.ya?ml|docker-compose.*\.ya?ml)$
+        additional_dependencies:
+          - yamllint==1.35.1
+
+      - id: shellcheck
+        name: shellcheck
+        entry: shellcheck
+        language: system
+        files: ^scripts/.*\.sh$
