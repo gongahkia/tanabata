@@ -10,6 +10,21 @@ import (
 	"github.com/google/uuid"
 )
 
+type namedMiddleware struct {
+	name    string
+	handler gin.HandlerFunc
+}
+
+func (s *Server) middlewareChain() []namedMiddleware {
+	return []namedMiddleware{
+		{name: "request-id", handler: requestIDMiddleware()},
+		{name: "ratelimit", handler: s.rateLimitMiddleware()},
+		{name: "cors", handler: s.corsMiddleware()},
+		{name: "logger", handler: s.structuredLogger()},
+		{name: "recovery", handler: s.recoveryMiddleware()},
+	}
+}
+
 func requestIDMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		requestID := c.GetHeader("X-Request-ID")
