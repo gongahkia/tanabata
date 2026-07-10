@@ -12,7 +12,7 @@ async def scrape_quotes():
     print("Scraping quotes...")
     artists = [
         "kendrick-lamar",
-        "tupac-shakur", 
+        "tupac-shakur",
         "eminem",
         "taylor-swift",
         "bob-dylan",

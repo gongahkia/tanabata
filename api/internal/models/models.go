@@ -388,24 +388,24 @@ type PerformanceStats struct {
 
 // Claim is the unifying provenance unit across all five feature families.
 type Claim struct {
-	ClaimID          string                `json:"claim_id"`
-	Kind             string                `json:"kind"`
-	SubjectType      string                `json:"subject_type"`
-	SubjectID        string                `json:"subject_id"`
-	ObjectType       string                `json:"object_type"`
-	ObjectID         string                `json:"object_id"`
-	Relation         string                `json:"relation,omitempty"`
-	Status           string                `json:"status"`
-	ConfidenceScore  float64               `json:"confidence_score"`
-	ProviderOrigin   string                `json:"provider_origin,omitempty"`
-	SourceID         string                `json:"source_id,omitempty"`
-	AssertedAt       string                `json:"asserted_at"`
-	LastVerifiedAt   string                `json:"last_verified_at,omitempty"`
-	Notes            string                `json:"notes,omitempty"`
-	Source           *Source               `json:"source,omitempty"`
-	SupportingCount  int                   `json:"supporting_evidence_count"`
-	RefutingCount    int                   `json:"refuting_evidence_count"`
-	Evidence         []ClaimEvidence       `json:"evidence,omitempty"`
+	ClaimID         string          `json:"claim_id"`
+	Kind            string          `json:"kind"`
+	SubjectType     string          `json:"subject_type"`
+	SubjectID       string          `json:"subject_id"`
+	ObjectType      string          `json:"object_type"`
+	ObjectID        string          `json:"object_id"`
+	Relation        string          `json:"relation,omitempty"`
+	Status          string          `json:"status"`
+	ConfidenceScore float64         `json:"confidence_score"`
+	ProviderOrigin  string          `json:"provider_origin,omitempty"`
+	SourceID        string          `json:"source_id,omitempty"`
+	AssertedAt      string          `json:"asserted_at"`
+	LastVerifiedAt  string          `json:"last_verified_at,omitempty"`
+	Notes           string          `json:"notes,omitempty"`
+	Source          *Source         `json:"source,omitempty"`
+	SupportingCount int             `json:"supporting_evidence_count"`
+	RefutingCount   int             `json:"refuting_evidence_count"`
+	Evidence        []ClaimEvidence `json:"evidence,omitempty"`
 }
 
 // ClaimView is an embedded snapshot of the claim attached to relationship rows.
@@ -491,12 +491,12 @@ type SampleFilters struct {
 }
 
 type PerformanceFilters struct {
-	ArtistID  string
-	WorkID    string
-	Year      string
-	Limit     int
-	Offset    int
-	Sort      string
+	ArtistID string
+	WorkID   string
+	Year     string
+	Limit    int
+	Offset   int
+	Sort     string
 }
 
 type ClaimFilters struct {
@@ -509,21 +509,21 @@ type ClaimFilters struct {
 // Curated bundles for ingestion.
 
 type CuratedSampleRecord struct {
-	SourceArtistName     string  `json:"source_artist_name"`
-	SourceTrackTitle     string  `json:"source_track_title"`
-	SourceReleasedYear   string  `json:"source_released_year,omitempty"`
-	DerivativeArtistName string  `json:"derivative_artist_name"`
-	DerivativeTrackTitle string  `json:"derivative_track_title"`
-	DerivativeReleasedYear string `json:"derivative_released_year,omitempty"`
-	Kind                 string  `json:"kind"`
-	SourceOffsetMs       int     `json:"source_offset_ms,omitempty"`
-	DerivativeOffsetMs   int     `json:"derivative_offset_ms,omitempty"`
-	DurationMs           int     `json:"duration_ms,omitempty"`
-	Notes                string  `json:"notes,omitempty"`
-	Status               string  `json:"status"`
-	ConfidenceScore      float64 `json:"confidence_score"`
-	ProviderOrigin       string  `json:"provider_origin,omitempty"`
-	Evidence             []CuratedEvidence `json:"evidence,omitempty"`
+	SourceArtistName       string            `json:"source_artist_name"`
+	SourceTrackTitle       string            `json:"source_track_title"`
+	SourceReleasedYear     string            `json:"source_released_year,omitempty"`
+	DerivativeArtistName   string            `json:"derivative_artist_name"`
+	DerivativeTrackTitle   string            `json:"derivative_track_title"`
+	DerivativeReleasedYear string            `json:"derivative_released_year,omitempty"`
+	Kind                   string            `json:"kind"`
+	SourceOffsetMs         int               `json:"source_offset_ms,omitempty"`
+	DerivativeOffsetMs     int               `json:"derivative_offset_ms,omitempty"`
+	DurationMs             int               `json:"duration_ms,omitempty"`
+	Notes                  string            `json:"notes,omitempty"`
+	Status                 string            `json:"status"`
+	ConfidenceScore        float64           `json:"confidence_score"`
+	ProviderOrigin         string            `json:"provider_origin,omitempty"`
+	Evidence               []CuratedEvidence `json:"evidence,omitempty"`
 }
 
 type CuratedWorkRecord struct {
@@ -538,66 +538,66 @@ type CuratedWorkRecord struct {
 }
 
 type CuratedCreditRecord struct {
-	CreditedName string            `json:"credited_name"`
-	Role         string            `json:"role"`
-	IsDisputed   bool              `json:"is_disputed,omitempty"`
-	Notes        string            `json:"notes,omitempty"`
-	Status       string            `json:"status"`
-	ConfidenceScore float64        `json:"confidence_score"`
-	ProviderOrigin string           `json:"provider_origin,omitempty"`
-	Evidence     []CuratedEvidence `json:"evidence,omitempty"`
+	CreditedName    string            `json:"credited_name"`
+	Role            string            `json:"role"`
+	IsDisputed      bool              `json:"is_disputed,omitempty"`
+	Notes           string            `json:"notes,omitempty"`
+	Status          string            `json:"status"`
+	ConfidenceScore float64           `json:"confidence_score"`
+	ProviderOrigin  string            `json:"provider_origin,omitempty"`
+	Evidence        []CuratedEvidence `json:"evidence,omitempty"`
 }
 
 type CuratedCoverRecord struct {
-	ArtistName     string            `json:"artist_name"`
-	RecordingTitle string            `json:"recording_title,omitempty"`
-	ReleasedYear   string            `json:"released_year,omitempty"`
-	IsOriginal     bool              `json:"is_original,omitempty"`
-	Notes          string            `json:"notes,omitempty"`
-	Status         string            `json:"status"`
-	ConfidenceScore float64          `json:"confidence_score"`
-	ProviderOrigin string             `json:"provider_origin,omitempty"`
-	Evidence       []CuratedEvidence `json:"evidence,omitempty"`
+	ArtistName      string            `json:"artist_name"`
+	RecordingTitle  string            `json:"recording_title,omitempty"`
+	ReleasedYear    string            `json:"released_year,omitempty"`
+	IsOriginal      bool              `json:"is_original,omitempty"`
+	Notes           string            `json:"notes,omitempty"`
+	Status          string            `json:"status"`
+	ConfidenceScore float64           `json:"confidence_score"`
+	ProviderOrigin  string            `json:"provider_origin,omitempty"`
+	Evidence        []CuratedEvidence `json:"evidence,omitempty"`
 }
 
 type CuratedPerformanceRecord struct {
-	ArtistName    string            `json:"artist_name"`
-	WorkTitle     string            `json:"work_title,omitempty"`
-	EventName     string            `json:"event_name,omitempty"`
-	Venue         string            `json:"venue,omitempty"`
-	City          string            `json:"city,omitempty"`
-	Country       string            `json:"country,omitempty"`
-	PerformedAt   string            `json:"performed_at"`
-	PositionInSet int               `json:"position_in_set,omitempty"`
-	SetlistFMID   string            `json:"setlistfm_id,omitempty"`
-	Notes         string            `json:"notes,omitempty"`
-	Status        string            `json:"status"`
-	ConfidenceScore float64         `json:"confidence_score"`
-	ProviderOrigin string            `json:"provider_origin,omitempty"`
-	Evidence      []CuratedEvidence `json:"evidence,omitempty"`
+	ArtistName      string            `json:"artist_name"`
+	WorkTitle       string            `json:"work_title,omitempty"`
+	EventName       string            `json:"event_name,omitempty"`
+	Venue           string            `json:"venue,omitempty"`
+	City            string            `json:"city,omitempty"`
+	Country         string            `json:"country,omitempty"`
+	PerformedAt     string            `json:"performed_at"`
+	PositionInSet   int               `json:"position_in_set,omitempty"`
+	SetlistFMID     string            `json:"setlistfm_id,omitempty"`
+	Notes           string            `json:"notes,omitempty"`
+	Status          string            `json:"status"`
+	ConfidenceScore float64           `json:"confidence_score"`
+	ProviderOrigin  string            `json:"provider_origin,omitempty"`
+	Evidence        []CuratedEvidence `json:"evidence,omitempty"`
 }
 
 type CuratedMisquoteRecord struct {
-	AttributedToName  string            `json:"attributed_to_name"`
-	Text              string            `json:"text"`
-	Tags              []string          `json:"tags,omitempty"`
-	Status            string            `json:"status"`
-	ConfidenceScore   float64           `json:"confidence_score"`
-	ProviderOrigin    string            `json:"provider_origin,omitempty"`
-	License           string            `json:"license,omitempty"`
-	Notes             string            `json:"notes,omitempty"`
+	AttributedToName   string            `json:"attributed_to_name"`
+	Text               string            `json:"text"`
+	Tags               []string          `json:"tags,omitempty"`
+	Status             string            `json:"status"`
+	ConfidenceScore    float64           `json:"confidence_score"`
+	ProviderOrigin     string            `json:"provider_origin,omitempty"`
+	License            string            `json:"license,omitempty"`
+	Notes              string            `json:"notes,omitempty"`
 	SupportingEvidence []CuratedEvidence `json:"supporting_evidence,omitempty"`
 	RefutingEvidence   []CuratedEvidence `json:"refuting_evidence,omitempty"`
-	ActuallySaidByName string           `json:"actually_said_by_name,omitempty"`
+	ActuallySaidByName string            `json:"actually_said_by_name,omitempty"`
 }
 
 type CuratedEvidence struct {
-	Excerpt      string `json:"excerpt"`
-	SourceURL    string `json:"source_url,omitempty"`
-	ArchivedURL  string `json:"archived_url,omitempty"`
-	EvidenceKind string `json:"evidence_kind,omitempty"`
+	Excerpt      string  `json:"excerpt"`
+	SourceURL    string  `json:"source_url,omitempty"`
+	ArchivedURL  string  `json:"archived_url,omitempty"`
+	EvidenceKind string  `json:"evidence_kind,omitempty"`
 	Weight       float64 `json:"weight,omitempty"`
-	RecordedAt   string `json:"recorded_at,omitempty"`
-	Publisher    string `json:"publisher,omitempty"`
-	License      string `json:"license,omitempty"`
+	RecordedAt   string  `json:"recorded_at,omitempty"`
+	Publisher    string  `json:"publisher,omitempty"`
+	License      string  `json:"license,omitempty"`
 }
