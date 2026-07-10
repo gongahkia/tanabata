@@ -11,6 +11,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/gongahkia/tanabata/api/internal/buildinfo"
 	"github.com/gongahkia/tanabata/api/internal/catalog"
 	"github.com/gongahkia/tanabata/api/internal/models"
 	"github.com/gongahkia/tanabata/api/internal/providers"
@@ -115,6 +116,27 @@ func TestReadinessFailureReturnsCheckData(t *testing.T) {
 	}
 	if strings.Contains(recorder.Body.String(), "error") {
 		t.Fatalf("/readyz failure response includes error envelope: %s", recorder.Body.String())
+	}
+}
+
+func TestVersionEndpoint(t *testing.T) {
+	server, store := seededServer(t)
+	defer store.Close()
+
+	recorder := httptest.NewRecorder()
+	server.Router().ServeHTTP(recorder, httptest.NewRequest(http.MethodGet, "/v1/version", nil))
+	if recorder.Code != http.StatusOK {
+		t.Fatalf("/v1/version status = %d, want 200 body=%s", recorder.Code, recorder.Body.String())
+	}
+	var response models.APIResponse[buildinfo.Metadata]
+	if err := json.Unmarshal(recorder.Body.Bytes(), &response); err != nil {
+		t.Fatalf("decode /v1/version response: %v", err)
+	}
+	if response.Data.Version == "" || response.Data.Commit == "" || response.Data.BuildDate == "" {
+		t.Fatalf("incomplete version response: %+v", response.Data)
+	}
+	if !strings.Contains(recorder.Body.String(), `"meta":null`) {
+		t.Fatalf("/v1/version response missing meta:null body=%s", recorder.Body.String())
 	}
 }
 
