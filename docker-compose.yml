@@ -5,6 +5,7 @@ services:
       args:
         VERSION: ${VERSION:-dev}
         COMMIT: ${COMMIT:-unknown}
+        REVISION: ${REVISION:-unknown}
         BUILD_DATE: ${BUILD_DATE:-unknown}
     environment:
       CATALOG_PATH: /app/data/catalog.sqlite
