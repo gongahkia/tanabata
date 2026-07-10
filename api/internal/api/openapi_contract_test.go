@@ -179,6 +179,7 @@ func TestOpenAPIContractRuntimeResponses(t *testing.T) {
 		{name: "stats", path: "/v1/stats"},
 		{name: "integrity", path: "/v1/integrity"},
 		{name: "lyrics", path: "/v1/lyrics?artist=Coldplay&track=Yellow&provider=lrclib"},
+		{name: "version", path: "/v1/version"},
 	}
 
 	if err := store.SetProviderCache(ctx, "lrclib", "lyrics", search.StableHash("coldplay", "yellow"), `{"provider":"lrclib","artist":"Coldplay","track":"Yellow","lyrics":"Look at the stars","source_url":"https://lrclib.net"}`, time.Hour); err != nil {

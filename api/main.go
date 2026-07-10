@@ -2,6 +2,8 @@ package main
 
 import (
 	"context"
+	"flag"
+	"fmt"
 	"log"
 	"os"
 	"os/signal"
@@ -10,11 +12,19 @@ import (
 	"time"
 
 	httpapi "github.com/gongahkia/tanabata/api/internal/api"
+	"github.com/gongahkia/tanabata/api/internal/buildinfo"
 	"github.com/gongahkia/tanabata/api/internal/catalog"
 	"github.com/gongahkia/tanabata/api/internal/observability"
 )
 
 func main() {
+	versionFlag := flag.Bool("version", false, "print build metadata and exit")
+	flag.Parse()
+	if *versionFlag {
+		fmt.Println(buildinfo.Summary())
+		return
+	}
+
 	catalogPath := envOrDefault("CATALOG_PATH", filepath.Join("data", "catalog.sqlite"))
 	port := envOrDefault("PORT", "8080")
 

@@ -13,6 +13,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"github.com/gongahkia/tanabata/api/internal/buildinfo"
 	"github.com/gongahkia/tanabata/api/internal/catalog"
 	"github.com/gongahkia/tanabata/api/internal/models"
 	"github.com/gongahkia/tanabata/api/internal/observability"
@@ -131,6 +132,7 @@ func (s *Server) Router() *gin.Engine {
 		v1.GET("/stats", s.stats)
 		v1.GET("/integrity", s.integrity)
 		v1.GET("/lyrics", s.lyrics)
+		v1.GET("/version", s.version)
 	}
 
 	return router
@@ -155,6 +157,16 @@ func (s *Server) health(c *gin.Context) {
 		return
 	}
 	dataResponse(c, http.StatusOK, gin.H{"status": "ok"}, stats)
+}
+
+func (s *Server) version(c *gin.Context) {
+	c.JSON(http.StatusOK, struct {
+		Data buildinfo.Metadata `json:"data"`
+		Meta any                `json:"meta"`
+	}{
+		Data: buildinfo.Current(),
+		Meta: nil,
+	})
 }
 
 func (s *Server) legacyQuotes(c *gin.Context) {

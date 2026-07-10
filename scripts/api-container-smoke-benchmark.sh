@@ -5,13 +5,21 @@ IMAGE="${IMAGE:-tanabata-api:smoke}"
 CONTAINER="${CONTAINER:-tanabata-api-smoke}"
 PORT="${PORT:-8080}"
 BASE_URL="http://127.0.0.1:${PORT}"
+VERSION="${VERSION:-$(git describe --tags --always --dirty)}"
+COMMIT="${COMMIT:-$(git rev-parse --short=12 HEAD)}"
+BUILD_DATE="${BUILD_DATE:-$(date -u +%FT%TZ)}"
 
 cleanup() {
   docker rm -f "${CONTAINER}" >/dev/null 2>&1 || true
 }
 trap cleanup EXIT
 
-docker build -t "${IMAGE}" ./api
+docker build \
+  --build-arg "VERSION=${VERSION}" \
+  --build-arg "COMMIT=${COMMIT}" \
+  --build-arg "BUILD_DATE=${BUILD_DATE}" \
+  -t "${IMAGE}" ./api
+docker run --rm "${IMAGE}" -version | grep -F "Tanabata ${VERSION} (${COMMIT}) built ${BUILD_DATE}" >/dev/null
 cleanup
 docker run -d --name "${CONTAINER}" -p "${PORT}:8080" "${IMAGE}" >/dev/null
 
@@ -34,5 +42,6 @@ benchmark_endpoint() {
 
 benchmark_endpoint "/livez" "livez"
 benchmark_endpoint "/readyz" "readyz"
+benchmark_endpoint "/v1/version" "version"
 benchmark_endpoint "/v1/providers" "providers"
 benchmark_endpoint "/v1/search?q=discipline" "search"

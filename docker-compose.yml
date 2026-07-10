@@ -2,6 +2,10 @@ services:
   api:
     build:
       context: ./api
+      args:
+        VERSION: ${VERSION:-dev}
+        COMMIT: ${COMMIT:-unknown}
+        BUILD_DATE: ${BUILD_DATE:-unknown}
     environment:
       CATALOG_PATH: /app/data/catalog.sqlite
       PORT: "8080"
