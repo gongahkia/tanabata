@@ -1,0 +1,4 @@
+services:
+  api:
+    volumes:
+      - ./api/data:/app/data
