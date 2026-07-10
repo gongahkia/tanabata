@@ -57,23 +57,32 @@ func (s *Store) WorkCredits(ctx context.Context, workID string) ([]models.WorkCr
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
 	credits := []models.WorkCredit{}
 	for rows.Next() {
 		credit := models.WorkCredit{}
 		var disputed int
 		if err := rows.Scan(&credit.CreditID, &credit.WorkID, &credit.CreditedArtistID,
 			&credit.CreditedName, &credit.Role, &disputed, &credit.Notes); err != nil {
+			_ = rows.Close()
 			return nil, err
 		}
 		credit.IsDisputed = disputed == 1
-		credit.Claim, err = s.lookupClaimView(ctx, "credit", "work_credit", credit.CreditID, "work", workID)
+		credits = append(credits, credit)
+	}
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return nil, err
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	for idx := range credits {
+		credits[idx].Claim, err = s.lookupClaimView(ctx, "credit", "work_credit", credits[idx].CreditID, "work", workID)
 		if err != nil {
 			return nil, err
 		}
-		credits = append(credits, credit)
 	}
-	return credits, rows.Err()
+	return credits, nil
 }
 
 // CreditByID returns a single credit row (hydrated). nil if not found.

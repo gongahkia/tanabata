@@ -78,15 +78,31 @@ func (s *Store) sampleEdges(ctx context.Context, where, recordingID string) ([]m
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
 	edges := []models.SampleEdge{}
+	sourceIDs := []string{}
+	derivativeIDs := []string{}
 	for rows.Next() {
 		edge := models.SampleEdge{}
 		var sourceID, derivativeID string
 		if err := rows.Scan(&edge.SampleID, &sourceID, &derivativeID, &edge.Kind,
 			&edge.SourceOffsetMs, &edge.DerivativeOffsetMs, &edge.DurationMs, &edge.Notes); err != nil {
+			_ = rows.Close()
 			return nil, err
 		}
+		edges = append(edges, edge)
+		sourceIDs = append(sourceIDs, sourceID)
+		derivativeIDs = append(derivativeIDs, derivativeID)
+	}
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return nil, err
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	for idx := range edges {
+		sourceID := sourceIDs[idx]
+		derivativeID := derivativeIDs[idx]
 		source, err := s.RecordingByID(ctx, sourceID)
 		if err != nil {
 			return nil, err
@@ -96,18 +112,17 @@ func (s *Store) sampleEdges(ctx context.Context, where, recordingID string) ([]m
 			return nil, err
 		}
 		if source != nil {
-			edge.SourceRecording = *source
+			edges[idx].SourceRecording = *source
 		}
 		if derivative != nil {
-			edge.DerivativeRecording = *derivative
+			edges[idx].DerivativeRecording = *derivative
 		}
-		edge.Claim, err = s.lookupClaimView(ctx, "sample", "recording", derivativeID, "recording", sourceID)
+		edges[idx].Claim, err = s.lookupClaimView(ctx, "sample", "recording", derivativeID, "recording", sourceID)
 		if err != nil {
 			return nil, err
 		}
-		edges = append(edges, edge)
 	}
-	return edges, rows.Err()
+	return edges, nil
 }
 
 // SampleEdgeByID looks up a single sample edge with hydrated recordings + claim view.

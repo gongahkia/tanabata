@@ -140,20 +140,31 @@ func (s *Store) ListWorks(ctx context.Context, filters models.WorkFilters) (mode
 	if err != nil {
 		return response, err
 	}
-	defer rows.Close()
+	works := []models.Work{}
 	for rows.Next() {
 		var work models.Work
 		if err := rows.Scan(&work.WorkID, &work.MBID, &work.Title, &work.ISWC, &work.Language,
 			&work.CreatedYear, &work.PrimaryArtistID, &work.PrimaryArtistName, &work.Notes); err != nil {
+			_ = rows.Close()
 			return response, err
 		}
-		if err := s.hydrateWorkCounts(ctx, &work); err != nil {
-			return response, err
-		}
-		response.Data = append(response.Data, work)
+		works = append(works, work)
 	}
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return response, err
+	}
+	if err := rows.Close(); err != nil {
+		return response, err
+	}
+	for idx := range works {
+		if err := s.hydrateWorkCounts(ctx, &works[idx]); err != nil {
+			return response, err
+		}
+	}
+	response.Data = works
 	response.Pagination = models.Pagination{Limit: limit, Offset: offset, Total: total}
-	return response, rows.Err()
+	return response, nil
 }
 
 // WorkRecordings lists every recording associated with a work, original first.
@@ -173,19 +184,28 @@ func (s *Store) WorkRecordings(ctx context.Context, workID string) ([]models.Rec
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
 	recordings := []models.Recording{}
 	for rows.Next() {
 		recording, err := scanRecording(rows)
 		if err != nil {
-			return nil, err
-		}
-		if err := s.hydrateRecordingDegrees(ctx, &recording); err != nil {
+			_ = rows.Close()
 			return nil, err
 		}
 		recordings = append(recordings, recording)
 	}
-	return recordings, rows.Err()
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return nil, err
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	for idx := range recordings {
+		if err := s.hydrateRecordingDegrees(ctx, &recordings[idx]); err != nil {
+			return nil, err
+		}
+	}
+	return recordings, nil
 }
 
 func (s *Store) syncWorkSearch(ctx context.Context, workID string) error {
@@ -234,17 +254,28 @@ func (s *Store) rebuildWorkSearch(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	defer rows.Close()
+	ids := []string{}
 	for rows.Next() {
 		var workID string
 		if err := rows.Scan(&workID); err != nil {
+			_ = rows.Close()
 			return err
 		}
+		ids = append(ids, workID)
+	}
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return err
+	}
+	if err := rows.Close(); err != nil {
+		return err
+	}
+	for _, workID := range ids {
 		if err := s.syncWorkSearch(ctx, workID); err != nil {
 			return err
 		}
 	}
-	return rows.Err()
+	return nil
 }
 
 // SeedCuratedWorks loads works + nested credits/covers from JSON, recording an audit trail.

@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log/slog"
 	"os"
 	"path/filepath"
 	"sort"
@@ -23,6 +24,7 @@ const snapshotVersionKey = "snapshot_version"
 const activeProvidersKey = "active_providers"
 const quoteFreshnessStaleAfter = 180 * 24 * time.Hour
 const quoteFreshnessAgingAfter = 90 * 24 * time.Hour
+const sqlitePragmaSuffix = "?_pragma=journal_mode(WAL)&_pragma=busy_timeout(5000)&_pragma=foreign_keys(ON)&_pragma=synchronous(NORMAL)&_pragma=temp_store(MEMORY)"
 
 type Store struct {
 	db *sql.DB
@@ -50,9 +52,15 @@ func Open(path string) (*Store, error) {
 	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
 		return nil, fmt.Errorf("create catalog dir: %w", err)
 	}
-	db, err := sql.Open("sqlite", path)
+	db, err := sql.Open("sqlite", sqliteDSN(path))
 	if err != nil {
 		return nil, fmt.Errorf("open sqlite db: %w", err)
+	}
+	db.SetMaxOpenConns(1)
+
+	if err := verifySQLitePragmas(context.Background(), db, path); err != nil {
+		_ = db.Close()
+		return nil, err
 	}
 
 	store := &Store{db: db}
@@ -61,6 +69,71 @@ func Open(path string) (*Store, error) {
 		return nil, err
 	}
 	return store, nil
+}
+
+func sqliteDSN(path string) string {
+	if strings.Contains(path, "?") {
+		return path + "&" + strings.TrimPrefix(sqlitePragmaSuffix, "?")
+	}
+	return path + sqlitePragmaSuffix
+}
+
+func verifySQLitePragmas(ctx context.Context, db *sql.DB, path string) error {
+	pragmas, err := resolvedSQLitePragmas(ctx, db)
+	if err != nil {
+		return err
+	}
+	if pragmas.journalMode != "wal" {
+		if isInMemorySQLitePath(path) {
+			slog.Default().Warn("sqlite_wal_unavailable", "path", path, "journal_mode", pragmas.journalMode)
+		} else {
+			return fmt.Errorf("sqlite WAL unavailable: journal_mode=%s", pragmas.journalMode)
+		}
+	}
+	slog.Default().Info(
+		"sqlite_pragmas_configured",
+		"path", path,
+		"journal_mode", pragmas.journalMode,
+		"busy_timeout", pragmas.busyTimeout,
+		"foreign_keys", pragmas.foreignKeys,
+		"synchronous", pragmas.synchronous,
+		"temp_store", pragmas.tempStore,
+		"max_open_conns", 1,
+	)
+	return nil
+}
+
+type sqlitePragmas struct {
+	journalMode string
+	busyTimeout int
+	foreignKeys int
+	synchronous int
+	tempStore   int
+}
+
+func resolvedSQLitePragmas(ctx context.Context, db *sql.DB) (sqlitePragmas, error) {
+	var pragmas sqlitePragmas
+	if err := db.QueryRowContext(ctx, `PRAGMA journal_mode`).Scan(&pragmas.journalMode); err != nil {
+		return pragmas, fmt.Errorf("read sqlite journal_mode: %w", err)
+	}
+	pragmas.journalMode = strings.ToLower(strings.TrimSpace(pragmas.journalMode))
+	if err := db.QueryRowContext(ctx, `PRAGMA busy_timeout`).Scan(&pragmas.busyTimeout); err != nil {
+		return pragmas, fmt.Errorf("read sqlite busy_timeout: %w", err)
+	}
+	if err := db.QueryRowContext(ctx, `PRAGMA foreign_keys`).Scan(&pragmas.foreignKeys); err != nil {
+		return pragmas, fmt.Errorf("read sqlite foreign_keys: %w", err)
+	}
+	if err := db.QueryRowContext(ctx, `PRAGMA synchronous`).Scan(&pragmas.synchronous); err != nil {
+		return pragmas, fmt.Errorf("read sqlite synchronous: %w", err)
+	}
+	if err := db.QueryRowContext(ctx, `PRAGMA temp_store`).Scan(&pragmas.tempStore); err != nil {
+		return pragmas, fmt.Errorf("read sqlite temp_store: %w", err)
+	}
+	return pragmas, nil
+}
+
+func isInMemorySQLitePath(path string) bool {
+	return path == ":memory:" || strings.Contains(path, "mode=memory")
 }
 
 func (s *Store) Close() error {
@@ -236,7 +309,7 @@ func (s *Store) ensureColumn(ctx context.Context, table, column, ddl string) err
 	if err != nil {
 		return err
 	}
-	defer rows.Close()
+	found := false
 	for rows.Next() {
 		var (
 			cid        int
@@ -247,11 +320,23 @@ func (s *Store) ensureColumn(ctx context.Context, table, column, ddl string) err
 			primaryKey int
 		)
 		if err := rows.Scan(&cid, &name, &colType, &notNull, &defaultV, &primaryKey); err != nil {
+			_ = rows.Close()
 			return err
 		}
 		if name == column {
-			return nil
+			found = true
+			break
 		}
+	}
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return err
+	}
+	if err := rows.Close(); err != nil {
+		return err
+	}
+	if found {
+		return nil
 	}
 	_, err = s.db.ExecContext(ctx, ddl)
 	return err
@@ -524,14 +609,21 @@ func (s *Store) UpdateActiveProviders(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	defer rows.Close()
 	var providers []string
 	for rows.Next() {
 		var provider string
 		if err := rows.Scan(&provider); err != nil {
+			_ = rows.Close()
 			return err
 		}
 		providers = append(providers, provider)
+	}
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return err
+	}
+	if err := rows.Close(); err != nil {
+		return err
 	}
 	sort.Strings(providers)
 	return s.SetMeta(ctx, activeProvidersKey, strings.Join(providers, ","))
@@ -998,15 +1090,29 @@ func (s *Store) ListQuotes(ctx context.Context, filters models.QuoteFilters) (mo
 	if err != nil {
 		return response, err
 	}
-	defer rows.Close()
+	quotes := []models.Quote{}
 	for rows.Next() {
-		quote, err := s.scanQuoteRow(ctx, rows)
+		quote, err := scanQuoteRow(rows)
 		if err != nil {
+			_ = rows.Close()
 			return response, err
 		}
-		response.Data = append(response.Data, quote)
+		quotes = append(quotes, quote)
 	}
-	return response, rows.Err()
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return response, err
+	}
+	if err := rows.Close(); err != nil {
+		return response, err
+	}
+	for idx := range quotes {
+		if err := s.hydrateQuote(ctx, &quotes[idx]); err != nil {
+			return response, err
+		}
+	}
+	response.Data = quotes
+	return response, nil
 }
 
 func (s *Store) RandomQuote(ctx context.Context, filters models.QuoteFilters) (*models.Quote, error) {
@@ -1024,7 +1130,7 @@ func (s *Store) RandomQuote(ctx context.Context, filters models.QuoteFilters) (*
 }
 
 func (s *Store) QuoteByID(ctx context.Context, quoteID string) (*models.Quote, error) {
-	rows, err := s.db.QueryContext(ctx, `
+	row := s.db.QueryRowContext(ctx, `
 		SELECT
 			quotes.quote_id,
 			quotes.text,
@@ -1044,15 +1150,14 @@ func (s *Store) QuoteByID(ctx context.Context, quoteID string) (*models.Quote, e
 		JOIN artists ON artists.artist_id = quotes.artist_id
 		WHERE quotes.quote_id = ?
 	`, quoteID)
+	quote, err := scanQuoteRow(row)
 	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, nil
+		}
 		return nil, err
 	}
-	defer rows.Close()
-	if !rows.Next() {
-		return nil, nil
-	}
-	quote, err := s.scanQuoteRow(ctx, rows)
-	if err != nil {
+	if err := s.hydrateQuote(ctx, &quote); err != nil {
 		return nil, err
 	}
 	return &quote, nil
@@ -1127,15 +1232,29 @@ func (s *Store) ReviewQueue(ctx context.Context, filters models.ReviewQueueFilte
 	if err != nil {
 		return response, err
 	}
-	defer rows.Close()
+	type reviewCandidate struct {
+		quoteID    string
+		status     string
+		confidence float64
+	}
+	candidates := []reviewCandidate{}
 	for rows.Next() {
-		var quoteID string
-		var status string
-		var confidence float64
-		if err := rows.Scan(&quoteID, &status, &confidence); err != nil {
+		var candidate reviewCandidate
+		if err := rows.Scan(&candidate.quoteID, &candidate.status, &candidate.confidence); err != nil {
+			_ = rows.Close()
 			return response, err
 		}
-		quote, err := s.QuoteByID(ctx, quoteID)
+		candidates = append(candidates, candidate)
+	}
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return response, err
+	}
+	if err := rows.Close(); err != nil {
+		return response, err
+	}
+	for _, candidate := range candidates {
+		quote, err := s.QuoteByID(ctx, candidate.quoteID)
 		if err != nil {
 			return response, err
 		}
@@ -1144,11 +1263,11 @@ func (s *Store) ReviewQueue(ctx context.Context, filters models.ReviewQueueFilte
 		}
 		response.Data = append(response.Data, models.ReviewQueueItem{
 			Quote:     *quote,
-			Reason:    reviewReason(status, confidence),
-			RiskScore: reviewRiskScore(status, confidence),
+			Reason:    reviewReason(candidate.status, candidate.confidence),
+			RiskScore: reviewRiskScore(candidate.status, candidate.confidence),
 		})
 	}
-	return response, rows.Err()
+	return response, nil
 }
 
 func (s *Store) StaleQuotes(ctx context.Context, filters models.ReviewQueueFilters) (models.ListResponse[models.Quote], error) {
@@ -1179,12 +1298,23 @@ func (s *Store) StaleQuotes(ctx context.Context, filters models.ReviewQueueFilte
 	if err != nil {
 		return response, err
 	}
-	defer rows.Close()
+	quoteIDs := []string{}
 	for rows.Next() {
 		var quoteID string
 		if err := rows.Scan(&quoteID); err != nil {
+			_ = rows.Close()
 			return response, err
 		}
+		quoteIDs = append(quoteIDs, quoteID)
+	}
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return response, err
+	}
+	if err := rows.Close(); err != nil {
+		return response, err
+	}
+	for _, quoteID := range quoteIDs {
 		quote, err := s.QuoteByID(ctx, quoteID)
 		if err != nil {
 			return response, err
@@ -1193,7 +1323,7 @@ func (s *Store) StaleQuotes(ctx context.Context, filters models.ReviewQueueFilte
 			response.Data = append(response.Data, *quote)
 		}
 	}
-	return response, rows.Err()
+	return response, nil
 }
 
 func reviewReason(status string, confidence float64) string {
@@ -1303,31 +1433,44 @@ func (s *Store) ListArtists(ctx context.Context, filters models.ArtistFilters) (
 	if err != nil {
 		return response, err
 	}
-	defer rows.Close()
+	artists := []models.Artist{}
 	for rows.Next() {
-		artist, err := s.scanArtistRow(ctx, rows)
+		artist, err := scanArtistRow(rows)
 		if err != nil {
+			_ = rows.Close()
 			return response, err
 		}
-		response.Data = append(response.Data, artist)
+		artists = append(artists, artist)
 	}
-	return response, rows.Err()
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return response, err
+	}
+	if err := rows.Close(); err != nil {
+		return response, err
+	}
+	for idx := range artists {
+		if err := s.hydrateArtist(ctx, &artists[idx]); err != nil {
+			return response, err
+		}
+	}
+	response.Data = artists
+	return response, nil
 }
 
 func (s *Store) ArtistByID(ctx context.Context, artistID string) (*models.Artist, error) {
-	rows, err := s.db.QueryContext(ctx, `
+	row := s.db.QueryRowContext(ctx, `
 		SELECT artist_id, name, COALESCE(mbid, ''), COALESCE(wikidata_id, ''), COALESCE(wikiquote_title, ''), COALESCE(country, ''), COALESCE(life_span_begin, ''), COALESCE(life_span_end, ''), COALESCE(description, ''), COALESCE(bio_summary, ''), COALESCE(provider_status, '{}')
 		FROM artists WHERE artist_id = ?
 	`, artistID)
+	artist, err := scanArtistRow(row)
 	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, nil
+		}
 		return nil, err
 	}
-	defer rows.Close()
-	if !rows.Next() {
-		return nil, nil
-	}
-	artist, err := s.scanArtistRow(ctx, rows)
-	if err != nil {
+	if err := s.hydrateArtist(ctx, &artist); err != nil {
 		return nil, err
 	}
 	return &artist, nil
@@ -1911,17 +2054,26 @@ func (s *Store) ListJobs(ctx context.Context, limit int) ([]models.JobRun, error
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
 	var jobs []models.JobRun
 	for rows.Next() {
 		var job models.JobRun
 		if err := rows.Scan(&job.JobID, &job.Name, &job.Scope, &job.Status, &job.StartedAt, &job.FinishedAt, &job.Details, &job.ErrorMessage); err != nil {
+			_ = rows.Close()
 			return nil, err
 		}
-		job.Items, _ = s.jobItems(ctx, job.JobID)
 		jobs = append(jobs, job)
 	}
-	return jobs, rows.Err()
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return nil, err
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	for idx := range jobs {
+		jobs[idx].Items, _ = s.jobItems(ctx, jobs[idx].JobID)
+	}
+	return jobs, nil
 }
 
 func (s *Store) JobByID(ctx context.Context, jobID string) (*models.JobRun, error) {
@@ -1978,20 +2130,31 @@ func (s *Store) searchArtists(ctx context.Context, query string, limit int) ([]m
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
-	var artists []models.Artist
+	artistIDs := []string{}
 	for rows.Next() {
 		var artistID string
 		if err := rows.Scan(&artistID); err != nil {
+			_ = rows.Close()
 			return nil, err
 		}
+		artistIDs = append(artistIDs, artistID)
+	}
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return nil, err
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	var artists []models.Artist
+	for _, artistID := range artistIDs {
 		artist, err := s.ArtistByID(ctx, artistID)
 		if err != nil || artist == nil {
 			continue
 		}
 		artists = append(artists, *artist)
 	}
-	return artists, rows.Err()
+	return artists, nil
 }
 
 func (s *Store) searchQuotes(ctx context.Context, query string, limit int) ([]models.Quote, error) {
@@ -2030,20 +2193,31 @@ func (s *Store) searchQuotes(ctx context.Context, query string, limit int) ([]mo
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
-	var quotes []models.Quote
+	quoteIDs := []string{}
 	for rows.Next() {
 		var quoteID string
 		if err := rows.Scan(&quoteID); err != nil {
+			_ = rows.Close()
 			return nil, err
 		}
+		quoteIDs = append(quoteIDs, quoteID)
+	}
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return nil, err
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	var quotes []models.Quote
+	for _, quoteID := range quoteIDs {
 		quote, err := s.QuoteByID(ctx, quoteID)
 		if err != nil || quote == nil {
 			continue
 		}
 		quotes = append(quotes, *quote)
 	}
-	return quotes, rows.Err()
+	return quotes, nil
 }
 
 func (s *Store) rebuildSearchIndices(ctx context.Context) error {
@@ -2105,7 +2279,7 @@ func (s *Store) syncQuoteSearch(ctx context.Context, quote models.Quote) error {
 	return err
 }
 
-func (s *Store) scanQuoteRow(ctx context.Context, scanner interface{ Scan(dest ...any) error }) (models.Quote, error) {
+func scanQuoteRow(scanner interface{ Scan(dest ...any) error }) (models.Quote, error) {
 	var quote models.Quote
 	var year string
 	var sourceID string
@@ -2128,14 +2302,26 @@ func (s *Store) scanQuoteRow(ctx context.Context, scanner interface{ Scan(dest .
 		return quote, err
 	}
 	quote.SourceID = emptyToNull(sourceID)
-	quote.Tags, _ = s.quoteTags(ctx, quote.QuoteID)
-	quote.Evidence, _ = s.quoteEvidence(ctx, quote.QuoteID)
-	if quote.SourceID != "" {
-		quote.Source, _ = s.SourceByID(ctx, quote.SourceID)
-	}
 	quote.Year = parseOptionalYear(year)
 	applyQuoteFreshness(&quote, time.Now().UTC())
 	return quote, nil
+}
+
+func (s *Store) hydrateQuote(ctx context.Context, quote *models.Quote) error {
+	var err error
+	quote.Tags, err = s.quoteTags(ctx, quote.QuoteID)
+	if err != nil {
+		return err
+	}
+	quote.Evidence, err = s.quoteEvidence(ctx, quote.QuoteID)
+	if err != nil {
+		return err
+	}
+	if quote.SourceID != "" {
+		quote.Source, err = s.SourceByID(ctx, quote.SourceID)
+		return err
+	}
+	return nil
 }
 
 func applyQuoteFreshness(quote *models.Quote, now time.Time) {
@@ -2168,7 +2354,7 @@ func applyQuoteFreshness(quote *models.Quote, now time.Time) {
 	}
 }
 
-func (s *Store) scanArtistRow(ctx context.Context, scanner interface{ Scan(dest ...any) error }) (models.Artist, error) {
+func scanArtistRow(scanner interface{ Scan(dest ...any) error }) (models.Artist, error) {
 	var artist models.Artist
 	var statusJSON string
 	if err := scanner.Scan(
@@ -2186,14 +2372,25 @@ func (s *Store) scanArtistRow(ctx context.Context, scanner interface{ Scan(dest 
 	); err != nil {
 		return artist, err
 	}
-	artist.Aliases, _ = s.artistAliases(ctx, artist.ArtistID)
-	artist.Genres, _ = s.artistGenres(ctx, artist.ArtistID)
-	artist.Links, _ = s.artistLinks(ctx, artist.ArtistID)
 	artist.ProviderStatus = map[string]string{}
 	if statusJSON != "" {
 		_ = json.Unmarshal([]byte(statusJSON), &artist.ProviderStatus)
 	}
 	return artist, nil
+}
+
+func (s *Store) hydrateArtist(ctx context.Context, artist *models.Artist) error {
+	var err error
+	artist.Aliases, err = s.artistAliases(ctx, artist.ArtistID)
+	if err != nil {
+		return err
+	}
+	artist.Genres, err = s.artistGenres(ctx, artist.ArtistID)
+	if err != nil {
+		return err
+	}
+	artist.Links, err = s.artistLinks(ctx, artist.ArtistID)
+	return err
 }
 
 func (s *Store) artistAliases(ctx context.Context, artistID string) ([]string, error) {

@@ -131,21 +131,32 @@ func (s *Store) ListPerformances(ctx context.Context, filters models.Performance
 	if err != nil {
 		return response, err
 	}
-	defer rows.Close()
+	performances := []models.Performance{}
 	for rows.Next() {
 		perf := models.Performance{}
 		if err := scanPerformance(rows, &perf); err != nil {
+			_ = rows.Close()
 			return response, err
 		}
-		view, err := s.lookupClaimView(ctx, "performance", "performance", perf.PerformanceID, "work", perf.WorkID)
+		performances = append(performances, perf)
+	}
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return response, err
+	}
+	if err := rows.Close(); err != nil {
+		return response, err
+	}
+	for idx := range performances {
+		view, err := s.lookupClaimView(ctx, "performance", "performance", performances[idx].PerformanceID, "work", performances[idx].WorkID)
 		if err != nil {
 			return response, err
 		}
-		perf.Claim = view
-		response.Data = append(response.Data, perf)
+		performances[idx].Claim = view
 	}
+	response.Data = performances
 	response.Pagination = models.Pagination{Limit: limit, Offset: offset, Total: total}
-	return response, rows.Err()
+	return response, nil
 }
 
 // PerformanceStats computes first/last/gap metrics for an artist (optionally scoped to a work).
