@@ -594,10 +594,12 @@ func (s *Store) UpsertArtist(ctx context.Context, artist models.Artist) error {
 	if _, err := s.db.ExecContext(ctx, `DELETE FROM artist_links WHERE artist_id = ?`, artist.ArtistID); err != nil {
 		return err
 	}
-	for _, link := range artist.Links {
+	for _, link := range dedupeArtistLinks(artist.Links) {
 		if _, err := s.db.ExecContext(ctx, `
 			INSERT INTO artist_links(artist_id, provider, kind, url, external_id)
 			VALUES(?, ?, ?, ?, ?)
+			ON CONFLICT(artist_id, provider, kind, url) DO UPDATE SET
+				external_id = excluded.external_id
 		`, artist.ArtistID, link.Provider, link.Kind, link.URL, link.ExternalID); err != nil {
 			return err
 		}
@@ -1526,12 +1528,12 @@ func (s *Store) IntegrityReport(ctx context.Context) (models.IntegrityReport, er
 		"evidence_missing_quote": `SELECT COUNT(*) FROM quote_evidence
 			LEFT JOIN quotes ON quotes.quote_id = quote_evidence.quote_id
 			WHERE quotes.quote_id IS NULL`,
-		"job_items_missing_job":      `SELECT COUNT(*) FROM job_items LEFT JOIN jobs ON jobs.job_id = job_items.job_id WHERE jobs.job_id IS NULL`,
-		"recordings_missing_artist":  `SELECT COUNT(*) FROM recordings LEFT JOIN artists ON artists.artist_id = recordings.artist_id WHERE artists.artist_id IS NULL`,
-		"samples_missing_source":     `SELECT COUNT(*) FROM samples LEFT JOIN recordings ON recordings.recording_id = samples.source_recording_id WHERE recordings.recording_id IS NULL`,
-		"samples_missing_derivative": `SELECT COUNT(*) FROM samples LEFT JOIN recordings ON recordings.recording_id = samples.derivative_recording_id WHERE recordings.recording_id IS NULL`,
-		"credits_missing_work":       `SELECT COUNT(*) FROM work_credits LEFT JOIN works ON works.work_id = work_credits.work_id WHERE works.work_id IS NULL`,
-		"performances_missing_artist": `SELECT COUNT(*) FROM performances LEFT JOIN artists ON artists.artist_id = performances.artist_id WHERE artists.artist_id IS NULL`,
+		"job_items_missing_job":        `SELECT COUNT(*) FROM job_items LEFT JOIN jobs ON jobs.job_id = job_items.job_id WHERE jobs.job_id IS NULL`,
+		"recordings_missing_artist":    `SELECT COUNT(*) FROM recordings LEFT JOIN artists ON artists.artist_id = recordings.artist_id WHERE artists.artist_id IS NULL`,
+		"samples_missing_source":       `SELECT COUNT(*) FROM samples LEFT JOIN recordings ON recordings.recording_id = samples.source_recording_id WHERE recordings.recording_id IS NULL`,
+		"samples_missing_derivative":   `SELECT COUNT(*) FROM samples LEFT JOIN recordings ON recordings.recording_id = samples.derivative_recording_id WHERE recordings.recording_id IS NULL`,
+		"credits_missing_work":         `SELECT COUNT(*) FROM work_credits LEFT JOIN works ON works.work_id = work_credits.work_id WHERE works.work_id IS NULL`,
+		"performances_missing_artist":  `SELECT COUNT(*) FROM performances LEFT JOIN artists ON artists.artist_id = performances.artist_id WHERE artists.artist_id IS NULL`,
 		"claim_evidence_missing_claim": `SELECT COUNT(*) FROM claim_evidence LEFT JOIN claims ON claims.claim_id = claim_evidence.claim_id WHERE claims.claim_id IS NULL`,
 	}
 	for name, query := range checks {
@@ -2466,6 +2468,26 @@ func dedupeStrings(values []string) []string {
 		deduped = append(deduped, trimmed)
 	}
 	sort.Strings(deduped)
+	return deduped
+}
+
+func dedupeArtistLinks(links []models.ArtistLink) []models.ArtistLink {
+	type linkKey struct {
+		provider string
+		kind     string
+		url      string
+	}
+	seen := make(map[linkKey]int, len(links))
+	deduped := make([]models.ArtistLink, 0, len(links))
+	for _, link := range links {
+		key := linkKey{provider: link.Provider, kind: link.Kind, url: link.URL}
+		if idx, ok := seen[key]; ok {
+			deduped[idx] = link
+			continue
+		}
+		seen[key] = len(deduped)
+		deduped = append(deduped, link)
+	}
 	return deduped
 }
 
