@@ -491,6 +491,23 @@ func TestUpsertQuoteMergesNearDuplicateAcrossProviders(t *testing.T) {
 	if len(merged.Evidence) < 2 || len(merged.Tags) != 1 || merged.Source == nil || merged.Source.Provider != "wikiquote" {
 		t.Fatalf("expected merged evidence, tags, and source metadata, got %+v", merged)
 	}
+	history, err := store.QuoteMergeHistory(ctx, merged.QuoteID)
+	if err != nil {
+		t.Fatalf("QuoteMergeHistory() error = %v", err)
+	}
+	if len(history) != 1 {
+		t.Fatalf("merge history length = %d, want 1: %+v", len(history), history)
+	}
+	if history[0].WinnerQuoteID != merged.QuoteID || history[0].LoserQuoteID == "" || history[0].MergeScore < 90 {
+		t.Fatalf("unexpected merge log %+v", history[0])
+	}
+	lineage, err := store.QuoteLineage(ctx, merged.QuoteID)
+	if err != nil {
+		t.Fatalf("QuoteLineage() error = %v", err)
+	}
+	if lineage == nil || len(lineage.MergeHistory) != 1 {
+		t.Fatalf("lineage merge history = %+v", lineage)
+	}
 }
 
 func TestUpsertQuoteKeepsDistinctQuotesWhenBelowMergeThreshold(t *testing.T) {
