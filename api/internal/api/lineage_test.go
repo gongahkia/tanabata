@@ -3,11 +3,14 @@ package api
 import (
 	"context"
 	"encoding/json"
+	"encoding/xml"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
+	"time"
 
 	"github.com/gongahkia/tanabata/api/internal/catalog"
 	"github.com/gongahkia/tanabata/api/internal/models"
@@ -194,6 +197,74 @@ func TestDisputesFeedIncludesMultipleKinds(t *testing.T) {
 	}
 	if !kinds["attribution"] {
 		t.Fatalf("expected at least one disputed attribution (misquote) in disputes feed")
+	}
+}
+
+func TestDisputesAtomFeed(t *testing.T) {
+	server, store := seededLineageServer(t)
+	defer store.Close()
+
+	recorder := get(t, server, "/v1/disputes.atom?limit=20")
+	if got := recorder.Header().Get("Content-Type"); !strings.HasPrefix(got, "application/atom+xml") {
+		t.Fatalf("Content-Type = %q, want application/atom+xml", got)
+	}
+	if got := recorder.Header().Get("Cache-Control"); got != "public, max-age=300" {
+		t.Fatalf("Cache-Control = %q, want public, max-age=300", got)
+	}
+	lastModified, err := time.Parse(http.TimeFormat, recorder.Header().Get("Last-Modified"))
+	if err != nil {
+		t.Fatalf("Last-Modified parse error = %v", err)
+	}
+	var feed atomFeed
+	if err := xml.Unmarshal(recorder.Body.Bytes(), &feed); err != nil {
+		t.Fatalf("xml decode error = %v body=%s", err, recorder.Body.String())
+	}
+	if feed.ID == "" || feed.Title == "" || feed.Updated == "" || feed.Author.Name == "" {
+		t.Fatalf("feed missing required Atom fields: %+v", feed)
+	}
+	if len(feed.Entries) == 0 {
+		t.Fatalf("expected dispute entries in Atom feed")
+	}
+	feedUpdated, err := time.Parse(time.RFC3339, feed.Updated)
+	if err != nil {
+		t.Fatalf("feed updated parse error = %v", err)
+	}
+	maxEntryUpdated := time.Unix(0, 0).UTC()
+	for _, entry := range feed.Entries {
+		if entry.ID == "" || entry.Title == "" || entry.Updated == "" {
+			t.Fatalf("entry missing required Atom fields: %+v", entry)
+		}
+		if !strings.HasPrefix(entry.ID, "tag:tanabata.dev,") || !strings.Contains(entry.ID, ":claim/") {
+			t.Fatalf("entry id = %q, want stable tag claim id", entry.ID)
+		}
+		if entry.Content.Type != "application/json" {
+			t.Fatalf("entry content type = %q, want application/json", entry.Content.Type)
+		}
+		var claim models.Claim
+		if err := json.Unmarshal([]byte(entry.Content.Body), &claim); err != nil {
+			t.Fatalf("entry content JSON decode error = %v body=%s", err, entry.Content.Body)
+		}
+		if claim.ClaimID == "" || !strings.HasSuffix(entry.ID, "/"+claim.ClaimID) {
+			t.Fatalf("entry id %q does not contain claim id %q", entry.ID, claim.ClaimID)
+		}
+		updated, err := time.Parse(time.RFC3339, entry.Updated)
+		if err != nil {
+			t.Fatalf("entry updated parse error = %v", err)
+		}
+		if updated.After(maxEntryUpdated) {
+			maxEntryUpdated = updated
+		}
+	}
+	if !feedUpdated.Equal(maxEntryUpdated) {
+		t.Fatalf("feed updated = %s, want max entry updated %s", feedUpdated, maxEntryUpdated)
+	}
+	if !lastModified.Equal(feedUpdated.Truncate(time.Second)) {
+		t.Fatalf("Last-Modified = %s, want feed updated %s", lastModified, feedUpdated)
+	}
+
+	recorder2 := get(t, server, "/v1/disputes.atom?limit=20")
+	if recorder.Body.String() != recorder2.Body.String() {
+		t.Fatalf("feed is not deterministic between reads")
 	}
 }
 

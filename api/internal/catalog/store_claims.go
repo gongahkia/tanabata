@@ -38,6 +38,9 @@ func (s *Store) RecordClaim(ctx context.Context, claim models.Claim) (string, er
 	if strings.TrimSpace(claim.AssertedAt) == "" {
 		claim.AssertedAt = time.Now().UTC().Format(time.RFC3339)
 	}
+	if strings.TrimSpace(claim.UpdatedAt) == "" {
+		claim.UpdatedAt = time.Now().UTC().Format(time.RFC3339)
+	}
 	if strings.TrimSpace(claim.Status) == "" {
 		claim.Status = "needs_review"
 	}
@@ -65,17 +68,18 @@ func (s *Store) RecordClaim(ctx context.Context, claim models.Claim) (string, er
 
 	_, err = s.db.ExecContext(ctx, `
 		INSERT INTO claims(claim_id, kind, subject_type, subject_id, object_type, object_id, relation,
-			status, confidence_score, provider_origin, source_id, asserted_at, last_verified_at, notes)
-		VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+			status, confidence_score, provider_origin, source_id, asserted_at, last_verified_at, updated_at, notes)
+		VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 		ON CONFLICT(claim_id) DO UPDATE SET
 			status = excluded.status,
 			confidence_score = excluded.confidence_score,
 			provider_origin = COALESCE(NULLIF(excluded.provider_origin, ''), claims.provider_origin),
 			source_id = COALESCE(NULLIF(excluded.source_id, ''), claims.source_id),
 			last_verified_at = COALESCE(NULLIF(excluded.last_verified_at, ''), claims.last_verified_at),
+			updated_at = excluded.updated_at,
 			notes = COALESCE(NULLIF(excluded.notes, ''), claims.notes)
 	`, claimID, claim.Kind, claim.SubjectType, claim.SubjectID, claim.ObjectType, claim.ObjectID, claim.Relation,
-		claim.Status, claim.ConfidenceScore, claim.ProviderOrigin, claim.SourceID, claim.AssertedAt, claim.LastVerifiedAt, claim.Notes)
+		claim.Status, claim.ConfidenceScore, claim.ProviderOrigin, claim.SourceID, claim.AssertedAt, claim.LastVerifiedAt, claim.UpdatedAt, claim.Notes)
 	if err != nil {
 		return "", err
 	}
@@ -740,7 +744,7 @@ func recordQuoteMerge(ctx context.Context, execer quoteMergeExecutor, log models
 
 const claimSelectSQL = `
 SELECT claim_id, kind, subject_type, subject_id, object_type, object_id, relation,
-	status, confidence_score, provider_origin, source_id, asserted_at, last_verified_at, notes
+	status, confidence_score, provider_origin, source_id, asserted_at, last_verified_at, updated_at, notes
 FROM claims
 `
 
@@ -759,6 +763,7 @@ func scanClaim(scanner rowScanner, claim *models.Claim) error {
 		&claim.SourceID,
 		&claim.AssertedAt,
 		&claim.LastVerifiedAt,
+		&claim.UpdatedAt,
 		&claim.Notes,
 	)
 }

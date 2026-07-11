@@ -278,6 +278,7 @@ See [`openapi/openapi.json`](openapi/openapi.json) for more details.
 * `GET /v1/claims`
 * `GET /v1/claims/{claim_id}`
 * `GET /v1/disputes`
+* `GET /v1/disputes.atom`
 * `GET /v1/graph/{entity_id}`
 * `GET /v1/search`
 * `GET /v1/providers`

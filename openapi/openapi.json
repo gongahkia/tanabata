@@ -1834,6 +1834,44 @@
         }
       }
     },
+    "/v1/disputes.atom": {
+      "get": {
+        "operationId": "getDisputesAtomFeed",
+        "parameters": [
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Atom feed of recent disputed claims",
+            "content": {
+              "application/atom+xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          }
+        }
+      }
+    },
     "/v1/graph/{entity_id}": {
       "get": {
         "operationId": "getEntityGraph",
@@ -2394,6 +2432,7 @@
           "source_id": { "type": "string" },
           "asserted_at": { "type": "string" },
           "last_verified_at": { "type": "string" },
+          "updated_at": { "type": "string" },
           "notes": { "type": "string" },
           "source": { "$ref": "#/components/schemas/Source" },
           "supporting_evidence_count": { "type": "integer" },

@@ -411,6 +411,7 @@ type Claim struct {
 	SourceID        string          `json:"source_id,omitempty"`
 	AssertedAt      string          `json:"asserted_at"`
 	LastVerifiedAt  string          `json:"last_verified_at,omitempty"`
+	UpdatedAt       string          `json:"updated_at,omitempty"`
 	Notes           string          `json:"notes,omitempty"`
 	Source          *Source         `json:"source,omitempty"`
 	SupportingCount int             `json:"supporting_evidence_count"`

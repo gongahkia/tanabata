@@ -519,4 +519,16 @@ var catalogMigrations = []schemaMigration{
 			`CREATE INDEX IF NOT EXISTS idx_claim_evidence_claim ON claim_evidence(claim_id, supports);`,
 		},
 	},
+	{
+		Version: 7,
+		Name:    "claim_updated_timestamps",
+		Statements: []string{
+			`ALTER TABLE claims ADD COLUMN updated_at TEXT NOT NULL DEFAULT '';`,
+			`UPDATE claims SET updated_at = CASE
+				WHEN last_verified_at <> '' THEN last_verified_at
+				ELSE asserted_at
+			END WHERE updated_at = '';`,
+			`CREATE INDEX IF NOT EXISTS idx_claims_updated ON claims(updated_at DESC);`,
+		},
+	},
 }

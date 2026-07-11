@@ -142,6 +142,7 @@ func (s *Server) Router() *gin.Engine {
 
 		v1.GET("/claims", s.listClaims)
 		v1.GET("/claims/:claim_id", s.claimByID)
+		v1.GET("/disputes.atom", s.disputesAtom)
 		v1.GET("/disputes", s.disputes)
 		v1.GET("/graph/:entity_id", s.entityGraph)
 

@@ -285,6 +285,7 @@ func TestOpenAPIContractRuntimeResponses(t *testing.T) {
 		{name: "claims list", path: "/v1/claims?limit=5"},
 		{name: "claim detail", path: "/v1/claims/" + claimID},
 		{name: "disputes", path: "/v1/disputes?limit=10"},
+		{name: "disputes atom", path: "/v1/disputes.atom?limit=10"},
 		{name: "entity graph", path: "/v1/graph/" + performanceArtistID + "?depth=2"},
 		{name: "source detail", path: "/v1/sources/" + sourceID},
 		{name: "providers", path: "/v1/providers"},
@@ -372,6 +373,9 @@ func (v *openAPIContractValidator) validateResponse(t *testing.T, request *http.
 		RequestValidationInput: requestInput,
 		Status:                 recorder.Code,
 		Header:                 recorder.Header(),
+	}
+	if skipContractResponseValidation(recorder.Header().Get("Content-Type")) {
+		return
 	}
 	responseInput.SetBodyBytes(recorder.Body.Bytes())
 	if err := openapi3filter.ValidateResponse(context.Background(), responseInput); err != nil {
