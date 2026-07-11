@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"flag"
+	"math"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -58,6 +59,7 @@ func TestAPIGoldenResponses(t *testing.T) {
 			if err != nil {
 				t.Fatalf("ReadFile(%s) error = %v", path, err)
 			}
+			expected = canonicalGoldenJSON(t, expected)
 			if !bytes.Equal(bytes.TrimSpace(expected), bytes.TrimSpace(actual)) {
 				t.Fatalf("golden mismatch for %s\nexpected:\n%s\nactual:\n%s", tc.name, expected, actual)
 			}
@@ -90,6 +92,7 @@ func TestEntityGraphGoldenResponse(t *testing.T) {
 	if err != nil {
 		t.Fatalf("ReadFile(%s) error = %v", path, err)
 	}
+	expected = canonicalGoldenJSON(t, expected)
 	if !bytes.Equal(bytes.TrimSpace(expected), bytes.TrimSpace(actual)) {
 		t.Fatalf("golden mismatch for graph\nexpected:\n%s\nactual:\n%s", expected, actual)
 	}
@@ -120,6 +123,7 @@ func TestEntitySearchGoldenResponse(t *testing.T) {
 	if err != nil {
 		t.Fatalf("ReadFile(%s) error = %v", path, err)
 	}
+	expected = canonicalGoldenJSON(t, expected)
 	if !bytes.Equal(bytes.TrimSpace(expected), bytes.TrimSpace(actual)) {
 		t.Fatalf("golden mismatch for entity search\nexpected:\n%s\nactual:\n%s", expected, actual)
 	}
@@ -246,7 +250,8 @@ func normalizeGoldenValue(value any, key string) any {
 		if key == "freshness_age_days" {
 			return float64(0)
 		}
-		return typed
+		// Floating-point scores can differ by one ULP across architectures.
+		return math.Round(typed*1e12) / 1e12
 	default:
 		return typed
 	}

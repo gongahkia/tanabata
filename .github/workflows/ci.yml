@@ -91,7 +91,11 @@ jobs:
           go-version-file: ./api/go.mod
       - run: go install golang.org/x/vuln/cmd/govulncheck@latest
       - name: Generate govulncheck SARIF
-        run: govulncheck -format sarif ./... > govulncheck.sarif
+        run: |
+          govulncheck -format sarif ./... > govulncheck.sarif
+          # govulncheck can emit duplicate CVE tags; GitHub rejects that SARIF.
+          jq '(.runs[]?.tool.driver.rules[]?.properties.tags) |= unique' govulncheck.sarif > govulncheck.clean.sarif
+          mv govulncheck.clean.sarif govulncheck.sarif
       - name: Check HIGH/CRITICAL govulncheck findings
         run: |
           govulncheck -format json ./... > govulncheck.json

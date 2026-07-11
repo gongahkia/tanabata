@@ -68,7 +68,9 @@ func TestBackupCatalogDuringIngestCommand(t *testing.T) {
 		done <- cmd.Wait()
 	}()
 
-	deadline := time.After(20 * time.Second)
+	// `go run` has to compile the ingest command in a cold CI cache; 20 seconds
+	// is not sufficient on the two-core hosted runners used by the race build.
+	deadline := time.After(60 * time.Second)
 	ingestDone := false
 	var ingestErr error
 backupLoop:
@@ -103,7 +105,7 @@ backupLoop:
 	if !ingestDone {
 		select {
 		case ingestErr = <-done:
-		case <-time.After(20 * time.Second):
+		case <-time.After(60 * time.Second):
 			_ = cmd.Process.Kill()
 			t.Fatalf("timed out waiting for ingest command completion\n%s", output.String())
 		}
