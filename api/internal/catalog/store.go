@@ -27,7 +27,16 @@ const quoteFreshnessAgingAfter = 90 * 24 * time.Hour
 const sqlitePragmaSuffix = "?_pragma=journal_mode(WAL)&_pragma=busy_timeout(5000)&_pragma=foreign_keys(ON)&_pragma=synchronous(NORMAL)&_pragma=temp_store(MEMORY)"
 
 type Store struct {
-	db *sql.DB
+	db             *sql.DB
+	webhookEmitter WebhookEmitter
+}
+
+type WebhookEmitter interface {
+	EmitWebhookEvent(context.Context, models.WebhookEvent)
+}
+
+func (s *Store) SetWebhookEmitter(emitter WebhookEmitter) {
+	s.webhookEmitter = emitter
 }
 
 type OrphanRepairResult struct {
@@ -2495,6 +2504,10 @@ func (s *Store) PurgeExpiredProviderCache(ctx context.Context, now time.Time) (i
 }
 
 func (s *Store) RecordJob(ctx context.Context, job models.JobRun) error {
+	var previousStatus string
+	if err := s.db.QueryRowContext(ctx, `SELECT status FROM jobs WHERE job_id = ?`, job.JobID).Scan(&previousStatus); err != nil && !errors.Is(err, sql.ErrNoRows) {
+		return err
+	}
 	_, err := s.db.ExecContext(ctx, `
 		INSERT INTO jobs(job_id, name, scope, status, started_at, finished_at, details, error_message)
 		VALUES(?, ?, ?, ?, ?, ?, ?, ?)
@@ -2507,7 +2520,18 @@ func (s *Store) RecordJob(ctx context.Context, job models.JobRun) error {
 			details = excluded.details,
 			error_message = excluded.error_message
 	`, job.JobID, job.Name, job.Scope, job.Status, job.StartedAt, job.FinishedAt, job.Details, job.ErrorMessage)
-	return err
+	if err != nil {
+		return err
+	}
+	if isTerminalJobStatus(job.Status) && previousStatus != job.Status {
+		s.emitWebhookEvent(ctx, models.WebhookEvent{
+			EventID:    search.StableHash("webhook", "job.completed", job.JobID, job.Status, job.FinishedAt),
+			Kind:       "job.completed",
+			OccurredAt: webhookTimestamp(job.FinishedAt),
+			Data:       job,
+		})
+	}
+	return nil
 }
 
 func (s *Store) RecordJobItem(ctx context.Context, item models.JobItem) error {

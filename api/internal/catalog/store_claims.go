@@ -83,6 +83,23 @@ func (s *Store) RecordClaim(ctx context.Context, claim models.Claim) (string, er
 	if err != nil {
 		return "", err
 	}
+	claim.ClaimID = claimID
+	if existingStatus != claim.Status {
+		s.emitWebhookEvent(ctx, models.WebhookEvent{
+			EventID:    search.StableHash("webhook", "claim.state_changed", claimID, existingStatus, claim.Status, claim.UpdatedAt),
+			Kind:       "claim.state_changed",
+			OccurredAt: webhookTimestamp(claim.UpdatedAt),
+			Data:       claim,
+		})
+	}
+	if !isDisputeStatus(existingStatus) && isDisputeStatus(claim.Status) {
+		s.emitWebhookEvent(ctx, models.WebhookEvent{
+			EventID:    search.StableHash("webhook", "dispute.raised", claimID, claim.Status, claim.UpdatedAt),
+			Kind:       "dispute.raised",
+			OccurredAt: webhookTimestamp(claim.UpdatedAt),
+			Data:       claim,
+		})
+	}
 	return claimID, nil
 }
 

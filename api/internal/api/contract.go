@@ -95,6 +95,9 @@ func (v *runtimeContractValidator) middleware() gin.HandlerFunc {
 			Request:    cloneRequestForValidation(c.Request),
 			PathParams: pathParams,
 			Route:      route,
+			Options: &openapi3filter.Options{
+				AuthenticationFunc: openAPIAuthenticationFunc,
+			},
 		}
 		if err := openapi3filter.ValidateRequest(c.Request.Context(), requestInput); err != nil {
 			if !handlerValidatedQueryRequestError(err) {
@@ -136,6 +139,10 @@ func (v *runtimeContractValidator) middleware() gin.HandlerFunc {
 	}
 }
 
+func openAPIAuthenticationFunc(context.Context, *openapi3filter.AuthenticationInput) error {
+	return nil
+}
+
 func handlerValidatedQueryRequestError(err error) bool {
 	var requestErr *openapi3filter.RequestError
 	if !errors.As(err, &requestErr) || requestErr.Parameter == nil || requestErr.Parameter.In != "query" {
@@ -166,12 +173,15 @@ func (v *runtimeContractValidator) routeFor(request *http.Request) (*routers.Rou
 }
 
 func cloneRequestForValidation(request *http.Request) *http.Request {
-	body := request.Body
-	if body == nil {
-		body = io.NopCloser(bytes.NewReader(nil))
+	bodyBytes := []byte{}
+	if request.Body != nil {
+		if content, err := io.ReadAll(request.Body); err == nil {
+			bodyBytes = content
+		}
 	}
+	request.Body = io.NopCloser(bytes.NewReader(bodyBytes))
 	clone := request.Clone(request.Context())
-	clone.Body = body
+	clone.Body = io.NopCloser(bytes.NewReader(bodyBytes))
 	if clone.URL.Scheme == "" {
 		clone.URL.Scheme = "http"
 	}

@@ -307,6 +307,7 @@ See [`openapi/openapi.json`](openapi/openapi.json) for more details.
 * `GET /v1/disputes`
 * `GET /v1/disputes.atom`
 * `GET /v1/graph/{entity_id}`
+* `GET /v1/webhooks`
 * `GET /v1/entities/search`
 * `GET /v1/search`
 * `GET /v1/providers`
@@ -317,6 +318,10 @@ See [`openapi/openapi.json`](openapi/openapi.json) for more details.
 * `GET /v1/stats`
 * `GET /v1/integrity`
 * `GET /livez`, `GET /readyz`, `GET /health`, `GET /metrics`
+
+## Webhooks
+
+Set `TANABATA_WEBHOOK_ADMIN_TOKEN` to enable admin-only webhook management. Create subscriptions with `POST /v1/webhooks` and `Authorization: Bearer <token>` for `claim.state_changed`, `job.completed`, and `dispute.raised`. Deliveries are signed with `X-Tanabata-Signature: sha256=<hex>` using the per-subscription secret returned only on creation; failed deliveries retry and disable after five failures.
 
 ## Architecture
 

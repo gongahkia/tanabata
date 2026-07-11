@@ -29,6 +29,7 @@ type Server struct {
 	setlistFM         *providers.SetlistFMProvider
 	lrclib            *providers.LRCLIBProvider
 	lyricsOVH         *providers.LyricsOVHProvider
+	webhooks          *webhookDispatcher
 	providerInventory []models.ProviderSummary
 	contractValidator *runtimeContractValidator
 }
@@ -80,6 +81,8 @@ func NewServer(store *catalog.Store, telemetry *observability.Telemetry) (*Serve
 			{Provider: "wikiquote", Category: "enrichment", Enabled: true},
 		},
 	}
+	server.webhooks = newWebhookDispatcher(store)
+	store.SetWebhookEmitter(server.webhooks)
 	if contractValidationEnabled() {
 		if err := server.enableContractValidation(os.Getenv(contractSpecPathEnv)); err != nil {
 			return nil, err
@@ -148,6 +151,12 @@ func (s *Server) Router() *gin.Engine {
 		v1.GET("/disputes.atom", s.disputesAtom)
 		v1.GET("/disputes", s.disputes)
 		v1.GET("/graph/:entity_id", s.entityGraph)
+		webhooks := v1.Group("/webhooks", s.webhookAdminAuth())
+		{
+			webhooks.GET("", s.listWebhooks)
+			webhooks.POST("", s.createWebhook)
+			webhooks.DELETE("/:webhook_id", s.deleteWebhook)
+		}
 
 		v1.GET("/sources/:source_id", s.sourceByID)
 		v1.GET("/providers", s.providers)

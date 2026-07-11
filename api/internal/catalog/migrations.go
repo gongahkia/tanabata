@@ -548,4 +548,21 @@ var catalogMigrations = []schemaMigration{
 			);`,
 		},
 	},
+	{
+		Version: 9,
+		Name:    "webhook_subscriptions",
+		Statements: []string{
+			`CREATE TABLE IF NOT EXISTS webhooks (
+				id TEXT PRIMARY KEY,
+				url TEXT NOT NULL,
+				secret TEXT NOT NULL,
+				event_kinds TEXT NOT NULL,
+				created_at TEXT NOT NULL,
+				disabled_at TEXT NOT NULL DEFAULT '',
+				last_success_at TEXT NOT NULL DEFAULT '',
+				failure_count INTEGER NOT NULL DEFAULT 0
+			);`,
+			`CREATE INDEX IF NOT EXISTS idx_webhooks_disabled ON webhooks(disabled_at);`,
+		},
+	},
 }
