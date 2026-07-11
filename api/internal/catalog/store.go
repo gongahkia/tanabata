@@ -416,8 +416,12 @@ func (s *Store) SeedFromLegacyJSON(ctx context.Context, legacyPath string) error
 	}
 
 	type legacyQuote struct {
-		Author string `json:"author"`
-		Text   string `json:"text"`
+		Author          string `json:"author"`
+		Text            string `json:"text"`
+		SourceURL       string `json:"source_url"`
+		License         string `json:"license"`
+		RetrievedAt     string `json:"retrieved_at"`
+		AttributionText string `json:"attribution_text"`
 	}
 
 	content, err := os.ReadFile(legacyPath) // #nosec G304 -- caller-provided import path
@@ -436,20 +440,48 @@ func (s *Store) SeedFromLegacyJSON(ctx context.Context, legacyPath string) error
 	defer tx.Rollback()
 
 	now := time.Now().UTC().Format(time.RFC3339)
-	sourceURL := "https://quotefancy.com"
-	sourceID := search.SourceID("quotefancy", sourceURL)
-	if _, err := tx.ExecContext(ctx, `
-		INSERT INTO quote_sources(source_id, provider, url, title, publisher, license, retrieved_at)
-		VALUES(?, ?, ?, ?, ?, ?, ?)
-	`, sourceID, "quotefancy", sourceURL, "QuoteFancy legacy import", "QuoteFancy", "unknown", now); err != nil {
-		return fmt.Errorf("insert legacy source: %w", err)
-	}
 
 	artists := make(map[string]struct{})
 	for _, quote := range quotes {
 		name := strings.TrimSpace(quote.Author)
-		if name == "" {
+		text := strings.TrimSpace(quote.Text)
+		if name == "" || text == "" {
 			continue
+		}
+		sourceURL := strings.TrimSpace(quote.SourceURL)
+		provider := "quotefancy"
+		publisher := "QuoteFancy"
+		sourceTitle := "QuoteFancy legacy import"
+		sourceType := "legacy_scrape"
+		license := "unknown"
+		retrievedAt := now
+		attribution := "Imported from QuoteFancy during legacy bootstrap; requires manual verification."
+		if sourceURL != "" {
+			provider = "wikiquote"
+			publisher = "Wikiquote"
+			sourceTitle = "Wikiquote import"
+			sourceType = "wikiquote"
+			license = strings.TrimSpace(quote.License)
+			if license == "" {
+				license = "CC-BY-SA-4.0"
+			}
+			retrievedAt = strings.TrimSpace(quote.RetrievedAt)
+			if retrievedAt == "" {
+				retrievedAt = now
+			}
+			attribution = strings.TrimSpace(quote.AttributionText)
+			if attribution == "" {
+				attribution = "Wikiquote attribution: " + sourceURL
+			}
+		} else {
+			sourceURL = "https://quotefancy.com"
+		}
+		sourceID := search.SourceID(provider, sourceURL)
+		if _, err := tx.ExecContext(ctx, `
+			INSERT OR IGNORE INTO quote_sources(source_id, provider, url, title, publisher, license, retrieved_at)
+			VALUES(?, ?, ?, ?, ?, ?, ?)
+		`, sourceID, provider, sourceURL, sourceTitle, publisher, license, retrievedAt); err != nil {
+			return fmt.Errorf("insert legacy source: %w", err)
 		}
 		artistID := search.ArtistID(name, "")
 		if _, seen := artists[artistID]; !seen {
@@ -472,25 +504,25 @@ func (s *Store) SeedFromLegacyJSON(ctx context.Context, legacyPath string) error
 			if _, err := tx.ExecContext(ctx, `
 				INSERT INTO artist_links(artist_id, provider, kind, url, external_id)
 				VALUES(?, ?, ?, ?, ?)
-			`, artistID, "quotefancy", "source_home", sourceURL, ""); err != nil {
+			`, artistID, provider, "source_home", sourceURL, ""); err != nil {
 				return fmt.Errorf("insert legacy link: %w", err)
 			}
 		}
 
-		normalizedText := search.NormalizeText(quote.Text)
+		normalizedText := search.NormalizeText(text)
 		quoteID := search.QuoteID(artistID, normalizedText, sourceURL)
 		if _, err := tx.ExecContext(ctx, `
 			INSERT OR IGNORE INTO quotes(
 				quote_id, text, normalized_text, artist_id, source_id, source_type, work_title, year,
 				provenance_status, confidence_score, provider_origin, license, first_seen_at, last_verified_at
 			) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-		`, quoteID, strings.TrimSpace(quote.Text), normalizedText, artistID, sourceID, "legacy_scrape", "", "", "needs_review", 0.25, "quotefancy", "unknown", now, now); err != nil {
+		`, quoteID, text, normalizedText, artistID, sourceID, sourceType, "", "", "needs_review", 0.25, provider, license, retrievedAt, retrievedAt); err != nil {
 			return fmt.Errorf("insert quote: %w", err)
 		}
 		if _, err := tx.ExecContext(ctx, `
 			INSERT OR REPLACE INTO quote_evidence(quote_id, evidence, position)
 			VALUES(?, ?, ?)
-		`, quoteID, "Imported from QuoteFancy during legacy bootstrap; requires manual verification.", 0); err != nil {
+		`, quoteID, attribution, 0); err != nil {
 			return fmt.Errorf("insert quote evidence: %w", err)
 		}
 	}
