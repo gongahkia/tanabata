@@ -1,0 +1,29 @@
+name: Schema docs
+
+on:
+  pull_request:
+    paths:
+      - api/internal/catalog/migrations.go
+      - api/cmd/schema-docs/**
+      - docs/schema.md
+      - Makefile
+
+jobs:
+  schema-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: ./api/go.mod
+      - run: make schema-docs
+      - run: git diff --exit-code -- docs/schema.md
+      - name: Require schema docs for migration changes
+        run: |
+          changed="$(git diff --name-only origin/${{ github.base_ref }}...HEAD)"
+          if grep -qx 'api/internal/catalog/migrations.go' <<< "$changed" && ! grep -qx 'docs/schema.md' <<< "$changed"; then
+            echo 'migrations.go changed; regenerate and commit docs/schema.md' >&2
+            exit 1
+          fi

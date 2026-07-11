@@ -13,6 +13,7 @@
 - Curated fixture files use `{ "meta": { "license", "source", "curator", "retrieved_at", "notes", "attribution_text" }, "records": [...] }`. Loaders accept the prior bare-array form during the migration; fixture metadata is persisted as a source and attached to seeded audit events.
 
 ## Storage and Search
+- [Schema reference](schema.md) is generated from an empty database after all catalog migrations apply.
 - SQLite remains the single runtime store for artists, quotes, sources, releases, provider bookkeeping, cache entries, and ingestion jobs.
 - FTS5-backed `artist_search` and `quote_search` tables support `/v1/search` and query filtering.
 - Search indices are rebuilt during ingestion and synced on artist or quote upserts.
