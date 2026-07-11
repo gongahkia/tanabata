@@ -2310,7 +2310,8 @@
           "title": { "type": "string" },
           "publisher": { "type": "string" },
           "license": { "type": "string" },
-          "retrieved_at": { "type": "string" }
+          "retrieved_at": { "type": "string" },
+          "attribution_text": { "type": "string" }
         }
       },
       "Quote": {

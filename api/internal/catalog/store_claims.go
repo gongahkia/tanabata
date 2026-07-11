@@ -1,12 +1,14 @@
 package catalog
 
 import (
+	"bytes"
 	"context"
 	"database/sql"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
+	"path/filepath"
 	"sort"
 	"strconv"
 	"strings"
@@ -893,7 +895,11 @@ func truncate(text string, limit int) string {
 
 // SeedCuratedMisquotes loads curated misquote records, generating both supporting and refuting evidence.
 func (s *Store) SeedCuratedMisquotes(ctx context.Context, bundlePath, jobID string) (int, error) {
-	records, err := decodeJSONFile[models.CuratedMisquoteRecord](bundlePath)
+	records, meta, err := decodeCuratedBundle[models.CuratedMisquoteRecord](bundlePath)
+	if err != nil {
+		return 0, err
+	}
+	_, sourceMeta, err := s.upsertCuratedFixtureSource(ctx, bundlePath, meta)
 	if err != nil {
 		return 0, err
 	}
@@ -1001,6 +1007,7 @@ func (s *Store) SeedCuratedMisquotes(ctx context.Context, bundlePath, jobID stri
 			Status:     "succeeded",
 			OccurredAt: now,
 			Details:    "supporting=" + strconv.Itoa(len(record.SupportingEvidence)) + " refuting=" + strconv.Itoa(len(record.RefutingEvidence)) + " rival=" + strconv.FormatBool(actualArtistID != ""),
+			SourceMeta: sourceMeta,
 		}); err != nil {
 			return imported, err
 		}
@@ -1095,15 +1102,51 @@ func (s *Store) recordCuratedEvidence(ctx context.Context, claimID string, items
 	return nil
 }
 
-// decodeJSONFile is a small helper for reading typed seed bundles.
-func decodeJSONFile[T any](path string) ([]T, error) {
+func decodeCuratedBundle[T any](path string) ([]T, models.CuratedFixtureMeta, error) {
 	content, err := os.ReadFile(path) // #nosec G304 -- caller-provided seed bundle path
 	if err != nil {
-		return nil, fmt.Errorf("read %s: %w", path, err)
+		return nil, models.CuratedFixtureMeta{}, fmt.Errorf("read %s: %w", path, err)
 	}
-	var records []T
-	if err := json.Unmarshal(content, &records); err != nil {
-		return nil, fmt.Errorf("decode %s: %w", path, err)
+	if len(bytes.TrimSpace(content)) > 0 && bytes.TrimSpace(content)[0] == '[' {
+		var records []T
+		if err := json.Unmarshal(content, &records); err != nil {
+			return nil, models.CuratedFixtureMeta{}, fmt.Errorf("decode %s: %w", path, err)
+		}
+		return records, models.CuratedFixtureMeta{}, nil
 	}
-	return records, nil
+	var bundle struct {
+		Meta    models.CuratedFixtureMeta `json:"meta"`
+		Records []T                       `json:"records"`
+	}
+	var raw map[string]json.RawMessage
+	if err := json.Unmarshal(content, &raw); err != nil {
+		return nil, models.CuratedFixtureMeta{}, fmt.Errorf("decode %s: %w", path, err)
+	}
+	if _, ok := raw["records"]; !ok {
+		return nil, models.CuratedFixtureMeta{}, fmt.Errorf("decode %s: curated bundle missing records", path)
+	}
+	if err := json.Unmarshal(content, &bundle); err != nil {
+		return nil, models.CuratedFixtureMeta{}, fmt.Errorf("decode %s: %w", path, err)
+	}
+	return bundle.Records, bundle.Meta, nil
+}
+
+func (s *Store) upsertCuratedFixtureSource(ctx context.Context, bundlePath string, meta models.CuratedFixtureMeta) (*models.Source, map[string]string, error) {
+	if strings.TrimSpace(meta.Source) == "" {
+		return nil, nil, nil
+	}
+	source := &models.Source{
+		SourceID:        search.SourceID("tanabata_curated", meta.Source),
+		Provider:        "tanabata_curated",
+		URL:             meta.Source,
+		Title:           filepath.Base(bundlePath),
+		Publisher:       meta.Curator,
+		License:         meta.License,
+		RetrievedAt:     meta.RetrievedAt,
+		AttributionText: meta.AttributionText,
+	}
+	if err := s.UpsertSource(ctx, *source); err != nil {
+		return nil, nil, err
+	}
+	return source, map[string]string{"license": meta.License, "source": meta.Source, "curator": meta.Curator, "retrieved_at": meta.RetrievedAt, "notes": meta.Notes, "attribution_text": meta.AttributionText}, nil
 }

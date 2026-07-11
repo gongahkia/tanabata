@@ -155,13 +155,14 @@ type ReviewQueueItem struct {
 }
 
 type Source struct {
-	SourceID    string `json:"source_id"`
-	Provider    string `json:"provider"`
-	URL         string `json:"url"`
-	Title       string `json:"title,omitempty"`
-	Publisher   string `json:"publisher,omitempty"`
-	License     string `json:"license,omitempty"`
-	RetrievedAt string `json:"retrieved_at,omitempty"`
+	SourceID        string `json:"source_id"`
+	Provider        string `json:"provider"`
+	URL             string `json:"url"`
+	Title           string `json:"title,omitempty"`
+	Publisher       string `json:"publisher,omitempty"`
+	License         string `json:"license,omitempty"`
+	RetrievedAt     string `json:"retrieved_at,omitempty"`
+	AttributionText string `json:"attribution_text,omitempty"`
 }
 
 type Release struct {
@@ -201,6 +202,15 @@ type CuratedQuoteRecord struct {
 	FirstSeenAt      string   `json:"first_seen_at,omitempty"`
 	LastVerifiedAt   string   `json:"last_verified_at,omitempty"`
 	Source           *Source  `json:"source,omitempty"`
+}
+
+type CuratedFixtureMeta struct {
+	License         string `json:"license"`
+	Source          string `json:"source"`
+	Curator         string `json:"curator"`
+	RetrievedAt     string `json:"retrieved_at"`
+	Notes           string `json:"notes"`
+	AttributionText string `json:"attribution_text"`
 }
 
 type QuoteFilters struct {
@@ -303,15 +313,16 @@ type IngestionSnapshot struct {
 }
 
 type IngestionAuditEvent struct {
-	EventID    string `json:"event_id"`
-	JobID      string `json:"job_id,omitempty"`
-	JobItemID  string `json:"job_item_id,omitempty"`
-	Provider   string `json:"provider,omitempty"`
-	Target     string `json:"target,omitempty"`
-	Action     string `json:"action"`
-	Status     string `json:"status"`
-	OccurredAt string `json:"occurred_at"`
-	Details    string `json:"details,omitempty"`
+	EventID    string            `json:"event_id"`
+	JobID      string            `json:"job_id,omitempty"`
+	JobItemID  string            `json:"job_item_id,omitempty"`
+	Provider   string            `json:"provider,omitempty"`
+	Target     string            `json:"target,omitempty"`
+	Action     string            `json:"action"`
+	Status     string            `json:"status"`
+	OccurredAt string            `json:"occurred_at"`
+	Details    string            `json:"details,omitempty"`
+	SourceMeta map[string]string `json:"source_meta,omitempty"`
 }
 
 type WebhookSubscription struct {

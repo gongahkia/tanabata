@@ -235,7 +235,11 @@ func defaultSampleKind(kind string) string {
 
 // SeedCuratedSamples loads curated sample relationships, recording an audit trail.
 func (s *Store) SeedCuratedSamples(ctx context.Context, bundlePath, jobID string) (int, error) {
-	records, err := decodeJSONFile[models.CuratedSampleRecord](bundlePath)
+	records, meta, err := decodeCuratedBundle[models.CuratedSampleRecord](bundlePath)
+	if err != nil {
+		return 0, err
+	}
+	_, sourceMeta, err := s.upsertCuratedFixtureSource(ctx, bundlePath, meta)
 	if err != nil {
 		return 0, err
 	}
@@ -297,6 +301,7 @@ func (s *Store) SeedCuratedSamples(ctx context.Context, bundlePath, jobID string
 					Status:     "rejected",
 					OccurredAt: time.Now().UTC().Format(time.RFC3339),
 					Details:    "kind=" + defaultSampleKind(record.Kind) + " error=" + ErrSampleCycle.Error(),
+					SourceMeta: sourceMeta,
 				}); err != nil {
 					return imported, err
 				}
@@ -313,6 +318,7 @@ func (s *Store) SeedCuratedSamples(ctx context.Context, bundlePath, jobID string
 			Status:     "succeeded",
 			OccurredAt: time.Now().UTC().Format(time.RFC3339),
 			Details:    "kind=" + record.Kind + " evidence=" + strconv.Itoa(len(record.Evidence)),
+			SourceMeta: sourceMeta,
 		}); err != nil {
 			return imported, err
 		}

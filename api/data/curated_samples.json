@@ -1,150 +1,160 @@
-[
-  {
-    "source_artist_name": "Chic",
-    "source_track_title": "Good Times",
-    "source_released_year": "1979",
-    "derivative_artist_name": "The Sugarhill Gang",
-    "derivative_track_title": "Rapper's Delight",
-    "derivative_released_year": "1979",
-    "kind": "interpolation",
-    "duration_ms": 0,
-    "notes": "Bernard Edwards and Nile Rodgers received songwriting credit after the fact; canonical example of early hip-hop interpolation.",
-    "status": "verified",
-    "confidence_score": 0.99,
-    "provider_origin": "tanabata_curated",
-    "evidence": [
-      {
-        "excerpt": "Edwards and Rodgers were added to the songwriting credits after the song's release once the bass line was recognised.",
-        "source_url": "https://en.wikipedia.org/wiki/Rapper%27s_Delight",
-        "evidence_kind": "encyclopedia_entry",
-        "weight": 1.0
-      }
-    ]
+{
+  "meta": {
+    "license": "CC-BY-SA-4.0",
+    "source": "https://github.com/gongahkia/tanabata/blob/main/api/data/curated_samples.json",
+    "curator": "Tanabata maintainers",
+    "retrieved_at": "2026-07-11T00:00:00Z",
+    "notes": "Curated provenance fixture.",
+    "attribution_text": "Tanabata maintainers; fixture metadata is CC-BY-SA-4.0."
   },
-  {
-    "source_artist_name": "Lyn Collins",
-    "source_track_title": "Think (About It)",
-    "source_released_year": "1972",
-    "derivative_artist_name": "Rob Base and DJ E-Z Rock",
-    "derivative_track_title": "It Takes Two",
-    "derivative_released_year": "1988",
-    "kind": "direct_sample",
-    "notes": "The \"woo!/yeah!\" sample is one of the most reused breaks in hip-hop history.",
-    "status": "verified",
-    "confidence_score": 0.99,
-    "provider_origin": "tanabata_curated",
-    "evidence": [
-      {
-        "excerpt": "It Takes Two is built on a loop of the woo!/yeah! refrain from Think (About It), one of the most-sampled breaks in music history.",
-        "source_url": "https://www.npr.org/2017/06/30/535076394/the-story-of-the-most-sampled-break-in-music",
-        "evidence_kind": "journalism",
-        "weight": 1.0
-      }
-    ]
-  },
-  {
-    "source_artist_name": "David Bowie",
-    "source_track_title": "Under Pressure",
-    "source_released_year": "1981",
-    "derivative_artist_name": "Vanilla Ice",
-    "derivative_track_title": "Ice Ice Baby",
-    "derivative_released_year": "1990",
-    "kind": "direct_sample",
-    "notes": "Vanilla Ice initially denied sampling the bass line; the dispute was settled out of court, and the original writers were credited.",
-    "status": "verified",
-    "confidence_score": 0.99,
-    "provider_origin": "tanabata_curated",
-    "evidence": [
-      {
-        "excerpt": "Vanilla Ice eventually paid for the sample and credited Bowie/Queen after public scrutiny of the bass line.",
-        "source_url": "https://www.rollingstone.com/music/music-news/the-strange-saga-of-vanilla-ice-and-david-bowie-243413/",
-        "evidence_kind": "journalism",
-        "weight": 1.0
-      }
-    ]
-  },
-  {
-    "source_artist_name": "James Brown",
-    "source_track_title": "Funky Drummer",
-    "source_released_year": "1970",
-    "derivative_artist_name": "Public Enemy",
-    "derivative_track_title": "Fight the Power",
-    "derivative_released_year": "1989",
-    "kind": "direct_sample",
-    "notes": "Clyde Stubblefield's break is the most-sampled drum loop in popular music.",
-    "status": "verified",
-    "confidence_score": 0.99,
-    "provider_origin": "tanabata_curated",
-    "evidence": [
-      {
-        "excerpt": "Funky Drummer's twenty-second break has been sampled on more than 1,500 records.",
-        "source_url": "https://en.wikipedia.org/wiki/Funky_Drummer",
-        "evidence_kind": "encyclopedia_entry",
-        "weight": 1.0
-      }
-    ]
-  },
-  {
-    "source_artist_name": "Marvin Gaye",
-    "source_track_title": "Got to Give It Up",
-    "source_released_year": "1977",
-    "derivative_artist_name": "Robin Thicke",
-    "derivative_track_title": "Blurred Lines",
-    "derivative_released_year": "2013",
-    "kind": "interpolation",
-    "notes": "A jury found the song infringed on Marvin Gaye's composition; landmark case for sonic similarity vs. literal sampling.",
-    "status": "disputed",
-    "confidence_score": 0.7,
-    "provider_origin": "tanabata_curated",
-    "evidence": [
-      {
-        "excerpt": "The Ninth Circuit upheld a verdict that Blurred Lines infringed on the copyright in Marvin Gaye's Got to Give It Up.",
-        "source_url": "https://en.wikipedia.org/wiki/Blurred_Lines_(song)#Copyright_infringement_lawsuit",
-        "evidence_kind": "court_record",
-        "weight": 1.0
-      }
-    ]
-  },
-  {
-    "source_artist_name": "The Winstons",
-    "source_track_title": "Amen, Brother",
-    "source_released_year": "1969",
-    "derivative_artist_name": "N.W.A",
-    "derivative_track_title": "Straight Outta Compton",
-    "derivative_released_year": "1988",
-    "kind": "direct_sample",
-    "notes": "The 'Amen break' is the most reused drum loop in electronic and hip-hop production.",
-    "status": "verified",
-    "confidence_score": 0.99,
-    "provider_origin": "tanabata_curated",
-    "evidence": [
-      {
-        "excerpt": "Amen, Brother contains the original 'Amen break', which has appeared on thousands of subsequent records.",
-        "source_url": "https://en.wikipedia.org/wiki/Amen_break",
-        "evidence_kind": "encyclopedia_entry",
-        "weight": 1.0
-      }
-    ]
-  },
-  {
-    "source_artist_name": "Kraftwerk",
-    "source_track_title": "Trans-Europe Express",
-    "source_released_year": "1977",
-    "derivative_artist_name": "Afrika Bambaataa",
-    "derivative_track_title": "Planet Rock",
-    "derivative_released_year": "1982",
-    "kind": "interpolation",
-    "notes": "Planet Rock interpolates the melody of Trans-Europe Express; settled out of court with songwriting credit added.",
-    "status": "verified",
-    "confidence_score": 0.95,
-    "provider_origin": "tanabata_curated",
-    "evidence": [
-      {
-        "excerpt": "Afrika Bambaataa's 'Planet Rock' lifts its melodic hook from Kraftwerk's 'Trans-Europe Express' and its rhythm from 'Numbers'.",
-        "source_url": "https://www.factmag.com/2018/04/06/planet-rock-afrika-bambaataa-kraftwerk/",
-        "evidence_kind": "journalism",
-        "weight": 1.0
-      }
-    ]
-  }
-]
+  "records": [
+    {
+      "source_artist_name": "Chic",
+      "source_track_title": "Good Times",
+      "source_released_year": "1979",
+      "derivative_artist_name": "The Sugarhill Gang",
+      "derivative_track_title": "Rapper's Delight",
+      "derivative_released_year": "1979",
+      "kind": "interpolation",
+      "duration_ms": 0,
+      "notes": "Bernard Edwards and Nile Rodgers received songwriting credit after the fact; canonical example of early hip-hop interpolation.",
+      "status": "verified",
+      "confidence_score": 0.99,
+      "provider_origin": "tanabata_curated",
+      "evidence": [
+        {
+          "excerpt": "Edwards and Rodgers were added to the songwriting credits after the song's release once the bass line was recognised.",
+          "source_url": "https://en.wikipedia.org/wiki/Rapper%27s_Delight",
+          "evidence_kind": "encyclopedia_entry",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "source_artist_name": "Lyn Collins",
+      "source_track_title": "Think (About It)",
+      "source_released_year": "1972",
+      "derivative_artist_name": "Rob Base and DJ E-Z Rock",
+      "derivative_track_title": "It Takes Two",
+      "derivative_released_year": "1988",
+      "kind": "direct_sample",
+      "notes": "The \"woo!/yeah!\" sample is one of the most reused breaks in hip-hop history.",
+      "status": "verified",
+      "confidence_score": 0.99,
+      "provider_origin": "tanabata_curated",
+      "evidence": [
+        {
+          "excerpt": "It Takes Two is built on a loop of the woo!/yeah! refrain from Think (About It), one of the most-sampled breaks in music history.",
+          "source_url": "https://www.npr.org/2017/06/30/535076394/the-story-of-the-most-sampled-break-in-music",
+          "evidence_kind": "journalism",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "source_artist_name": "David Bowie",
+      "source_track_title": "Under Pressure",
+      "source_released_year": "1981",
+      "derivative_artist_name": "Vanilla Ice",
+      "derivative_track_title": "Ice Ice Baby",
+      "derivative_released_year": "1990",
+      "kind": "direct_sample",
+      "notes": "Vanilla Ice initially denied sampling the bass line; the dispute was settled out of court, and the original writers were credited.",
+      "status": "verified",
+      "confidence_score": 0.99,
+      "provider_origin": "tanabata_curated",
+      "evidence": [
+        {
+          "excerpt": "Vanilla Ice eventually paid for the sample and credited Bowie/Queen after public scrutiny of the bass line.",
+          "source_url": "https://www.rollingstone.com/music/music-news/the-strange-saga-of-vanilla-ice-and-david-bowie-243413/",
+          "evidence_kind": "journalism",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "source_artist_name": "James Brown",
+      "source_track_title": "Funky Drummer",
+      "source_released_year": "1970",
+      "derivative_artist_name": "Public Enemy",
+      "derivative_track_title": "Fight the Power",
+      "derivative_released_year": "1989",
+      "kind": "direct_sample",
+      "notes": "Clyde Stubblefield's break is the most-sampled drum loop in popular music.",
+      "status": "verified",
+      "confidence_score": 0.99,
+      "provider_origin": "tanabata_curated",
+      "evidence": [
+        {
+          "excerpt": "Funky Drummer's twenty-second break has been sampled on more than 1,500 records.",
+          "source_url": "https://en.wikipedia.org/wiki/Funky_Drummer",
+          "evidence_kind": "encyclopedia_entry",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "source_artist_name": "Marvin Gaye",
+      "source_track_title": "Got to Give It Up",
+      "source_released_year": "1977",
+      "derivative_artist_name": "Robin Thicke",
+      "derivative_track_title": "Blurred Lines",
+      "derivative_released_year": "2013",
+      "kind": "interpolation",
+      "notes": "A jury found the song infringed on Marvin Gaye's composition; landmark case for sonic similarity vs. literal sampling.",
+      "status": "disputed",
+      "confidence_score": 0.7,
+      "provider_origin": "tanabata_curated",
+      "evidence": [
+        {
+          "excerpt": "The Ninth Circuit upheld a verdict that Blurred Lines infringed on the copyright in Marvin Gaye's Got to Give It Up.",
+          "source_url": "https://en.wikipedia.org/wiki/Blurred_Lines_(song)#Copyright_infringement_lawsuit",
+          "evidence_kind": "court_record",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "source_artist_name": "The Winstons",
+      "source_track_title": "Amen, Brother",
+      "source_released_year": "1969",
+      "derivative_artist_name": "N.W.A",
+      "derivative_track_title": "Straight Outta Compton",
+      "derivative_released_year": "1988",
+      "kind": "direct_sample",
+      "notes": "The 'Amen break' is the most reused drum loop in electronic and hip-hop production.",
+      "status": "verified",
+      "confidence_score": 0.99,
+      "provider_origin": "tanabata_curated",
+      "evidence": [
+        {
+          "excerpt": "Amen, Brother contains the original 'Amen break', which has appeared on thousands of subsequent records.",
+          "source_url": "https://en.wikipedia.org/wiki/Amen_break",
+          "evidence_kind": "encyclopedia_entry",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "source_artist_name": "Kraftwerk",
+      "source_track_title": "Trans-Europe Express",
+      "source_released_year": "1977",
+      "derivative_artist_name": "Afrika Bambaataa",
+      "derivative_track_title": "Planet Rock",
+      "derivative_released_year": "1982",
+      "kind": "interpolation",
+      "notes": "Planet Rock interpolates the melody of Trans-Europe Express; settled out of court with songwriting credit added.",
+      "status": "verified",
+      "confidence_score": 0.95,
+      "provider_origin": "tanabata_curated",
+      "evidence": [
+        {
+          "excerpt": "Afrika Bambaataa's 'Planet Rock' lifts its melodic hook from Kraftwerk's 'Trans-Europe Express' and its rhythm from 'Numbers'.",
+          "source_url": "https://www.factmag.com/2018/04/06/planet-rock-afrika-bambaataa-kraftwerk/",
+          "evidence_kind": "journalism",
+          "weight": 1.0
+        }
+      ]
+    }
+  ]
+}
