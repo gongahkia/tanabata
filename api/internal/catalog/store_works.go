@@ -281,7 +281,11 @@ func (s *Store) rebuildWorkSearch(ctx context.Context) error {
 
 // SeedCuratedWorks loads works + nested credits/covers from JSON, recording an audit trail.
 func (s *Store) SeedCuratedWorks(ctx context.Context, bundlePath, jobID string) (int, error) {
-	records, err := decodeJSONFile[models.CuratedWorkRecord](bundlePath)
+	records, meta, err := decodeCuratedBundle[models.CuratedWorkRecord](bundlePath)
+	if err != nil {
+		return 0, err
+	}
+	_, sourceMeta, err := s.upsertCuratedFixtureSource(ctx, bundlePath, meta)
 	if err != nil {
 		return 0, err
 	}
@@ -420,6 +424,7 @@ func (s *Store) SeedCuratedWorks(ctx context.Context, bundlePath, jobID string) 
 			Status:     "succeeded",
 			OccurredAt: now,
 			Details:    "covers=" + strconv.Itoa(len(record.Covers)) + " credits=" + strconv.Itoa(len(record.Credits)),
+			SourceMeta: sourceMeta,
 		}); err != nil {
 			return imported, err
 		}

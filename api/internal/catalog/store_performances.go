@@ -293,7 +293,11 @@ func scanPerformance(scanner rowScanner, perf *models.Performance) error {
 
 // SeedCuratedPerformances loads curated performance events with evidence + audit.
 func (s *Store) SeedCuratedPerformances(ctx context.Context, bundlePath, jobID string) (int, error) {
-	records, err := decodeJSONFile[models.CuratedPerformanceRecord](bundlePath)
+	records, meta, err := decodeCuratedBundle[models.CuratedPerformanceRecord](bundlePath)
+	if err != nil {
+		return 0, err
+	}
+	_, sourceMeta, err := s.upsertCuratedFixtureSource(ctx, bundlePath, meta)
 	if err != nil {
 		return 0, err
 	}
@@ -351,6 +355,7 @@ func (s *Store) SeedCuratedPerformances(ctx context.Context, bundlePath, jobID s
 			Status:     "succeeded",
 			OccurredAt: time.Now().UTC().Format(time.RFC3339),
 			Details:    "work=" + workID + " evidence=" + strconv.Itoa(len(record.Evidence)),
+			SourceMeta: sourceMeta,
 		}); err != nil {
 			return imported, err
 		}

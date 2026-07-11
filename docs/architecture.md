@@ -10,6 +10,7 @@
 - `-bootstrap` seeds the catalog from `api/data/quotes.json`.
 - `-all` and `-artist` enrich artists through MusicBrainz, Wikidata, Wikiquote, and Last.fm.
 - Every ingestion run persists `jobs`, `job_items`, ingestion snapshots, and audit events so the API can expose pipeline history.
+- Curated fixture files use `{ "meta": { "license", "source", "curator", "retrieved_at", "notes", "attribution_text" }, "records": [...] }`. Loaders accept the prior bare-array form during the migration; fixture metadata is persisted as a source and attached to seeded audit events.
 
 ## Storage and Search
 - SQLite remains the single runtime store for artists, quotes, sources, releases, provider bookkeeping, cache entries, and ingestion jobs.

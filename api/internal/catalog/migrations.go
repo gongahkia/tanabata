@@ -565,4 +565,23 @@ var catalogMigrations = []schemaMigration{
 			`CREATE INDEX IF NOT EXISTS idx_webhooks_disabled ON webhooks(disabled_at);`,
 		},
 	},
+	{
+		Version: 10,
+		Name:    "source_attribution_text",
+		Statements: []string{
+			`ALTER TABLE quote_sources ADD COLUMN attribution_text TEXT NOT NULL DEFAULT '';`,
+			`CREATE TABLE IF NOT EXISTS ingestion_audit_events (
+				event_id TEXT PRIMARY KEY,
+				job_id TEXT NOT NULL DEFAULT '',
+				job_item_id TEXT NOT NULL DEFAULT '',
+				provider TEXT NOT NULL DEFAULT '',
+				target TEXT NOT NULL DEFAULT '',
+				action TEXT NOT NULL,
+				status TEXT NOT NULL,
+				occurred_at TEXT NOT NULL,
+				details TEXT NOT NULL DEFAULT ''
+			);`,
+			`ALTER TABLE ingestion_audit_events ADD COLUMN source_meta TEXT NOT NULL DEFAULT '{}';`,
+		},
+	},
 }

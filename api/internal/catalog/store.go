@@ -1,6 +1,7 @@
 package catalog
 
 import (
+	"bytes"
 	"context"
 	"database/sql"
 	"encoding/json"
@@ -551,8 +552,30 @@ func (s *Store) ImportCuratedQuotes(ctx context.Context, bundlePath string) (int
 		return 0, fmt.Errorf("read curated quotes: %w", err)
 	}
 	var records []models.CuratedQuoteRecord
-	if err := json.Unmarshal(content, &records); err != nil {
+	var fixtureMeta models.CuratedFixtureMeta
+	if len(bytes.TrimSpace(content)) > 0 && bytes.TrimSpace(content)[0] != '[' {
+		var raw map[string]json.RawMessage
+		if err := json.Unmarshal(content, &raw); err != nil {
+			return 0, fmt.Errorf("decode curated quotes: %w", err)
+		}
+		if _, ok := raw["records"]; !ok {
+			return 0, fmt.Errorf("decode curated quotes: curated bundle missing records")
+		}
+		var bundle struct {
+			Meta    models.CuratedFixtureMeta   `json:"meta"`
+			Records []models.CuratedQuoteRecord `json:"records"`
+		}
+		if err := json.Unmarshal(content, &bundle); err != nil {
+			return 0, fmt.Errorf("decode curated quotes: %w", err)
+		}
+		records = bundle.Records
+		fixtureMeta = bundle.Meta
+	} else if err := json.Unmarshal(content, &records); err != nil {
 		return 0, fmt.Errorf("decode curated quotes: %w", err)
+	}
+	fixtureSource, _, err := s.upsertCuratedFixtureSource(ctx, bundlePath, fixtureMeta)
+	if err != nil {
+		return 0, err
 	}
 
 	imported := 0
@@ -593,6 +616,10 @@ func (s *Store) ImportCuratedQuotes(ctx context.Context, bundlePath string) (int
 		}
 
 		source := record.Source
+		if source == nil && fixtureSource != nil {
+			copy := *fixtureSource
+			source = &copy
+		}
 		if source != nil {
 			if source.SourceID == "" {
 				source.SourceID = search.SourceID(source.Provider, source.URL)
@@ -890,16 +917,17 @@ func rekeyArtistRelationUpdateSQL(column string) (string, bool) {
 
 func (s *Store) UpsertSource(ctx context.Context, source models.Source) error {
 	_, err := s.db.ExecContext(ctx, `
-		INSERT INTO quote_sources(source_id, provider, url, title, publisher, license, retrieved_at)
-		VALUES(?, ?, ?, ?, ?, ?, ?)
+		INSERT INTO quote_sources(source_id, provider, url, title, publisher, license, retrieved_at, attribution_text)
+		VALUES(?, ?, ?, ?, ?, ?, ?, ?)
 		ON CONFLICT(source_id) DO UPDATE SET
 			provider = excluded.provider,
 			url = excluded.url,
 			title = excluded.title,
 			publisher = excluded.publisher,
 			license = excluded.license,
-			retrieved_at = excluded.retrieved_at
-	`, source.SourceID, source.Provider, source.URL, source.Title, source.Publisher, source.License, source.RetrievedAt)
+			retrieved_at = excluded.retrieved_at,
+			attribution_text = excluded.attribution_text
+	`, source.SourceID, source.Provider, source.URL, source.Title, source.Publisher, source.License, source.RetrievedAt, source.AttributionText)
 	return err
 }
 
@@ -1894,11 +1922,11 @@ func (s *Store) Releases(ctx context.Context, artistID string) ([]models.Release
 
 func (s *Store) SourceByID(ctx context.Context, sourceID string) (*models.Source, error) {
 	row := s.db.QueryRowContext(ctx, `
-		SELECT source_id, provider, url, title, publisher, license, retrieved_at
+		SELECT source_id, provider, url, title, publisher, license, retrieved_at, attribution_text
 		FROM quote_sources WHERE source_id = ?
 	`, sourceID)
 	var source models.Source
-	if err := row.Scan(&source.SourceID, &source.Provider, &source.URL, &source.Title, &source.Publisher, &source.License, &source.RetrievedAt); err != nil {
+	if err := row.Scan(&source.SourceID, &source.Provider, &source.URL, &source.Title, &source.Publisher, &source.License, &source.RetrievedAt, &source.AttributionText); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil
 		}
@@ -2653,12 +2681,16 @@ func (s *Store) ListIngestionSnapshots(ctx context.Context, jobID string, limit 
 }
 
 func (s *Store) RecordIngestionAuditEvent(ctx context.Context, event models.IngestionAuditEvent) error {
-	if event.EventID == "" {
-		event.EventID = search.StableHash("ingestion-audit", event.JobID, event.JobItemID, event.Provider, event.Target, event.Action, event.Status, event.OccurredAt, event.Details)
+	sourceMeta, err := json.Marshal(event.SourceMeta)
+	if err != nil {
+		return fmt.Errorf("marshal source meta: %w", err)
 	}
-	_, err := s.db.ExecContext(ctx, `
-		INSERT INTO ingestion_audit_events(event_id, job_id, job_item_id, provider, target, action, status, occurred_at, details)
-		VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)
+	if event.EventID == "" {
+		event.EventID = search.StableHash("ingestion-audit", event.JobID, event.JobItemID, event.Provider, event.Target, event.Action, event.Status, event.OccurredAt, event.Details, string(sourceMeta))
+	}
+	_, err = s.db.ExecContext(ctx, `
+		INSERT INTO ingestion_audit_events(event_id, job_id, job_item_id, provider, target, action, status, occurred_at, details, source_meta)
+		VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 		ON CONFLICT(event_id) DO UPDATE SET
 			job_id = excluded.job_id,
 			job_item_id = excluded.job_item_id,
@@ -2667,13 +2699,14 @@ func (s *Store) RecordIngestionAuditEvent(ctx context.Context, event models.Inge
 			action = excluded.action,
 			status = excluded.status,
 			occurred_at = excluded.occurred_at,
-			details = excluded.details
-	`, event.EventID, event.JobID, event.JobItemID, event.Provider, event.Target, event.Action, event.Status, event.OccurredAt, event.Details)
+			details = excluded.details,
+			source_meta = excluded.source_meta
+	`, event.EventID, event.JobID, event.JobItemID, event.Provider, event.Target, event.Action, event.Status, event.OccurredAt, event.Details, string(sourceMeta))
 	return err
 }
 
 func (s *Store) ListIngestionAuditEvents(ctx context.Context, jobID string, limit int) ([]models.IngestionAuditEvent, error) {
-	query := `SELECT event_id, job_id, job_item_id, provider, target, action, status, occurred_at, details FROM ingestion_audit_events`
+	query := `SELECT event_id, job_id, job_item_id, provider, target, action, status, occurred_at, details, source_meta FROM ingestion_audit_events`
 	args := []any{}
 	if jobID != "" {
 		query += ` WHERE job_id = ?`
@@ -2689,8 +2722,14 @@ func (s *Store) ListIngestionAuditEvents(ctx context.Context, jobID string, limi
 	var events []models.IngestionAuditEvent
 	for rows.Next() {
 		var event models.IngestionAuditEvent
-		if err := rows.Scan(&event.EventID, &event.JobID, &event.JobItemID, &event.Provider, &event.Target, &event.Action, &event.Status, &event.OccurredAt, &event.Details); err != nil {
+		var sourceMeta string
+		if err := rows.Scan(&event.EventID, &event.JobID, &event.JobItemID, &event.Provider, &event.Target, &event.Action, &event.Status, &event.OccurredAt, &event.Details, &sourceMeta); err != nil {
 			return nil, err
+		}
+		if sourceMeta != "" && sourceMeta != "null" {
+			if err := json.Unmarshal([]byte(sourceMeta), &event.SourceMeta); err != nil {
+				return nil, fmt.Errorf("decode source meta: %w", err)
+			}
 		}
 		events = append(events, event)
 	}
@@ -3180,7 +3219,8 @@ func (s *Store) quotesByIDs(ctx context.Context, quoteIDs []string) ([]models.Qu
 			quote_sources.title,
 			quote_sources.publisher,
 			quote_sources.license,
-			quote_sources.retrieved_at
+			quote_sources.retrieved_at,
+			quote_sources.attribution_text
 		FROM quotes
 		JOIN artists ON artists.artist_id = quotes.artist_id
 		LEFT JOIN quote_sources ON quote_sources.source_id = quotes.source_id AND quotes.source_id <> ''
@@ -3215,7 +3255,7 @@ func (s *Store) scanQuoteRowsWithChildren(ctx context.Context, rows *sql.Rows) (
 		var quote models.Quote
 		var year string
 		var sourceID string
-		var sourceSourceID, sourceProvider, sourceURL, sourceTitle, sourcePublisher, sourceLicense, sourceRetrievedAt sql.NullString
+		var sourceSourceID, sourceProvider, sourceURL, sourceTitle, sourcePublisher, sourceLicense, sourceRetrievedAt, sourceAttributionText sql.NullString
 		if err := rows.Scan(
 			&quote.QuoteID,
 			&quote.Text,
@@ -3238,6 +3278,7 @@ func (s *Store) scanQuoteRowsWithChildren(ctx context.Context, rows *sql.Rows) (
 			&sourcePublisher,
 			&sourceLicense,
 			&sourceRetrievedAt,
+			&sourceAttributionText,
 		); err != nil {
 			_ = rows.Close()
 			return nil, err
@@ -3249,13 +3290,14 @@ func (s *Store) scanQuoteRowsWithChildren(ctx context.Context, rows *sql.Rows) (
 		applyQuoteFreshness(&quote, now)
 		if sourceSourceID.Valid {
 			quote.Source = &models.Source{
-				SourceID:    sourceSourceID.String,
-				Provider:    sourceProvider.String,
-				URL:         sourceURL.String,
-				Title:       sourceTitle.String,
-				Publisher:   sourcePublisher.String,
-				License:     sourceLicense.String,
-				RetrievedAt: sourceRetrievedAt.String,
+				SourceID:        sourceSourceID.String,
+				Provider:        sourceProvider.String,
+				URL:             sourceURL.String,
+				Title:           sourceTitle.String,
+				Publisher:       sourcePublisher.String,
+				License:         sourceLicense.String,
+				RetrievedAt:     sourceRetrievedAt.String,
+				AttributionText: sourceAttributionText.String,
 			}
 		}
 		quoteIndex[quote.QuoteID] = len(quotes)
