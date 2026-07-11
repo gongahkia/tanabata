@@ -146,7 +146,7 @@ func handlerValidatedQueryRequestError(err error) bool {
 	if schema == nil || schema.Value == nil {
 		return false
 	}
-	return len(schema.Value.Enum) > 0 || (requestErr.Parameter.Name == "offset" && schema.Value.Max != nil)
+	return len(schema.Value.Enum) > 0 || ((requestErr.Parameter.Name == "offset" || requestErr.Parameter.Name == "depth") && schema.Value.Max != nil)
 }
 
 func (v *runtimeContractValidator) routeFor(request *http.Request) (*routers.Route, map[string]string, error) {

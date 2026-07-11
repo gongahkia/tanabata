@@ -1,11 +1,14 @@
 package api
 
 import (
+	"errors"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/gin-gonic/gin"
 
+	"github.com/gongahkia/tanabata/api/internal/catalog"
 	"github.com/gongahkia/tanabata/api/internal/models"
 )
 
@@ -249,6 +252,86 @@ func (s *Server) performanceByID(c *gin.Context) {
 		return
 	}
 	dataResponse(c, http.StatusOK, perf, nil)
+}
+
+func (s *Server) entityGraph(c *gin.Context) {
+	depth, apiErr := parseGraphDepth(c.Query("depth"))
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
+	edgeKinds, apiErr := parseGraphEdgeKinds(c.Query("edge_kinds"))
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
+	graph, nextCursor, err := s.store.EntityGraph(c.Request.Context(), c.Param("entity_id"), depth, edgeKinds, c.Query("edge_cursor"))
+	if err != nil {
+		if errors.Is(err, catalog.ErrUnknownGraphCursor) {
+			errorResponse(c, http.StatusBadRequest, "unknown_cursor", "unknown edge cursor", nil)
+			return
+		}
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "graph_lookup_failed", "failed to load entity graph", nil, err)
+		return
+	}
+	if len(graph.Nodes) == 0 {
+		errorResponse(c, http.StatusNotFound, "entity_not_found", "entity not found", nil)
+		return
+	}
+	meta, err := s.store.Meta(c.Request.Context())
+	if err != nil {
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "graph_lookup_failed", "failed to load service metadata", nil, err)
+		return
+	}
+	dataResponse(c, http.StatusOK, graph, cursorMeta(meta, nextCursor))
+}
+
+func parseGraphDepth(value string) (int, *apiError) {
+	if strings.TrimSpace(value) == "" {
+		return 1, nil
+	}
+	depth, err := strconv.Atoi(value)
+	if err != nil || depth < 1 {
+		return 0, &apiError{
+			status:  http.StatusBadRequest,
+			code:    "invalid_depth",
+			message: "depth must be between 1 and 3",
+		}
+	}
+	if depth > 3 {
+		return 0, &apiError{
+			status:  http.StatusBadRequest,
+			code:    "depth_too_large",
+			message: "depth must be <= 3",
+		}
+	}
+	return depth, nil
+}
+
+func parseGraphEdgeKinds(value string) ([]string, *apiError) {
+	if strings.TrimSpace(value) == "" {
+		return append([]string(nil), graphEdgeKinds...), nil
+	}
+	seen := map[string]bool{}
+	kinds := []string{}
+	for _, part := range strings.Split(value, ",") {
+		part = strings.TrimSpace(part)
+		if part == "" {
+			continue
+		}
+		kind, apiErr := parseEnum("edge_kinds", part, graphEdgeKinds)
+		if apiErr != nil {
+			return nil, apiErr
+		}
+		if !seen[kind] {
+			kinds = append(kinds, kind)
+			seen[kind] = true
+		}
+	}
+	if len(kinds) == 0 {
+		return append([]string(nil), graphEdgeKinds...), nil
+	}
+	return kinds, nil
 }
 
 // claimByID GET /v1/claims/{claim_id}

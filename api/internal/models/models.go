@@ -428,6 +428,26 @@ type ClaimView struct {
 	RefutingCount   int     `json:"refuting_evidence_count"`
 }
 
+type GraphNode struct {
+	ID    string `json:"id"`
+	Kind  string `json:"kind"`
+	Label string `json:"label"`
+}
+
+type GraphEdge struct {
+	From            string  `json:"from"`
+	To              string  `json:"to"`
+	Kind            string  `json:"kind"`
+	ClaimID         string  `json:"claim_id"`
+	Status          string  `json:"status"`
+	ConfidenceScore float64 `json:"confidence_score"`
+}
+
+type EntityGraph struct {
+	Nodes []GraphNode `json:"nodes"`
+	Edges []GraphEdge `json:"edges"`
+}
+
 // ClaimEvidence supports or refutes a Claim.
 type ClaimEvidence struct {
 	EvidenceID   string  `json:"evidence_id"`

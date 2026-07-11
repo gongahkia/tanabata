@@ -50,6 +50,7 @@ var (
 	freshnessStatuses             = []string{"fresh", "aging", "stale", "unknown"}
 	quoteSorts                    = []string{"random"}
 	performanceSorts              = []string{"asc", "desc"}
+	graphEdgeKinds                = []string{"attribution", "sample", "credit", "cover", "performance"}
 )
 
 var errUnknownCursor = errors.New("unknown cursor")
@@ -142,6 +143,7 @@ func (s *Server) Router() *gin.Engine {
 		v1.GET("/claims", s.listClaims)
 		v1.GET("/claims/:claim_id", s.claimByID)
 		v1.GET("/disputes", s.disputes)
+		v1.GET("/graph/:entity_id", s.entityGraph)
 
 		v1.GET("/sources/:source_id", s.sourceByID)
 		v1.GET("/providers", s.providers)

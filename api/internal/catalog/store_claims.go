@@ -18,6 +18,12 @@ import (
 	"github.com/gongahkia/tanabata/api/internal/search"
 )
 
+var ErrUnknownGraphCursor = errors.New("unknown graph cursor")
+
+const graphEdgePageSize = 100
+
+var defaultGraphEdgeKinds = []string{"attribution", "sample", "credit", "cover", "performance"}
+
 // RecordClaim inserts a new claim (or updates the existing one keyed by subject+object+kind).
 func (s *Store) RecordClaim(ctx context.Context, claim models.Claim) (string, error) {
 	if strings.TrimSpace(claim.Kind) == "" {
@@ -74,6 +80,305 @@ func (s *Store) RecordClaim(ctx context.Context, claim models.Claim) (string, er
 		return "", err
 	}
 	return claimID, nil
+}
+
+func (s *Store) EntityGraph(ctx context.Context, entityID string, depth int, edgeKinds []string, edgeCursor string) (models.EntityGraph, string, error) {
+	graph := models.EntityGraph{Nodes: []models.GraphNode{}, Edges: []models.GraphEdge{}}
+	entityID = strings.TrimSpace(entityID)
+	if entityID == "" {
+		return graph, "", nil
+	}
+	if depth < 1 {
+		depth = 1
+	}
+	if depth > 3 {
+		depth = 3
+	}
+	if len(edgeKinds) == 0 {
+		edgeKinds = defaultGraphEdgeKinds
+	}
+
+	rows, err := s.graphClaimEdges(ctx, entityID, depth, edgeKinds)
+	if err != nil {
+		return graph, "", err
+	}
+	page, nextCursor, err := paginateGraphEdgeRows(rows, strings.TrimSpace(edgeCursor))
+	if err != nil {
+		return graph, "", err
+	}
+
+	nodes := map[string]models.GraphNode{}
+	if node, ok, err := s.graphNode(ctx, "", entityID); err != nil {
+		return graph, "", err
+	} else if ok {
+		nodes[node.ID] = node
+	}
+	graph.Edges = make([]models.GraphEdge, 0, len(page))
+	for _, row := range page {
+		graph.Edges = append(graph.Edges, models.GraphEdge{
+			From:            row.FromID,
+			To:              row.ToID,
+			Kind:            row.Kind,
+			ClaimID:         row.ClaimID,
+			Status:          row.Status,
+			ConfidenceScore: row.ConfidenceScore,
+		})
+		if node, ok, err := s.graphNode(ctx, row.FromType, row.FromID); err != nil {
+			return graph, "", err
+		} else if ok {
+			nodes[node.ID] = node
+		}
+		if node, ok, err := s.graphNode(ctx, row.ToType, row.ToID); err != nil {
+			return graph, "", err
+		} else if ok {
+			nodes[node.ID] = node
+		}
+	}
+	graph.Nodes = make([]models.GraphNode, 0, len(nodes))
+	for _, node := range nodes {
+		graph.Nodes = append(graph.Nodes, node)
+	}
+	sort.Slice(graph.Nodes, func(i, j int) bool {
+		if graph.Nodes[i].Kind == graph.Nodes[j].Kind {
+			return graph.Nodes[i].ID < graph.Nodes[j].ID
+		}
+		return graph.Nodes[i].Kind < graph.Nodes[j].Kind
+	})
+	return graph, nextCursor, nil
+}
+
+type graphClaimEdge struct {
+	ClaimID         string
+	FromType        string
+	FromID          string
+	ToType          string
+	ToID            string
+	Kind            string
+	Status          string
+	ConfidenceScore float64
+}
+
+func (s *Store) graphClaimEdges(ctx context.Context, entityID string, depth int, edgeKinds []string) ([]graphClaimEdge, error) {
+	args := graphEdgeKindArgs(edgeKinds)
+	args = append(args, entityID, depth, depth)
+	rows, err := s.db.QueryContext(ctx, graphClaimEdgesSQL, args...)
+	if err != nil {
+		return nil, err
+	}
+	edges := []graphClaimEdge{}
+	for rows.Next() {
+		edge := graphClaimEdge{}
+		if err := rows.Scan(&edge.ClaimID, &edge.FromType, &edge.FromID, &edge.ToType, &edge.ToID, &edge.Kind, &edge.Status, &edge.ConfidenceScore); err != nil {
+			_ = rows.Close()
+			return nil, err
+		}
+		edges = append(edges, edge)
+	}
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return nil, err
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	return edges, nil
+}
+
+func graphEdgeKindArgs(edgeKinds []string) []any {
+	selected := map[string]bool{}
+	for _, kind := range edgeKinds {
+		selected[kind] = true
+	}
+	args := make([]any, 0, len(defaultGraphEdgeKinds))
+	for _, kind := range defaultGraphEdgeKinds {
+		if selected[kind] {
+			args = append(args, kind)
+			continue
+		}
+		args = append(args, "")
+	}
+	return args
+}
+
+const graphClaimEdgesSQL = `
+		WITH RECURSIVE claim_edges AS (
+			SELECT c.claim_id,
+				CASE WHEN c.subject_type = 'work_credit' THEN 'artist' ELSE c.subject_type END AS from_type,
+				CASE WHEN c.subject_type = 'work_credit' THEN COALESCE(NULLIF(wc.credited_artist_id, ''), c.subject_id) ELSE c.subject_id END AS from_id,
+				CASE WHEN c.object_type = 'work_credit' THEN 'artist' ELSE c.object_type END AS to_type,
+				CASE WHEN c.object_type = 'work_credit' THEN COALESCE(NULLIF(owc.credited_artist_id, ''), c.object_id) ELSE c.object_id END AS to_id,
+				c.kind, c.status, c.confidence_score
+			FROM claims c
+			LEFT JOIN work_credits wc ON c.subject_type = 'work_credit' AND wc.credit_id = c.subject_id
+			LEFT JOIN work_credits owc ON c.object_type = 'work_credit' AND owc.credit_id = c.object_id
+			WHERE c.kind IN (?, ?, ?, ?, ?)
+		),
+		walk(entity_id, depth) AS (
+			SELECT ?, 0
+			UNION
+			SELECT CASE WHEN claim_edges.from_id = walk.entity_id THEN claim_edges.to_id ELSE claim_edges.from_id END, walk.depth + 1
+			FROM walk
+			JOIN claim_edges ON claim_edges.from_id = walk.entity_id OR claim_edges.to_id = walk.entity_id
+			WHERE walk.depth < ?
+		)
+		SELECT DISTINCT claim_id, from_type, from_id, to_type, to_id, kind, status, confidence_score
+		FROM claim_edges
+		JOIN walk ON claim_edges.from_id = walk.entity_id OR claim_edges.to_id = walk.entity_id
+		WHERE walk.depth < ?
+		ORDER BY claim_id
+	`
+
+func paginateGraphEdgeRows(edges []graphClaimEdge, cursor string) ([]graphClaimEdge, string, error) {
+	start := 0
+	if cursor != "" {
+		found := false
+		for i, edge := range edges {
+			if edge.ClaimID == cursor {
+				start = i + 1
+				found = true
+				break
+			}
+		}
+		if !found {
+			return nil, "", ErrUnknownGraphCursor
+		}
+	}
+	if start >= len(edges) {
+		return []graphClaimEdge{}, "", nil
+	}
+	end := start + graphEdgePageSize
+	if end >= len(edges) {
+		return edges[start:], "", nil
+	}
+	return edges[start:end], edges[end-1].ClaimID, nil
+}
+
+func (s *Store) graphNode(ctx context.Context, kind, id string) (models.GraphNode, bool, error) {
+	id = strings.TrimSpace(id)
+	if id == "" {
+		return models.GraphNode{}, false, nil
+	}
+	switch kind {
+	case "artist":
+		return s.artistGraphNode(ctx, id)
+	case "quote":
+		return s.quoteGraphNode(ctx, id)
+	case "work":
+		return s.workGraphNode(ctx, id)
+	case "recording":
+		return s.recordingGraphNode(ctx, id)
+	case "performance":
+		return s.performanceGraphNode(ctx, id)
+	}
+	for _, candidate := range []string{"artist", "quote", "work", "recording", "performance"} {
+		node, ok, err := s.graphNode(ctx, candidate, id)
+		if err != nil || ok {
+			return node, ok, err
+		}
+	}
+	if strings.HasPrefix(id, "tanabata:credit:") {
+		return s.creditGraphNode(ctx, id)
+	}
+	return models.GraphNode{}, false, nil
+}
+
+func (s *Store) artistGraphNode(ctx context.Context, id string) (models.GraphNode, bool, error) {
+	var label string
+	if err := s.db.QueryRowContext(ctx, `SELECT name FROM artists WHERE artist_id = ?`, id).Scan(&label); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return s.creditGraphNode(ctx, id)
+		}
+		return models.GraphNode{}, false, err
+	}
+	return models.GraphNode{ID: id, Kind: "artist", Label: label}, true, nil
+}
+
+func (s *Store) quoteGraphNode(ctx context.Context, id string) (models.GraphNode, bool, error) {
+	var label string
+	if err := s.db.QueryRowContext(ctx, `SELECT text FROM quotes WHERE quote_id = ?`, id).Scan(&label); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return models.GraphNode{}, false, nil
+		}
+		return models.GraphNode{}, false, err
+	}
+	return models.GraphNode{ID: id, Kind: "quote", Label: truncate(label, 64)}, true, nil
+}
+
+func (s *Store) workGraphNode(ctx context.Context, id string) (models.GraphNode, bool, error) {
+	var label string
+	if err := s.db.QueryRowContext(ctx, `SELECT title FROM works WHERE work_id = ?`, id).Scan(&label); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return models.GraphNode{}, false, nil
+		}
+		return models.GraphNode{}, false, err
+	}
+	return models.GraphNode{ID: id, Kind: "work", Label: label}, true, nil
+}
+
+func (s *Store) recordingGraphNode(ctx context.Context, id string) (models.GraphNode, bool, error) {
+	var artist, title string
+	if err := s.db.QueryRowContext(ctx, `
+		SELECT COALESCE(artists.name, ''), recordings.title
+		FROM recordings
+		LEFT JOIN artists ON artists.artist_id = recordings.artist_id
+		WHERE recordings.recording_id = ?
+	`, id).Scan(&artist, &title); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return models.GraphNode{}, false, nil
+		}
+		return models.GraphNode{}, false, err
+	}
+	label := title
+	if artist != "" {
+		label = artist + " - " + title
+	}
+	return models.GraphNode{ID: id, Kind: "recording", Label: label}, true, nil
+}
+
+func (s *Store) performanceGraphNode(ctx context.Context, id string) (models.GraphNode, bool, error) {
+	var artist, event, venue, performedAt string
+	if err := s.db.QueryRowContext(ctx, `
+		SELECT COALESCE(artists.name, ''), performances.event_name, performances.venue, performances.performed_at
+		FROM performances
+		LEFT JOIN artists ON artists.artist_id = performances.artist_id
+		WHERE performances.performance_id = ?
+	`, id).Scan(&artist, &event, &venue, &performedAt); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return models.GraphNode{}, false, nil
+		}
+		return models.GraphNode{}, false, err
+	}
+	label := strings.TrimSpace(artist)
+	if place := firstGraphLabelPart(event, venue); place != "" {
+		label = strings.TrimSpace(label + " @ " + place)
+	}
+	if performedAt != "" {
+		label = strings.TrimSpace(label + " " + performedAt)
+	}
+	if label == "" {
+		label = id
+	}
+	return models.GraphNode{ID: id, Kind: "performance", Label: label}, true, nil
+}
+
+func (s *Store) creditGraphNode(ctx context.Context, id string) (models.GraphNode, bool, error) {
+	var label string
+	if err := s.db.QueryRowContext(ctx, `SELECT credited_name FROM work_credits WHERE credit_id = ?`, id).Scan(&label); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return models.GraphNode{}, false, nil
+		}
+		return models.GraphNode{}, false, err
+	}
+	return models.GraphNode{ID: id, Kind: "artist", Label: label}, true, nil
+}
+
+func firstGraphLabelPart(values ...string) string {
+	for _, value := range values {
+		if strings.TrimSpace(value) != "" {
+			return strings.TrimSpace(value)
+		}
+	}
+	return ""
 }
 
 func claimStatusRank(status string) int {
