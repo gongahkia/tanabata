@@ -629,6 +629,71 @@ func TestErrorEnvelopeAndRequestID(t *testing.T) {
 	}
 }
 
+func TestEnumQueryParams(t *testing.T) {
+	t.Setenv(rateLimitRPMEnv, "0")
+	server, store := seededServer(t)
+	defer store.Close()
+
+	artistID, err := store.ResolveArtistID(context.Background(), "Frank Ocean")
+	if err != nil || artistID == "" {
+		t.Fatalf("ResolveArtistID() id=%q err=%v", artistID, err)
+	}
+	router := server.Router()
+	tests := []struct {
+		name    string
+		path    string
+		param   string
+		allowed []string
+	}{
+		{name: "artist quotes provenance", path: "/v1/artists/" + artistID + "/quotes", param: "provenance_status", allowed: quoteProvenanceStatuses},
+		{name: "artist quotes freshness", path: "/v1/artists/" + artistID + "/quotes", param: "freshness_status", allowed: freshnessStatuses},
+		{name: "artist quotes sort", path: "/v1/artists/" + artistID + "/quotes", param: "sort", allowed: quoteSorts},
+		{name: "quotes provenance", path: "/v1/quotes", param: "provenance_status", allowed: quoteProvenanceStatuses},
+		{name: "quotes freshness", path: "/v1/quotes", param: "freshness_status", allowed: freshnessStatuses},
+		{name: "quotes sort", path: "/v1/quotes", param: "sort", allowed: quoteSorts},
+		{name: "random quote provenance", path: "/v1/quotes/random", param: "provenance_status", allowed: quoteProvenanceStatuses},
+		{name: "review queue provenance", path: "/v1/review/queue", param: "provenance_status", allowed: reviewQueueProvenanceStatuses},
+		{name: "work performances sort", path: "/v1/works/work-missing/performances", param: "sort", allowed: performanceSorts},
+		{name: "artist performances sort", path: "/v1/artists/" + artistID + "/performances", param: "sort", allowed: performanceSorts},
+	}
+	for _, tc := range tests {
+		for _, value := range tc.allowed {
+			t.Run(tc.name+"/valid/"+value, func(t *testing.T) {
+				recorder := httptest.NewRecorder()
+				request := httptest.NewRequest(http.MethodGet, enumQueryPath(tc.path, tc.param, value), nil)
+				router.ServeHTTP(recorder, request)
+				if recorder.Code != http.StatusOK {
+					t.Fatalf("status = %d, want 200 body=%s", recorder.Code, recorder.Body.String())
+				}
+			})
+		}
+		t.Run(tc.name+"/invalid", func(t *testing.T) {
+			recorder := httptest.NewRecorder()
+			request := httptest.NewRequest(http.MethodGet, enumQueryPath(tc.path, tc.param, "maybe"), nil)
+			router.ServeHTTP(recorder, request)
+			if recorder.Code != http.StatusBadRequest {
+				t.Fatalf("status = %d, want 400 body=%s", recorder.Code, recorder.Body.String())
+			}
+			var problem models.ProblemDetails
+			if err := json.Unmarshal(recorder.Body.Bytes(), &problem); err != nil {
+				t.Fatalf("decode response: %v", err)
+			}
+			if problem.Code != "invalid_enum" || problem.Title != "unknown value for "+tc.param {
+				t.Fatalf("unexpected problem payload %+v", problem)
+			}
+			allowed, ok := problem.Details["allowed"].([]any)
+			if !ok || len(allowed) != len(tc.allowed) {
+				t.Fatalf("allowed = %#v, want %v", problem.Details["allowed"], tc.allowed)
+			}
+			for i, want := range tc.allowed {
+				if got, ok := allowed[i].(string); !ok || got != want {
+					t.Fatalf("allowed[%d] = %#v, want %q", i, allowed[i], want)
+				}
+			}
+		})
+	}
+}
+
 func TestLyricsEndpointUsesCache(t *testing.T) {
 	server, store := seededServer(t)
 	defer store.Close()
@@ -647,6 +712,10 @@ func TestLyricsEndpointUsesCache(t *testing.T) {
 	if !strings.Contains(recorder.Body.String(), `"cached":true`) {
 		t.Fatalf("expected cached response, got %s", recorder.Body.String())
 	}
+}
+
+func enumQueryPath(path, param, value string) string {
+	return path + "?" + param + "=" + value
 }
 
 func TestLyricsEndpointRefreshesExpiredCache(t *testing.T) {

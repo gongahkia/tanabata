@@ -71,10 +71,15 @@ func (s *Server) workCredits(c *gin.Context) {
 
 // workPerformances GET /v1/works/{work_id}/performances
 func (s *Server) workPerformances(c *gin.Context) {
+	sortOrder, apiErr := parseEnum("sort", c.Query("sort"), performanceSorts)
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
 	response, err := s.store.ListPerformances(c.Request.Context(), models.PerformanceFilters{
 		WorkID: c.Param("work_id"),
 		Year:   c.Query("year"),
-		Sort:   c.Query("sort"),
+		Sort:   sortOrder,
 		Limit:  parseInt(c.Query("limit")),
 		Offset: parseInt(c.Query("offset")),
 	})
@@ -177,11 +182,16 @@ func (s *Server) artistRecordings(c *gin.Context) {
 
 // artistPerformances GET /v1/artists/{artist_id}/performances
 func (s *Server) artistPerformances(c *gin.Context) {
+	sortOrder, apiErr := parseEnum("sort", c.Query("sort"), performanceSorts)
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
 	response, err := s.store.ListPerformances(c.Request.Context(), models.PerformanceFilters{
 		ArtistID: c.Param("artist_id"),
 		WorkID:   c.Query("work_id"),
 		Year:     c.Query("year"),
-		Sort:     c.Query("sort"),
+		Sort:     sortOrder,
 		Limit:    parseInt(c.Query("limit")),
 		Offset:   parseInt(c.Query("offset")),
 	})
