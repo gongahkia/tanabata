@@ -323,6 +323,10 @@ See [`openapi/openapi.json`](openapi/openapi.json) for more details.
 
 Set `TANABATA_WEBHOOK_ADMIN_TOKEN` to enable admin-only webhook management. Create subscriptions with `POST /v1/webhooks` and `Authorization: Bearer <token>` for `claim.state_changed`, `job.completed`, and `dispute.raised`. Deliveries are signed with `X-Tanabata-Signature: sha256=<hex>` using the per-subscription secret returned only on creation; failed deliveries retry and disable after five failures.
 
+## Embed
+
+Use `GET /embed/quote/{quote_id}?theme=light|dark` as an iframe source for a server-rendered quote card. The response is static HTML/CSS, cacheable for one hour, and frameable from third-party pages.
+
 ## Architecture
 
 ![](./asset/reference/architecture.png)
