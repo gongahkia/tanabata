@@ -2,8 +2,12 @@ package observability
 
 import (
 	"context"
+	"fmt"
+	"log/slog"
 	"net/http"
 	"os"
+	"strconv"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -11,6 +15,8 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
+	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp"
 	"go.opentelemetry.io/otel/exporters/stdout/stdouttrace"
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/sdk/resource"
@@ -35,9 +41,12 @@ type Telemetry struct {
 }
 
 func New(serviceName string) (*Telemetry, error) {
-	exporter, err := stdouttrace.New(stdouttrace.WithPrettyPrint())
+	exporter, exporterName, err := traceExporter(context.Background())
 	if err != nil {
 		return nil, err
+	}
+	if configured := strings.TrimSpace(os.Getenv("OTEL_SERVICE_NAME")); configured != "" {
+		serviceName = configured
 	}
 	res, err := resource.New(
 		context.Background(),
@@ -49,11 +58,12 @@ func New(serviceName string) (*Telemetry, error) {
 	if err != nil {
 		return nil, err
 	}
-	provider := sdktrace.NewTracerProvider(
-		sdktrace.WithSampler(sdktrace.ParentBased(sdktrace.TraceIDRatioBased(0.2))),
-		sdktrace.WithBatcher(exporter),
-		sdktrace.WithResource(res),
-	)
+	options := []sdktrace.TracerProviderOption{sdktrace.WithSampler(configuredSampler()), sdktrace.WithResource(res)}
+	if exporter != nil {
+		options = append(options, sdktrace.WithBatcher(exporter))
+	}
+	provider := sdktrace.NewTracerProvider(options...)
+	slog.Info("telemetry_exporter_resolved", "exporter", exporterName)
 	otel.SetTracerProvider(provider)
 	otel.SetTextMapPropagator(propagation.TraceContext{})
 
@@ -123,6 +133,53 @@ func New(serviceName string) (*Telemetry, error) {
 		claimTransitions: claimTransitions,
 		catalogRows:      catalogRows,
 	}, nil
+}
+
+func traceExporter(ctx context.Context) (sdktrace.SpanExporter, string, error) {
+	if strings.TrimSpace(os.Getenv("OTEL_EXPORTER_OTLP_ENDPOINT")) != "" {
+		protocol := strings.ToLower(strings.TrimSpace(os.Getenv("OTEL_EXPORTER_OTLP_PROTOCOL")))
+		if protocol == "grpc" {
+			exporter, err := otlptracegrpc.New(ctx)
+			return exporter, "otlp_grpc", err
+		}
+		exporter, err := otlptracehttp.New(ctx)
+		return exporter, "otlp_http", err
+	}
+	if os.Getenv("TANABATA_TELEMETRY_DEV") == "1" {
+		exporter, err := stdouttrace.New(stdouttrace.WithPrettyPrint())
+		return exporter, "stdout", err
+	}
+	return nil, "noop", nil
+}
+
+func configuredSampler() sdktrace.Sampler {
+	name := strings.ToLower(strings.TrimSpace(os.Getenv("OTEL_TRACES_SAMPLER")))
+	if name == "" {
+		name = "parentbased_traceidratio"
+	}
+	ratio := 0.1
+	if value := strings.TrimSpace(os.Getenv("OTEL_TRACES_SAMPLER_ARG")); value != "" {
+		parsed, err := strconv.ParseFloat(value, 64)
+		if err != nil || parsed < 0 || parsed > 1 {
+			slog.Warn("otel_sampler_arg_invalid", "value", value, "error", fmt.Sprint(err))
+		} else {
+			ratio = parsed
+		}
+	}
+	switch name {
+	case "always_on":
+		return sdktrace.AlwaysSample()
+	case "always_off":
+		return sdktrace.NeverSample()
+	case "traceidratio":
+		return sdktrace.TraceIDRatioBased(ratio)
+	case "parentbased_always_on":
+		return sdktrace.ParentBased(sdktrace.AlwaysSample())
+	case "parentbased_always_off":
+		return sdktrace.ParentBased(sdktrace.NeverSample())
+	default:
+		return sdktrace.ParentBased(sdktrace.TraceIDRatioBased(ratio))
+	}
 }
 
 func (t *Telemetry) Shutdown(ctx context.Context) error {

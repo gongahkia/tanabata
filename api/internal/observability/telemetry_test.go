@@ -60,3 +60,33 @@ func TestTelemetryMiddlewareAndMetricsHandler(t *testing.T) {
 		t.Fatalf("expected metrics output, got %s", body)
 	}
 }
+
+func TestTraceExporterResolution(t *testing.T) {
+	t.Setenv("OTEL_EXPORTER_OTLP_ENDPOINT", "")
+	t.Setenv("TANABATA_TELEMETRY_DEV", "")
+	exporter, name, err := traceExporter(context.Background())
+	if err != nil || exporter != nil || name != "noop" {
+		t.Fatalf("prod exporter = %T %q %v, want noop", exporter, name, err)
+	}
+
+	t.Setenv("TANABATA_TELEMETRY_DEV", "1")
+	exporter, name, err = traceExporter(context.Background())
+	if err != nil || exporter == nil || name != "stdout" {
+		t.Fatalf("dev exporter = %T %q %v, want stdout", exporter, name, err)
+	}
+
+	t.Setenv("OTEL_EXPORTER_OTLP_ENDPOINT", "http://localhost:4318")
+	t.Setenv("OTEL_EXPORTER_OTLP_PROTOCOL", "http/protobuf")
+	exporter, name, err = traceExporter(context.Background())
+	if err != nil || exporter == nil || name != "otlp_http" {
+		t.Fatalf("http exporter = %T %q %v, want otlp_http", exporter, name, err)
+	}
+	_ = exporter.Shutdown(context.Background())
+
+	t.Setenv("OTEL_EXPORTER_OTLP_PROTOCOL", "grpc")
+	exporter, name, err = traceExporter(context.Background())
+	if err != nil || exporter == nil || name != "otlp_grpc" {
+		t.Fatalf("grpc exporter = %T %q %v, want otlp_grpc", exporter, name, err)
+	}
+	_ = exporter.Shutdown(context.Background())
+}
