@@ -6,9 +6,11 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 	"time"
 
@@ -19,14 +21,15 @@ const sqliteBackupPragmaSuffix = "?_pragma=busy_timeout(5000)&_pragma=foreign_ke
 
 func main() {
 	var (
-		catalogPath = flag.String("catalog", filepath.Join("data", "catalog.sqlite"), "path to sqlite catalog")
-		backupPath  = flag.String("backup", "", "write a consistent SQLite backup to this path")
-		exportPath  = flag.String("export", "", "write catalog metadata JSON to this path")
+		catalogPath   = flag.String("catalog", filepath.Join("data", "catalog.sqlite"), "path to sqlite catalog")
+		backupPath    = flag.String("backup", "", "write a consistent SQLite backup to this path")
+		exportPath    = flag.String("export", "", "write catalog metadata JSON to this path")
+		repairOrphans = flag.String("repair-orphans", "", "repair orphan rows: dry-run or apply")
 	)
 	flag.Parse()
 
-	if *backupPath == "" && *exportPath == "" {
-		log.Fatal("one of -backup or -export is required")
+	if *backupPath == "" && *exportPath == "" && *repairOrphans == "" {
+		log.Fatal("one of -backup, -export, or -repair-orphans is required")
 	}
 	ctx := context.Background()
 	if *backupPath != "" {
@@ -37,6 +40,11 @@ func main() {
 	if *exportPath != "" {
 		if err := exportCatalog(ctx, *catalogPath, *exportPath); err != nil {
 			log.Fatalf("export catalog: %v", err)
+		}
+	}
+	if *repairOrphans != "" {
+		if err := repairOrphansCommand(ctx, *catalogPath, *repairOrphans, os.Stdout); err != nil {
+			log.Fatalf("repair orphans: %v", err)
 		}
 	}
 }
@@ -139,4 +147,48 @@ func exportCatalog(ctx context.Context, catalogPath, destinationPath string) err
 		return err
 	}
 	return os.WriteFile(destinationPath, append(content, '\n'), 0o600)
+}
+
+func repairOrphansCommand(ctx context.Context, catalogPath, mode string, out io.Writer) error {
+	apply := false
+	switch mode {
+	case "dry-run":
+	case "apply":
+		apply = true
+	default:
+		return fmt.Errorf("invalid -repair-orphans mode %q: expected dry-run or apply", mode)
+	}
+	store, err := catalog.Open(catalogPath)
+	if err != nil {
+		return err
+	}
+	defer store.Close()
+	result, err := store.RepairOrphans(ctx, apply)
+	if err != nil {
+		return err
+	}
+	action := "would_delete"
+	if apply {
+		action = "deleted"
+	}
+	if _, err := fmt.Fprintf(out, "repair_orphans mode=%s total=%d\n", mode, result.Total()); err != nil {
+		return err
+	}
+	kinds := make([]string, 0, len(result.Targets))
+	for kind := range result.Targets {
+		kinds = append(kinds, kind)
+	}
+	sort.Strings(kinds)
+	for _, kind := range kinds {
+		targets := result.Targets[kind]
+		if _, err := fmt.Fprintf(out, "%s %s=%d\n", kind, action, len(targets)); err != nil {
+			return err
+		}
+		for _, target := range targets {
+			if _, err := fmt.Fprintf(out, "  %s\n", target); err != nil {
+				return err
+			}
+		}
+	}
+	return nil
 }
