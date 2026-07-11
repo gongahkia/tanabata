@@ -30,6 +30,20 @@ type Store struct {
 	db *sql.DB
 }
 
+type OrphanRepairResult struct {
+	Applied bool
+	Counts  map[string]int
+	Targets map[string][]string
+}
+
+func (r OrphanRepairResult) Total() int {
+	total := 0
+	for _, count := range r.Counts {
+		total += count
+	}
+	return total
+}
+
 type ProviderRun struct {
 	RunID      string
 	Provider   string
@@ -1794,34 +1808,227 @@ func (s *Store) IntegrityReport(ctx context.Context) (models.IntegrityReport, er
 		report.OK = false
 		report.Issues = append(report.Issues, "sqlite_integrity_check_failed")
 	}
-	checks := map[string]string{ // #nosec G101 -- keys are integrity check names
-		"quotes_missing_artist": `SELECT COUNT(*) FROM quotes LEFT JOIN artists ON artists.artist_id = quotes.artist_id WHERE artists.artist_id IS NULL`,
-		"quotes_missing_source": `SELECT COUNT(*) FROM quotes WHERE source_id <> '' AND source_id NOT IN (SELECT source_id FROM quote_sources)`,
-		"tags_missing_quote":    `SELECT COUNT(*) FROM quote_tags LEFT JOIN quotes ON quotes.quote_id = quote_tags.quote_id WHERE quotes.quote_id IS NULL`,
-		"evidence_missing_quote": `SELECT COUNT(*) FROM quote_evidence
-			LEFT JOIN quotes ON quotes.quote_id = quote_evidence.quote_id
-			WHERE quotes.quote_id IS NULL`,
-		"job_items_missing_job":        `SELECT COUNT(*) FROM job_items LEFT JOIN jobs ON jobs.job_id = job_items.job_id WHERE jobs.job_id IS NULL`,
-		"recordings_missing_artist":    `SELECT COUNT(*) FROM recordings LEFT JOIN artists ON artists.artist_id = recordings.artist_id WHERE artists.artist_id IS NULL`,
-		"samples_missing_source":       `SELECT COUNT(*) FROM samples LEFT JOIN recordings ON recordings.recording_id = samples.source_recording_id WHERE recordings.recording_id IS NULL`,
-		"samples_missing_derivative":   `SELECT COUNT(*) FROM samples LEFT JOIN recordings ON recordings.recording_id = samples.derivative_recording_id WHERE recordings.recording_id IS NULL`,
-		"credits_missing_work":         `SELECT COUNT(*) FROM work_credits LEFT JOIN works ON works.work_id = work_credits.work_id WHERE works.work_id IS NULL`,
-		"performances_missing_artist":  `SELECT COUNT(*) FROM performances LEFT JOIN artists ON artists.artist_id = performances.artist_id WHERE artists.artist_id IS NULL`,
-		"claim_evidence_missing_claim": `SELECT COUNT(*) FROM claim_evidence LEFT JOIN claims ON claims.claim_id = claim_evidence.claim_id WHERE claims.claim_id IS NULL`,
-	}
-	for name, query := range checks {
+	for _, check := range catalogIntegrityChecks {
 		var count int
-		if err := s.db.QueryRowContext(ctx, query).Scan(&count); err != nil {
+		if err := s.db.QueryRowContext(ctx, check.CountSQL).Scan(&count); err != nil {
 			return report, err
 		}
-		report.Counts[name] = count
+		report.Counts[check.Name] = count
 		if count > 0 {
 			report.OK = false
-			report.Issues = append(report.Issues, name)
+			report.Issues = append(report.Issues, check.Name)
 		}
 	}
 	sort.Strings(report.Issues)
 	return report, nil
+}
+
+func (s *Store) RepairOrphans(ctx context.Context, apply bool) (OrphanRepairResult, error) {
+	result := OrphanRepairResult{
+		Applied: apply,
+		Counts:  map[string]int{},
+		Targets: map[string][]string{},
+	}
+	if !apply {
+		for _, rule := range orphanRepairRules {
+			targets, err := orphanTargets(ctx, s.db, rule.SelectSQL)
+			if err != nil {
+				return result, err
+			}
+			result.Counts[rule.Kind] = len(targets)
+			result.Targets[rule.Kind] = targets
+		}
+		return result, nil
+	}
+	tx, err := s.db.BeginTx(ctx, nil)
+	if err != nil {
+		return result, err
+	}
+	now := time.Now().UTC().Format(time.RFC3339)
+	for _, rule := range orphanRepairRules {
+		targets, err := orphanTargets(ctx, tx, rule.SelectSQL)
+		if err != nil {
+			_ = tx.Rollback()
+			return result, err
+		}
+		result.Counts[rule.Kind] = len(targets)
+		result.Targets[rule.Kind] = targets
+		if len(targets) == 0 {
+			continue
+		}
+		if _, err := tx.ExecContext(ctx, rule.DeleteSQL); err != nil {
+			_ = tx.Rollback()
+			return result, err
+		}
+		for idx, target := range targets {
+			eventID := search.StableHash("repair-orphan", rule.Kind, target, now, strconv.Itoa(idx))
+			if _, err := tx.ExecContext(ctx, `
+				INSERT INTO ingestion_audit_events(event_id, provider, target, action, status, occurred_at, details)
+				VALUES(?, 'catalog_repair', ?, ?, 'succeeded', ?, ?)
+			`, eventID, target, "repair_orphan_"+rule.Kind, now, "deleted orphan row"); err != nil {
+				_ = tx.Rollback()
+				return result, err
+			}
+		}
+	}
+	if err := tx.Commit(); err != nil {
+		return result, err
+	}
+	return result, nil
+}
+
+type catalogIntegrityCheck struct {
+	Name     string
+	CountSQL string
+}
+
+type orphanRepairRule struct {
+	Kind      string
+	SelectSQL string
+	DeleteSQL string
+}
+
+type orphanTargetQuerier interface {
+	QueryContext(context.Context, string, ...any) (*sql.Rows, error)
+}
+
+const claimSubjectMissingPredicate = `(claims.subject_type = 'artist' AND NOT EXISTS (SELECT 1 FROM artists WHERE artists.artist_id = claims.subject_id))
+	OR (claims.subject_type = 'quote' AND NOT EXISTS (SELECT 1 FROM quotes WHERE quotes.quote_id = claims.subject_id))
+	OR (claims.subject_type = 'recording' AND NOT EXISTS (SELECT 1 FROM recordings WHERE recordings.recording_id = claims.subject_id))
+	OR (claims.subject_type = 'work' AND NOT EXISTS (SELECT 1 FROM works WHERE works.work_id = claims.subject_id))
+	OR (claims.subject_type = 'work_credit' AND NOT EXISTS (SELECT 1 FROM work_credits WHERE work_credits.credit_id = claims.subject_id))
+	OR (claims.subject_type = 'performance' AND NOT EXISTS (SELECT 1 FROM performances WHERE performances.performance_id = claims.subject_id))
+	OR (claims.subject_type = 'sample' AND NOT EXISTS (SELECT 1 FROM samples WHERE samples.sample_id = claims.subject_id))
+	OR claims.subject_type NOT IN ('artist', 'quote', 'recording', 'work', 'work_credit', 'performance', 'sample')`
+
+const claimObjectMissingPredicate = `(claims.object_type = 'artist' AND NOT EXISTS (SELECT 1 FROM artists WHERE artists.artist_id = claims.object_id))
+	OR (claims.object_type = 'quote' AND NOT EXISTS (SELECT 1 FROM quotes WHERE quotes.quote_id = claims.object_id))
+	OR (claims.object_type = 'recording' AND NOT EXISTS (SELECT 1 FROM recordings WHERE recordings.recording_id = claims.object_id))
+	OR (claims.object_type = 'work' AND NOT EXISTS (SELECT 1 FROM works WHERE works.work_id = claims.object_id))
+	OR (claims.object_type = 'work_credit' AND NOT EXISTS (SELECT 1 FROM work_credits WHERE work_credits.credit_id = claims.object_id))
+	OR (claims.object_type = 'performance' AND NOT EXISTS (SELECT 1 FROM performances WHERE performances.performance_id = claims.object_id))
+	OR (claims.object_type = 'sample' AND NOT EXISTS (SELECT 1 FROM samples WHERE samples.sample_id = claims.object_id))
+	OR claims.object_type NOT IN ('artist', 'quote', 'recording', 'work', 'work_credit', 'performance', 'sample')`
+
+var catalogIntegrityChecks = []catalogIntegrityCheck{ // #nosec G101 -- names are integrity check identifiers
+	{Name: "quotes_missing_artist", CountSQL: `SELECT COUNT(*) FROM quotes LEFT JOIN artists ON artists.artist_id = quotes.artist_id WHERE artists.artist_id IS NULL`},
+	{Name: "quotes_missing_source", CountSQL: `SELECT COUNT(*) FROM quotes WHERE source_id <> '' AND source_id NOT IN (SELECT source_id FROM quote_sources)`},
+	{Name: "tags_missing_quote", CountSQL: `SELECT COUNT(*) FROM quote_tags LEFT JOIN quotes ON quotes.quote_id = quote_tags.quote_id WHERE quotes.quote_id IS NULL`},
+	{Name: "evidence_missing_quote", CountSQL: `SELECT COUNT(*) FROM quote_evidence
+		LEFT JOIN quotes ON quotes.quote_id = quote_evidence.quote_id
+		WHERE quotes.quote_id IS NULL`},
+	{Name: "job_items_missing_job", CountSQL: `SELECT COUNT(*) FROM job_items LEFT JOIN jobs ON jobs.job_id = job_items.job_id WHERE jobs.job_id IS NULL`},
+	{Name: "recordings_missing_artist", CountSQL: `SELECT COUNT(*) FROM recordings LEFT JOIN artists ON artists.artist_id = recordings.artist_id WHERE artists.artist_id IS NULL`},
+	{Name: "recordings_missing_work", CountSQL: `SELECT COUNT(*) FROM recordings WHERE work_id <> '' AND work_id NOT IN (SELECT work_id FROM works)`},
+	{Name: "samples_missing_source", CountSQL: `SELECT COUNT(*) FROM samples LEFT JOIN recordings ON recordings.recording_id = samples.source_recording_id WHERE recordings.recording_id IS NULL`},
+	{Name: "samples_missing_derivative", CountSQL: `SELECT COUNT(*) FROM samples LEFT JOIN recordings ON recordings.recording_id = samples.derivative_recording_id WHERE recordings.recording_id IS NULL`},
+	{Name: "credits_missing_work", CountSQL: `SELECT COUNT(*) FROM work_credits LEFT JOIN works ON works.work_id = work_credits.work_id WHERE works.work_id IS NULL`},
+	{Name: "performances_missing_artist", CountSQL: `SELECT COUNT(*) FROM performances LEFT JOIN artists ON artists.artist_id = performances.artist_id WHERE artists.artist_id IS NULL`},
+	{Name: "performances_missing_work", CountSQL: `SELECT COUNT(*) FROM performances WHERE work_id <> '' AND work_id NOT IN (SELECT work_id FROM works)`},
+	{Name: "performances_missing_recording", CountSQL: `SELECT COUNT(*) FROM performances WHERE recording_id <> '' AND recording_id NOT IN (SELECT recording_id FROM recordings)`},
+	{Name: "claims_missing_subject", CountSQL: `SELECT COUNT(*) FROM claims WHERE ` + claimSubjectMissingPredicate},
+	{Name: "claims_missing_object", CountSQL: `SELECT COUNT(*) FROM claims WHERE ` + claimObjectMissingPredicate},
+	{Name: "claim_evidence_missing_claim", CountSQL: `SELECT COUNT(*) FROM claim_evidence LEFT JOIN claims ON claims.claim_id = claim_evidence.claim_id WHERE claims.claim_id IS NULL`},
+}
+
+var orphanRepairRules = []orphanRepairRule{ // #nosec G101 -- names are repair identifiers
+	{
+		Kind:      "tags_missing_quote",
+		SelectSQL: `SELECT quote_id || ':' || tag FROM quote_tags WHERE quote_id NOT IN (SELECT quote_id FROM quotes) ORDER BY quote_id, tag`,
+		DeleteSQL: `DELETE FROM quote_tags WHERE quote_id NOT IN (SELECT quote_id FROM quotes)`,
+	},
+	{
+		Kind:      "evidence_missing_quote",
+		SelectSQL: `SELECT quote_id || ':' || position FROM quote_evidence WHERE quote_id NOT IN (SELECT quote_id FROM quotes) ORDER BY quote_id, position`,
+		DeleteSQL: `DELETE FROM quote_evidence WHERE quote_id NOT IN (SELECT quote_id FROM quotes)`,
+	},
+	{
+		Kind:      "job_items_missing_job",
+		SelectSQL: `SELECT job_item_id FROM job_items WHERE job_id NOT IN (SELECT job_id FROM jobs) ORDER BY job_item_id`,
+		DeleteSQL: `DELETE FROM job_items WHERE job_id NOT IN (SELECT job_id FROM jobs)`,
+	},
+	{
+		Kind:      "claim_evidence_missing_claim",
+		SelectSQL: `SELECT evidence_id FROM claim_evidence WHERE claim_id NOT IN (SELECT claim_id FROM claims) ORDER BY evidence_id`,
+		DeleteSQL: `DELETE FROM claim_evidence WHERE claim_id NOT IN (SELECT claim_id FROM claims)`,
+	},
+	{
+		Kind:      "samples_missing_source",
+		SelectSQL: `SELECT sample_id FROM samples WHERE source_recording_id NOT IN (SELECT recording_id FROM recordings) ORDER BY sample_id`,
+		DeleteSQL: `DELETE FROM samples WHERE source_recording_id NOT IN (SELECT recording_id FROM recordings)`,
+	},
+	{
+		Kind:      "samples_missing_derivative",
+		SelectSQL: `SELECT sample_id FROM samples WHERE derivative_recording_id NOT IN (SELECT recording_id FROM recordings) ORDER BY sample_id`,
+		DeleteSQL: `DELETE FROM samples WHERE derivative_recording_id NOT IN (SELECT recording_id FROM recordings)`,
+	},
+	{
+		Kind:      "quotes_missing_artist",
+		SelectSQL: `SELECT quote_id FROM quotes WHERE artist_id NOT IN (SELECT artist_id FROM artists) ORDER BY quote_id`,
+		DeleteSQL: `DELETE FROM quotes WHERE artist_id NOT IN (SELECT artist_id FROM artists)`,
+	},
+	{
+		Kind:      "quotes_missing_source",
+		SelectSQL: `SELECT quote_id FROM quotes WHERE source_id <> '' AND source_id NOT IN (SELECT source_id FROM quote_sources) ORDER BY quote_id`,
+		DeleteSQL: `DELETE FROM quotes WHERE source_id <> '' AND source_id NOT IN (SELECT source_id FROM quote_sources)`,
+	},
+	{
+		Kind:      "recordings_missing_artist",
+		SelectSQL: `SELECT recording_id FROM recordings WHERE artist_id NOT IN (SELECT artist_id FROM artists) ORDER BY recording_id`,
+		DeleteSQL: `DELETE FROM recordings WHERE artist_id NOT IN (SELECT artist_id FROM artists)`,
+	},
+	{
+		Kind:      "recordings_missing_work",
+		SelectSQL: `SELECT recording_id FROM recordings WHERE work_id <> '' AND work_id NOT IN (SELECT work_id FROM works) ORDER BY recording_id`,
+		DeleteSQL: `DELETE FROM recordings WHERE work_id <> '' AND work_id NOT IN (SELECT work_id FROM works)`,
+	},
+	{
+		Kind:      "credits_missing_work",
+		SelectSQL: `SELECT credit_id FROM work_credits WHERE work_id NOT IN (SELECT work_id FROM works) ORDER BY credit_id`,
+		DeleteSQL: `DELETE FROM work_credits WHERE work_id NOT IN (SELECT work_id FROM works)`,
+	},
+	{
+		Kind:      "performances_missing_artist",
+		SelectSQL: `SELECT performance_id FROM performances WHERE artist_id NOT IN (SELECT artist_id FROM artists) ORDER BY performance_id`,
+		DeleteSQL: `DELETE FROM performances WHERE artist_id NOT IN (SELECT artist_id FROM artists)`,
+	},
+	{
+		Kind:      "performances_missing_work",
+		SelectSQL: `SELECT performance_id FROM performances WHERE work_id <> '' AND work_id NOT IN (SELECT work_id FROM works) ORDER BY performance_id`,
+		DeleteSQL: `DELETE FROM performances WHERE work_id <> '' AND work_id NOT IN (SELECT work_id FROM works)`,
+	},
+	{
+		Kind:      "performances_missing_recording",
+		SelectSQL: `SELECT performance_id FROM performances WHERE recording_id <> '' AND recording_id NOT IN (SELECT recording_id FROM recordings) ORDER BY performance_id`,
+		DeleteSQL: `DELETE FROM performances WHERE recording_id <> '' AND recording_id NOT IN (SELECT recording_id FROM recordings)`,
+	},
+	{
+		Kind:      "claims_missing_subject",
+		SelectSQL: `SELECT claim_id FROM claims WHERE ` + claimSubjectMissingPredicate + ` ORDER BY claim_id`,
+		DeleteSQL: `DELETE FROM claims WHERE ` + claimSubjectMissingPredicate,
+	},
+	{
+		Kind:      "claims_missing_object",
+		SelectSQL: `SELECT claim_id FROM claims WHERE ` + claimObjectMissingPredicate + ` ORDER BY claim_id`,
+		DeleteSQL: `DELETE FROM claims WHERE ` + claimObjectMissingPredicate,
+	},
+}
+
+func orphanTargets(ctx context.Context, querier orphanTargetQuerier, query string) ([]string, error) {
+	rows, err := querier.QueryContext(ctx, query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	targets := []string{}
+	for rows.Next() {
+		var target string
+		if err := rows.Scan(&target); err != nil {
+			return nil, err
+		}
+		targets = append(targets, target)
+	}
+	return targets, rows.Err()
 }
 
 func (s *Store) ProviderRuns(ctx context.Context, provider string, limit int) ([]models.ProviderRun, error) {

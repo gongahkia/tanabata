@@ -580,6 +580,9 @@ func TestIntegrityEndpoint(t *testing.T) {
 	if !response.Data.OK || response.Data.SQLite != "ok" {
 		t.Fatalf("unexpected integrity response %+v", response.Data)
 	}
+	if _, ok := response.Data.Counts["claims_missing_subject"]; !ok {
+		t.Fatalf("integrity response missing extended orphan counts: %+v", response.Data.Counts)
+	}
 }
 
 func TestErrorEnvelopeAndRequestID(t *testing.T) {

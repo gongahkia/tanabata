@@ -1464,7 +1464,24 @@ func TestIntegrityReportPassesForSeededCatalog(t *testing.T) {
 	if !report.OK || report.SQLite != "ok" || len(report.Issues) != 0 {
 		t.Fatalf("unexpected integrity report %+v", report)
 	}
-	for _, key := range []string{"quotes_missing_artist", "quotes_missing_source", "tags_missing_quote", "evidence_missing_quote", "job_items_missing_job"} {
+	for _, key := range []string{
+		"quotes_missing_artist",
+		"quotes_missing_source",
+		"tags_missing_quote",
+		"evidence_missing_quote",
+		"job_items_missing_job",
+		"recordings_missing_artist",
+		"recordings_missing_work",
+		"samples_missing_source",
+		"samples_missing_derivative",
+		"credits_missing_work",
+		"performances_missing_artist",
+		"performances_missing_work",
+		"performances_missing_recording",
+		"claims_missing_subject",
+		"claims_missing_object",
+		"claim_evidence_missing_claim",
+	} {
 		if _, ok := report.Counts[key]; !ok {
 			t.Fatalf("missing integrity count %q in %+v", key, report.Counts)
 		}
