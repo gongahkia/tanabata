@@ -2,12 +2,15 @@ package main
 
 import (
 	"context"
+	"errors"
 	"flag"
 	"fmt"
 	"log"
 	"os"
+	"os/signal"
 	"path/filepath"
 	"strings"
+	"syscall"
 	"time"
 
 	"github.com/google/uuid"
@@ -29,6 +32,7 @@ type options struct {
 	performancesPath string
 	misquotesPath    string
 	jobName          string
+	forceUnlock      bool
 }
 
 type enrichmentService interface {
@@ -37,8 +41,26 @@ type enrichmentService interface {
 
 func main() {
 	if err := runCLI(); err != nil {
-		log.Fatal(err)
+		log.Print(err)
+		var exitErr exitCodeError
+		if errors.As(err, &exitErr) {
+			os.Exit(exitErr.Code)
+		}
+		os.Exit(1)
 	}
+}
+
+type exitCodeError struct {
+	Code int
+	Err  error
+}
+
+func (e exitCodeError) Error() string {
+	return e.Err.Error()
+}
+
+func (e exitCodeError) Unwrap() error {
+	return e.Err
 }
 
 func runCLI() error {
@@ -54,10 +76,10 @@ func runCLI() error {
 		performancesPath = flag.String("performances", filepath.Join("data", "curated_performances.json"), "path to curated performances json")
 		misquotesPath    = flag.String("misquotes", filepath.Join("data", "curated_misquotes.json"), "path to curated misquotes json")
 		jobName          = flag.String("name", "catalog-ingestion", "job name")
+		forceUnlock      = flag.Bool("force-unlock", false, "remove a stale ingest lock before starting")
 	)
 	flag.Parse()
 
-	ctx := context.Background()
 	opts := options{
 		bootstrap:        *bootstrap,
 		allArtists:       *allArtists,
@@ -70,10 +92,27 @@ func runCLI() error {
 		performancesPath: *performancesPath,
 		misquotesPath:    *misquotesPath,
 		jobName:          *jobName,
+		forceUnlock:      *forceUnlock,
 	}
 	if err := validateOptions(opts); err != nil {
 		return err
 	}
+	lock, err := acquireIngestLock(opts.catalogPath, opts.forceUnlock)
+	if err != nil {
+		var heldErr *ingestLockHeldError
+		if errors.As(err, &heldErr) {
+			return exitCodeError{Code: 2, Err: err}
+		}
+		return err
+	}
+	defer func() {
+		if err := lock.Close(); err != nil {
+			log.Printf("release ingest lock: %v", err)
+		}
+	}()
+
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer stop()
 	store, err := catalog.Open(opts.catalogPath)
 	if err != nil {
 		return fmt.Errorf("open catalog: %w", err)
