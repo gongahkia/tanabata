@@ -360,6 +360,49 @@ func TestQuoteProvenanceEndpoint(t *testing.T) {
 	}
 }
 
+func TestArtistProvenanceSummaryEndpoint(t *testing.T) {
+	server, store := seededServer(t)
+	defer store.Close()
+
+	artistID, err := store.ResolveArtistID(context.Background(), "Frank Ocean")
+	if err != nil {
+		t.Fatalf("ResolveArtistID() error = %v", err)
+	}
+	quotesRecorder := httptest.NewRecorder()
+	quotesRequest := httptest.NewRequest(http.MethodGet, "/v1/quotes?artist_id="+artistID+"&limit=100", nil)
+	server.Router().ServeHTTP(quotesRecorder, quotesRequest)
+	if quotesRecorder.Code != http.StatusOK {
+		t.Fatalf("quotes status = %d, want 200", quotesRecorder.Code)
+	}
+	var quotesResponse models.APIResponse[[]models.Quote]
+	if err := json.Unmarshal(quotesRecorder.Body.Bytes(), &quotesResponse); err != nil {
+		t.Fatalf("decode quotes response: %v", err)
+	}
+
+	recorder := httptest.NewRecorder()
+	request := httptest.NewRequest(http.MethodGet, "/v1/artists/"+artistID+"/provenance/summary", nil)
+	server.Router().ServeHTTP(recorder, request)
+	if recorder.Code != http.StatusOK {
+		t.Fatalf("status = %d, want 200", recorder.Code)
+	}
+	var response models.APIResponse[models.ArtistProvenanceSummary]
+	if err := json.Unmarshal(recorder.Body.Bytes(), &response); err != nil {
+		t.Fatalf("decode response: %v", err)
+	}
+	if response.Data.ArtistID != artistID || len(response.Data.ConfidenceHistogram) != 10 {
+		t.Fatalf("unexpected summary %+v", response.Data)
+	}
+	counts := map[string]int{}
+	for _, quote := range quotesResponse.Data {
+		counts[quote.ProvenanceStatus]++
+	}
+	for status, want := range counts {
+		if response.Data.StatusCounts[status] != want {
+			t.Fatalf("status_counts[%s] = %d, want %d", status, response.Data.StatusCounts[status], want)
+		}
+	}
+}
+
 func TestProvidersEndpoint(t *testing.T) {
 	server, store := seededServer(t)
 	defer store.Close()

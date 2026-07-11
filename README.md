@@ -286,6 +286,7 @@ $ ./scripts/compose-smoke.sh
 See [`openapi/openapi.json`](openapi/openapi.json) for more details.
 
 * `GET /v1/artists`
+* `GET /v1/artists/{artist_id}/provenance/summary`
 * `GET /v1/artists/{artist_id}/recordings`
 * `GET /v1/artists/{artist_id}/performances`
 * `GET /v1/artists/{artist_id}/performances/stats`

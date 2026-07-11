@@ -264,6 +264,7 @@ func TestOpenAPIContractRuntimeResponses(t *testing.T) {
 		{name: "list artists", path: "/v1/artists"},
 		{name: "artist detail", path: "/v1/artists/" + artistID},
 		{name: "artist quotes", path: "/v1/artists/" + artistID + "/quotes?limit=5"},
+		{name: "artist provenance summary", path: "/v1/artists/" + artistID + "/provenance/summary"},
 		{name: "artist recordings", path: "/v1/artists/" + performanceArtistID + "/recordings?limit=5"},
 		{name: "artist performances", path: "/v1/artists/" + performanceArtistID + "/performances?limit=5"},
 		{name: "artist performance stats", path: "/v1/artists/" + performanceArtistID + "/performances/stats"},

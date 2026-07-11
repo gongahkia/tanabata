@@ -114,6 +114,7 @@ func (s *Server) Router() *gin.Engine {
 		v1.GET("/artists", s.listArtists)
 		v1.GET("/artists/:artist_id", s.artistByID)
 		v1.GET("/artists/:artist_id/quotes", s.artistQuotes)
+		v1.GET("/artists/:artist_id/provenance/summary", s.artistProvenanceSummary)
 		v1.GET("/artists/:artist_id/related", s.artistRelated)
 		v1.GET("/artists/:artist_id/releases", s.artistReleases)
 		v1.GET("/artists/:artist_id/setlists", s.artistSetlists)
@@ -330,6 +331,19 @@ func (s *Server) artistQuotes(c *gin.Context) {
 		return
 	}
 	listResponse(c, http.StatusOK, response.Data, response.Meta, response.Pagination)
+}
+
+func (s *Server) artistProvenanceSummary(c *gin.Context) {
+	summary, err := s.store.ArtistProvenanceSummary(c.Request.Context(), c.Param("artist_id"))
+	if err != nil {
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "artist_provenance_summary_failed", "failed to load artist provenance summary", nil, err)
+		return
+	}
+	if summary == nil {
+		errorResponse(c, http.StatusNotFound, "artist_not_found", "artist not found", nil)
+		return
+	}
+	dataResponse(c, http.StatusOK, summary, nil)
 }
 
 func (s *Server) artistRelated(c *gin.Context) {

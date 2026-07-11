@@ -197,6 +197,35 @@
         }
       }
     },
+    "/v1/artists/{artist_id}/provenance/summary": {
+      "get": {
+        "operationId": "getArtistProvenanceSummary",
+        "parameters": [
+          { "name": "artist_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Artist provenance summary",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "$ref": "#/components/schemas/ArtistProvenanceSummary" }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/Error400" },
+          "404": { "$ref": "#/components/responses/Error404" },
+          "409": { "$ref": "#/components/responses/Error409" },
+          "500": { "$ref": "#/components/responses/Error500" },
+          "default": { "$ref": "#/components/responses/ErrorDefault" },
+          "429": { "$ref": "#/components/responses/Error429" }
+        }
+      }
+    },
     "/v1/artists/{artist_id}/related": {
       "get": {
         "operationId": "getArtistRelated",
@@ -2161,6 +2190,21 @@
           "last_verified_at": { "type": "string" },
           "evidence": { "type": "array", "items": { "type": "string" } },
           "source": { "$ref": "#/components/schemas/Source" }
+        }
+      },
+      "ArtistProvenanceSummary": {
+        "type": "object",
+        "properties": {
+          "artist_id": { "type": "string" },
+          "status_counts": { "type": "object", "additionalProperties": { "type": "integer" } },
+          "confidence_histogram": {
+            "type": "array",
+            "items": { "type": "integer" },
+            "minItems": 10,
+            "maxItems": 10
+          },
+          "mean_confidence": { "type": "number" },
+          "refresh_hint": { "type": "string", "enum": ["fresh", "aging", "stale", "unknown"] }
         }
       },
       "ReviewQueueItem": {

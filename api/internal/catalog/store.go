@@ -1314,6 +1314,58 @@ func (s *Store) QuoteProvenance(ctx context.Context, quoteID string) (*models.Qu
 	}, nil
 }
 
+func (s *Store) ArtistProvenanceSummary(ctx context.Context, artistID string) (*models.ArtistProvenanceSummary, error) {
+	var exists int
+	err := s.db.QueryRowContext(ctx, `SELECT 1 FROM artists WHERE artist_id = ?`, artistID).Scan(&exists)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, nil
+		}
+		return nil, err
+	}
+
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT provenance_status, confidence_score, last_verified_at
+		FROM quotes
+		WHERE artist_id = ?
+	`, artistID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	summary := &models.ArtistProvenanceSummary{
+		ArtistID:            artistID,
+		StatusCounts:        provenanceStatusCounts(),
+		ConfidenceHistogram: make([]int, 10),
+		RefreshHint:         "unknown",
+	}
+	now := time.Now().UTC()
+	refreshRank := 0
+	total := 0
+	confidenceSum := 0.0
+	for rows.Next() {
+		var status, lastVerifiedAt string
+		var confidence float64
+		if err := rows.Scan(&status, &confidence, &lastVerifiedAt); err != nil {
+			return nil, err
+		}
+		summary.StatusCounts[status]++
+		summary.ConfidenceHistogram[confidenceBucket(confidence)]++
+		confidenceSum += confidence
+		total++
+		refreshRank = maxInt(refreshRank, refreshHintRank(refreshHint(lastVerifiedAt, now)))
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	if total > 0 {
+		summary.MeanConfidence = confidenceSum / float64(total)
+		summary.RefreshHint = refreshHintFromRank(refreshRank)
+	}
+	return summary, nil
+}
+
 func (s *Store) ReviewQueue(ctx context.Context, filters models.ReviewQueueFilters) (models.ListResponse[models.ReviewQueueItem], error) {
 	response := models.ListResponse[models.ReviewQueueItem]{}
 	statuses := []string{"needs_review", "ambiguous", "provider_attributed"}
@@ -3377,6 +3429,75 @@ func provenanceRank(status string) int {
 	default:
 		return 0
 	}
+}
+
+func provenanceStatusCounts() map[string]int {
+	return map[string]int{
+		"verified":            0,
+		"source_attributed":   0,
+		"provider_attributed": 0,
+		"ambiguous":           0,
+		"needs_review":        0,
+	}
+}
+
+func confidenceBucket(confidence float64) int {
+	switch {
+	case confidence <= 0:
+		return 0
+	case confidence >= 1:
+		return 9
+	default:
+		return int(confidence * 10)
+	}
+}
+
+func refreshHint(lastVerifiedAt string, now time.Time) string {
+	verifiedAt, err := time.Parse(time.RFC3339, lastVerifiedAt)
+	if lastVerifiedAt == "" || err != nil {
+		return "stale"
+	}
+	switch {
+	case now.Sub(verifiedAt) >= quoteFreshnessStaleAfter:
+		return "stale"
+	case now.Sub(verifiedAt) >= quoteFreshnessAgingAfter:
+		return "aging"
+	default:
+		return "fresh"
+	}
+}
+
+func refreshHintRank(hint string) int {
+	switch hint {
+	case "stale":
+		return 3
+	case "aging":
+		return 2
+	case "fresh":
+		return 1
+	default:
+		return 0
+	}
+}
+
+func refreshHintFromRank(rank int) string {
+	switch rank {
+	case 3:
+		return "stale"
+	case 2:
+		return "aging"
+	case 1:
+		return "fresh"
+	default:
+		return "unknown"
+	}
+}
+
+func maxInt(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }
 
 func preferredSource(primary *models.Source, fallbacks ...*models.Source) *models.Source {
