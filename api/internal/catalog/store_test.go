@@ -462,6 +462,157 @@ func TestConcurrentUpsertArtistDoesNotLock(t *testing.T) {
 	}
 }
 
+func TestConcurrentUpsertQuote(t *testing.T) {
+	t.Parallel()
+	store, err := Open(filepath.Join(t.TempDir(), "catalog.sqlite"))
+	if err != nil {
+		t.Fatalf("Open() error = %v", err)
+	}
+	defer store.Close()
+	ctx := context.Background()
+	const artistID = "artist-concurrent-quote"
+	if err := store.UpsertArtist(ctx, models.Artist{ArtistID: artistID, Name: "Concurrent Quote Artist"}); err != nil {
+		t.Fatalf("UpsertArtist() error = %v", err)
+	}
+
+	errs := concurrentStoreWrites(50, func(index int) error {
+		status, confidence, provider := "needs_review", 0.1, "low"
+		if index%10 == 0 {
+			status, confidence, provider = "verified", 0.99, "high"
+		}
+		return store.UpsertQuote(ctx, models.Quote{
+			QuoteID:          "quote-concurrent",
+			Text:             "Concurrent writes must retain the strongest provenance.",
+			ArtistID:         artistID,
+			ArtistName:       "Concurrent Quote Artist",
+			ProvenanceStatus: status,
+			ConfidenceScore:  confidence,
+			ProviderOrigin:   provider,
+			FirstSeenAt:      "2026-07-11T00:00:00Z",
+			LastVerifiedAt:   "2026-07-11T00:00:00Z",
+		})
+	})
+	assertNoConcurrentStoreErrors(t, errs)
+
+	quote, err := store.QuoteByID(ctx, "quote-concurrent")
+	if err != nil || quote == nil {
+		t.Fatalf("QuoteByID() quote=%+v err=%v", quote, err)
+	}
+	if quote.ProvenanceStatus != "verified" || quote.ConfidenceScore != 0.99 || quote.ProviderOrigin != "high" {
+		t.Fatalf("quote winner = %+v", quote)
+	}
+}
+
+func TestConcurrentUpsertArtist(t *testing.T) {
+	t.Parallel()
+	store, err := Open(filepath.Join(t.TempDir(), "catalog.sqlite"))
+	if err != nil {
+		t.Fatalf("Open() error = %v", err)
+	}
+	defer store.Close()
+	ctx := context.Background()
+
+	errs := concurrentStoreWrites(50, func(int) error {
+		return store.UpsertArtist(ctx, models.Artist{
+			ArtistID:       "artist-concurrent",
+			Name:           "Concurrent Artist",
+			Aliases:        []string{"Concurrent Artist", "Concurrent Alias"},
+			Genres:         []string{"test"},
+			ProviderStatus: map[string]string{"test": "concurrent"},
+		})
+	})
+	assertNoConcurrentStoreErrors(t, errs)
+
+	artist, err := store.ArtistByID(ctx, "artist-concurrent")
+	if err != nil || artist == nil {
+		t.Fatalf("ArtistByID() artist=%+v err=%v", artist, err)
+	}
+	if artist.Name != "Concurrent Artist" || strings.Join(artist.Aliases, ",") != "Concurrent Alias,Concurrent Artist" || strings.Join(artist.Genres, ",") != "test" {
+		t.Fatalf("artist winner = %+v", artist)
+	}
+}
+
+func TestConcurrentUpsertClaim(t *testing.T) {
+	t.Parallel()
+	store, err := Open(filepath.Join(t.TempDir(), "catalog.sqlite"))
+	if err != nil {
+		t.Fatalf("Open() error = %v", err)
+	}
+	defer store.Close()
+	ctx := context.Background()
+	if err := store.UpsertArtist(ctx, models.Artist{ArtistID: "artist-concurrent-claim", Name: "Concurrent Claim Artist"}); err != nil {
+		t.Fatalf("UpsertArtist() error = %v", err)
+	}
+	if err := store.UpsertQuote(ctx, models.Quote{
+		QuoteID:          "quote-concurrent-claim",
+		Text:             "Concurrent claim subject.",
+		ArtistID:         "artist-concurrent-claim",
+		ArtistName:       "Concurrent Claim Artist",
+		ProvenanceStatus: "verified",
+		ConfidenceScore:  1,
+	}); err != nil {
+		t.Fatalf("UpsertQuote() error = %v", err)
+	}
+
+	errs := concurrentStoreWrites(50, func(index int) error {
+		status, confidence, provider := "needs_review", 0.1, "low"
+		if index%10 == 0 {
+			status, confidence, provider = "verified", 0.99, "high"
+		}
+		_, err := store.RecordClaim(ctx, models.Claim{
+			ClaimID:         "claim-concurrent",
+			Kind:            "attribution",
+			SubjectType:     "quote",
+			SubjectID:       "quote-concurrent-claim",
+			ObjectType:      "artist",
+			ObjectID:        "artist-concurrent-claim",
+			Relation:        "attributed_to",
+			Status:          status,
+			ConfidenceScore: confidence,
+			ProviderOrigin:  provider,
+			AssertedAt:      "2026-07-11T00:00:00Z",
+			UpdatedAt:       "2026-07-11T00:00:00Z",
+		})
+		return err
+	})
+	assertNoConcurrentStoreErrors(t, errs)
+
+	claim, err := store.ClaimByID(ctx, "claim-concurrent")
+	if err != nil || claim == nil {
+		t.Fatalf("ClaimByID() claim=%+v err=%v", claim, err)
+	}
+	if claim.Status != "verified" || claim.ConfidenceScore != 0.99 || claim.ProviderOrigin != "high" {
+		t.Fatalf("claim winner = %+v", claim)
+	}
+}
+
+func concurrentStoreWrites(count int, write func(int) error) <-chan error {
+	errs := make(chan error, count)
+	var wg sync.WaitGroup
+	for index := range count {
+		wg.Add(1)
+		go func(index int) {
+			defer wg.Done()
+			if err := write(index); err != nil {
+				errs <- err
+			}
+		}(index)
+	}
+	wg.Wait()
+	close(errs)
+	return errs
+}
+
+func assertNoConcurrentStoreErrors(t *testing.T, errs <-chan error) {
+	t.Helper()
+	for err := range errs {
+		if strings.Contains(strings.ToLower(err.Error()), "database is locked") {
+			t.Fatalf("concurrent write locked database: %v", err)
+		}
+		t.Fatalf("concurrent write error: %v", err)
+	}
+}
+
 func testTwoDigit(value int) string {
 	if value < 10 {
 		return "0" + strconv.Itoa(value)

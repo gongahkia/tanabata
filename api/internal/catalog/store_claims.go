@@ -51,7 +51,10 @@ func (s *Store) RecordClaim(ctx context.Context, claim models.Claim) (string, er
 	// Resolve the strongest status in Go rather than via a SQL UDF (SQLite has no native rank).
 	var existingStatus string
 	var existingConfidence float64
-	err := s.db.QueryRowContext(ctx, `SELECT status, confidence_score FROM claims WHERE claim_id = ?`, claimID).Scan(&existingStatus, &existingConfidence)
+	var existingProvider string
+	incomingStatus := claim.Status
+	incomingConfidence := claim.ConfidenceScore
+	err := s.db.QueryRowContext(ctx, `SELECT status, confidence_score, provider_origin FROM claims WHERE claim_id = ?`, claimID).Scan(&existingStatus, &existingConfidence, &existingProvider)
 	switch {
 	case errors.Is(err, sql.ErrNoRows):
 		// fresh insert
@@ -64,6 +67,9 @@ func (s *Store) RecordClaim(ctx context.Context, claim models.Claim) (string, er
 		if existingConfidence > claim.ConfidenceScore {
 			claim.ConfidenceScore = existingConfidence
 		}
+		if claimStatusRank(existingStatus) > claimStatusRank(incomingStatus) || (claimStatusRank(existingStatus) == claimStatusRank(incomingStatus) && existingConfidence >= incomingConfidence) {
+			claim.ProviderOrigin = existingProvider
+		}
 	}
 
 	_, err = s.db.ExecContext(ctx, `
@@ -71,9 +77,15 @@ func (s *Store) RecordClaim(ctx context.Context, claim models.Claim) (string, er
 			status, confidence_score, provider_origin, source_id, asserted_at, last_verified_at, updated_at, notes)
 		VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 		ON CONFLICT(claim_id) DO UPDATE SET
-			status = excluded.status,
-			confidence_score = excluded.confidence_score,
-			provider_origin = COALESCE(NULLIF(excluded.provider_origin, ''), claims.provider_origin),
+			status = CASE
+				WHEN (CASE excluded.status WHEN 'verified' THEN 6 WHEN 'source_attributed' THEN 5 WHEN 'provider_attributed' THEN 4 WHEN 'ambiguous' THEN 3 WHEN 'disputed' THEN 3 WHEN 'needs_review' THEN 2 WHEN 'refuted' THEN 1 ELSE 0 END) > (CASE claims.status WHEN 'verified' THEN 6 WHEN 'source_attributed' THEN 5 WHEN 'provider_attributed' THEN 4 WHEN 'ambiguous' THEN 3 WHEN 'disputed' THEN 3 WHEN 'needs_review' THEN 2 WHEN 'refuted' THEN 1 ELSE 0 END)
+					OR ((CASE excluded.status WHEN 'verified' THEN 6 WHEN 'source_attributed' THEN 5 WHEN 'provider_attributed' THEN 4 WHEN 'ambiguous' THEN 3 WHEN 'disputed' THEN 3 WHEN 'needs_review' THEN 2 WHEN 'refuted' THEN 1 ELSE 0 END) = (CASE claims.status WHEN 'verified' THEN 6 WHEN 'source_attributed' THEN 5 WHEN 'provider_attributed' THEN 4 WHEN 'ambiguous' THEN 3 WHEN 'disputed' THEN 3 WHEN 'needs_review' THEN 2 WHEN 'refuted' THEN 1 ELSE 0 END) AND excluded.confidence_score >= claims.confidence_score)
+				THEN excluded.status ELSE claims.status END,
+			confidence_score = MAX(claims.confidence_score, excluded.confidence_score),
+			provider_origin = CASE
+				WHEN (CASE excluded.status WHEN 'verified' THEN 6 WHEN 'source_attributed' THEN 5 WHEN 'provider_attributed' THEN 4 WHEN 'ambiguous' THEN 3 WHEN 'disputed' THEN 3 WHEN 'needs_review' THEN 2 WHEN 'refuted' THEN 1 ELSE 0 END) > (CASE claims.status WHEN 'verified' THEN 6 WHEN 'source_attributed' THEN 5 WHEN 'provider_attributed' THEN 4 WHEN 'ambiguous' THEN 3 WHEN 'disputed' THEN 3 WHEN 'needs_review' THEN 2 WHEN 'refuted' THEN 1 ELSE 0 END)
+					OR ((CASE excluded.status WHEN 'verified' THEN 6 WHEN 'source_attributed' THEN 5 WHEN 'provider_attributed' THEN 4 WHEN 'ambiguous' THEN 3 WHEN 'disputed' THEN 3 WHEN 'needs_review' THEN 2 WHEN 'refuted' THEN 1 ELSE 0 END) = (CASE claims.status WHEN 'verified' THEN 6 WHEN 'source_attributed' THEN 5 WHEN 'provider_attributed' THEN 4 WHEN 'ambiguous' THEN 3 WHEN 'disputed' THEN 3 WHEN 'needs_review' THEN 2 WHEN 'refuted' THEN 1 ELSE 0 END) AND excluded.confidence_score >= claims.confidence_score)
+				THEN COALESCE(NULLIF(excluded.provider_origin, ''), claims.provider_origin) ELSE claims.provider_origin END,
 			source_id = COALESCE(NULLIF(excluded.source_id, ''), claims.source_id),
 			last_verified_at = COALESCE(NULLIF(excluded.last_verified_at, ''), claims.last_verified_at),
 			updated_at = excluded.updated_at,
