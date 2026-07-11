@@ -1834,6 +1834,51 @@
         }
       }
     },
+    "/v1/graph/{entity_id}": {
+      "get": {
+        "operationId": "getEntityGraph",
+        "parameters": [
+          { "name": "entity_id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "depth", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 3 } },
+          { "name": "edge_kinds", "in": "query", "description": "Comma-separated claim edge kinds: attribution,sample,credit,cover,performance.", "schema": { "type": "string" } },
+          { "name": "edge_cursor", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "N-hop provenance graph around one entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "$ref": "#/components/schemas/EntityGraph" },
+                    "meta": { "$ref": "#/components/schemas/CursorMeta" }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          }
+        }
+      }
+    },
     "/v1/quotes/{quote_id}/lineage": {
       "get": {
         "operationId": "getQuoteLineage",
@@ -1933,6 +1978,14 @@
         "properties": {
           "snapshot_version": { "type": "string" },
           "active_providers": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "CursorMeta": {
+        "type": "object",
+        "properties": {
+          "snapshot_version": { "type": "string" },
+          "active_providers": { "type": "array", "items": { "type": "string" } },
+          "next_cursor": { "type": "string" }
         }
       },
       "BuildInfo": {
@@ -2357,6 +2410,32 @@
           "provider_origin": { "type": "string" },
           "supporting_evidence_count": { "type": "integer" },
           "refuting_evidence_count": { "type": "integer" }
+        }
+      },
+      "GraphNode": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "kind": { "type": "string", "enum": ["artist", "quote", "work", "recording", "performance"] },
+          "label": { "type": "string" }
+        }
+      },
+      "GraphEdge": {
+        "type": "object",
+        "properties": {
+          "from": { "type": "string" },
+          "to": { "type": "string" },
+          "kind": { "type": "string", "enum": ["attribution", "sample", "credit", "cover", "performance"] },
+          "claim_id": { "type": "string" },
+          "status": { "type": "string" },
+          "confidence_score": { "type": "number" }
+        }
+      },
+      "EntityGraph": {
+        "type": "object",
+        "properties": {
+          "nodes": { "type": "array", "items": { "$ref": "#/components/schemas/GraphNode" } },
+          "edges": { "type": "array", "items": { "$ref": "#/components/schemas/GraphEdge" } }
         }
       },
       "ClaimEvidence": {

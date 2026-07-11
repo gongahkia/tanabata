@@ -745,6 +745,7 @@ func TestEnumQueryParams(t *testing.T) {
 		{name: "review queue provenance", path: "/v1/review/queue", param: "provenance_status", allowed: reviewQueueProvenanceStatuses},
 		{name: "work performances sort", path: "/v1/works/work-missing/performances", param: "sort", allowed: performanceSorts},
 		{name: "artist performances sort", path: "/v1/artists/" + artistID + "/performances", param: "sort", allowed: performanceSorts},
+		{name: "graph edge kinds", path: "/v1/graph/" + artistID, param: "edge_kinds", allowed: graphEdgeKinds},
 	}
 	for _, tc := range tests {
 		for _, value := range tc.allowed {

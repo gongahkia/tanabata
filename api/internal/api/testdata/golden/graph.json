@@ -1,0 +1,30 @@
+{
+  "data": {
+    "edges": [
+      {
+        "claim_id": "tanabata:claim:c2a2f9bf1461412ae8e3e1d6f58a700c",
+        "confidence_score": 0.2,
+        "from": "de20b2400f33e78a6f8164046c5a6bf3",
+        "kind": "attribution",
+        "status": "refuted",
+        "to": "tanabata:frank-ocean"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "tanabata:frank-ocean",
+        "kind": "artist",
+        "label": "Frank Ocean"
+      },
+      {
+        "id": "de20b2400f33e78a6f8164046c5a6bf3",
+        "kind": "quote",
+        "label": "When you're happy, you enjoy the music. When you're sad, you und…"
+      }
+    ]
+  },
+  "meta": {
+    "active_providers": null,
+    "snapshot_version": ""
+  }
+}

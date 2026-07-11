@@ -223,6 +223,48 @@ func TestQuoteLineageEndpointShape(t *testing.T) {
 	}
 }
 
+func TestEntityGraphEndpoint(t *testing.T) {
+	server, store := seededLineageServer(t)
+	defer store.Close()
+
+	recorder := get(t, server, "/v1/graph/tanabata:frank-ocean?depth=2")
+	var payload struct {
+		Data models.EntityGraph `json:"data"`
+		Meta models.CursorMeta  `json:"meta"`
+	}
+	mustJSON(t, recorder.Body.Bytes(), &payload)
+	if len(payload.Data.Nodes) < 2 || len(payload.Data.Edges) == 0 {
+		t.Fatalf("expected graph nodes and edges, got %+v", payload.Data)
+	}
+	hasArtist := false
+	hasAttribution := false
+	for _, node := range payload.Data.Nodes {
+		if node.ID == "tanabata:frank-ocean" && node.Kind == "artist" && node.Label == "Frank Ocean" {
+			hasArtist = true
+		}
+	}
+	for _, edge := range payload.Data.Edges {
+		if edge.To == "tanabata:frank-ocean" && edge.Kind == "attribution" && edge.ClaimID != "" {
+			hasAttribution = true
+		}
+	}
+	if !hasArtist || !hasAttribution {
+		t.Fatalf("graph missing Frank Ocean attribution: %+v", payload.Data)
+	}
+
+	recorder = httptest.NewRecorder()
+	request := httptest.NewRequest(http.MethodGet, "/v1/graph/tanabata:frank-ocean?depth=4", nil)
+	server.Router().ServeHTTP(recorder, request)
+	if recorder.Code != http.StatusBadRequest {
+		t.Fatalf("depth status = %d, want 400 body=%s", recorder.Code, recorder.Body.String())
+	}
+	var problem models.ProblemDetails
+	mustJSON(t, recorder.Body.Bytes(), &problem)
+	if problem.Code != "depth_too_large" {
+		t.Fatalf("problem code = %q, want depth_too_large", problem.Code)
+	}
+}
+
 func TestArtistPerformanceStatsEndpoint(t *testing.T) {
 	server, store := seededLineageServer(t)
 	defer store.Close()
