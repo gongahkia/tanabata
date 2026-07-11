@@ -239,6 +239,20 @@ func TestSearchCursorPagination(t *testing.T) {
 	if len(second.Data.Quotes) != 1 || second.Data.Quotes[0].QuoteID == first.Data.Quotes[0].QuoteID {
 		t.Fatalf("expected stable second page, first=%+v second=%+v", first.Data.Quotes, second.Data.Quotes)
 	}
+
+	recorder = httptest.NewRecorder()
+	request = httptest.NewRequest(http.MethodGet, "/v1/search?q=frank&cursor=made-up", nil)
+	server.Router().ServeHTTP(recorder, request)
+	if recorder.Code != http.StatusBadRequest {
+		t.Fatalf("status = %d, want 400 body=%s", recorder.Code, recorder.Body.String())
+	}
+	var problem models.ProblemDetails
+	if err := json.Unmarshal(recorder.Body.Bytes(), &problem); err != nil {
+		t.Fatalf("decode unknown cursor response: %v", err)
+	}
+	if problem.Code != "unknown_cursor" {
+		t.Fatalf("problem code = %q, want unknown_cursor body=%s", problem.Code, recorder.Body.String())
+	}
 }
 
 func TestV1QuotesRandomEndpoint(t *testing.T) {
@@ -494,6 +508,20 @@ func TestTimelineCursorPagination(t *testing.T) {
 	}
 	if len(second.Data) != 1 || second.Data[0].EventID == first.Data[0].EventID {
 		t.Fatalf("expected stable second timeline page, first=%+v second=%+v", first.Data, second.Data)
+	}
+
+	recorder = httptest.NewRecorder()
+	request = httptest.NewRequest(http.MethodGet, "/v1/timeline?cursor=made-up", nil)
+	server.Router().ServeHTTP(recorder, request)
+	if recorder.Code != http.StatusBadRequest {
+		t.Fatalf("status = %d, want 400 body=%s", recorder.Code, recorder.Body.String())
+	}
+	var problem models.ProblemDetails
+	if err := json.Unmarshal(recorder.Body.Bytes(), &problem); err != nil {
+		t.Fatalf("decode unknown cursor response: %v", err)
+	}
+	if problem.Code != "unknown_cursor" {
+		t.Fatalf("problem code = %q, want unknown_cursor body=%s", problem.Code, recorder.Body.String())
 	}
 }
 

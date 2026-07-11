@@ -3,6 +3,7 @@ package api
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"log/slog"
 	"net/http"
 	"os"
@@ -50,6 +51,8 @@ var (
 	quoteSorts                    = []string{"random"}
 	performanceSorts              = []string{"asc", "desc"}
 )
+
+var errUnknownCursor = errors.New("unknown cursor")
 
 func NewServer(store *catalog.Store, telemetry *observability.Telemetry) (*Server, error) {
 	server := &Server{
@@ -688,7 +691,11 @@ func (s *Server) timeline(c *gin.Context) {
 	sort.SliceStable(events, func(i, j int) bool {
 		return events[i].At > events[j].At
 	})
-	events, nextCursor := paginateTimelineEvents(events, c.Query("cursor"), limit)
+	events, nextCursor, err := paginateTimelineEvents(events, c.Query("cursor"), limit)
+	if err != nil {
+		errorResponse(c, http.StatusBadRequest, "unknown_cursor", "unknown cursor", nil)
+		return
+	}
 	meta, err := s.store.Meta(c.Request.Context())
 	if err != nil {
 		s.loggedErrorResponse(c, http.StatusInternalServerError, "timeline_failed", "failed to load service metadata", nil, err)
@@ -709,7 +716,11 @@ func (s *Server) search(c *gin.Context) {
 		s.loggedErrorResponse(c, http.StatusInternalServerError, "search_failed", "failed to search catalog", nil, err)
 		return
 	}
-	quotes, nextCursor := paginateQuotes(response.Data.Quotes, c.Query("cursor"), limit)
+	quotes, nextCursor, err := paginateSearchQuotes(response.Data.Quotes, c.Query("cursor"), limit)
+	if err != nil {
+		errorResponse(c, http.StatusBadRequest, "unknown_cursor", "unknown cursor", nil)
+		return
+	}
 	response.Data.Quotes = quotes
 	dataResponse(c, http.StatusOK, response.Data, cursorMeta(response.Meta, nextCursor))
 }
@@ -853,19 +864,20 @@ func cursorMeta(meta models.ListMeta, nextCursor string) models.CursorMeta {
 	}
 }
 
-func paginateQuotes(quotes []models.Quote, cursor string, limit int) ([]models.Quote, string) {
+func paginateSearchQuotes(quotes []models.Quote, cursor string, limit int) ([]models.Quote, string, error) {
 	start := 0
 	if cursor != "" {
-		start = len(quotes)
+		found := false
 		for i, quote := range quotes {
 			if quote.QuoteID == cursor {
 				start = i + 1
+				found = true
 				break
 			}
 		}
-	}
-	if start > len(quotes) {
-		start = len(quotes)
+		if !found {
+			return nil, "", errUnknownCursor
+		}
 	}
 	end := start + limit
 	if end > len(quotes) {
@@ -875,22 +887,23 @@ func paginateQuotes(quotes []models.Quote, cursor string, limit int) ([]models.Q
 	if end < len(quotes) && end > start {
 		nextCursor = quotes[end-1].QuoteID
 	}
-	return quotes[start:end], nextCursor
+	return quotes[start:end], nextCursor, nil
 }
 
-func paginateTimelineEvents(events []models.TimelineEvent, cursor string, limit int) ([]models.TimelineEvent, string) {
+func paginateTimelineEvents(events []models.TimelineEvent, cursor string, limit int) ([]models.TimelineEvent, string, error) {
 	start := 0
 	if cursor != "" {
-		start = len(events)
+		found := false
 		for i, event := range events {
 			if event.EventID == cursor {
 				start = i + 1
+				found = true
 				break
 			}
 		}
-	}
-	if start > len(events) {
-		start = len(events)
+		if !found {
+			return nil, "", errUnknownCursor
+		}
 	}
 	end := start + limit
 	if end > len(events) {
@@ -900,7 +913,7 @@ func paginateTimelineEvents(events []models.TimelineEvent, cursor string, limit 
 	if end < len(events) && end > start {
 		nextCursor = events[end-1].EventID
 	}
-	return events[start:end], nextCursor
+	return events[start:end], nextCursor, nil
 }
 
 func parseLimit(value string, fallback int) int {
