@@ -2078,6 +2078,7 @@
             }
           },
           "400": { "$ref": "#/components/responses/Error400" },
+          "413": { "$ref": "#/components/responses/Error413" },
           "404": { "$ref": "#/components/responses/Error404" },
           "409": { "$ref": "#/components/responses/Error409" },
           "500": { "$ref": "#/components/responses/Error500" },
@@ -2840,6 +2841,26 @@
                   "detail": "q is required",
                   "instance": "req_01HX0000000000000000000000",
                   "code": "missing_query"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Error413": {
+        "description": "Payload Too Large",
+        "content": {
+          "application/problem+json": {
+            "schema": { "$ref": "#/components/schemas/ProblemDetails" },
+            "examples": {
+              "payloadTooLarge": {
+                "value": {
+                  "type": "https://tanabata.dev/errors/payload_too_large",
+                  "title": "request body too large",
+                  "status": 413,
+                  "detail": "request body too large",
+                  "instance": "req_01HX0000000000000000000003",
+                  "code": "payload_too_large"
                 }
               }
             }

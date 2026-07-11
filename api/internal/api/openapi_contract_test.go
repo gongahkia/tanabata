@@ -39,7 +39,7 @@ func TestOpenAPIErrorResponseDocumentation(t *testing.T) {
 
 	errorCodes := []string{"400", "404", "409", "429", "500"}
 	componentResponses := mapAt(t, components, "responses")
-	for _, code := range errorCodes {
+	for _, code := range append(errorCodes, "413") {
 		name := "Error" + code
 		response := mapAt(t, componentResponses, name)
 		content := mapAt(t, response, "content")
@@ -379,6 +379,41 @@ func (v *openAPIContractValidator) validateResponse(t *testing.T, request *http.
 	}
 	if skipContractResponseValidation(recorder.Header().Get("Content-Type")) {
 		return
+	}
+	responseInput.SetBodyBytes(recorder.Body.Bytes())
+	if err := openapi3filter.ValidateResponse(context.Background(), responseInput); err != nil {
+		t.Fatalf("ValidateResponse(%s) error = %v body=%s", request.URL.RequestURI(), err, recorder.Body.String())
+	}
+}
+
+func (v *openAPIContractValidator) validateErrorResponse(t *testing.T, request *http.Request, recorder *httptest.ResponseRecorder) {
+	t.Helper()
+
+	contractRequest, err := http.NewRequestWithContext( // #nosec G704 -- local synthetic request for contract routing
+		request.Context(),
+		request.Method,
+		"http://localhost:8080"+request.URL.RequestURI(),
+		nil,
+	)
+	if err != nil {
+		t.Fatalf("NewRequestWithContext() error = %v", err)
+	}
+	route, pathParams, err := v.router.FindRoute(contractRequest)
+	if err != nil {
+		t.Fatalf("FindRoute(%s) error = %v", request.URL.RequestURI(), err)
+	}
+	requestInput := &openapi3filter.RequestValidationInput{
+		Request:    contractRequest,
+		PathParams: pathParams,
+		Route:      route,
+		Options: &openapi3filter.Options{
+			AuthenticationFunc: openAPIAuthenticationFunc,
+		},
+	}
+	responseInput := &openapi3filter.ResponseValidationInput{
+		RequestValidationInput: requestInput,
+		Status:                 recorder.Code,
+		Header:                 recorder.Header(),
 	}
 	responseInput.SetBodyBytes(recorder.Body.Bytes())
 	if err := openapi3filter.ValidateResponse(context.Background(), responseInput); err != nil {
