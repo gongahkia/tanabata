@@ -1729,14 +1729,15 @@ func (s *Store) SearchWithLimit(ctx context.Context, query string, limit int) (m
 	if err != nil {
 		return response, err
 	}
-	if len(artists) == 0 {
+	fallbackQuery := search.NormalizeText(query)
+	if len(artists) == 0 && fallbackQuery != "" {
 		fallback, err := s.ListArtists(ctx, models.ArtistFilters{Query: query, Limit: limit, Offset: 0})
 		if err != nil {
 			return response, err
 		}
 		artists = fallback.Data
 	}
-	if len(quotes) == 0 {
+	if len(quotes) == 0 && fallbackQuery != "" {
 		fallback, err := s.ListQuotes(ctx, models.QuoteFilters{Query: query, Limit: limit, Offset: 0})
 		if err != nil {
 			return response, err
@@ -3215,12 +3216,22 @@ func dedupeArtistLinks(links []models.ArtistLink) []models.ArtistLink {
 }
 
 func ftsQuery(input string) string {
-	terms := strings.Fields(search.NormalizeText(input))
-	if len(terms) == 0 {
-		return ""
-	}
-	for i, term := range terms {
-		terms[i] = term + "*"
+	tokens := strings.Fields(input)
+	terms := make([]string, 0, len(tokens))
+	for _, token := range tokens {
+		term := ftsEscape(token)
+		if term == "" {
+			continue
+		}
+		terms = append(terms, term)
 	}
 	return strings.Join(terms, " ")
+}
+
+func ftsEscape(term string) string {
+	term = strings.TrimSpace(term)
+	if term == "" {
+		return ""
+	}
+	return `"` + strings.ReplaceAll(term, `"`, `""`) + `"*`
 }
