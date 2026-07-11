@@ -1253,16 +1253,25 @@ func (s *Store) ReviewQueue(ctx context.Context, filters models.ReviewQueueFilte
 	if err := rows.Close(); err != nil {
 		return response, err
 	}
+	quoteIDs := make([]string, 0, len(candidates))
 	for _, candidate := range candidates {
-		quote, err := s.QuoteByID(ctx, candidate.quoteID)
-		if err != nil {
-			return response, err
-		}
-		if quote == nil {
+		quoteIDs = append(quoteIDs, candidate.quoteID)
+	}
+	quotes, err := s.quotesByIDs(ctx, quoteIDs)
+	if err != nil {
+		return response, err
+	}
+	quotesByID := make(map[string]models.Quote, len(quotes))
+	for _, quote := range quotes {
+		quotesByID[quote.QuoteID] = quote
+	}
+	for _, candidate := range candidates {
+		quote, ok := quotesByID[candidate.quoteID]
+		if !ok {
 			continue
 		}
 		response.Data = append(response.Data, models.ReviewQueueItem{
-			Quote:     *quote,
+			Quote:     quote,
 			Reason:    reviewReason(candidate.status, candidate.confidence),
 			RiskScore: reviewRiskScore(candidate.status, candidate.confidence),
 		})
@@ -1314,15 +1323,11 @@ func (s *Store) StaleQuotes(ctx context.Context, filters models.ReviewQueueFilte
 	if err := rows.Close(); err != nil {
 		return response, err
 	}
-	for _, quoteID := range quoteIDs {
-		quote, err := s.QuoteByID(ctx, quoteID)
-		if err != nil {
-			return response, err
-		}
-		if quote != nil {
-			response.Data = append(response.Data, *quote)
-		}
+	quotes, err := s.quotesByIDs(ctx, quoteIDs)
+	if err != nil {
+		return response, err
 	}
+	response.Data = quotes
 	return response, nil
 }
 
@@ -2146,15 +2151,7 @@ func (s *Store) searchArtists(ctx context.Context, query string, limit int) ([]m
 	if err := rows.Close(); err != nil {
 		return nil, err
 	}
-	var artists []models.Artist
-	for _, artistID := range artistIDs {
-		artist, err := s.ArtistByID(ctx, artistID)
-		if err != nil || artist == nil {
-			continue
-		}
-		artists = append(artists, *artist)
-	}
-	return artists, nil
+	return s.artistsByIDs(ctx, artistIDs)
 }
 
 func (s *Store) searchQuotes(ctx context.Context, query string, limit int) ([]models.Quote, error) {
@@ -2209,15 +2206,7 @@ func (s *Store) searchQuotes(ctx context.Context, query string, limit int) ([]mo
 	if err := rows.Close(); err != nil {
 		return nil, err
 	}
-	var quotes []models.Quote
-	for _, quoteID := range quoteIDs {
-		quote, err := s.QuoteByID(ctx, quoteID)
-		if err != nil || quote == nil {
-			continue
-		}
-		quotes = append(quotes, *quote)
-	}
-	return quotes, nil
+	return s.quotesByIDs(ctx, quoteIDs)
 }
 
 func (s *Store) rebuildSearchIndices(ctx context.Context) error {
@@ -2324,6 +2313,188 @@ func (s *Store) hydrateQuote(ctx context.Context, quote *models.Quote) error {
 	return nil
 }
 
+func (s *Store) quotesByIDs(ctx context.Context, quoteIDs []string) ([]models.Quote, error) {
+	if len(quoteIDs) == 0 {
+		return []models.Quote{}, nil
+	}
+	placeholders := sqlPlaceholders(len(quoteIDs))
+	args := stringArgs(quoteIDs)
+	// #nosec G202 -- placeholders are generated; values remain bound
+	query := `
+		SELECT
+			quotes.quote_id,
+			quotes.text,
+			artists.artist_id,
+			artists.name,
+			quotes.source_id,
+			quotes.source_type,
+			quotes.work_title,
+			quotes.year,
+			quotes.provenance_status,
+			quotes.confidence_score,
+			quotes.provider_origin,
+			quotes.license,
+			quotes.first_seen_at,
+			quotes.last_verified_at,
+			quote_sources.source_id,
+			quote_sources.provider,
+			quote_sources.url,
+			quote_sources.title,
+			quote_sources.publisher,
+			quote_sources.license,
+			quote_sources.retrieved_at
+		FROM quotes
+		JOIN artists ON artists.artist_id = quotes.artist_id
+		LEFT JOIN quote_sources ON quote_sources.source_id = quotes.source_id AND quotes.source_id <> ''
+		WHERE quotes.quote_id IN (` + placeholders + `)`
+	rows, err := s.db.QueryContext(ctx, query, args...) // #nosec G201 -- placeholders only; values remain bound
+	if err != nil {
+		return nil, err
+	}
+	quotes, err := s.scanQuoteRowsWithChildren(ctx, rows)
+	if err != nil {
+		return nil, err
+	}
+	quotesByID := make(map[string]models.Quote, len(quotes))
+	for _, quote := range quotes {
+		quotesByID[quote.QuoteID] = quote
+	}
+	ordered := make([]models.Quote, 0, len(quoteIDs))
+	for _, quoteID := range quoteIDs {
+		if quote, ok := quotesByID[quoteID]; ok {
+			ordered = append(ordered, quote)
+		}
+	}
+	return ordered, nil
+}
+
+func (s *Store) scanQuoteRowsWithChildren(ctx context.Context, rows *sql.Rows) ([]models.Quote, error) {
+	now := time.Now().UTC()
+	quotes := []models.Quote{}
+	quoteIDs := []string{}
+	quoteIndex := map[string]int{}
+	for rows.Next() {
+		var quote models.Quote
+		var year string
+		var sourceID string
+		var sourceSourceID, sourceProvider, sourceURL, sourceTitle, sourcePublisher, sourceLicense, sourceRetrievedAt sql.NullString
+		if err := rows.Scan(
+			&quote.QuoteID,
+			&quote.Text,
+			&quote.ArtistID,
+			&quote.ArtistName,
+			&sourceID,
+			&quote.SourceType,
+			&quote.WorkTitle,
+			&year,
+			&quote.ProvenanceStatus,
+			&quote.ConfidenceScore,
+			&quote.ProviderOrigin,
+			&quote.License,
+			&quote.FirstSeenAt,
+			&quote.LastVerifiedAt,
+			&sourceSourceID,
+			&sourceProvider,
+			&sourceURL,
+			&sourceTitle,
+			&sourcePublisher,
+			&sourceLicense,
+			&sourceRetrievedAt,
+		); err != nil {
+			_ = rows.Close()
+			return nil, err
+		}
+		quote.SourceID = emptyToNull(sourceID)
+		quote.Year = parseOptionalYear(year)
+		quote.Tags = []string{}
+		quote.Evidence = []string{}
+		applyQuoteFreshness(&quote, now)
+		if sourceSourceID.Valid {
+			quote.Source = &models.Source{
+				SourceID:    sourceSourceID.String,
+				Provider:    sourceProvider.String,
+				URL:         sourceURL.String,
+				Title:       sourceTitle.String,
+				Publisher:   sourcePublisher.String,
+				License:     sourceLicense.String,
+				RetrievedAt: sourceRetrievedAt.String,
+			}
+		}
+		quoteIndex[quote.QuoteID] = len(quotes)
+		quotes = append(quotes, quote)
+		quoteIDs = append(quoteIDs, quote.QuoteID)
+	}
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return nil, err
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if len(quoteIDs) == 0 {
+		return quotes, nil
+	}
+	placeholders := sqlPlaceholders(len(quoteIDs))
+	args := stringArgs(quoteIDs)
+
+	// #nosec G202 -- placeholders are generated; values remain bound
+	tagQuery := `
+		SELECT quote_tags.quote_id, quote_tags.tag
+		FROM quote_tags
+		WHERE quote_tags.quote_id IN (` + placeholders + `)
+		ORDER BY quote_tags.quote_id ASC, quote_tags.tag ASC`
+	tagRows, err := s.db.QueryContext(ctx, tagQuery, args...) // #nosec G201 -- placeholders only; values remain bound
+	if err != nil {
+		return nil, err
+	}
+	for tagRows.Next() {
+		var quoteID, tag string
+		if err := tagRows.Scan(&quoteID, &tag); err != nil {
+			_ = tagRows.Close()
+			return nil, err
+		}
+		if idx, ok := quoteIndex[quoteID]; ok {
+			quotes[idx].Tags = append(quotes[idx].Tags, tag)
+		}
+	}
+	if err := tagRows.Err(); err != nil {
+		_ = tagRows.Close()
+		return nil, err
+	}
+	if err := tagRows.Close(); err != nil {
+		return nil, err
+	}
+
+	// #nosec G202 -- placeholders are generated; values remain bound
+	evidenceQuery := `
+		SELECT quote_evidence.quote_id, quote_evidence.evidence
+		FROM quote_evidence
+		WHERE quote_evidence.quote_id IN (` + placeholders + `)
+		ORDER BY quote_evidence.quote_id ASC, quote_evidence.position ASC`
+	evidenceRows, err := s.db.QueryContext(ctx, evidenceQuery, args...) // #nosec G201 -- placeholders only; values remain bound
+	if err != nil {
+		return nil, err
+	}
+	for evidenceRows.Next() {
+		var quoteID, evidence string
+		if err := evidenceRows.Scan(&quoteID, &evidence); err != nil {
+			_ = evidenceRows.Close()
+			return nil, err
+		}
+		if idx, ok := quoteIndex[quoteID]; ok {
+			quotes[idx].Evidence = append(quotes[idx].Evidence, evidence)
+		}
+	}
+	if err := evidenceRows.Err(); err != nil {
+		_ = evidenceRows.Close()
+		return nil, err
+	}
+	if err := evidenceRows.Close(); err != nil {
+		return nil, err
+	}
+	return quotes, nil
+}
+
 func applyQuoteFreshness(quote *models.Quote, now time.Time) {
 	if quote.LastVerifiedAt == "" {
 		quote.FreshnessStatus = "unknown"
@@ -2391,6 +2562,183 @@ func (s *Store) hydrateArtist(ctx context.Context, artist *models.Artist) error 
 	}
 	artist.Links, err = s.artistLinks(ctx, artist.ArtistID)
 	return err
+}
+
+func (s *Store) artistsByIDs(ctx context.Context, artistIDs []string) ([]models.Artist, error) {
+	if len(artistIDs) == 0 {
+		return []models.Artist{}, nil
+	}
+	placeholders := sqlPlaceholders(len(artistIDs))
+	args := stringArgs(artistIDs)
+	// #nosec G202 -- placeholders are generated; values remain bound
+	query := `
+		SELECT
+			artists.artist_id,
+			artists.name,
+			COALESCE(artists.mbid, ''),
+			COALESCE(artists.wikidata_id, ''),
+			COALESCE(artists.wikiquote_title, ''),
+			COALESCE(artists.country, ''),
+			COALESCE(artists.life_span_begin, ''),
+			COALESCE(artists.life_span_end, ''),
+			COALESCE(artists.description, ''),
+			COALESCE(artists.bio_summary, ''),
+			COALESCE(artists.provider_status, '{}')
+		FROM artists
+		WHERE artists.artist_id IN (` + placeholders + `)`
+	rows, err := s.db.QueryContext(ctx, query, args...) // #nosec G201 -- placeholders only; values remain bound
+	if err != nil {
+		return nil, err
+	}
+	artists, err := s.scanArtistRowsWithChildren(ctx, rows)
+	if err != nil {
+		return nil, err
+	}
+	artistsByID := make(map[string]models.Artist, len(artists))
+	for _, artist := range artists {
+		artistsByID[artist.ArtistID] = artist
+	}
+	ordered := make([]models.Artist, 0, len(artistIDs))
+	for _, artistID := range artistIDs {
+		if artist, ok := artistsByID[artistID]; ok {
+			ordered = append(ordered, artist)
+		}
+	}
+	return ordered, nil
+}
+
+func (s *Store) scanArtistRowsWithChildren(ctx context.Context, rows *sql.Rows) ([]models.Artist, error) {
+	artists := []models.Artist{}
+	artistIDs := []string{}
+	artistIndex := map[string]int{}
+	for rows.Next() {
+		var artist models.Artist
+		var statusJSON string
+		if err := rows.Scan(
+			&artist.ArtistID,
+			&artist.Name,
+			&artist.MBID,
+			&artist.WikidataID,
+			&artist.WikiquoteTitle,
+			&artist.Country,
+			&artist.LifeSpan.Begin,
+			&artist.LifeSpan.End,
+			&artist.Description,
+			&artist.BioSummary,
+			&statusJSON,
+		); err != nil {
+			_ = rows.Close()
+			return nil, err
+		}
+		artist.ProviderStatus = map[string]string{}
+		if statusJSON != "" {
+			_ = json.Unmarshal([]byte(statusJSON), &artist.ProviderStatus)
+		}
+		artist.Aliases = []string{}
+		artist.Genres = []string{}
+		artist.Links = []models.ArtistLink{}
+		artistIndex[artist.ArtistID] = len(artists)
+		artists = append(artists, artist)
+		artistIDs = append(artistIDs, artist.ArtistID)
+	}
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return nil, err
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if len(artistIDs) == 0 {
+		return artists, nil
+	}
+	placeholders := sqlPlaceholders(len(artistIDs))
+	args := stringArgs(artistIDs)
+
+	// #nosec G202 -- placeholders are generated; values remain bound
+	aliasQuery := `
+		SELECT artist_aliases.artist_id, artist_aliases.alias
+		FROM artist_aliases
+		WHERE artist_aliases.artist_id IN (` + placeholders + `)
+		ORDER BY artist_aliases.artist_id ASC, artist_aliases.alias ASC`
+	aliasRows, err := s.db.QueryContext(ctx, aliasQuery, args...) // #nosec G201 -- placeholders only; values remain bound
+	if err != nil {
+		return nil, err
+	}
+	for aliasRows.Next() {
+		var artistID, alias string
+		if err := aliasRows.Scan(&artistID, &alias); err != nil {
+			_ = aliasRows.Close()
+			return nil, err
+		}
+		if idx, ok := artistIndex[artistID]; ok {
+			artists[idx].Aliases = append(artists[idx].Aliases, alias)
+		}
+	}
+	if err := aliasRows.Err(); err != nil {
+		_ = aliasRows.Close()
+		return nil, err
+	}
+	if err := aliasRows.Close(); err != nil {
+		return nil, err
+	}
+
+	// #nosec G202 -- placeholders are generated; values remain bound
+	genreQuery := `
+		SELECT artist_tags.artist_id, artist_tags.tag
+		FROM artist_tags
+		WHERE artist_tags.artist_id IN (` + placeholders + `)
+		ORDER BY artist_tags.artist_id ASC, artist_tags.tag ASC`
+	genreRows, err := s.db.QueryContext(ctx, genreQuery, args...) // #nosec G201 -- placeholders only; values remain bound
+	if err != nil {
+		return nil, err
+	}
+	for genreRows.Next() {
+		var artistID, genre string
+		if err := genreRows.Scan(&artistID, &genre); err != nil {
+			_ = genreRows.Close()
+			return nil, err
+		}
+		if idx, ok := artistIndex[artistID]; ok {
+			artists[idx].Genres = append(artists[idx].Genres, genre)
+		}
+	}
+	if err := genreRows.Err(); err != nil {
+		_ = genreRows.Close()
+		return nil, err
+	}
+	if err := genreRows.Close(); err != nil {
+		return nil, err
+	}
+
+	// #nosec G202 -- placeholders are generated; values remain bound
+	linkQuery := `
+		SELECT artist_links.artist_id, artist_links.provider, artist_links.kind, artist_links.url, artist_links.external_id
+		FROM artist_links
+		WHERE artist_links.artist_id IN (` + placeholders + `)
+		ORDER BY artist_links.artist_id ASC, artist_links.provider ASC, artist_links.kind ASC, artist_links.url ASC`
+	linkRows, err := s.db.QueryContext(ctx, linkQuery, args...) // #nosec G201 -- placeholders only; values remain bound
+	if err != nil {
+		return nil, err
+	}
+	for linkRows.Next() {
+		var artistID string
+		var link models.ArtistLink
+		if err := linkRows.Scan(&artistID, &link.Provider, &link.Kind, &link.URL, &link.ExternalID); err != nil {
+			_ = linkRows.Close()
+			return nil, err
+		}
+		if idx, ok := artistIndex[artistID]; ok {
+			artists[idx].Links = append(artists[idx].Links, link)
+		}
+	}
+	if err := linkRows.Err(); err != nil {
+		_ = linkRows.Close()
+		return nil, err
+	}
+	if err := linkRows.Close(); err != nil {
+		return nil, err
+	}
+	return artists, nil
 }
 
 func (s *Store) artistAliases(ctx context.Context, artistID string) ([]string, error) {
@@ -2482,6 +2830,18 @@ func (s *Store) quoteEvidence(ctx context.Context, quoteID string) ([]string, er
 		evidence = append(evidence, item)
 	}
 	return evidence, rows.Err()
+}
+
+func sqlPlaceholders(count int) string {
+	return strings.TrimRight(strings.Repeat("?,", count), ",")
+}
+
+func stringArgs(values []string) []any {
+	args := make([]any, len(values))
+	for idx, value := range values {
+		args[idx] = value
+	}
+	return args
 }
 
 func normalizeLimit(limit int) int {
