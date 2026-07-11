@@ -3,6 +3,7 @@ package api
 import (
 	"bytes"
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"log/slog"
@@ -96,10 +97,12 @@ func (v *runtimeContractValidator) middleware() gin.HandlerFunc {
 			Route:      route,
 		}
 		if err := openapi3filter.ValidateRequest(c.Request.Context(), requestInput); err != nil {
-			v.logger.Warn("openapi_contract_request_invalid", "request_id", c.GetString("request_id"), "path", c.Request.URL.Path, "err", err)
-			errorResponse(c, http.StatusBadRequest, "contract_request_invalid", "request does not match the OpenAPI contract", nil)
-			c.Abort()
-			return
+			if !handlerValidatedEnumRequestError(err) {
+				v.logger.Warn("openapi_contract_request_invalid", "request_id", c.GetString("request_id"), "path", c.Request.URL.Path, "err", err)
+				errorResponse(c, http.StatusBadRequest, "contract_request_invalid", "request does not match the OpenAPI contract", nil)
+				c.Abort()
+				return
+			}
 		}
 
 		recorder := &contractBodyRecorder{ResponseWriter: c.Writer}
@@ -128,6 +131,15 @@ func (v *runtimeContractValidator) middleware() gin.HandlerFunc {
 			recorder.Header().Set("X-OpenAPI-Contract-Error", "response_invalid")
 		}
 	}
+}
+
+func handlerValidatedEnumRequestError(err error) bool {
+	var requestErr *openapi3filter.RequestError
+	if !errors.As(err, &requestErr) || requestErr.Parameter == nil || requestErr.Parameter.In != "query" {
+		return false
+	}
+	schema := requestErr.Parameter.Schema
+	return schema != nil && schema.Value != nil && len(schema.Value.Enum) > 0
 }
 
 func (v *runtimeContractValidator) routeFor(request *http.Request) (*routers.Route, map[string]string, error) {

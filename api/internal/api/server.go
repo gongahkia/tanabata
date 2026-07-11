@@ -32,6 +32,25 @@ type Server struct {
 	contractValidator *runtimeContractValidator
 }
 
+type apiError struct {
+	status  int
+	code    string
+	message string
+	details map[string]any
+}
+
+func (e *apiError) write(c *gin.Context) {
+	errorResponse(c, e.status, e.code, e.message, e.details)
+}
+
+var (
+	quoteProvenanceStatuses       = []string{"verified", "source_attributed", "provider_attributed", "ambiguous", "needs_review"}
+	reviewQueueProvenanceStatuses = []string{"provider_attributed", "ambiguous", "needs_review"}
+	freshnessStatuses             = []string{"fresh", "aging", "stale", "unknown"}
+	quoteSorts                    = []string{"random"}
+	performanceSorts              = []string{"asc", "desc"}
+)
+
 func NewServer(store *catalog.Store, telemetry *observability.Telemetry) (*Server, error) {
 	server := &Server{
 		store:     store,
@@ -230,15 +249,30 @@ func (s *Server) artistByID(c *gin.Context) {
 }
 
 func (s *Server) artistQuotes(c *gin.Context) {
+	provenanceStatus, apiErr := parseEnum("provenance_status", c.Query("provenance_status"), quoteProvenanceStatuses)
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
+	freshnessStatus, apiErr := parseEnum("freshness_status", c.Query("freshness_status"), freshnessStatuses)
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
+	sortOrder, apiErr := parseEnum("sort", c.Query("sort"), quoteSorts)
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
 	response, err := s.store.ArtistQuotes(c.Request.Context(), c.Param("artist_id"), models.QuoteFilters{
 		Query:            c.Query("q"),
 		Tag:              c.Query("tag"),
 		Source:           c.Query("source"),
-		ProvenanceStatus: c.Query("provenance_status"),
-		FreshnessStatus:  c.Query("freshness_status"),
+		ProvenanceStatus: provenanceStatus,
+		FreshnessStatus:  freshnessStatus,
 		Limit:            parseInt(c.Query("limit")),
 		Offset:           parseInt(c.Query("offset")),
-		Sort:             c.Query("sort"),
+		Sort:             sortOrder,
 	})
 	if err != nil {
 		s.loggedErrorResponse(c, http.StatusInternalServerError, "artist_quotes_failed", "failed to list artist quotes", nil, err)
@@ -328,17 +362,32 @@ func (s *Server) artistSetlists(c *gin.Context) {
 }
 
 func (s *Server) listQuotes(c *gin.Context) {
+	provenanceStatus, apiErr := parseEnum("provenance_status", c.Query("provenance_status"), quoteProvenanceStatuses)
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
+	freshnessStatus, apiErr := parseEnum("freshness_status", c.Query("freshness_status"), freshnessStatuses)
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
+	sortOrder, apiErr := parseEnum("sort", c.Query("sort"), quoteSorts)
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
 	filters := models.QuoteFilters{
 		Artist:           c.Query("artist"),
 		ArtistID:         c.Query("artist_id"),
 		Query:            c.Query("q"),
 		Tag:              c.Query("tag"),
 		Source:           c.Query("source"),
-		ProvenanceStatus: c.Query("provenance_status"),
-		FreshnessStatus:  c.Query("freshness_status"),
+		ProvenanceStatus: provenanceStatus,
+		FreshnessStatus:  freshnessStatus,
 		Limit:            parseInt(c.Query("limit")),
 		Offset:           parseInt(c.Query("offset")),
-		Sort:             c.Query("sort"),
+		Sort:             sortOrder,
 	}
 	if filters.Artist != "" && filters.ArtistID == "" {
 		if resolved, err := s.store.ResolveArtistID(c.Request.Context(), filters.Artist); err == nil && resolved != "" {
@@ -355,13 +404,18 @@ func (s *Server) listQuotes(c *gin.Context) {
 }
 
 func (s *Server) randomQuote(c *gin.Context) {
+	provenanceStatus, apiErr := parseEnum("provenance_status", c.Query("provenance_status"), quoteProvenanceStatuses)
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
 	filters := models.QuoteFilters{
 		Artist:           c.Query("artist"),
 		ArtistID:         c.Query("artist_id"),
 		Query:            c.Query("q"),
 		Tag:              c.Query("tag"),
 		Source:           c.Query("source"),
-		ProvenanceStatus: c.Query("provenance_status"),
+		ProvenanceStatus: provenanceStatus,
 	}
 	if filters.Artist != "" && filters.ArtistID == "" {
 		if resolved, err := s.store.ResolveArtistID(c.Request.Context(), filters.Artist); err == nil && resolved != "" {
@@ -408,8 +462,13 @@ func (s *Server) quoteProvenance(c *gin.Context) {
 }
 
 func (s *Server) reviewQueue(c *gin.Context) {
+	provenanceStatus, apiErr := parseEnum("provenance_status", c.Query("provenance_status"), reviewQueueProvenanceStatuses)
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
 	response, err := s.store.ReviewQueue(c.Request.Context(), models.ReviewQueueFilters{
-		ProvenanceStatus: c.Query("provenance_status"),
+		ProvenanceStatus: provenanceStatus,
 		Limit:            parseInt(c.Query("limit")),
 		Offset:           parseInt(c.Query("offset")),
 	})
@@ -767,6 +826,23 @@ func parseInclude(value string) map[string]bool {
 		}
 	}
 	return includes
+}
+
+func parseEnum(name, value string, allowed []string) (string, *apiError) {
+	if value == "" {
+		return "", nil
+	}
+	for _, candidate := range allowed {
+		if value == candidate {
+			return value, nil
+		}
+	}
+	return "", &apiError{
+		status:  http.StatusBadRequest,
+		code:    "invalid_enum",
+		message: "unknown value for " + name,
+		details: map[string]any{"allowed": append([]string(nil), allowed...)},
+	}
 }
 
 func cursorMeta(meta models.ListMeta, nextCursor string) models.CursorMeta {
