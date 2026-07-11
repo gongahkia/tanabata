@@ -175,6 +175,7 @@ func (s *Server) Router() *gin.Engine {
 		v1.GET("/stats", s.stats)
 		v1.GET("/integrity", s.integrity)
 		v1.GET("/lyrics", s.lyrics)
+		v1.GET("/docs", s.docs)
 		v1.GET("/version", s.version)
 	}
 

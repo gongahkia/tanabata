@@ -285,6 +285,8 @@ $ ./scripts/compose-smoke.sh
 
 See [`openapi/openapi.json`](openapi/openapi.json) for more details.
 
+Rendered API documentation: `GET /v1/docs` or [GitHub Pages](https://gongahkia.github.io/tanabata/api/).
+
 * `GET /v1/artists`
 * `GET /v1/artists/{artist_id}/provenance/summary`
 * `GET /v1/artists/{artist_id}/recordings`

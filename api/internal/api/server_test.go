@@ -245,6 +245,26 @@ func TestVersionEndpoint(t *testing.T) {
 	}
 }
 
+func TestDocsEndpoint(t *testing.T) {
+	server, store := seededServer(t)
+	defer store.Close()
+
+	recorder := httptest.NewRecorder()
+	server.Router().ServeHTTP(recorder, httptest.NewRequest(http.MethodGet, "/v1/docs", nil))
+	if recorder.Code != http.StatusOK {
+		t.Fatalf("/v1/docs status = %d, want 200 body=%s", recorder.Code, recorder.Body.String())
+	}
+	if contentType := recorder.Header().Get("Content-Type"); !strings.HasPrefix(contentType, "text/html") {
+		t.Fatalf("/v1/docs content type = %q, want text/html", contentType)
+	}
+	if !strings.Contains(recorder.Body.String(), "Tanabata API") {
+		t.Fatalf("/v1/docs response does not contain the documentation title")
+	}
+	if got := recorder.Header().Get("X-OpenAPI-Contract-Error"); got != "" {
+		t.Fatalf("/v1/docs contract error = %q, want empty", got)
+	}
+}
+
 func TestV1SearchEndpoint(t *testing.T) {
 	server, store := seededServer(t)
 	defer store.Close()
