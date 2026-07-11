@@ -54,6 +54,8 @@ var (
 
 var errUnknownCursor = errors.New("unknown cursor")
 
+const defaultMaxOffset = 10000
+
 func NewServer(store *catalog.Store, telemetry *observability.Telemetry) (*Server, error) {
 	server := &Server{
 		store:     store,
@@ -223,13 +225,18 @@ func (s *Server) legacyAuthorQuotes(c *gin.Context) {
 }
 
 func (s *Server) listArtists(c *gin.Context) {
+	offset, apiErr := parseOffset(c.Query("offset"), defaultMaxOffset)
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
 	response, err := s.store.ListArtists(c.Request.Context(), models.ArtistFilters{
 		Query:          c.Query("q"),
 		MBID:           c.Query("mbid"),
 		WikiquoteTitle: c.Query("wikiquote_title"),
 		Tag:            c.Query("tag"),
 		Limit:          parseInt(c.Query("limit")),
-		Offset:         parseInt(c.Query("offset")),
+		Offset:         offset,
 	})
 	if err != nil {
 		s.loggedErrorResponse(c, http.StatusInternalServerError, "artist_list_failed", "failed to list artists", nil, err)
@@ -267,6 +274,11 @@ func (s *Server) artistQuotes(c *gin.Context) {
 		apiErr.write(c)
 		return
 	}
+	offset, apiErr := parseOffset(c.Query("offset"), defaultMaxOffset)
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
 	response, err := s.store.ArtistQuotes(c.Request.Context(), c.Param("artist_id"), models.QuoteFilters{
 		Query:            c.Query("q"),
 		Tag:              c.Query("tag"),
@@ -274,7 +286,7 @@ func (s *Server) artistQuotes(c *gin.Context) {
 		ProvenanceStatus: provenanceStatus,
 		FreshnessStatus:  freshnessStatus,
 		Limit:            parseInt(c.Query("limit")),
-		Offset:           parseInt(c.Query("offset")),
+		Offset:           offset,
 		Sort:             sortOrder,
 	})
 	if err != nil {
@@ -380,6 +392,11 @@ func (s *Server) listQuotes(c *gin.Context) {
 		apiErr.write(c)
 		return
 	}
+	offset, apiErr := parseOffset(c.Query("offset"), defaultMaxOffset)
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
 	filters := models.QuoteFilters{
 		Artist:           c.Query("artist"),
 		ArtistID:         c.Query("artist_id"),
@@ -389,7 +406,7 @@ func (s *Server) listQuotes(c *gin.Context) {
 		ProvenanceStatus: provenanceStatus,
 		FreshnessStatus:  freshnessStatus,
 		Limit:            parseInt(c.Query("limit")),
-		Offset:           parseInt(c.Query("offset")),
+		Offset:           offset,
 		Sort:             sortOrder,
 	}
 	if filters.Artist != "" && filters.ArtistID == "" {
@@ -470,10 +487,15 @@ func (s *Server) reviewQueue(c *gin.Context) {
 		apiErr.write(c)
 		return
 	}
+	offset, apiErr := parseOffset(c.Query("offset"), defaultMaxOffset)
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
 	response, err := s.store.ReviewQueue(c.Request.Context(), models.ReviewQueueFilters{
 		ProvenanceStatus: provenanceStatus,
 		Limit:            parseInt(c.Query("limit")),
-		Offset:           parseInt(c.Query("offset")),
+		Offset:           offset,
 	})
 	if err != nil {
 		s.loggedErrorResponse(c, http.StatusInternalServerError, "review_queue_failed", "failed to load review queue", nil, err)
@@ -483,9 +505,14 @@ func (s *Server) reviewQueue(c *gin.Context) {
 }
 
 func (s *Server) staleQuotes(c *gin.Context) {
+	offset, apiErr := parseOffset(c.Query("offset"), defaultMaxOffset)
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
 	response, err := s.store.StaleQuotes(c.Request.Context(), models.ReviewQueueFilters{
 		Limit:  parseInt(c.Query("limit")),
-		Offset: parseInt(c.Query("offset")),
+		Offset: offset,
 	})
 	if err != nil {
 		s.loggedErrorResponse(c, http.StatusInternalServerError, "stale_quotes_failed", "failed to load stale quote review set", nil, err)
@@ -817,6 +844,24 @@ func parseInt(value string) int {
 		return 0
 	}
 	return parsed
+}
+
+func parseOffset(value string, max int) (int, *apiError) { //nolint:unparam // issue requires explicit max hook
+	if max <= 0 {
+		max = defaultMaxOffset
+	}
+	parsed, err := strconv.Atoi(value)
+	if err != nil || parsed <= 0 {
+		return 0, nil
+	}
+	if parsed > max {
+		return 0, &apiError{
+			status:  http.StatusBadRequest,
+			code:    "offset_too_large",
+			message: "offset must be <= " + strconv.Itoa(max) + "; use cursor pagination for deeper ranges",
+		}
+	}
+	return parsed, nil
 }
 
 func firstNonEmpty(values ...string) string {
