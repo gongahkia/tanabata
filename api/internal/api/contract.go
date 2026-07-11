@@ -113,6 +113,9 @@ func (v *runtimeContractValidator) middleware() gin.HandlerFunc {
 		if len(recorder.body.Bytes()) == 0 {
 			return
 		}
+		if skipContractResponseValidation(recorder.Header().Get("Content-Type")) {
+			return
+		}
 		responseInput := &openapi3filter.ResponseValidationInput{
 			RequestValidationInput: requestInput,
 			Status:                 status,
@@ -147,6 +150,10 @@ func handlerValidatedQueryRequestError(err error) bool {
 		return false
 	}
 	return len(schema.Value.Enum) > 0 || ((requestErr.Parameter.Name == "offset" || requestErr.Parameter.Name == "depth") && schema.Value.Max != nil)
+}
+
+func skipContractResponseValidation(contentType string) bool {
+	return strings.HasPrefix(strings.ToLower(contentType), "application/atom+xml")
 }
 
 func (v *runtimeContractValidator) routeFor(request *http.Request) (*routers.Route, map[string]string, error) {
