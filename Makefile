@@ -1,6 +1,6 @@
 API_DIR := ./api
 
-.PHONY: test run ingest ingest-artist catalog-backup catalog-export
+.PHONY: test run ingest ingest-artist catalog-backup catalog-export schema-docs
 
 test:
 	cd $(API_DIR) && go test ./...
@@ -19,3 +19,6 @@ catalog-backup:
 
 catalog-export:
 	cd $(API_DIR) && go run ./cmd/catalog -export data/catalog.export.json
+
+schema-docs:
+	cd $(API_DIR) && go run ./cmd/schema-docs -output ../docs/schema.md
