@@ -231,6 +231,12 @@ func (c *HTTPClient) do(ctx context.Context, path string, query url.Values, head
 				status := "success"
 				if err != nil {
 					status = "error"
+					kind := "unknown"
+					var providerErr *ProviderFailure
+					if errors.As(err, &providerErr) {
+						kind = string(providerErr.Kind)
+					}
+					c.telemetry.ObserveProviderError(c.provider, kind)
 				}
 				c.telemetry.ObserveProviderCall(c.provider, path, status, time.Since(startedAt))
 				span.End()

@@ -30,10 +30,17 @@ const sqlitePragmaSuffix = "?_pragma=journal_mode(WAL)&_pragma=busy_timeout(5000
 type Store struct {
 	db             *sql.DB
 	webhookEmitter WebhookEmitter
+	claimObserver  ClaimTransitionObserver
 }
 
 type WebhookEmitter interface {
 	EmitWebhookEvent(context.Context, models.WebhookEvent)
+}
+
+type ClaimTransitionObserver interface{ ObserveClaimStatusTransition(from, to, kind string) }
+
+func (s *Store) SetClaimTransitionObserver(observer ClaimTransitionObserver) {
+	s.claimObserver = observer
 }
 
 func (s *Store) SetWebhookEmitter(emitter WebhookEmitter) {

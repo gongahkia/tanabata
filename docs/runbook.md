@@ -134,3 +134,6 @@ Runtime validation can be enabled with:
 ```bash
 TANABATA_CONTRACT_VALIDATION=true TANABATA_OPENAPI_SPEC=../openapi/openapi.json go run .
 ```
+# Metrics
+
+Prometheus exposes `tanabata_provider_request_duration_seconds`, `tanabata_provider_error_total`, `tanabata_ingest_job_duration_seconds`, `tanabata_claim_status_transition_total`, and `tanabata_catalog_row_count`. Alert on sustained provider errors, rising request latency, failed ingest jobs, unexpected claim-status churn, and material catalog-row drops.

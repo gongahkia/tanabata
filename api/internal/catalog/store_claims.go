@@ -99,6 +99,9 @@ func (s *Store) RecordClaim(ctx context.Context, claim models.Claim) (string, er
 	}
 	claim.ClaimID = claimID
 	if existingStatus != claim.Status {
+		if s.claimObserver != nil {
+			s.claimObserver.ObserveClaimStatusTransition(existingStatus, claim.Status, claim.Kind)
+		}
 		s.emitWebhookEvent(ctx, models.WebhookEvent{
 			EventID:    search.StableHash("webhook", "claim.state_changed", claimID, existingStatus, claim.Status, claim.UpdatedAt),
 			Kind:       "claim.state_changed",
