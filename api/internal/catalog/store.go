@@ -734,13 +734,21 @@ func (s *Store) RekeyArtist(ctx context.Context, oldID, newID string, canonicalN
 	`, newID, canonicalName, search.Slug(canonicalName)+"-"+search.StableHash(newID)[:8], oldID); err != nil {
 		return err
 	}
-	for _, table := range []string{"quotes", "artist_aliases", "artist_links", "artist_tags", "releases"} {
-		if _, err := tx.ExecContext(ctx, fmt.Sprintf(`UPDATE %s SET artist_id = ? WHERE artist_id = ?`, table), newID, oldID); err != nil {
+	for _, table := range rekeyArtistTables {
+		stmt, ok := rekeyArtistTableUpdateSQL(table)
+		if !ok {
+			return errors.New("unsupported artist rekey table")
+		}
+		if _, err := tx.ExecContext(ctx, stmt, newID, oldID); err != nil {
 			return err
 		}
 	}
-	for _, column := range []string{"artist_id", "related_artist_id"} {
-		if _, err := tx.ExecContext(ctx, fmt.Sprintf(`UPDATE artist_relations SET %s = ? WHERE %s = ?`, column, column), newID, oldID); err != nil {
+	for _, column := range rekeyArtistRelationColumns {
+		stmt, ok := rekeyArtistRelationUpdateSQL(column)
+		if !ok {
+			return errors.New("unsupported artist rekey relation column")
+		}
+		if _, err := tx.ExecContext(ctx, stmt, newID, oldID); err != nil {
 			return err
 		}
 	}
@@ -751,6 +759,37 @@ func (s *Store) RekeyArtist(ctx context.Context, oldID, newID string, canonicalN
 		return err
 	}
 	return s.rebuildSearchIndices(ctx)
+}
+
+var rekeyArtistTables = []string{"quotes", "artist_aliases", "artist_links", "artist_tags", "releases"}
+var rekeyArtistRelationColumns = []string{"artist_id", "related_artist_id"}
+
+func rekeyArtistTableUpdateSQL(table string) (string, bool) {
+	switch table {
+	case "quotes":
+		return `UPDATE quotes SET artist_id = ? WHERE artist_id = ?`, true
+	case "artist_aliases":
+		return `UPDATE artist_aliases SET artist_id = ? WHERE artist_id = ?`, true
+	case "artist_links":
+		return `UPDATE artist_links SET artist_id = ? WHERE artist_id = ?`, true
+	case "artist_tags":
+		return `UPDATE artist_tags SET artist_id = ? WHERE artist_id = ?`, true
+	case "releases":
+		return `UPDATE releases SET artist_id = ? WHERE artist_id = ?`, true
+	default:
+		return "", false
+	}
+}
+
+func rekeyArtistRelationUpdateSQL(column string) (string, bool) {
+	switch column {
+	case "artist_id":
+		return `UPDATE artist_relations SET artist_id = ? WHERE artist_id = ?`, true
+	case "related_artist_id":
+		return `UPDATE artist_relations SET related_artist_id = ? WHERE related_artist_id = ?`, true
+	default:
+		return "", false
+	}
 }
 
 func (s *Store) UpsertSource(ctx context.Context, source models.Source) error {

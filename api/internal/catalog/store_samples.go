@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"errors"
-	"fmt"
+	"strconv"
 	"strings"
 	"time"
 
@@ -292,11 +292,11 @@ func (s *Store) SeedCuratedSamples(ctx context.Context, bundlePath, jobID string
 					EventID:    uuid.NewString(),
 					JobID:      jobID,
 					Provider:   "tanabata_curated",
-					Target:     fmt.Sprintf("sample:%s->%s", sourceRecID, derivativeRecID),
+					Target:     "sample:" + sourceRecID + "->" + derivativeRecID,
 					Action:     "record_sample_cycle",
 					Status:     "rejected",
 					OccurredAt: time.Now().UTC().Format(time.RFC3339),
-					Details:    fmt.Sprintf("kind=%s error=%s", defaultSampleKind(record.Kind), ErrSampleCycle.Error()),
+					Details:    "kind=" + defaultSampleKind(record.Kind) + " error=" + ErrSampleCycle.Error(),
 				}); err != nil {
 					return imported, err
 				}
@@ -308,11 +308,11 @@ func (s *Store) SeedCuratedSamples(ctx context.Context, bundlePath, jobID string
 			EventID:    uuid.NewString(),
 			JobID:      jobID,
 			Provider:   "tanabata_curated",
-			Target:     fmt.Sprintf("sample:%s->%s", sourceRecID, derivativeRecID),
+			Target:     "sample:" + sourceRecID + "->" + derivativeRecID,
 			Action:     "record_sample",
 			Status:     "succeeded",
 			OccurredAt: time.Now().UTC().Format(time.RFC3339),
-			Details:    fmt.Sprintf("kind=%s evidence=%d", record.Kind, len(record.Evidence)),
+			Details:    "kind=" + record.Kind + " evidence=" + strconv.Itoa(len(record.Evidence)),
 		}); err != nil {
 			return imported, err
 		}

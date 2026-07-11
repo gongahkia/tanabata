@@ -3,9 +3,9 @@ package catalog
 import (
 	"bytes"
 	"context"
-	"fmt"
 	"log/slog"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"sync"
 	"testing"
@@ -174,7 +174,7 @@ func TestConcurrentUpsertArtistDoesNotLock(t *testing.T) {
 		wg.Add(1)
 		go func(idx int) {
 			defer wg.Done()
-			name := fmt.Sprintf("Concurrent Artist %02d", idx)
+			name := "Concurrent Artist " + testTwoDigit(idx)
 			for range 20 {
 				if err := store.UpsertArtist(ctx, models.Artist{
 					ArtistID: search.ArtistID(name, ""),
@@ -197,6 +197,58 @@ func TestConcurrentUpsertArtistDoesNotLock(t *testing.T) {
 			t.Fatalf("concurrent upsert locked database: %v", err)
 		}
 		t.Fatalf("concurrent upsert error: %v", err)
+	}
+}
+
+func testTwoDigit(value int) string {
+	if value < 10 {
+		return "0" + strconv.Itoa(value)
+	}
+	return strconv.Itoa(value)
+}
+
+func TestRekeyArtistSQLStatementsAreHardcoded(t *testing.T) {
+	expectedTables := map[string]string{
+		"quotes":         `UPDATE quotes SET artist_id = ? WHERE artist_id = ?`,
+		"artist_aliases": `UPDATE artist_aliases SET artist_id = ? WHERE artist_id = ?`,
+		"artist_links":   `UPDATE artist_links SET artist_id = ? WHERE artist_id = ?`,
+		"artist_tags":    `UPDATE artist_tags SET artist_id = ? WHERE artist_id = ?`,
+		"releases":       `UPDATE releases SET artist_id = ? WHERE artist_id = ?`,
+	}
+	if len(rekeyArtistTables) != len(expectedTables) {
+		t.Fatalf("rekeyArtistTables length = %d, want %d", len(rekeyArtistTables), len(expectedTables))
+	}
+	for _, table := range rekeyArtistTables {
+		got, ok := rekeyArtistTableUpdateSQL(table)
+		if !ok {
+			t.Fatalf("table %s not allowed", table)
+		}
+		if got != expectedTables[table] {
+			t.Fatalf("table %s SQL = %q, want %q", table, got, expectedTables[table])
+		}
+	}
+	if _, ok := rekeyArtistTableUpdateSQL("quotes; DROP TABLE artists"); ok {
+		t.Fatalf("unexpected dynamic table accepted")
+	}
+
+	expectedColumns := map[string]string{
+		"artist_id":         `UPDATE artist_relations SET artist_id = ? WHERE artist_id = ?`,
+		"related_artist_id": `UPDATE artist_relations SET related_artist_id = ? WHERE related_artist_id = ?`,
+	}
+	if len(rekeyArtistRelationColumns) != len(expectedColumns) {
+		t.Fatalf("rekeyArtistRelationColumns length = %d, want %d", len(rekeyArtistRelationColumns), len(expectedColumns))
+	}
+	for _, column := range rekeyArtistRelationColumns {
+		got, ok := rekeyArtistRelationUpdateSQL(column)
+		if !ok {
+			t.Fatalf("column %s not allowed", column)
+		}
+		if got != expectedColumns[column] {
+			t.Fatalf("column %s SQL = %q, want %q", column, got, expectedColumns[column])
+		}
+	}
+	if _, ok := rekeyArtistRelationUpdateSQL("artist_id = artist_id; DROP TABLE artists"); ok {
+		t.Fatalf("unexpected dynamic column accepted")
 	}
 }
 

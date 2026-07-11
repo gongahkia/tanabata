@@ -3,9 +3,10 @@ package catalog
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"os"
 	"path/filepath"
+	"strconv"
+	"strings"
 	"testing"
 	"time"
 
@@ -53,13 +54,14 @@ func seedBenchmarkCatalog(b *testing.B, store *Store, ctx context.Context, count
 	b.Helper()
 	statuses := []string{"needs_review", "ambiguous", "provider_attributed"}
 	for i := 0; i < count; i++ {
-		artistID := fmt.Sprintf("bench:artist:%02d", i)
-		artistName := fmt.Sprintf("Frank Benchmark %02d", i)
+		suffix := benchTwoDigit(i)
+		artistID := "bench:artist:" + suffix
+		artistName := "Frank Benchmark " + suffix
 		source := models.Source{
-			SourceID:    fmt.Sprintf("bench:source:%02d", i),
+			SourceID:    "bench:source:" + suffix,
 			Provider:    "benchmark",
-			URL:         fmt.Sprintf("https://bench.tanabata.dev/source/%02d", i),
-			Title:       fmt.Sprintf("Benchmark Source %02d", i),
+			URL:         "https://bench.tanabata.dev/source/" + suffix,
+			Title:       "Benchmark Source " + suffix,
 			Publisher:   "Tanabata Bench",
 			License:     "benchmark",
 			RetrievedAt: time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC).Format(time.RFC3339),
@@ -77,14 +79,14 @@ func seedBenchmarkCatalog(b *testing.B, store *Store, ctx context.Context, count
 		}
 		year := 2020 + i%5
 		quote := models.Quote{
-			QuoteID:          fmt.Sprintf("bench:quote:%02d", i),
-			Text:             fmt.Sprintf("Frank benchmark line %02d uses token %08x for hydration coverage.", i, i*7919),
+			QuoteID:          "bench:quote:" + suffix,
+			Text:             "Frank benchmark line " + suffix + " uses token " + benchHex8(i*7919) + " for hydration coverage.",
 			ArtistID:         artistID,
 			ArtistName:       artistName,
 			SourceID:         source.SourceID,
 			Source:           &source,
 			SourceType:       "benchmark",
-			WorkTitle:        fmt.Sprintf("Benchmark Work %02d", i),
+			WorkTitle:        "Benchmark Work " + suffix,
 			Year:             &year,
 			ProvenanceStatus: statuses[i%len(statuses)],
 			ConfidenceScore:  float64(i%100) / 100,
@@ -103,6 +105,21 @@ func seedBenchmarkCatalog(b *testing.B, store *Store, ctx context.Context, count
 	`); err != nil {
 		b.Fatalf("trim benchmark child rows: %v", err)
 	}
+}
+
+func benchTwoDigit(value int) string {
+	if value < 10 {
+		return "0" + strconv.Itoa(value)
+	}
+	return strconv.Itoa(value)
+}
+
+func benchHex8(value int) string {
+	raw := strconv.FormatInt(int64(value), 16)
+	if len(raw) >= 8 {
+		return raw
+	}
+	return strings.Repeat("0", 8-len(raw)) + raw
 }
 
 func BenchmarkListQuotes(b *testing.B) {

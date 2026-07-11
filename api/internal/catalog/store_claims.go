@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"os"
 	"sort"
+	"strconv"
 	"strings"
 	"time"
 
@@ -533,17 +534,17 @@ func (s *Store) describeClaim(ctx context.Context, claim models.Claim) (string, 
 func humanizeDispute(claim models.Claim, subject, object string) string {
 	switch claim.Kind {
 	case "attribution":
-		return fmt.Sprintf("Attribution of %s to %s is %s.", subject, object, claim.Status)
+		return "Attribution of " + subject + " to " + object + " is " + claim.Status + "."
 	case "sample":
-		return fmt.Sprintf("Sample claim from %s to %s is %s.", object, subject, claim.Status)
+		return "Sample claim from " + object + " to " + subject + " is " + claim.Status + "."
 	case "credit":
-		return fmt.Sprintf("Credit %s on %s is %s.", subject, object, claim.Status)
+		return "Credit " + subject + " on " + object + " is " + claim.Status + "."
 	case "cover":
-		return fmt.Sprintf("Cover claim %s of %s is %s.", subject, object, claim.Status)
+		return "Cover claim " + subject + " of " + object + " is " + claim.Status + "."
 	case "performance":
-		return fmt.Sprintf("Performance claim %s for %s is %s.", subject, object, claim.Status)
+		return "Performance claim " + subject + " for " + object + " is " + claim.Status + "."
 	}
-	return fmt.Sprintf("Claim is %s.", claim.Status)
+	return "Claim is " + claim.Status + "."
 }
 
 func truncate(text string, limit int) string {
@@ -662,7 +663,7 @@ func (s *Store) SeedCuratedMisquotes(ctx context.Context, bundlePath, jobID stri
 			Action:     "record_misquote",
 			Status:     "succeeded",
 			OccurredAt: now,
-			Details:    fmt.Sprintf("supporting=%d refuting=%d rival=%t", len(record.SupportingEvidence), len(record.RefutingEvidence), actualArtistID != ""),
+			Details:    "supporting=" + strconv.Itoa(len(record.SupportingEvidence)) + " refuting=" + strconv.Itoa(len(record.RefutingEvidence)) + " rival=" + strconv.FormatBool(actualArtistID != ""),
 		}); err != nil {
 			return imported, err
 		}
