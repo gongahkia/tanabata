@@ -7,13 +7,24 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"regexp"
 	"strings"
+	"sync"
 	"sync/atomic"
 	"testing"
 	"time"
 
+	"golang.org/x/time/rate"
+
 	"github.com/gongahkia/tanabata/api/internal/models"
 )
+
+func resetProviderLimitersForTest(t *testing.T) {
+	t.Helper()
+	providerLimiters.Lock()
+	defer providerLimiters.Unlock()
+	providerLimiters.limiters = map[string]*rate.Limiter{}
+}
 
 func TestMusicBrainzProvider(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -65,6 +76,90 @@ func TestMusicBrainzProvider(t *testing.T) {
 	}
 	if len(releases) != 1 || releases[0].Title != "Blonde" {
 		t.Fatalf("unexpected releases %+v", releases)
+	}
+}
+
+func TestMusicBrainzUserAgentHeaderFormat(t *testing.T) {
+	resetProviderLimitersForTest(t)
+	t.Setenv(MusicBrainzUserAgentEnv, "")
+	pattern := regexp.MustCompile(`^Tanabata/[0-9]+\.[0-9]+\.[0-9]+ \( [^)]+ \)$`)
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if got := r.Header.Get("User-Agent"); !pattern.MatchString(got) {
+			t.Fatalf("User-Agent = %q", got)
+		}
+		_ = json.NewEncoder(w).Encode(map[string]string{"status": "ok"})
+	}))
+	defer server.Close()
+
+	client := NewHTTPClient(server.URL).ConfigureProvider("musicbrainz", nil)
+	var payload map[string]string
+	if err := client.JSON(context.Background(), "/", nil, nil, &payload); err != nil {
+		t.Fatalf("JSON() error = %v", err)
+	}
+}
+
+func TestMusicBrainzUserAgentHeaderUsesEnv(t *testing.T) {
+	resetProviderLimitersForTest(t)
+	want := "Tanabata/1.2.3 ( tests@example.com )"
+	t.Setenv(MusicBrainzUserAgentEnv, want)
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if got := r.Header.Get("User-Agent"); got != want {
+			t.Fatalf("User-Agent = %q, want %q", got, want)
+		}
+		_ = json.NewEncoder(w).Encode(map[string]string{"status": "ok"})
+	}))
+	defer server.Close()
+
+	client := NewHTTPClient(server.URL).ConfigureProvider("musicbrainz", nil)
+	var payload map[string]string
+	if err := client.JSON(context.Background(), "/", nil, nil, &payload); err != nil {
+		t.Fatalf("JSON() error = %v", err)
+	}
+}
+
+func TestMusicBrainzRateLimiterSerializesConcurrentRequests(t *testing.T) {
+	resetProviderLimitersForTest(t)
+	t.Setenv(MusicBrainzUserAgentEnv, "Tanabata/1.2.3 ( tests@example.com )")
+	var mu sync.Mutex
+	timestamps := []time.Time{}
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		mu.Lock()
+		timestamps = append(timestamps, time.Now())
+		mu.Unlock()
+		_ = json.NewEncoder(w).Encode(map[string]string{"status": "ok"})
+	}))
+	defer server.Close()
+
+	client := NewHTTPClient(server.URL).ConfigureProvider("musicbrainz", nil).SetRetryBudget(1, time.Millisecond)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	errs := make(chan error, 20)
+	var wg sync.WaitGroup
+	for i := 0; i < 20; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			var payload map[string]string
+			errs <- client.JSON(ctx, "/", nil, nil, &payload)
+		}()
+	}
+	wg.Wait()
+	close(errs)
+	for err := range errs {
+		if err != nil && ClassifyFailure(err) != string(FailureTimeout) {
+			t.Fatalf("JSON() error = %v", err)
+		}
+	}
+	mu.Lock()
+	got := append([]time.Time(nil), timestamps...)
+	mu.Unlock()
+	if len(got) < 8 {
+		t.Fatalf("requests = %d, want enough samples over 10s", len(got))
+	}
+	for i := 1; i < len(got); i++ {
+		if delta := got[i].Sub(got[i-1]); delta < 950*time.Millisecond {
+			t.Fatalf("request spacing[%d] = %s, want >= 950ms", i, delta)
+		}
 	}
 }
 
