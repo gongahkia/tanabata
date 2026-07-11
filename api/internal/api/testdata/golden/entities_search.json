@@ -1,0 +1,38 @@
+{
+  "data": {
+    "hits": [
+      {
+        "id": "tanabata:rec:8f45a976f9adc9a9d734715b3c3e7692",
+        "kind": "recording",
+        "label": "Leonard Cohen - Hallelujah",
+        "score": 2.4168597598099506,
+        "snippet": "Hallelujah"
+      },
+      {
+        "id": "tanabata:rec:95b9dadbb5ecdc2f21c6c7b2360d1727",
+        "kind": "recording",
+        "label": "John Cale - Hallelujah",
+        "score": 2.4168597598099506,
+        "snippet": "Hallelujah"
+      },
+      {
+        "id": "tanabata:rec:ac7dd1a9735d1de763a6a8656a8c0d59",
+        "kind": "recording",
+        "label": "Jeff Buckley - Hallelujah",
+        "score": 2.4168597598099506,
+        "snippet": "Hallelujah"
+      },
+      {
+        "id": "tanabata:work:a0b6305df23a2e8d78d13355de7e0779",
+        "kind": "work",
+        "label": "Hallelujah",
+        "score": 1.5934482758917823,
+        "snippet": "Hallelujah"
+      }
+    ]
+  },
+  "meta": {
+    "active_providers": null,
+    "snapshot_version": ""
+  }
+}

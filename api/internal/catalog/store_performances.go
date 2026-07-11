@@ -42,6 +42,9 @@ func (s *Store) RecordPerformance(ctx context.Context, perf models.Performance, 
 	if err != nil {
 		return "", err
 	}
+	if err := s.syncPerformanceSearch(ctx, performanceID); err != nil {
+		return "", err
+	}
 
 	claim.Kind = "performance"
 	claim.SubjectType = "performance"
@@ -210,6 +213,53 @@ func (s *Store) PerformanceStats(ctx context.Context, artistID, workID string) (
 		}
 	}
 	return stats, nil
+}
+
+func (s *Store) syncPerformanceSearch(ctx context.Context, performanceID string) error {
+	perf, err := s.PerformanceByID(ctx, performanceID)
+	if err != nil || perf == nil {
+		return err
+	}
+	if _, err := s.db.ExecContext(ctx, `DELETE FROM performance_search WHERE performance_id = ?`, performanceID); err != nil {
+		return err
+	}
+	_, err = s.db.ExecContext(ctx, `
+		INSERT INTO performance_search(performance_id, artist_id, artist_name, work_title, event_name, venue, city, country, performed_at)
+		VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)
+	`, perf.PerformanceID, perf.ArtistID, perf.ArtistName, perf.WorkTitle, perf.EventName, perf.Venue, perf.City, perf.Country, perf.PerformedAt)
+	return err
+}
+
+func (s *Store) rebuildPerformanceSearch(ctx context.Context) error {
+	if _, err := s.db.ExecContext(ctx, `DELETE FROM performance_search`); err != nil {
+		return err
+	}
+	rows, err := s.db.QueryContext(ctx, `SELECT performance_id FROM performances`)
+	if err != nil {
+		return err
+	}
+	ids := []string{}
+	for rows.Next() {
+		var id string
+		if err := rows.Scan(&id); err != nil {
+			_ = rows.Close()
+			return err
+		}
+		ids = append(ids, id)
+	}
+	if err := rows.Err(); err != nil {
+		_ = rows.Close()
+		return err
+	}
+	if err := rows.Close(); err != nil {
+		return err
+	}
+	for _, id := range ids {
+		if err := s.syncPerformanceSearch(ctx, id); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 const performanceSelectSQL = `

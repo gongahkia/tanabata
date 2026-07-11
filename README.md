@@ -73,6 +73,31 @@ $ ./scripts/compose-smoke.sh
 }
 ```
 
+### `GET` `/v1/entities/search?q=hallelujah`
+
+```json
+{
+  "data": {
+    "hits": [
+      {
+        "kind": "recording",
+        "id": "tanabata:rec:8f45a976f9adc9a9d734715b3c3e7692",
+        "label": "Leonard Cohen - Hallelujah",
+        "score": 2.4168597598099506,
+        "snippet": "Hallelujah"
+      },
+      {
+        "kind": "work",
+        "id": "tanabata:work:a0b6305df23a2e8d78d13355de7e0779",
+        "label": "Hallelujah",
+        "score": 1.5934482758917823,
+        "snippet": "Hallelujah"
+      }
+    ]
+  }
+}
+```
+
 ### `GET` `/v1/quotes/{quote_id}/provenance`
 
 ```json
@@ -280,6 +305,7 @@ See [`openapi/openapi.json`](openapi/openapi.json) for more details.
 * `GET /v1/disputes`
 * `GET /v1/disputes.atom`
 * `GET /v1/graph/{entity_id}`
+* `GET /v1/entities/search`
 * `GET /v1/search`
 * `GET /v1/providers`
 * `GET /v1/jobs`
