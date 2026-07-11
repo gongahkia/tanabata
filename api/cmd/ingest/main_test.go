@@ -99,6 +99,19 @@ func TestJobHelpers(t *testing.T) {
 	}
 }
 
+func TestValidateOptionsRequiresMusicBrainzUserAgentForBootstrap(t *testing.T) {
+	t.Setenv(providers.MusicBrainzUserAgentEnv, "")
+	err := validateOptions(options{bootstrap: true})
+	if err == nil || !strings.Contains(err.Error(), providers.MusicBrainzUserAgentEnv) {
+		t.Fatalf("validateOptions() error = %v", err)
+	}
+
+	t.Setenv(providers.MusicBrainzUserAgentEnv, "Tanabata/1.2.3 ( tests@example.com )")
+	if err := validateOptions(options{bootstrap: true}); err != nil {
+		t.Fatalf("validateOptions() configured error = %v", err)
+	}
+}
+
 func TestFinalizeJobPersistsState(t *testing.T) {
 	tempDir := t.TempDir()
 	store, err := catalog.Open(filepath.Join(tempDir, "catalog.sqlite"))

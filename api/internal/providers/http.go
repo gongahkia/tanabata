@@ -6,20 +6,26 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"net"
 	"net/http"
 	"net/url"
+	"os"
 	"strings"
 	"sync"
 	"time"
 
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/trace"
+	"golang.org/x/time/rate"
 
 	"github.com/gongahkia/tanabata/api/internal/observability"
 )
 
-const defaultUserAgent = "tanabata/2.0 (+https://github.com/gongahkia/tanabata)"
+const (
+	MusicBrainzUserAgentEnv = "TANABATA_MUSICBRAINZ_UA"
+	defaultUserAgent        = "Tanabata/0.0.0 ( https://github.com/gongahkia/tanabata )"
+)
 
 type HTTPClient struct {
 	baseURL     string
@@ -29,12 +35,20 @@ type HTTPClient struct {
 	attempts    int
 	backoff     time.Duration
 	retryBudget int
-	minInterval time.Duration
-	lastRequest time.Time
-	mu          sync.Mutex
+	limiter     *rate.Limiter
 	sem         chan struct{}
 	telemetry   *observability.Telemetry
 }
+
+var (
+	providerLimiters = struct {
+		sync.Mutex
+		limiters map[string]*rate.Limiter
+	}{
+		limiters: map[string]*rate.Limiter{},
+	}
+	musicBrainzUserAgentWarning sync.Once
+)
 
 type FailureKind string
 
@@ -86,21 +100,67 @@ func NewHTTPClient(baseURL string) *HTTPClient {
 func (c *HTTPClient) ConfigureProvider(name string, telemetry *observability.Telemetry) *HTTPClient {
 	c.provider = name
 	c.telemetry = telemetry
+	interval := 200 * time.Millisecond
+	burst := 1
 	switch name {
 	case "musicbrainz":
-		c.minInterval = 1100 * time.Millisecond
+		WarnIfMusicBrainzUserAgentUnset()
+		c.userAgent = MusicBrainzUserAgent()
+		interval = time.Second
 		c.client.Timeout = 15 * time.Second
 	case "wikidata", "wikiquote":
-		c.minInterval = 350 * time.Millisecond
+		interval = 350 * time.Millisecond
 		c.client.Timeout = 15 * time.Second
 	case "setlistfm":
-		c.minInterval = 500 * time.Millisecond
+		interval = 500 * time.Millisecond
 		c.client.Timeout = 12 * time.Second
 	default:
-		c.minInterval = 200 * time.Millisecond
 		c.client.Timeout = 10 * time.Second
 	}
+	c.limiter = limiterForProvider(name, rate.Every(interval), burst)
 	return c
+}
+
+func MusicBrainzUserAgent() string {
+	if configured, ok := musicBrainzUserAgentFromEnv(); ok {
+		return configured
+	}
+	return defaultUserAgent
+}
+
+func MusicBrainzUserAgentConfigured() bool {
+	_, ok := musicBrainzUserAgentFromEnv()
+	return ok
+}
+
+func WarnIfMusicBrainzUserAgentUnset() {
+	if MusicBrainzUserAgentConfigured() {
+		return
+	}
+	musicBrainzUserAgentWarning.Do(func() {
+		log.Printf("warning: %s is unset; using default User-Agent %q", MusicBrainzUserAgentEnv, defaultUserAgent)
+	})
+}
+
+func musicBrainzUserAgentFromEnv() (string, bool) {
+	value, ok := os.LookupEnv(MusicBrainzUserAgentEnv)
+	if !ok {
+		return "", false
+	}
+	value = strings.TrimSpace(value)
+	return value, value != ""
+}
+
+func limiterForProvider(provider string, limit rate.Limit, burst int) *rate.Limiter {
+	providerLimiters.Lock()
+	defer providerLimiters.Unlock()
+	limiter, ok := providerLimiters.limiters[provider]
+	if ok {
+		return limiter
+	}
+	limiter = rate.NewLimiter(limit, burst)
+	providerLimiters.limiters[provider] = limiter
+	return limiter
 }
 
 func (c *HTTPClient) SetRetryBudget(attempts int, backoff time.Duration) *HTTPClient {
@@ -152,7 +212,7 @@ func (c *HTTPClient) do(ctx context.Context, path string, query url.Values, head
 		if attempt > 1 && attempt-1 > c.retryBudget {
 			break
 		}
-		if err := c.waitTurn(); err != nil {
+		if err := c.waitTurn(ctx); err != nil {
 			return nil, err
 		}
 		startedAt := time.Now()
@@ -248,17 +308,16 @@ func (c *HTTPClient) acquireSlot(ctx context.Context) (func(), error) {
 	}
 }
 
-func (c *HTTPClient) waitTurn() error {
-	c.mu.Lock()
-	defer c.mu.Unlock()
-	if c.minInterval <= 0 {
+func (c *HTTPClient) waitTurn(ctx context.Context) error {
+	if c.limiter == nil {
 		return nil
 	}
-	wait := c.minInterval - time.Since(c.lastRequest)
-	if wait > 0 {
-		time.Sleep(wait)
+	if err := c.limiter.Wait(ctx); err != nil {
+		if ctxErr := ctx.Err(); ctxErr != nil {
+			return classifyTransportFailure(ctxErr)
+		}
+		return &ProviderFailure{Kind: FailureTimeout, Message: err.Error(), Err: err}
 	}
-	c.lastRequest = time.Now()
 	return nil
 }
 

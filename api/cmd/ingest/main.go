@@ -71,6 +71,9 @@ func runCLI() error {
 		misquotesPath:    *misquotesPath,
 		jobName:          *jobName,
 	}
+	if err := validateOptions(opts); err != nil {
+		return err
+	}
 	store, err := catalog.Open(opts.catalogPath)
 	if err != nil {
 		return fmt.Errorf("open catalog: %w", err)
@@ -79,6 +82,14 @@ func runCLI() error {
 
 	if err := run(ctx, opts, store, providers.NewService(store, nil)); err != nil {
 		return fmt.Errorf("ingest catalog: %w", err)
+	}
+	return nil
+}
+
+func validateOptions(opts options) error {
+	providers.WarnIfMusicBrainzUserAgentUnset()
+	if opts.bootstrap && !providers.MusicBrainzUserAgentConfigured() {
+		return fmt.Errorf("%s must be set for bootstrap mode; expected User-Agent like %q", providers.MusicBrainzUserAgentEnv, providers.MusicBrainzUserAgent())
 	}
 	return nil
 }
