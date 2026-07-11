@@ -1864,36 +1864,16 @@ func (s *Store) ProviderSummaries(ctx context.Context, configured []models.Provi
 	summaries := make([]models.ProviderSummary, 0, len(configured))
 	for _, item := range configured {
 		summary := item
-		_ = s.db.QueryRowContext(ctx, `
-			SELECT status, finished_at
-			FROM provider_runs
-			WHERE provider = ?
-			ORDER BY started_at DESC
-			LIMIT 1
-		`, item.Provider).Scan(&summary.LastStatus, new(string))
-
-		_ = s.db.QueryRowContext(ctx, `
-			SELECT finished_at
-			FROM provider_runs
-			WHERE provider = ? AND status = 'success'
-			ORDER BY finished_at DESC
-			LIMIT 1
-		`, item.Provider).Scan(&summary.LastSuccessful)
-
-		_ = s.db.QueryRowContext(ctx, `
-			SELECT COUNT(*)
-			FROM provider_errors
-			WHERE provider = ? AND occurred_at >= ?
-		`, item.Provider, time.Now().UTC().Add(-30*24*time.Hour).Format(time.RFC3339)).Scan(&summary.RecentErrorCount)
-
-		_ = s.db.QueryRowContext(ctx, `
-			SELECT occurred_at
-			FROM provider_errors
-			WHERE provider = ?
-			ORDER BY occurred_at DESC
-			LIMIT 1
-		`, item.Provider).Scan(&summary.LastErrorAt)
-		if cooldown, active, err := s.ProviderCooldown(ctx, item.Provider, time.Now().UTC()); err == nil && active {
+		for _, loader := range providerSummaryLoaders {
+			if err := loader.load(ctx, s, item.Provider, &summary); err != nil {
+				slog.Warn("provider_summary_field_failed", "provider", item.Provider, "field", loader.field, "err", err)
+				return nil, fmt.Errorf("provider summary %s %s: %w", item.Provider, loader.field, err)
+			}
+		}
+		if cooldown, active, err := s.ProviderCooldown(ctx, item.Provider, time.Now().UTC()); err != nil {
+			slog.Warn("provider_summary_field_failed", "provider", item.Provider, "field", "cooldown", "err", err)
+			return nil, fmt.Errorf("provider summary %s cooldown: %w", item.Provider, err)
+		} else if active {
 			summary.CooldownUntil = cooldown.Until
 			summary.CooldownReason = cooldown.Reason
 		}
@@ -1903,6 +1883,68 @@ func (s *Store) ProviderSummaries(ctx context.Context, configured []models.Provi
 		return summaries[i].Provider < summaries[j].Provider
 	})
 	return summaries, nil
+}
+
+type providerSummaryLoader struct {
+	field string
+	load  func(context.Context, *Store, string, *models.ProviderSummary) error
+}
+
+var providerSummaryLoaders = []providerSummaryLoader{
+	{field: "last_status", load: loadProviderLastStatus},
+	{field: "last_successful", load: loadProviderLastSuccessful},
+	{field: "recent_error_count", load: loadProviderRecentErrorCount},
+	{field: "last_error_at", load: loadProviderLastErrorAt},
+}
+
+func loadProviderLastStatus(ctx context.Context, s *Store, provider string, summary *models.ProviderSummary) error {
+	var finishedAt string
+	err := s.db.QueryRowContext(ctx, `
+		SELECT status, finished_at
+		FROM provider_runs
+		WHERE provider = ?
+		ORDER BY started_at DESC
+		LIMIT 1
+	`, provider).Scan(&summary.LastStatus, &finishedAt)
+	return ignoreProviderSummaryNoRows(err)
+}
+
+func loadProviderLastSuccessful(ctx context.Context, s *Store, provider string, summary *models.ProviderSummary) error {
+	err := s.db.QueryRowContext(ctx, `
+		SELECT finished_at
+		FROM provider_runs
+		WHERE provider = ? AND status = 'success'
+		ORDER BY finished_at DESC
+		LIMIT 1
+	`, provider).Scan(&summary.LastSuccessful)
+	return ignoreProviderSummaryNoRows(err)
+}
+
+func loadProviderRecentErrorCount(ctx context.Context, s *Store, provider string, summary *models.ProviderSummary) error {
+	err := s.db.QueryRowContext(ctx, `
+		SELECT COUNT(*)
+		FROM provider_errors
+		WHERE provider = ? AND occurred_at >= ?
+	`, provider, time.Now().UTC().Add(-30*24*time.Hour).Format(time.RFC3339)).Scan(&summary.RecentErrorCount)
+	return ignoreProviderSummaryNoRows(err)
+}
+
+func loadProviderLastErrorAt(ctx context.Context, s *Store, provider string, summary *models.ProviderSummary) error {
+	err := s.db.QueryRowContext(ctx, `
+		SELECT occurred_at
+		FROM provider_errors
+		WHERE provider = ?
+		ORDER BY occurred_at DESC
+		LIMIT 1
+	`, provider).Scan(&summary.LastErrorAt)
+	return ignoreProviderSummaryNoRows(err)
+}
+
+func ignoreProviderSummaryNoRows(err error) error {
+	if errors.Is(err, sql.ErrNoRows) {
+		return nil
+	}
+	return err
 }
 
 func (s *Store) GetProviderCache(ctx context.Context, provider, kind, key string) (string, string, string, bool, error) {
