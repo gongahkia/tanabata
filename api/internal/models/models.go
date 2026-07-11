@@ -135,6 +135,14 @@ type QuoteProvenance struct {
 	Source           *Source  `json:"source,omitempty"`
 }
 
+type ArtistProvenanceSummary struct {
+	ArtistID            string         `json:"artist_id"`
+	StatusCounts        map[string]int `json:"status_counts"`
+	ConfidenceHistogram []int          `json:"confidence_histogram"`
+	MeanConfidence      float64        `json:"mean_confidence"`
+	RefreshHint         string         `json:"refresh_hint"`
+}
+
 type ReviewQueueItem struct {
 	Quote     Quote   `json:"quote"`
 	Reason    string  `json:"reason"`

@@ -6,6 +6,7 @@ import (
 	"database/sql"
 	"errors"
 	"log/slog"
+	"math"
 	"path/filepath"
 	"strconv"
 	"strings"
@@ -1178,6 +1179,60 @@ func TestQuoteProvenanceFiltersAndRefreshSearch(t *testing.T) {
 	}
 	if len(searchResponse.Data.Quotes) == 0 {
 		t.Fatalf("expected refreshed search indices to find quote")
+	}
+}
+
+func TestArtistProvenanceSummaryAggregatesQuotes(t *testing.T) {
+	store, ctx := newSeededStore(t)
+	defer store.Close()
+
+	artistID, err := store.ResolveArtistID(ctx, "Frank Ocean")
+	if err != nil {
+		t.Fatalf("ResolveArtistID() error = %v", err)
+	}
+	quotes, err := store.ListQuotes(ctx, models.QuoteFilters{ArtistID: artistID, Limit: 100})
+	if err != nil {
+		t.Fatalf("ListQuotes() error = %v", err)
+	}
+	summary, err := store.ArtistProvenanceSummary(ctx, artistID)
+	if err != nil {
+		t.Fatalf("ArtistProvenanceSummary() error = %v", err)
+	}
+	if summary == nil {
+		t.Fatalf("expected summary")
+	}
+	if summary.ArtistID != artistID {
+		t.Fatalf("artist_id = %q, want %q", summary.ArtistID, artistID)
+	}
+	if len(summary.ConfidenceHistogram) != 10 {
+		t.Fatalf("histogram len = %d, want 10", len(summary.ConfidenceHistogram))
+	}
+	counts := map[string]int{}
+	histogramTotal := 0
+	confidenceSum := 0.0
+	for _, quote := range quotes.Data {
+		counts[quote.ProvenanceStatus]++
+		histogramTotal++
+		confidenceSum += quote.ConfidenceScore
+	}
+	for status, want := range counts {
+		if summary.StatusCounts[status] != want {
+			t.Fatalf("status_counts[%s] = %d, want %d", status, summary.StatusCounts[status], want)
+		}
+	}
+	totalBuckets := 0
+	for _, count := range summary.ConfidenceHistogram {
+		totalBuckets += count
+	}
+	if totalBuckets != histogramTotal {
+		t.Fatalf("histogram total = %d, want %d", totalBuckets, histogramTotal)
+	}
+	wantMean := confidenceSum / float64(len(quotes.Data))
+	if math.Abs(summary.MeanConfidence-wantMean) > 0.000001 {
+		t.Fatalf("mean_confidence = %f, want %f", summary.MeanConfidence, wantMean)
+	}
+	if summary.RefreshHint == "" {
+		t.Fatalf("expected refresh hint")
 	}
 }
 
