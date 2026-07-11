@@ -2,8 +2,10 @@ package api
 
 import (
 	"context"
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"path/filepath"
 	"testing"
 	"time"
@@ -17,6 +19,79 @@ import (
 	"github.com/gongahkia/tanabata/api/internal/models"
 	"github.com/gongahkia/tanabata/api/internal/search"
 )
+
+func TestOpenAPIErrorResponseDocumentation(t *testing.T) {
+	spec := loadOpenAPISpecMap(t)
+	info := mapAt(t, spec, "info")
+	contact := mapAt(t, info, "contact")
+	if contact["url"] == "" {
+		t.Fatalf("info.contact.url missing")
+	}
+	if _, ok := info["license"]; !ok {
+		t.Fatalf("info.license missing")
+	}
+	components := mapAt(t, spec, "components")
+	securitySchemes := mapAt(t, components, "securitySchemes")
+	publicNoAuth := mapAt(t, securitySchemes, "PublicNoAuth")
+	if publicNoAuth["description"] == "" {
+		t.Fatalf("PublicNoAuth security scheme missing description")
+	}
+
+	errorCodes := []string{"400", "404", "409", "429", "500"}
+	componentResponses := mapAt(t, components, "responses")
+	for _, code := range errorCodes {
+		name := "Error" + code
+		response := mapAt(t, componentResponses, name)
+		content := mapAt(t, response, "content")
+		problem := mapAt(t, content, "application/problem+json")
+		schema := mapAt(t, problem, "schema")
+		if schema["$ref"] != "#/components/schemas/ProblemDetails" {
+			t.Fatalf("%s schema ref = %v, want ProblemDetails", name, schema["$ref"])
+		}
+		if len(mapAt(t, problem, "examples")) == 0 {
+			t.Fatalf("%s examples missing", name)
+		}
+	}
+
+	methods := map[string]bool{
+		"delete": true,
+		"get":    true,
+		"patch":  true,
+		"post":   true,
+		"put":    true,
+	}
+	operationCount := 0
+	for path, rawPathItem := range mapAt(t, spec, "paths") {
+		pathItem, ok := rawPathItem.(map[string]any)
+		if !ok {
+			t.Fatalf("%s path item has type %T, want object", path, rawPathItem)
+		}
+		for method, rawOperation := range pathItem {
+			if !methods[method] {
+				continue
+			}
+			operation, ok := rawOperation.(map[string]any)
+			if !ok {
+				t.Fatalf("%s %s operation has type %T, want object", method, path, rawOperation)
+			}
+			responses := mapAt(t, operation, "responses")
+			if _, ok := responses["200"]; !ok {
+				t.Fatalf("%s %s missing 200 response", method, path)
+			}
+			for _, code := range errorCodes {
+				response := mapAt(t, responses, code)
+				wantRef := "#/components/responses/Error" + code
+				if response["$ref"] != wantRef {
+					t.Fatalf("%s %s %s response ref = %v, want %s", method, path, code, response["$ref"], wantRef)
+				}
+			}
+			operationCount++
+		}
+	}
+	if operationCount == 0 {
+		t.Fatalf("no OpenAPI operations found")
+	}
+}
 
 func TestOpenAPIContractRuntimeResponses(t *testing.T) {
 	server, store := seededServer(t)
@@ -256,4 +331,33 @@ func (v *openAPIContractValidator) validateResponse(t *testing.T, request *http.
 	if err := openapi3filter.ValidateResponse(context.Background(), responseInput); err != nil {
 		t.Fatalf("ValidateResponse(%s) error = %v body=%s", request.URL.RequestURI(), err, recorder.Body.String())
 	}
+}
+
+func loadOpenAPISpecMap(t *testing.T) map[string]any {
+	t.Helper()
+
+	specPath := filepath.Join("..", "..", "..", "openapi", "openapi.json")
+	content, err := os.ReadFile(specPath) // #nosec G304 -- test fixture path only
+	if err != nil {
+		t.Fatalf("ReadFile(%s) error = %v", specPath, err)
+	}
+	var spec map[string]any
+	if err := json.Unmarshal(content, &spec); err != nil {
+		t.Fatalf("Unmarshal(%s) error = %v", specPath, err)
+	}
+	return spec
+}
+
+func mapAt(t *testing.T, parent map[string]any, key string) map[string]any {
+	t.Helper()
+
+	child, ok := parent[key]
+	if !ok {
+		t.Fatalf("%s missing", key)
+	}
+	result, ok := child.(map[string]any)
+	if !ok {
+		t.Fatalf("%s has type %T, want object", key, child)
+	}
+	return result
 }

@@ -2,6 +2,10 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Tanabata API",
+    "contact": {
+      "name": "Tanabata maintainers",
+      "url": "https://github.com/gongahkia/tanabata/issues"
+    },
     "license": {
       "name": "MIT",
       "url": "https://spdx.org/licenses/MIT.html"
@@ -34,6 +38,12 @@
           },
           "400": {
             "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
           },
           "500": {
             "$ref": "#/components/responses/Error500"
@@ -77,6 +87,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -111,6 +127,12 @@
           },
           "400": {
             "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
           },
           "500": {
             "$ref": "#/components/responses/Error500"
@@ -156,6 +178,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -192,6 +220,12 @@
           },
           "400": {
             "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
           },
           "500": {
             "$ref": "#/components/responses/Error500"
@@ -230,6 +264,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -265,6 +305,12 @@
           },
           "400": {
             "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
           },
           "500": {
             "$ref": "#/components/responses/Error500"
@@ -312,6 +358,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -352,6 +404,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -386,6 +444,12 @@
           },
           "400": {
             "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
           },
           "500": {
             "$ref": "#/components/responses/Error500"
@@ -422,6 +486,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -457,6 +527,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -490,6 +566,12 @@
           },
           "400": {
             "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
           },
           "500": {
             "$ref": "#/components/responses/Error500"
@@ -529,6 +611,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -567,6 +655,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -603,6 +697,12 @@
           },
           "400": {
             "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
           },
           "500": {
             "$ref": "#/components/responses/Error500"
@@ -642,6 +742,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -679,6 +785,12 @@
           },
           "400": {
             "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
           },
           "500": {
             "$ref": "#/components/responses/Error500"
@@ -718,6 +830,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -755,6 +873,12 @@
           },
           "400": {
             "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
           },
           "500": {
             "$ref": "#/components/responses/Error500"
@@ -795,6 +919,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -832,6 +962,12 @@
           },
           "400": {
             "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
           },
           "500": {
             "$ref": "#/components/responses/Error500"
@@ -871,6 +1007,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -906,6 +1048,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -937,6 +1085,12 @@
           },
           "400": {
             "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
           },
           "500": {
             "$ref": "#/components/responses/Error500"
@@ -978,6 +1132,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -1010,6 +1170,12 @@
           },
           "400": {
             "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
           },
           "500": {
             "$ref": "#/components/responses/Error500"
@@ -1048,6 +1214,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -1084,6 +1256,12 @@
           },
           "400": {
             "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
           },
           "500": {
             "$ref": "#/components/responses/Error500"
@@ -1126,6 +1304,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -1167,6 +1351,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -1199,6 +1389,12 @@
           },
           "400": {
             "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
           },
           "500": {
             "$ref": "#/components/responses/Error500"
@@ -1237,6 +1433,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -1274,6 +1476,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -1307,6 +1515,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -1339,6 +1553,12 @@
           },
           "400": {
             "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
           },
           "500": {
             "$ref": "#/components/responses/Error500"
@@ -1378,6 +1598,12 @@
           },
           "400": {
             "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
           },
           "500": {
             "$ref": "#/components/responses/Error500"
@@ -1421,6 +1647,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -1454,6 +1686,12 @@
           },
           "400": {
             "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
           },
           "500": {
             "$ref": "#/components/responses/Error500"
@@ -1495,6 +1733,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -1527,6 +1771,12 @@
           },
           "400": {
             "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
           },
           "500": {
             "$ref": "#/components/responses/Error500"
@@ -1565,6 +1815,12 @@
           "400": {
             "$ref": "#/components/responses/Error400"
           },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
           "500": {
             "$ref": "#/components/responses/Error500"
           },
@@ -1597,6 +1853,12 @@
           },
           "400": {
             "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
           },
           "500": {
             "$ref": "#/components/responses/Error500"
@@ -1635,6 +1897,12 @@
           },
           "400": {
             "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
           },
           "500": {
             "$ref": "#/components/responses/Error500"
@@ -2158,12 +2426,32 @@
         }
       }
     },
+    "securitySchemes": {
+      "PublicNoAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-No-Auth-Required",
+        "description": "Documentation-only marker: Tanabata API endpoints are public and require no authentication."
+      }
+    },
     "responses": {
       "Error400": {
         "description": "Bad Request",
         "content": {
           "application/problem+json": {
-            "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+            "schema": { "$ref": "#/components/schemas/ProblemDetails" },
+            "examples": {
+              "missingQuery": {
+                "value": {
+                  "type": "https://tanabata.dev/errors/missing_query",
+                  "title": "q is required",
+                  "status": 400,
+                  "detail": "q is required",
+                  "instance": "req_01HX0000000000000000000000",
+                  "code": "missing_query"
+                }
+              }
+            }
           }
         }
       },
@@ -2171,7 +2459,19 @@
         "description": "Not Found",
         "content": {
           "application/problem+json": {
-            "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+            "schema": { "$ref": "#/components/schemas/ProblemDetails" },
+            "examples": {
+              "artistNotFound": {
+                "value": {
+                  "type": "https://tanabata.dev/errors/artist_not_found",
+                  "title": "artist not found",
+                  "status": 404,
+                  "detail": "artist not found",
+                  "instance": "req_01HX0000000000000000000001",
+                  "code": "artist_not_found"
+                }
+              }
+            }
           }
         }
       },
@@ -2179,7 +2479,19 @@
         "description": "Conflict",
         "content": {
           "application/problem+json": {
-            "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+            "schema": { "$ref": "#/components/schemas/ProblemDetails" },
+            "examples": {
+              "conflict": {
+                "value": {
+                  "type": "https://tanabata.dev/errors/conflict",
+                  "title": "resource conflict",
+                  "status": 409,
+                  "detail": "resource conflict",
+                  "instance": "req_01HX0000000000000000000002",
+                  "code": "conflict"
+                }
+              }
+            }
           }
         }
       },
@@ -2187,7 +2499,19 @@
         "description": "Internal Server Error",
         "content": {
           "application/problem+json": {
-            "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+            "schema": { "$ref": "#/components/schemas/ProblemDetails" },
+            "examples": {
+              "internalError": {
+                "value": {
+                  "type": "https://tanabata.dev/errors/internal_error",
+                  "title": "unexpected server error",
+                  "status": 500,
+                  "detail": "unexpected server error",
+                  "instance": "req_01HX0000000000000000000003",
+                  "code": "internal_error"
+                }
+              }
+            }
           }
         }
       },
@@ -2195,7 +2519,19 @@
         "description": "Error response",
         "content": {
           "application/problem+json": {
-            "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+            "schema": { "$ref": "#/components/schemas/ProblemDetails" },
+            "examples": {
+              "defaultError": {
+                "value": {
+                  "type": "https://tanabata.dev/errors/internal_error",
+                  "title": "unexpected server error",
+                  "status": 500,
+                  "detail": "unexpected server error",
+                  "instance": "req_01HX0000000000000000000004",
+                  "code": "internal_error"
+                }
+              }
+            }
           }
         }
       },
@@ -2209,7 +2545,19 @@
         },
         "content": {
           "application/problem+json": {
-            "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+            "schema": { "$ref": "#/components/schemas/ProblemDetails" },
+            "examples": {
+              "rateLimited": {
+                "value": {
+                  "type": "https://tanabata.dev/errors/rate_limited",
+                  "title": "too many requests",
+                  "status": 429,
+                  "detail": "too many requests",
+                  "instance": "req_01HX0000000000000000000005",
+                  "code": "rate_limited"
+                }
+              }
+            }
           }
         }
       }
