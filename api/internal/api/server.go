@@ -111,6 +111,7 @@ func (s *Server) Router() *gin.Engine {
 	router.GET("/quotes", s.legacyQuotes)
 	router.GET("/quotes/random", s.legacyRandomQuote)
 	router.GET("/quotes/:author", s.legacyAuthorQuotes)
+	router.GET("/embed/quote/:quote_id", s.embedQuote)
 
 	v1 := router.Group("/v1")
 	{
