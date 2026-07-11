@@ -3,6 +3,7 @@ package catalog
 import (
 	"bytes"
 	"context"
+	"errors"
 	"log/slog"
 	"path/filepath"
 	"strconv"
@@ -783,6 +784,43 @@ func TestProviderCacheJobsAndSummaries(t *testing.T) {
 	}
 	if len(summaries) != 1 || summaries[0].RecentErrorCount != 1 || summaries[0].LastSuccessful == "" {
 		t.Fatalf("unexpected provider summary %+v", summaries)
+	}
+}
+
+func TestProviderSummariesLogsAndReturnsFieldErrors(t *testing.T) {
+	fields := []string{"last_status", "last_successful", "recent_error_count", "last_error_at"}
+	original := append([]providerSummaryLoader(nil), providerSummaryLoaders...)
+	for _, field := range fields {
+		t.Run(field, func(t *testing.T) {
+			store, ctx := newSeededStore(t)
+			defer store.Close()
+			providerSummaryLoaders = append([]providerSummaryLoader(nil), original...)
+			t.Cleanup(func() {
+				providerSummaryLoaders = append([]providerSummaryLoader(nil), original...)
+			})
+			for idx := range providerSummaryLoaders {
+				if providerSummaryLoaders[idx].field == field {
+					providerSummaryLoaders[idx].load = func(context.Context, *Store, string, *models.ProviderSummary) error {
+						return errors.New("forced provider summary failure")
+					}
+				}
+			}
+
+			var logs bytes.Buffer
+			previous := slog.Default()
+			slog.SetDefault(slog.New(slog.NewJSONHandler(&logs, nil)))
+			t.Cleanup(func() { slog.SetDefault(previous) })
+			_, err := store.ProviderSummaries(ctx, []models.ProviderSummary{{Provider: "wikiquote", Category: "enrichment", Enabled: true}})
+			if err == nil || !strings.Contains(err.Error(), "forced provider summary failure") {
+				t.Fatalf("ProviderSummaries() error = %v", err)
+			}
+			output := logs.String()
+			for _, want := range []string{"provider_summary_field_failed", field, "wikiquote", "forced provider summary failure"} {
+				if !strings.Contains(output, want) {
+					t.Fatalf("log missing %q: %s", want, output)
+				}
+			}
+		})
 	}
 }
 

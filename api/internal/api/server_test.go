@@ -323,6 +323,33 @@ func TestProvidersEndpoint(t *testing.T) {
 	}
 }
 
+func TestProvidersEndpointReturns500OnSummaryError(t *testing.T) {
+	server, store := seededServer(t)
+	var logs bytes.Buffer
+	previous := slog.Default()
+	slog.SetDefault(slog.New(slog.NewJSONHandler(&logs, nil)))
+	defer slog.SetDefault(previous)
+	if err := store.Close(); err != nil {
+		t.Fatalf("Close() error = %v", err)
+	}
+
+	recorder := httptest.NewRecorder()
+	request := httptest.NewRequest(http.MethodGet, "/v1/providers", nil)
+	server.Router().ServeHTTP(recorder, request)
+	if recorder.Code != http.StatusInternalServerError {
+		t.Fatalf("status = %d, want 500 body=%s", recorder.Code, recorder.Body.String())
+	}
+	if !strings.Contains(recorder.Body.String(), "provider_summary_failed") {
+		t.Fatalf("response missing provider_summary_failed: %s", recorder.Body.String())
+	}
+	output := logs.String()
+	for _, want := range []string{"provider_summary_field_failed", "last_status"} {
+		if !strings.Contains(output, want) {
+			t.Fatalf("log missing %q: %s", want, output)
+		}
+	}
+}
+
 func TestProviderRunsErrorsAndJobsEndpoints(t *testing.T) {
 	server, store := seededServer(t)
 	defer store.Close()
