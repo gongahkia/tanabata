@@ -1,0 +1,59 @@
+version: 2
+
+project_name: tanabata
+
+builds:
+  - id: tanabata
+    dir: api
+    main: .
+    binary: tanabata
+    goos:
+      - darwin
+      - linux
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ignore:
+      - goos: windows
+        goarch: arm64
+    flags:
+      - -trimpath
+    ldflags:
+      - -s -w -X github.com/gongahkia/tanabata/api/internal/buildinfo.Version={{ .Version }} -X github.com/gongahkia/tanabata/api/internal/buildinfo.Commit={{ .FullCommit }} -X github.com/gongahkia/tanabata/api/internal/buildinfo.BuildDate={{ .CommitDate }}
+
+archives:
+  - id: binaries
+    ids:
+      - tanabata
+    formats:
+      - binary
+
+checksum:
+  name_template: checksums.txt
+  algorithm: sha256
+
+sboms:
+  - id: binaries
+    artifacts: binary
+
+dockers_v2:
+  - id: tanabata
+    ids:
+      - tanabata
+    dockerfile: api/Dockerfile.goreleaser
+    images:
+      - ghcr.io/gongahkia/tanabata
+    tags:
+      - "{{ .Version }}"
+      - latest
+    extra_files:
+      - api/data
+      - openapi
+    labels:
+      org.opencontainers.image.source: "{{ .GitURL }}"
+      org.opencontainers.image.revision: "{{ .FullCommit }}"
+      org.opencontainers.image.version: "{{ .Version }}"
+    platforms:
+      - linux/amd64
+      - linux/arm64
