@@ -19,6 +19,27 @@ Environment:
 | `BenchmarkQuoteProvenance-8` | `505486 ns/op` | `6421 B/op` | `177 allocs/op` |
 | `BenchmarkProviderSummaries-8` | `535806 ns/op` | `9232 B/op` | `237 allocs/op` |
 
+## Store Hydration N+1
+
+Measured on 2026-07-11 using:
+
+```text
+go test ./internal/catalog -run '^$' -bench 'Benchmark(ReviewQueue|StaleQuotes|Search)$' -benchtime=10x -benchmem
+```
+
+Environment:
+
+- OS/arch: `darwin/arm64`
+- CPU: `Apple M3`
+- Dataset: seeded catalog plus 120 source-backed benchmark quote rows
+- Baseline: `0d2929a` plus benchmark-only additions
+
+| Benchmark | Baseline | Current | Speedup |
+| --- | ---: | ---: | ---: |
+| `BenchmarkSearch-8` | `13098917 ns/op` | `2338150 ns/op` | `5.60x` |
+| `BenchmarkReviewQueue-8` | `10031692 ns/op` | `1049488 ns/op` | `9.56x` |
+| `BenchmarkStaleQuotes-8` | `8781175 ns/op` | `1224554 ns/op` | `7.17x` |
+
 ## Notes
 
 - These are microbenchmarks for query paths, not end-to-end HTTP latency.
