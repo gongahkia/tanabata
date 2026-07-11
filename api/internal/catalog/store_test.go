@@ -1236,6 +1236,72 @@ func TestArtistProvenanceSummaryAggregatesQuotes(t *testing.T) {
 	}
 }
 
+func TestSimilarQuotesSurfacesUnmergedNearDuplicate(t *testing.T) {
+	store, ctx := newSeededStore(t)
+	defer store.Close()
+
+	artistID, err := store.ResolveArtistID(ctx, "Frank Ocean")
+	if err != nil {
+		t.Fatalf("ResolveArtistID() error = %v", err)
+	}
+	if err := store.UpsertQuote(ctx, models.Quote{
+		Text:             "Be yourselx.",
+		ArtistID:         artistID,
+		ArtistName:       "Frank Ocean",
+		ProvenanceStatus: "needs_review",
+		ConfidenceScore:  0.55,
+		ProviderOrigin:   "tanabata_test",
+		FirstSeenAt:      "2026-05-01T00:00:00Z",
+		LastVerifiedAt:   "2026-05-01T00:00:00Z",
+	}); err != nil {
+		t.Fatalf("UpsertQuote() error = %v", err)
+	}
+	quotes, err := store.ListQuotes(ctx, models.QuoteFilters{ArtistID: artistID, Limit: 100})
+	if err != nil {
+		t.Fatalf("ListQuotes() error = %v", err)
+	}
+	baseID := ""
+	for _, quote := range quotes.Data {
+		if quote.Text == "Be yourself." {
+			baseID = quote.QuoteID
+			break
+		}
+	}
+	if baseID == "" {
+		t.Fatalf("expected base quote in %+v", quotes.Data)
+	}
+
+	response, err := store.SimilarQuotes(ctx, baseID, 0.6, 10)
+	if err != nil {
+		t.Fatalf("SimilarQuotes() error = %v", err)
+	}
+	if response == nil || response.Pagination.Total == 0 {
+		t.Fatalf("expected similar quote response")
+	}
+	found := false
+	for _, item := range response.Data {
+		if item.Quote.Text == "Be yourselx." && item.MergeScore >= 0.6 {
+			found = true
+		}
+		if item.Quote.QuoteID == baseID {
+			t.Fatalf("response included base quote")
+		}
+	}
+	if !found {
+		t.Fatalf("expected near duplicate in %+v", response.Data)
+	}
+
+	strict, err := store.SimilarQuotes(ctx, baseID, 0.8, 10)
+	if err != nil {
+		t.Fatalf("SimilarQuotes(strict) error = %v", err)
+	}
+	for _, item := range strict.Data {
+		if item.Quote.Text == "Be yourselx." {
+			t.Fatalf("threshold 0.8 should filter near duplicate: %+v", strict.Data)
+		}
+	}
+}
+
 func TestReviewQueuePrioritizesWeakProvenance(t *testing.T) {
 	store, ctx := newSeededStore(t)
 	defer store.Close()

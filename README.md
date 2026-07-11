@@ -291,6 +291,7 @@ See [`openapi/openapi.json`](openapi/openapi.json) for more details.
 * `GET /v1/artists/{artist_id}/performances`
 * `GET /v1/artists/{artist_id}/performances/stats`
 * `GET /v1/quotes`
+* `GET /v1/quotes/{quote_id}/similar`
 * `GET /v1/quotes/{quote_id}/lineage`
 * `GET /v1/works`
 * `GET /v1/works/{work_id}/recordings`

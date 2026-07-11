@@ -493,6 +493,39 @@
         }
       }
     },
+    "/v1/quotes/{quote_id}/similar": {
+      "get": {
+        "operationId": "getSimilarQuotes",
+        "parameters": [
+          { "name": "quote_id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "threshold", "in": "query", "schema": { "type": "number", "minimum": 0, "maximum": 1, "default": 0.6 } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "default": 10, "maximum": 100 } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Unmerged near-duplicate quote candidates",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/SimilarQuote" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/Error400" },
+          "404": { "$ref": "#/components/responses/Error404" },
+          "409": { "$ref": "#/components/responses/Error409" },
+          "500": { "$ref": "#/components/responses/Error500" },
+          "default": { "$ref": "#/components/responses/ErrorDefault" },
+          "429": { "$ref": "#/components/responses/Error429" }
+        }
+      }
+    },
     "/v1/quotes/{quote_id}/provenance": {
       "get": {
         "operationId": "getQuoteProvenance",
@@ -2190,6 +2223,13 @@
           "last_verified_at": { "type": "string" },
           "evidence": { "type": "array", "items": { "type": "string" } },
           "source": { "$ref": "#/components/schemas/Source" }
+        }
+      },
+      "SimilarQuote": {
+        "type": "object",
+        "properties": {
+          "quote": { "$ref": "#/components/schemas/Quote" },
+          "merge_score": { "type": "number", "minimum": 0, "maximum": 1 }
         }
       },
       "ArtistProvenanceSummary": {

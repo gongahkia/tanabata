@@ -1314,6 +1314,92 @@ func (s *Store) QuoteProvenance(ctx context.Context, quoteID string) (*models.Qu
 	}, nil
 }
 
+func (s *Store) SimilarQuotes(ctx context.Context, quoteID string, threshold float64, limit int) (*models.ListResponse[models.SimilarQuote], error) {
+	quote, err := s.QuoteByID(ctx, quoteID)
+	if err != nil {
+		return nil, err
+	}
+	if quote == nil {
+		return nil, nil
+	}
+	limit = normalizeSimilarLimit(limit)
+
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT
+			quotes.quote_id,
+			quotes.text,
+			artists.artist_id,
+			artists.name,
+			quotes.source_id,
+			quotes.source_type,
+			quotes.work_title,
+			quotes.year,
+			quotes.provenance_status,
+			quotes.confidence_score,
+			quotes.provider_origin,
+			quotes.license,
+			quotes.first_seen_at,
+			quotes.last_verified_at
+		FROM quotes
+		JOIN artists ON artists.artist_id = quotes.artist_id
+		WHERE quotes.quote_id <> ?
+			AND NOT EXISTS (
+				SELECT 1
+				FROM quote_merge_log
+				WHERE (winner_quote_id = ? AND loser_quote_id = quotes.quote_id)
+					OR (winner_quote_id = quotes.quote_id AND loser_quote_id = ?)
+			)
+	`, quoteID, quoteID, quoteID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	matches := []models.SimilarQuote{}
+	for rows.Next() {
+		candidate, err := scanQuoteRow(rows)
+		if err != nil {
+			return nil, err
+		}
+		score := float64(search.QuoteMergeScore(quote.Text, candidate.Text)) / 100
+		if score >= threshold {
+			matches = append(matches, models.SimilarQuote{Quote: candidate, MergeScore: score})
+		}
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	sort.Slice(matches, func(i, j int) bool {
+		if matches[i].MergeScore == matches[j].MergeScore {
+			return matches[i].Quote.QuoteID < matches[j].Quote.QuoteID
+		}
+		return matches[i].MergeScore > matches[j].MergeScore
+	})
+
+	total := len(matches)
+	if len(matches) > limit {
+		matches = matches[:limit]
+	}
+	for idx := range matches {
+		if err := s.hydrateQuote(ctx, &matches[idx].Quote); err != nil {
+			return nil, err
+		}
+	}
+	meta, err := s.Meta(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return &models.ListResponse[models.SimilarQuote]{
+		Data: matches,
+		Meta: meta,
+		Pagination: models.Pagination{
+			Limit:  limit,
+			Offset: 0,
+			Total:  total,
+		},
+	}, nil
+}
+
 func (s *Store) ArtistProvenanceSummary(ctx context.Context, artistID string) (*models.ArtistProvenanceSummary, error) {
 	var exists int
 	err := s.db.QueryRowContext(ctx, `SELECT 1 FROM artists WHERE artist_id = ?`, artistID).Scan(&exists)
@@ -3373,6 +3459,17 @@ func normalizeOffset(offset int) int {
 		return 0
 	}
 	return offset
+}
+
+func normalizeSimilarLimit(limit int) int {
+	switch {
+	case limit <= 0:
+		return 10
+	case limit > 100:
+		return 100
+	default:
+		return limit
+	}
 }
 
 func mergeQuotes(existing, incoming models.Quote) models.Quote {

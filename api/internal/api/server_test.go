@@ -403,6 +403,78 @@ func TestArtistProvenanceSummaryEndpoint(t *testing.T) {
 	}
 }
 
+func TestQuoteSimilarEndpoint(t *testing.T) {
+	server, store := seededServer(t)
+	defer store.Close()
+
+	artistID, err := store.ResolveArtistID(context.Background(), "Frank Ocean")
+	if err != nil {
+		t.Fatalf("ResolveArtistID() error = %v", err)
+	}
+	if err := store.UpsertQuote(context.Background(), models.Quote{
+		Text:             "Be yourselx.",
+		ArtistID:         artistID,
+		ArtistName:       "Frank Ocean",
+		ProvenanceStatus: "needs_review",
+		ConfidenceScore:  0.55,
+		ProviderOrigin:   "tanabata_test",
+		FirstSeenAt:      "2026-05-01T00:00:00Z",
+		LastVerifiedAt:   "2026-05-01T00:00:00Z",
+	}); err != nil {
+		t.Fatalf("UpsertQuote() error = %v", err)
+	}
+	quotes, err := store.ListQuotes(context.Background(), models.QuoteFilters{ArtistID: artistID, Limit: 100})
+	if err != nil {
+		t.Fatalf("ListQuotes() error = %v", err)
+	}
+	baseID := ""
+	for _, quote := range quotes.Data {
+		if quote.Text == "Be yourself." {
+			baseID = quote.QuoteID
+			break
+		}
+	}
+	if baseID == "" {
+		t.Fatalf("expected base quote in %+v", quotes.Data)
+	}
+
+	recorder := httptest.NewRecorder()
+	request := httptest.NewRequest(http.MethodGet, "/v1/quotes/"+baseID+"/similar?threshold=0.6&limit=10", nil)
+	server.Router().ServeHTTP(recorder, request)
+	if recorder.Code != http.StatusOK {
+		t.Fatalf("status = %d, want 200 body=%s", recorder.Code, recorder.Body.String())
+	}
+	var response models.APIResponse[[]models.SimilarQuote]
+	if err := json.Unmarshal(recorder.Body.Bytes(), &response); err != nil {
+		t.Fatalf("decode response: %v", err)
+	}
+	found := false
+	for _, item := range response.Data {
+		if item.Quote.Text == "Be yourselx." && item.MergeScore >= 0.6 {
+			found = true
+		}
+	}
+	if !found {
+		t.Fatalf("expected near duplicate in %+v", response.Data)
+	}
+
+	recorder = httptest.NewRecorder()
+	request = httptest.NewRequest(http.MethodGet, "/v1/quotes/"+baseID+"/similar?threshold=0.8&limit=10", nil)
+	server.Router().ServeHTTP(recorder, request)
+	if recorder.Code != http.StatusOK {
+		t.Fatalf("strict status = %d, want 200", recorder.Code)
+	}
+	response = models.APIResponse[[]models.SimilarQuote]{}
+	if err := json.Unmarshal(recorder.Body.Bytes(), &response); err != nil {
+		t.Fatalf("decode strict response: %v", err)
+	}
+	for _, item := range response.Data {
+		if item.Quote.Text == "Be yourselx." {
+			t.Fatalf("threshold 0.8 should filter near duplicate: %+v", response.Data)
+		}
+	}
+}
+
 func TestProvidersEndpoint(t *testing.T) {
 	server, store := seededServer(t)
 	defer store.Close()
