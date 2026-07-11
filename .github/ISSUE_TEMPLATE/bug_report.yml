@@ -1,0 +1,26 @@
+name: Bug report
+description: Report reproducible incorrect behavior.
+labels: [bug]
+body:
+  - type: textarea
+    attributes:
+      label: Steps
+      description: Minimal reproduction steps.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Actual
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Environment
+      description: OS, Go version, command, and relevant configuration.
+    validations:
+      required: true
