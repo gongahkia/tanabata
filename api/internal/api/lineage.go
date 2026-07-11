@@ -11,11 +11,16 @@ import (
 
 // listWorks GET /v1/works
 func (s *Server) listWorks(c *gin.Context) {
+	offset, apiErr := parseOffset(c.Query("offset"), defaultMaxOffset)
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
 	response, err := s.store.ListWorks(c.Request.Context(), models.WorkFilters{
 		Query:    c.Query("q"),
 		ArtistID: c.Query("artist_id"),
 		Limit:    parseInt(c.Query("limit")),
-		Offset:   parseInt(c.Query("offset")),
+		Offset:   offset,
 	})
 	if err != nil {
 		s.loggedErrorResponse(c, http.StatusInternalServerError, "work_list_failed", "failed to list works", nil, err)
@@ -76,12 +81,17 @@ func (s *Server) workPerformances(c *gin.Context) {
 		apiErr.write(c)
 		return
 	}
+	offset, apiErr := parseOffset(c.Query("offset"), defaultMaxOffset)
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
 	response, err := s.store.ListPerformances(c.Request.Context(), models.PerformanceFilters{
 		WorkID: c.Param("work_id"),
 		Year:   c.Query("year"),
 		Sort:   sortOrder,
 		Limit:  parseInt(c.Query("limit")),
-		Offset: parseInt(c.Query("offset")),
+		Offset: offset,
 	})
 	if err != nil {
 		s.loggedErrorResponse(c, http.StatusInternalServerError, "work_performances_failed", "failed to load performances", nil, err)
@@ -92,12 +102,17 @@ func (s *Server) workPerformances(c *gin.Context) {
 
 // listRecordings GET /v1/recordings
 func (s *Server) listRecordings(c *gin.Context) {
+	offset, apiErr := parseOffset(c.Query("offset"), defaultMaxOffset)
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
 	response, err := s.store.ListRecordings(c.Request.Context(), models.RecordingFilters{
 		ArtistID: c.Query("artist_id"),
 		WorkID:   c.Query("work_id"),
 		Query:    c.Query("q"),
 		Limit:    parseInt(c.Query("limit")),
-		Offset:   parseInt(c.Query("offset")),
+		Offset:   offset,
 	})
 	if err != nil {
 		s.loggedErrorResponse(c, http.StatusInternalServerError, "recording_list_failed", "failed to list recordings", nil, err)
@@ -168,10 +183,15 @@ func (s *Server) sampleByID(c *gin.Context) {
 
 // artistRecordings GET /v1/artists/{artist_id}/recordings
 func (s *Server) artistRecordings(c *gin.Context) {
+	offset, apiErr := parseOffset(c.Query("offset"), defaultMaxOffset)
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
 	response, err := s.store.ListRecordings(c.Request.Context(), models.RecordingFilters{
 		ArtistID: c.Param("artist_id"),
 		Limit:    parseInt(c.Query("limit")),
-		Offset:   parseInt(c.Query("offset")),
+		Offset:   offset,
 	})
 	if err != nil {
 		s.loggedErrorResponse(c, http.StatusInternalServerError, "artist_recordings_failed", "failed to load recordings", nil, err)
@@ -187,13 +207,18 @@ func (s *Server) artistPerformances(c *gin.Context) {
 		apiErr.write(c)
 		return
 	}
+	offset, apiErr := parseOffset(c.Query("offset"), defaultMaxOffset)
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
 	response, err := s.store.ListPerformances(c.Request.Context(), models.PerformanceFilters{
 		ArtistID: c.Param("artist_id"),
 		WorkID:   c.Query("work_id"),
 		Year:     c.Query("year"),
 		Sort:     sortOrder,
 		Limit:    parseInt(c.Query("limit")),
-		Offset:   parseInt(c.Query("offset")),
+		Offset:   offset,
 	})
 	if err != nil {
 		s.loggedErrorResponse(c, http.StatusInternalServerError, "artist_performances_failed", "failed to load performances", nil, err)
@@ -242,11 +267,16 @@ func (s *Server) claimByID(c *gin.Context) {
 
 // listClaims GET /v1/claims?kind=&status=
 func (s *Server) listClaims(c *gin.Context) {
+	offset, apiErr := parseOffset(c.Query("offset"), defaultMaxOffset)
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
 	response, err := s.store.ListClaims(c.Request.Context(), models.ClaimFilters{
 		Kind:   c.Query("kind"),
 		Status: c.Query("status"),
 		Limit:  parseInt(c.Query("limit")),
-		Offset: parseInt(c.Query("offset")),
+		Offset: offset,
 	})
 	if err != nil {
 		s.loggedErrorResponse(c, http.StatusInternalServerError, "claim_list_failed", "failed to list claims", nil, err)

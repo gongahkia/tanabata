@@ -688,7 +688,7 @@ func TestEnumQueryParams(t *testing.T) {
 		for _, value := range tc.allowed {
 			t.Run(tc.name+"/valid/"+value, func(t *testing.T) {
 				recorder := httptest.NewRecorder()
-				request := httptest.NewRequest(http.MethodGet, enumQueryPath(tc.path, tc.param, value), nil)
+				request := httptest.NewRequest(http.MethodGet, queryPath(tc.path, tc.param, value), nil)
 				router.ServeHTTP(recorder, request)
 				if recorder.Code != http.StatusOK {
 					t.Fatalf("status = %d, want 200 body=%s", recorder.Code, recorder.Body.String())
@@ -697,7 +697,7 @@ func TestEnumQueryParams(t *testing.T) {
 		}
 		t.Run(tc.name+"/invalid", func(t *testing.T) {
 			recorder := httptest.NewRecorder()
-			request := httptest.NewRequest(http.MethodGet, enumQueryPath(tc.path, tc.param, "maybe"), nil)
+			request := httptest.NewRequest(http.MethodGet, queryPath(tc.path, tc.param, "maybe"), nil)
 			router.ServeHTTP(recorder, request)
 			if recorder.Code != http.StatusBadRequest {
 				t.Fatalf("status = %d, want 400 body=%s", recorder.Code, recorder.Body.String())
@@ -717,6 +717,61 @@ func TestEnumQueryParams(t *testing.T) {
 				if got, ok := allowed[i].(string); !ok || got != want {
 					t.Fatalf("allowed[%d] = %#v, want %q", i, allowed[i], want)
 				}
+			}
+		})
+	}
+}
+
+func TestOffsetQueryParams(t *testing.T) {
+	t.Setenv(rateLimitRPMEnv, "0")
+	server, store := seededServer(t)
+	defer store.Close()
+
+	artistID, err := store.ResolveArtistID(context.Background(), "Frank Ocean")
+	if err != nil || artistID == "" {
+		t.Fatalf("ResolveArtistID() id=%q err=%v", artistID, err)
+	}
+	router := server.Router()
+	tests := []struct {
+		name string
+		path string
+	}{
+		{name: "artists", path: "/v1/artists"},
+		{name: "artist quotes", path: "/v1/artists/" + artistID + "/quotes"},
+		{name: "quotes", path: "/v1/quotes"},
+		{name: "review queue", path: "/v1/review/queue"},
+		{name: "stale review", path: "/v1/review/stale"},
+		{name: "works", path: "/v1/works"},
+		{name: "work performances", path: "/v1/works/work-missing/performances"},
+		{name: "recordings", path: "/v1/recordings"},
+		{name: "artist recordings", path: "/v1/artists/" + artistID + "/recordings"},
+		{name: "artist performances", path: "/v1/artists/" + artistID + "/performances"},
+		{name: "claims", path: "/v1/claims"},
+	}
+	for _, tc := range tests {
+		for _, value := range []string{"0", "100"} {
+			t.Run(tc.name+"/offset/"+value, func(t *testing.T) {
+				recorder := httptest.NewRecorder()
+				request := httptest.NewRequest(http.MethodGet, queryPath(tc.path, "offset", value), nil)
+				router.ServeHTTP(recorder, request)
+				if recorder.Code != http.StatusOK {
+					t.Fatalf("status = %d, want 200 body=%s", recorder.Code, recorder.Body.String())
+				}
+			})
+		}
+		t.Run(tc.name+"/offset/too-large", func(t *testing.T) {
+			recorder := httptest.NewRecorder()
+			request := httptest.NewRequest(http.MethodGet, queryPath(tc.path, "offset", "99999999"), nil)
+			router.ServeHTTP(recorder, request)
+			if recorder.Code != http.StatusBadRequest {
+				t.Fatalf("status = %d, want 400 body=%s", recorder.Code, recorder.Body.String())
+			}
+			var problem models.ProblemDetails
+			if err := json.Unmarshal(recorder.Body.Bytes(), &problem); err != nil {
+				t.Fatalf("decode response: %v", err)
+			}
+			if problem.Code != "offset_too_large" || problem.Title != "offset must be <= 10000; use cursor pagination for deeper ranges" {
+				t.Fatalf("unexpected problem payload %+v", problem)
 			}
 		})
 	}
@@ -742,7 +797,7 @@ func TestLyricsEndpointUsesCache(t *testing.T) {
 	}
 }
 
-func enumQueryPath(path, param, value string) string {
+func queryPath(path, param, value string) string {
 	return path + "?" + param + "=" + value
 }
 

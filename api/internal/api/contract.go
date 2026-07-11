@@ -97,7 +97,7 @@ func (v *runtimeContractValidator) middleware() gin.HandlerFunc {
 			Route:      route,
 		}
 		if err := openapi3filter.ValidateRequest(c.Request.Context(), requestInput); err != nil {
-			if !handlerValidatedEnumRequestError(err) {
+			if !handlerValidatedQueryRequestError(err) {
 				v.logger.Warn("openapi_contract_request_invalid", "request_id", c.GetString("request_id"), "path", c.Request.URL.Path, "err", err)
 				errorResponse(c, http.StatusBadRequest, "contract_request_invalid", "request does not match the OpenAPI contract", nil)
 				c.Abort()
@@ -133,13 +133,20 @@ func (v *runtimeContractValidator) middleware() gin.HandlerFunc {
 	}
 }
 
-func handlerValidatedEnumRequestError(err error) bool {
+func handlerValidatedQueryRequestError(err error) bool {
 	var requestErr *openapi3filter.RequestError
 	if !errors.As(err, &requestErr) || requestErr.Parameter == nil || requestErr.Parameter.In != "query" {
 		return false
 	}
+	var parseErr *openapi3filter.ParseError
+	if errors.As(err, &parseErr) {
+		return false
+	}
 	schema := requestErr.Parameter.Schema
-	return schema != nil && schema.Value != nil && len(schema.Value.Enum) > 0
+	if schema == nil || schema.Value == nil {
+		return false
+	}
+	return len(schema.Value.Enum) > 0 || (requestErr.Parameter.Name == "offset" && schema.Value.Max != nil)
 }
 
 func (v *runtimeContractValidator) routeFor(request *http.Request) (*routers.Route, map[string]string, error) {

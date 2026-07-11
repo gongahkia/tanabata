@@ -93,6 +93,51 @@ func TestOpenAPIErrorResponseDocumentation(t *testing.T) {
 	}
 }
 
+func TestOpenAPIOffsetParametersDeclareMaximum(t *testing.T) {
+	spec := loadOpenAPISpecMap(t)
+	methods := map[string]bool{
+		"delete": true,
+		"get":    true,
+		"patch":  true,
+		"post":   true,
+		"put":    true,
+	}
+	offsetCount := 0
+	for path, rawPathItem := range mapAt(t, spec, "paths") {
+		pathItem, ok := rawPathItem.(map[string]any)
+		if !ok {
+			t.Fatalf("%s path item has type %T, want object", path, rawPathItem)
+		}
+		for method, rawOperation := range pathItem {
+			if !methods[method] {
+				continue
+			}
+			operation, ok := rawOperation.(map[string]any)
+			if !ok {
+				t.Fatalf("%s %s operation has type %T, want object", method, path, rawOperation)
+			}
+			parameters, _ := operation["parameters"].([]any)
+			for _, rawParameter := range parameters {
+				parameter, ok := rawParameter.(map[string]any)
+				if !ok {
+					t.Fatalf("%s %s parameter has type %T, want object", method, path, rawParameter)
+				}
+				if parameter["name"] != "offset" {
+					continue
+				}
+				schema := mapAt(t, parameter, "schema")
+				if schema["maximum"] != float64(defaultMaxOffset) {
+					t.Fatalf("%s %s offset maximum = %v, want %d", method, path, schema["maximum"], defaultMaxOffset)
+				}
+				offsetCount++
+			}
+		}
+	}
+	if offsetCount == 0 {
+		t.Fatalf("no OpenAPI offset parameters found")
+	}
+}
+
 func TestOpenAPIContractRuntimeResponses(t *testing.T) {
 	server, store := seededServer(t)
 	defer store.Close()
