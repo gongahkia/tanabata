@@ -23,6 +23,16 @@ type APIError struct {
 	Details map[string]any `json:"details,omitempty"`
 }
 
+type ProblemDetails struct {
+	Type     string         `json:"type"`
+	Title    string         `json:"title"`
+	Status   int            `json:"status"`
+	Detail   string         `json:"detail,omitempty"`
+	Instance string         `json:"instance,omitempty"`
+	Code     string         `json:"code"`
+	Details  map[string]any `json:"details,omitempty"`
+}
+
 type APIResponse[T any] struct {
 	Data       T           `json:"data,omitempty"`
 	Meta       any         `json:"meta,omitempty"`

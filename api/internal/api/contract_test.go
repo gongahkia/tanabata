@@ -65,12 +65,12 @@ func TestRuntimeContractValidationRejectsInvalidRequest(t *testing.T) {
 	if recorder.Code != http.StatusBadRequest {
 		t.Fatalf("status = %d, want 400 body=%s", recorder.Code, recorder.Body.String())
 	}
-	var response models.APIResponse[any]
-	if err := json.Unmarshal(recorder.Body.Bytes(), &response); err != nil {
+	var problem models.ProblemDetails
+	if err := json.Unmarshal(recorder.Body.Bytes(), &problem); err != nil {
 		t.Fatalf("Unmarshal() error = %v body=%s", err, recorder.Body.String())
 	}
-	if response.Error == nil || response.Error.Code != "contract_request_invalid" {
-		t.Fatalf("error = %#v, want contract_request_invalid", response.Error)
+	if problem.Code != "contract_request_invalid" {
+		t.Fatalf("error = %#v, want contract_request_invalid", problem)
 	}
 }
 
