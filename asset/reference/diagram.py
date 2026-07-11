@@ -23,7 +23,6 @@ REQUIRED_LOGOS = [
     "opentelemetry.png",
     "prometheus.png",
     "python.png",
-    "quotefancy.png",
     "render.png",
     "setlistfm.png",
     "sqlite.png",
@@ -93,21 +92,34 @@ with Diagram(
             "github-actions.png",
         )
         ci = service(
-            "CI workflow on push/PR\ngo test, coverage,\ngolangci-lint,\ncontainer smoke",
+            "CI workflow on push/PR\ntests, coverage, lint,\ncontainer + endpoint smoke,\nvulnerability scans",
             "github-actions.png",
+        )
+        api_docs = service(
+            "API docs workflow\nbuild OpenAPI docs\nand deploy GitHub Pages",
+            "github-actions.png",
+        )
+        github_pages = service(
+            "GitHub Pages\nrendered API docs",
+            "github.png",
         )
 
         repository >> Edge(label=".github/workflows/scrape.yml") >> catalog_refresh
         repository >> Edge(label=".github/workflows/ci.yml") >> ci
+        repository >> Edge(label=".github/workflows/docs.yml") >> api_docs
+        api_docs >> Edge(label="publishes") >> github_pages
 
     with Cluster("Monthly catalog refresh pipeline"):
-        quotefancy = service("QuoteFancy\nscrape source", "quotefancy.png")
+        wikiquote_source = service(
+            "Wikiquote\nMediaWiki API\nquote source",
+            "wikiquote.png",
+        )
         scraper = service(
-            "Python scraper\nscraper/main.py\nPlaywright Chromium",
+            "Python scraper\nscraper/main.py\nstdlib HTTP + HTMLParser",
             "python.png",
         )
         quotes_json = service(
-            "api/data/quotes.json\nlegacy scrape artifact",
+            "api/data/quotes.json\nWikiquote refresh artifact",
             "json.png",
         )
         curated_bundles = service(
@@ -134,7 +146,7 @@ with Diagram(
             "github.png",
         )
 
-        quotefancy >> Edge(label="scraped monthly") >> scraper
+        wikiquote_source >> Edge(label="queried monthly") >> scraper
         scraper >> Edge(label="writes refreshed JSON") >> quotes_json
         [quotes_json, curated_bundles] >> Edge(
             label="bootstrap + curated import"
@@ -153,11 +165,11 @@ with Diagram(
             "docker.png",
         )
         render = service(
-            "Render target\ncurrent deployment inactive\nas of 2026-06-01",
+            "Render web service\ntanabata.onrender.com\npublic /v1 API",
             "render.png",
         )
         runtime_catalog = service(
-            "catalog.sqlite mount\nsame versioned SQLite file\nread path + runtime cache",
+            "catalog.sqlite\nimage-seeded catalog +\noptional persisted volume\nread path + provider cache",
             "sqlite.png",
         )
         api_server = service(
@@ -173,29 +185,35 @@ with Diagram(
             "openapi.png",
         )
         api_surface = service(
-            "REST API surface\n/livez /readyz /health\nlegacy /quotes routes\n/v1 artists, quotes, works,\nrecordings, samples, claims\n/v1 search, providers, jobs,\ntimeline, review, integrity\n/v1 lyrics and setlists",
+            "REST API surface\n/livez /readyz /health /metrics\nlegacy /quotes routes\n/v1 catalog, search, providers,\njobs, review, integrity, docs\n/v1 lyrics, setlists, webhooks",
             "openapi.png",
         )
 
+        refreshed_artifacts >> Edge(label="included at image build") >> docker
         docker >> Edge(label="runs container") >> api_server
-        docker >> Edge(label="deploy target currently down", style="dashed") >> render
-        refreshed_artifacts >> Edge(label="checked out by runtime") >> docker
-        refreshed_artifacts >> Edge(label="mounts api/data/catalog.sqlite") >> runtime_catalog
+        docker >> Edge(label="seeds / mounts catalog") >> runtime_catalog
+        docker >> Edge(label="deployed public service") >> render
         runtime_catalog >> Edge(label="CATALOG_PATH") >> api_server
         api_server >> Edge(label="registers routes") >> gin_router
         openapi_contract >> Edge(label="contract tests + optional middleware") >> gin_router
         gin_router >> Edge(label="serves JSON envelopes") >> api_surface
 
     with Cluster("Runtime provider lookups"):
-        lrclib = service("LRCLIB\nsynced lyrics\nlyrics.ovh fallback", "lrclib.png")
+        lyrics = service("LRCLIB\nlyrics.ovh fallback", "lrclib.png")
         setlistfm = service("setlist.fm\nlive setlists", "setlistfm.png")
+        webhook_targets = service(
+            "Webhook subscribers\nsigned event POSTs\nretry + disable on failure",
+            "gin.png",
+        )
         provider_cache = service(
-            "provider_cache tables\ninside catalog.sqlite\ncached lyrics/setlists\nprovider runs/errors",
+            "provider/cache tables\ninside catalog.sqlite\ncached lookups, provider\nruns, errors, subscriptions",
             "sqlite.png",
         )
 
-        api_surface >> Edge(label="on-demand HTTP lookups") >> [lrclib, setlistfm]
-        [lrclib, setlistfm] >> Edge(label="cache hits/writes\nand failures") >> provider_cache
+        api_surface >> Edge(label="on-demand HTTP lookups") >> [lyrics, setlistfm]
+        [lyrics, setlistfm] >> Edge(label="cache hits/writes\nand failures") >> provider_cache
+        provider_cache >> Edge(label="subscriptions + delivery state") >> api_surface
+        api_surface >> Edge(label="signed webhook delivery") >> webhook_targets
 
     with Cluster("Observability"):
         prometheus = service(
@@ -203,7 +221,7 @@ with Diagram(
             "prometheus.png",
         )
         otel = service(
-            "OpenTelemetry traces\nstdout exporter\n20% parent-based sampling",
+            "OpenTelemetry traces\nOTLP when configured;\nstdout in dev, else noop\n10% parent-based default",
             "opentelemetry.png",
         )
 
@@ -212,5 +230,5 @@ with Diagram(
 
     consumers = Users("API consumers")
 
-    api_surface >> Edge(label="HTTP GET responses") >> consumers
-    catalog_refresh >> Edge(label="runs scraper and ingest") >> quotefancy
+    api_surface >> Edge(label="HTTP API responses") >> consumers
+    catalog_refresh >> Edge(label="runs scraper and ingest") >> wikiquote_source

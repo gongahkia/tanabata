@@ -8,3 +8,4 @@ api/data/*.sqlite-wal
 web/node_modules
 web/dist
 docs/api/
+__pycache__
