@@ -29,6 +29,10 @@ func TestTelemetryMiddlewareAndMetricsHandler(t *testing.T) {
 	router.Use(telemetry.Middleware())
 	router.GET("/hello", func(c *gin.Context) {
 		telemetry.ObserveProviderCall("wikiquote", "/hello", "success", 0)
+		telemetry.ObserveProviderError("wikiquote", "rate_limit")
+		telemetry.ObserveIngestJob("succeeded", 0)
+		telemetry.ObserveClaimStatusTransition("needs_review", "verified", "attribution")
+		telemetry.SetCatalogRowCount("quotes", 1)
 		c.JSON(http.StatusOK, gin.H{"ok": true})
 	})
 	router.GET("/metrics", telemetry.MetricsHandler())
@@ -47,7 +51,12 @@ func TestTelemetryMiddlewareAndMetricsHandler(t *testing.T) {
 		t.Fatalf("metrics status = %d, want 200", metricsRecorder.Code)
 	}
 	body := metricsRecorder.Body.String()
-	if !strings.Contains(body, "tanabata_http_requests_total") || !strings.Contains(body, "tanabata_provider_requests_total") {
+	for _, name := range []string{"tanabata_http_requests_total", "tanabata_provider_request_duration_seconds", "tanabata_provider_error_total", "tanabata_ingest_job_duration_seconds", "tanabata_claim_status_transition_total", "tanabata_catalog_row_count"} {
+		if !strings.Contains(body, name) {
+			t.Fatalf("missing metric %s body=%s", name, body)
+		}
+	}
+	if !strings.Contains(body, "tanabata_provider_requests_total") {
 		t.Fatalf("expected metrics output, got %s", body)
 	}
 }

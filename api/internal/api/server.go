@@ -83,12 +83,41 @@ func NewServer(store *catalog.Store, telemetry *observability.Telemetry) (*Serve
 	}
 	server.webhooks = newWebhookDispatcher(store)
 	store.SetWebhookEmitter(server.webhooks)
+	store.SetClaimTransitionObserver(telemetry)
+	if telemetry != nil {
+		server.refreshCatalogMetrics()
+		go server.refreshCatalogMetricsEveryMinute()
+	}
 	if contractValidationEnabled() {
 		if err := server.enableContractValidation(os.Getenv(contractSpecPathEnv)); err != nil {
 			return nil, err
 		}
 	}
 	return server, nil
+}
+
+func (s *Server) refreshCatalogMetricsEveryMinute() {
+	ticker := time.NewTicker(time.Minute)
+	defer ticker.Stop()
+	for range ticker.C {
+		s.refreshCatalogMetrics()
+	}
+}
+
+func (s *Server) refreshCatalogMetrics() {
+	if s.telemetry == nil {
+		return
+	}
+	stats, err := s.store.Stats(context.Background())
+	if err != nil {
+		s.logger.Warn("catalog_metrics_refresh_failed", "error", err)
+		return
+	}
+	for _, table := range []string{"artists", "quotes", "claims", "samples", "works", "recordings", "performances"} {
+		if count, ok := stats[table].(int); ok {
+			s.telemetry.SetCatalogRowCount(table, float64(count))
+		}
+	}
 }
 
 func (s *Server) Router() *gin.Engine {

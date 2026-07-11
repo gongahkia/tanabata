@@ -28,6 +28,10 @@ type Telemetry struct {
 	httpInFlight     prometheus.Gauge
 	providerRequests *prometheus.CounterVec
 	providerDuration *prometheus.HistogramVec
+	providerErrors   *prometheus.CounterVec
+	ingestDuration   *prometheus.HistogramVec
+	claimTransitions *prometheus.CounterVec
+	catalogRows      *prometheus.GaugeVec
 }
 
 func New(serviceName string) (*Telemetry, error) {
@@ -88,9 +92,22 @@ func New(serviceName string) (*Telemetry, error) {
 			Help:    "Duration of upstream provider requests.",
 			Buckets: prometheus.DefBuckets,
 		},
-		[]string{"provider", "operation", "status"},
+		[]string{"provider", "outcome"},
 	)
-	registry.MustRegister(httpRequests, httpDuration, httpInFlight, providerRequests, providerDuration)
+	providerErrors := prometheus.NewCounterVec(prometheus.CounterOpts{Name: "tanabata_provider_error_total", Help: "Total upstream provider errors."}, []string{"provider", "kind"})
+	ingestDuration := prometheus.NewHistogramVec(prometheus.HistogramOpts{Name: "tanabata_ingest_job_duration_seconds", Help: "Duration of ingestion jobs.", Buckets: prometheus.DefBuckets}, []string{"status"})
+	claimTransitions := prometheus.NewCounterVec(prometheus.CounterOpts{Name: "tanabata_claim_status_transition_total", Help: "Claim status transitions."}, []string{"from", "to", "kind"})
+	catalogRows := prometheus.NewGaugeVec(prometheus.GaugeOpts{Name: "tanabata_catalog_row_count", Help: "Current catalog row count by table."}, []string{"table"})
+	providerDuration.WithLabelValues("unknown", "unknown").Observe(0)
+	providerErrors.WithLabelValues("unknown", "unknown").Add(0)
+	for _, status := range []string{"succeeded", "failed", "partial"} {
+		ingestDuration.WithLabelValues(status).Observe(0)
+	}
+	claimTransitions.WithLabelValues("unknown", "unknown", "unknown").Add(0)
+	for _, table := range []string{"artists", "quotes", "claims", "samples", "works", "recordings", "performances"} {
+		catalogRows.WithLabelValues(table).Set(0)
+	}
+	registry.MustRegister(httpRequests, httpDuration, httpInFlight, providerRequests, providerDuration, providerErrors, ingestDuration, claimTransitions, catalogRows)
 
 	return &Telemetry{
 		tracer:           otel.Tracer(serviceName),
@@ -101,6 +118,10 @@ func New(serviceName string) (*Telemetry, error) {
 		httpInFlight:     httpInFlight,
 		providerRequests: providerRequests,
 		providerDuration: providerDuration,
+		providerErrors:   providerErrors,
+		ingestDuration:   ingestDuration,
+		claimTransitions: claimTransitions,
+		catalogRows:      catalogRows,
 	}, nil
 }
 
@@ -123,7 +144,28 @@ func (t *Telemetry) ObserveProviderCall(provider, operation, status string, dura
 		return
 	}
 	t.providerRequests.WithLabelValues(provider, operation, status).Inc()
-	t.providerDuration.WithLabelValues(provider, operation, status).Observe(duration.Seconds())
+	t.providerDuration.WithLabelValues(provider, status).Observe(duration.Seconds())
+}
+
+func (t *Telemetry) ObserveProviderError(provider, kind string) {
+	if t != nil {
+		t.providerErrors.WithLabelValues(provider, kind).Inc()
+	}
+}
+func (t *Telemetry) ObserveIngestJob(status string, duration time.Duration) {
+	if t != nil {
+		t.ingestDuration.WithLabelValues(status).Observe(duration.Seconds())
+	}
+}
+func (t *Telemetry) ObserveClaimStatusTransition(from, to, kind string) {
+	if t != nil {
+		t.claimTransitions.WithLabelValues(from, to, kind).Inc()
+	}
+}
+func (t *Telemetry) SetCatalogRowCount(table string, count float64) {
+	if t != nil {
+		t.catalogRows.WithLabelValues(table).Set(count)
+	}
 }
 
 func (t *Telemetry) MetricsHandler() gin.HandlerFunc {
