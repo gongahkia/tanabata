@@ -55,6 +55,9 @@ var (
 var errUnknownCursor = errors.New("unknown cursor")
 
 const defaultMaxOffset = 10000
+const legacyQuotesSunset = "Thu, 31 Dec 2026 23:59:59 GMT"
+const legacyQuotesEnv = "TANABATA_LEGACY_QUOTES"
+const legacyQuotesReplacement = "/v1/quotes"
 
 func NewServer(store *catalog.Store, telemetry *observability.Telemetry) (*Server, error) {
 	server := &Server{
@@ -194,6 +197,11 @@ func (s *Server) version(c *gin.Context) {
 }
 
 func (s *Server) legacyQuotes(c *gin.Context) {
+	if !legacyQuotesEnabled() {
+		legacyEndpointGone(c)
+		return
+	}
+	setLegacyDeprecationHeaders(c)
 	quotes, err := s.store.LegacyQuotes(c.Request.Context(), "")
 	if err != nil {
 		s.loggedErrorResponse(c, http.StatusInternalServerError, "legacy_quotes_failed", "failed to list legacy quotes", nil, err)
@@ -203,6 +211,11 @@ func (s *Server) legacyQuotes(c *gin.Context) {
 }
 
 func (s *Server) legacyRandomQuote(c *gin.Context) {
+	if !legacyQuotesEnabled() {
+		legacyEndpointGone(c)
+		return
+	}
+	setLegacyDeprecationHeaders(c)
 	quote, err := s.store.RandomLegacyQuote(c.Request.Context())
 	if err != nil {
 		s.loggedErrorResponse(c, http.StatusInternalServerError, "legacy_random_quote_failed", "failed to select legacy quote", nil, err)
@@ -216,12 +229,30 @@ func (s *Server) legacyRandomQuote(c *gin.Context) {
 }
 
 func (s *Server) legacyAuthorQuotes(c *gin.Context) {
+	if !legacyQuotesEnabled() {
+		legacyEndpointGone(c)
+		return
+	}
+	setLegacyDeprecationHeaders(c)
 	quotes, err := s.store.LegacyQuotes(c.Request.Context(), c.Param("author"))
 	if err != nil {
 		s.loggedErrorResponse(c, http.StatusInternalServerError, "legacy_author_quotes_failed", "failed to list legacy author quotes", nil, err)
 		return
 	}
 	c.JSON(http.StatusOK, quotes)
+}
+
+func legacyQuotesEnabled() bool {
+	return strings.EqualFold(strings.TrimSpace(os.Getenv(legacyQuotesEnv)), "on")
+}
+
+func setLegacyDeprecationHeaders(c *gin.Context) {
+	c.Header("Deprecation", "true")
+	c.Header("Sunset", legacyQuotesSunset)
+}
+
+func legacyEndpointGone(c *gin.Context) {
+	errorResponse(c, http.StatusGone, "legacy_endpoint", "legacy endpoint is gone", map[string]any{"replacement": legacyQuotesReplacement})
 }
 
 func (s *Server) listArtists(c *gin.Context) {
