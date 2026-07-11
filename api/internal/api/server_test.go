@@ -45,7 +45,32 @@ func seededServer(t *testing.T) (*Server, *catalog.Store) {
 	return server, store
 }
 
-func TestLegacyQuotesEndpoint(t *testing.T) {
+func TestLegacyQuotesEndpointsReturn410ByDefault(t *testing.T) {
+	t.Setenv(legacyQuotesEnv, "")
+	server, store := seededServer(t)
+	defer store.Close()
+
+	for _, path := range []string{"/quotes", "/quotes/random", "/quotes/Frank%20Ocean"} {
+		t.Run(path, func(t *testing.T) {
+			recorder := httptest.NewRecorder()
+			request := httptest.NewRequest(http.MethodGet, path, nil)
+			server.Router().ServeHTTP(recorder, request)
+			if recorder.Code != http.StatusGone {
+				t.Fatalf("status = %d, want 410 body=%s", recorder.Code, recorder.Body.String())
+			}
+			var problem models.ProblemDetails
+			if err := json.Unmarshal(recorder.Body.Bytes(), &problem); err != nil {
+				t.Fatalf("decode response: %v", err)
+			}
+			if problem.Code != "legacy_endpoint" || problem.Details["replacement"] != legacyQuotesReplacement {
+				t.Fatalf("unexpected problem payload %+v", problem)
+			}
+		})
+	}
+}
+
+func TestLegacyQuotesEndpointsCanBeTemporarilyEnabled(t *testing.T) {
+	t.Setenv(legacyQuotesEnv, "on")
 	server, store := seededServer(t)
 	defer store.Close()
 
@@ -53,7 +78,10 @@ func TestLegacyQuotesEndpoint(t *testing.T) {
 	request := httptest.NewRequest(http.MethodGet, "/quotes", nil)
 	server.Router().ServeHTTP(recorder, request)
 	if recorder.Code != http.StatusOK {
-		t.Fatalf("status = %d, want 200", recorder.Code)
+		t.Fatalf("status = %d, want 200 body=%s", recorder.Code, recorder.Body.String())
+	}
+	if recorder.Header().Get("Deprecation") != "true" || recorder.Header().Get("Sunset") != legacyQuotesSunset {
+		t.Fatalf("missing deprecation headers: %#v", recorder.Header())
 	}
 	var quotes []models.LegacyQuote
 	if err := json.Unmarshal(recorder.Body.Bytes(), &quotes); err != nil {
@@ -61,6 +89,40 @@ func TestLegacyQuotesEndpoint(t *testing.T) {
 	}
 	if len(quotes) != 8 {
 		t.Fatalf("expected 8 quotes in legacy compatibility endpoint, got %d", len(quotes))
+	}
+
+	recorder = httptest.NewRecorder()
+	request = httptest.NewRequest(http.MethodGet, "/quotes/random", nil)
+	server.Router().ServeHTTP(recorder, request)
+	if recorder.Code != http.StatusOK {
+		t.Fatalf("status = %d, want 200 body=%s", recorder.Code, recorder.Body.String())
+	}
+	if recorder.Header().Get("Deprecation") != "true" || recorder.Header().Get("Sunset") != legacyQuotesSunset {
+		t.Fatalf("missing deprecation headers: %#v", recorder.Header())
+	}
+	var quote models.LegacyQuote
+	if err := json.Unmarshal(recorder.Body.Bytes(), &quote); err != nil {
+		t.Fatalf("decode random response: %v", err)
+	}
+	if quote.Author == "" || quote.Text == "" {
+		t.Fatalf("incomplete legacy random quote: %+v", quote)
+	}
+
+	recorder = httptest.NewRecorder()
+	request = httptest.NewRequest(http.MethodGet, "/quotes/Frank%20Ocean", nil)
+	server.Router().ServeHTTP(recorder, request)
+	if recorder.Code != http.StatusOK {
+		t.Fatalf("status = %d, want 200 body=%s", recorder.Code, recorder.Body.String())
+	}
+	if recorder.Header().Get("Deprecation") != "true" || recorder.Header().Get("Sunset") != legacyQuotesSunset {
+		t.Fatalf("missing deprecation headers: %#v", recorder.Header())
+	}
+	quotes = nil
+	if err := json.Unmarshal(recorder.Body.Bytes(), &quotes); err != nil {
+		t.Fatalf("decode author response: %v", err)
+	}
+	if len(quotes) == 0 {
+		t.Fatalf("expected author quotes")
 	}
 }
 
