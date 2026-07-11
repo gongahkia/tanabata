@@ -160,7 +160,8 @@ func handlerValidatedQueryRequestError(err error) bool {
 }
 
 func skipContractResponseValidation(contentType string) bool {
-	return strings.HasPrefix(strings.ToLower(contentType), "application/atom+xml")
+	contentType = strings.ToLower(contentType)
+	return strings.HasPrefix(contentType, "application/atom+xml") || strings.HasPrefix(contentType, "text/html")
 }
 
 func (v *runtimeContractValidator) routeFor(request *http.Request) (*routers.Route, map[string]string, error) {

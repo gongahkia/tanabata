@@ -18,6 +18,36 @@
     }
   ],
   "paths": {
+    "/v1/docs": {
+      "get": {
+        "operationId": "getDocs",
+        "responses": {
+          "200": {
+            "description": "Rendered API documentation",
+            "content": {
+              "text/html": {
+                "schema": { "type": "string" }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        }
+      }
+    },
     "/v1/version": {
       "get": {
         "operationId": "getVersion",
