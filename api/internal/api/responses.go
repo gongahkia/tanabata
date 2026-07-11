@@ -32,13 +32,26 @@ func listResponse[T any](c *gin.Context, status int, data []T, meta any, paginat
 }
 
 func errorResponse(c *gin.Context, status int, code, message string, details map[string]any) {
-	c.JSON(status, models.APIResponse[any]{
-		Error: &models.APIError{
-			Code:    code,
-			Message: message,
-			Details: details,
-		},
+	c.Header("Content-Type", "application/problem+json")
+	c.JSON(status, models.ProblemDetails{
+		Type:     "https://tanabata.dev/errors/" + code,
+		Title:    message,
+		Status:   status,
+		Detail:   problemDetail(message, details),
+		Instance: c.GetString("request_id"),
+		Code:     code,
+		Details:  details,
 	})
+}
+
+func problemDetail(fallback string, details map[string]any) string {
+	if details == nil {
+		return fallback
+	}
+	if detail, ok := details["message"].(string); ok && detail != "" {
+		return detail
+	}
+	return fallback
 }
 
 func (s *Server) loggedErrorResponse(c *gin.Context, status int, code, message string, details map[string]any, err error) {

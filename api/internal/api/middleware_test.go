@@ -147,12 +147,12 @@ func TestRateLimitReturns429WithRetryAfter(t *testing.T) {
 			if got := recorder.Header().Get("Retry-After"); got == "" {
 				t.Fatalf("Retry-After header missing")
 			}
-			var response models.APIResponse[any]
-			if err := json.Unmarshal(recorder.Body.Bytes(), &response); err != nil {
+			var problem models.ProblemDetails
+			if err := json.Unmarshal(recorder.Body.Bytes(), &problem); err != nil {
 				t.Fatalf("decode response: %v", err)
 			}
-			if response.Error == nil || response.Error.Code != "rate_limited" {
-				t.Fatalf("error = %#v, want rate_limited", response.Error)
+			if problem.Code != "rate_limited" {
+				t.Fatalf("error = %#v, want rate_limited", problem)
 			}
 		}
 	}
@@ -222,12 +222,12 @@ func TestRequestBodyLimitReturns413(t *testing.T) {
 	if recorder.Code != http.StatusRequestEntityTooLarge {
 		t.Fatalf("status = %d, want 413 body=%s", recorder.Code, recorder.Body.String())
 	}
-	var response models.APIResponse[any]
-	if err := json.Unmarshal(recorder.Body.Bytes(), &response); err != nil {
+	var problem models.ProblemDetails
+	if err := json.Unmarshal(recorder.Body.Bytes(), &problem); err != nil {
 		t.Fatalf("decode response: %v", err)
 	}
-	if response.Error == nil || response.Error.Code != "payload_too_large" {
-		t.Fatalf("error = %#v, want payload_too_large", response.Error)
+	if problem.Code != "payload_too_large" {
+		t.Fatalf("error = %#v, want payload_too_large", problem)
 	}
 }
 
@@ -298,12 +298,12 @@ func TestRecoveryMiddlewareReturnsStructuredError(t *testing.T) {
 	if got := recorder.Header().Get("X-Request-ID"); strings.TrimSpace(got) == "" {
 		t.Fatalf("expected generated request ID on recovered panic")
 	}
-	var response models.APIResponse[any]
-	if err := json.Unmarshal(recorder.Body.Bytes(), &response); err != nil {
+	var problem models.ProblemDetails
+	if err := json.Unmarshal(recorder.Body.Bytes(), &problem); err != nil {
 		t.Fatalf("decode response: %v", err)
 	}
-	if response.Error == nil || response.Error.Code != "internal_error" {
-		t.Fatalf("unexpected error payload %+v", response.Error)
+	if problem.Code != "internal_error" {
+		t.Fatalf("unexpected error payload %+v", problem)
 	}
 }
 

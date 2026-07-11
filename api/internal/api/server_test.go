@@ -597,6 +597,7 @@ func TestErrorEnvelopeAndRequestID(t *testing.T) {
 	}{
 		{path: "/v1/search", requestID: "req-search", statusCode: http.StatusBadRequest, errorCode: "missing_query"},
 		{path: "/v1/lyrics", requestID: "req-lyrics", statusCode: http.StatusBadRequest, errorCode: "missing_lyrics_params"},
+		{path: "/v1/artists/does-not-exist", requestID: "req-artist", statusCode: http.StatusNotFound, errorCode: "artist_not_found"},
 		{path: "/v1/sources/missing", requestID: "req-source", statusCode: http.StatusNotFound, errorCode: "source_not_found"},
 	}
 	for _, tc := range tests {
@@ -611,12 +612,18 @@ func TestErrorEnvelopeAndRequestID(t *testing.T) {
 			if got := recorder.Header().Get("X-Request-ID"); got != tc.requestID {
 				t.Fatalf("X-Request-ID = %q, want %q", got, tc.requestID)
 			}
-			var response models.APIResponse[any]
-			if err := json.Unmarshal(recorder.Body.Bytes(), &response); err != nil {
+			if got := recorder.Header().Get("Content-Type"); !strings.HasPrefix(got, "application/problem+json") {
+				t.Fatalf("Content-Type = %q, want application/problem+json", got)
+			}
+			var problem models.ProblemDetails
+			if err := json.Unmarshal(recorder.Body.Bytes(), &problem); err != nil {
 				t.Fatalf("decode response: %v", err)
 			}
-			if response.Error == nil || response.Error.Code != tc.errorCode {
-				t.Fatalf("unexpected error payload %+v", response.Error)
+			if problem.Code != tc.errorCode || problem.Status != tc.statusCode || problem.Instance != tc.requestID {
+				t.Fatalf("unexpected problem payload %+v", problem)
+			}
+			if problem.Type != "https://tanabata.dev/errors/"+tc.errorCode || problem.Title == "" || problem.Detail == "" {
+				t.Fatalf("incomplete problem payload %+v", problem)
 			}
 		})
 	}
@@ -722,12 +729,12 @@ func TestLyricsEndpointRequestedProviderFailureReturnsError(t *testing.T) {
 	if recorder.Code != http.StatusBadGateway {
 		t.Fatalf("status = %d, want 502", recorder.Code)
 	}
-	var response models.APIResponse[any]
-	if err := json.Unmarshal(recorder.Body.Bytes(), &response); err != nil {
+	var problem models.ProblemDetails
+	if err := json.Unmarshal(recorder.Body.Bytes(), &problem); err != nil {
 		t.Fatalf("decode response: %v", err)
 	}
-	if response.Error == nil || response.Error.Code != "provider_request_failed" {
-		t.Fatalf("unexpected error payload %+v", response.Error)
+	if problem.Code != "provider_request_failed" {
+		t.Fatalf("unexpected error payload %+v", problem)
 	}
 }
 

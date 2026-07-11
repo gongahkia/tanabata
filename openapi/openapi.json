@@ -2144,11 +2144,16 @@
           "merge_history": { "type": "array", "items": { "$ref": "#/components/schemas/QuoteMergeLog" } }
         }
       },
-      "APIError": {
+      "ProblemDetails": {
         "type": "object",
+        "required": ["type", "title", "status", "code"],
         "properties": {
+          "type": { "type": "string", "format": "uri" },
+          "title": { "type": "string" },
+          "status": { "type": "integer" },
+          "detail": { "type": "string" },
+          "instance": { "type": "string" },
           "code": { "type": "string" },
-          "message": { "type": "string" },
           "details": { "type": "object", "additionalProperties": true }
         }
       }
@@ -2157,39 +2162,40 @@
       "Error400": {
         "description": "Bad Request",
         "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "error": { "$ref": "#/components/schemas/APIError" }
-              }
-            }
+          "application/problem+json": {
+            "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+          }
+        }
+      },
+      "Error404": {
+        "description": "Not Found",
+        "content": {
+          "application/problem+json": {
+            "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+          }
+        }
+      },
+      "Error409": {
+        "description": "Conflict",
+        "content": {
+          "application/problem+json": {
+            "schema": { "$ref": "#/components/schemas/ProblemDetails" }
           }
         }
       },
       "Error500": {
         "description": "Internal Server Error",
         "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "error": { "$ref": "#/components/schemas/APIError" }
-              }
-            }
+          "application/problem+json": {
+            "schema": { "$ref": "#/components/schemas/ProblemDetails" }
           }
         }
       },
       "ErrorDefault": {
         "description": "Error response",
         "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "error": { "$ref": "#/components/schemas/APIError" }
-              }
-            }
+          "application/problem+json": {
+            "schema": { "$ref": "#/components/schemas/ProblemDetails" }
           }
         }
       },
@@ -2202,13 +2208,8 @@
           }
         },
         "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "error": { "$ref": "#/components/schemas/APIError" }
-              }
-            }
+          "application/problem+json": {
+            "schema": { "$ref": "#/components/schemas/ProblemDetails" }
           }
         }
       }
