@@ -35,10 +35,12 @@ A separate `quote_merge_log` table closes the ADR-004 audit gap: every merge dec
 
 ## Consequences
 - Foreign keys on the new entity tables are deliberately loose for optional cross-references (e.g. `recordings.work_id`, `performances.recording_id`). SQLite enforces FKs against non-empty values and our DEFAULT '' for optional fields would clash. Code paths (`ResolveOrCreateWork`, `UpsertRecording`) enforce parentage instead, and `IntegrityReport` carries checks for orphan rows.
+- Sample edges are constrained as a DAG at write time: `samples` rejects duplicate `(source_recording_id, derivative_recording_id, kind)` rows, self-loops, and bounded reverse reachability cycles before an edge is recorded.
 - Claim status resolution happens in Go (`claimStatusRank` in `store_claims.go`) rather than via SQL UDFs, because `modernc/sqlite` doesn't expose user-defined functions cleanly.
 - Every curated seed file emits ingestion audit events with action names per kind (`record_sample`, `upsert_work`, `record_performance`, `record_misquote`), keeping the existing `/v1/jobs/{id}/audit` endpoint as the operational source of truth for ingestion behavior.
 - Tests live alongside the new store files (`internal/catalog/lineage_test.go`) and as full HTTP surfaces (`internal/api/lineage_test.go`); the existing runtime contract test now exercises every new endpoint.
 
 ## Migration
 - Schema migration `004_lineage_claims_and_entities` adds the new tables, indices, and FTS5 virtual tables in a single transaction. It is additive: existing data is untouched.
+- Schema migration `005_samples_unique_and_no_self_loops` rebuilds `samples` with the duplicate-edge unique constraint and a self-loop CHECK constraint; recursive cycle rejection remains in application code so ingestion can emit audit events.
 - The curated seed bundles (`api/data/curated_samples.json`, `curated_works.json`, `curated_performances.json`, `curated_misquotes.json`) ship in the repository and are loaded by `cmd/ingest -bootstrap` alongside the legacy and curated-quote bundles.

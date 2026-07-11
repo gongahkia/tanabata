@@ -2,6 +2,7 @@ package catalog
 
 import (
 	"context"
+	"errors"
 	"os"
 	"path/filepath"
 	"testing"
@@ -91,6 +92,73 @@ func TestCuratedSamplesProduceVerifiableLineage(t *testing.T) {
 	}
 	if edges[0].Claim == nil || edges[0].Claim.SupportingCount == 0 {
 		t.Fatalf("sample edge missing supporting claim evidence")
+	}
+}
+
+func TestRecordSampleEdgeRejectsCyclesAndKeepsDuplicateUpsert(t *testing.T) {
+	dir := t.TempDir()
+	store, err := Open(filepath.Join(dir, "catalog.sqlite"))
+	if err != nil {
+		t.Fatalf("Open() error = %v", err)
+	}
+	t.Cleanup(func() { _ = store.Close() })
+	ctx := context.Background()
+	artistID := search.ArtistID("Cycle Artist", "")
+	if err := store.UpsertArtist(ctx, models.Artist{ArtistID: artistID, Name: "Cycle Artist"}); err != nil {
+		t.Fatalf("UpsertArtist() error = %v", err)
+	}
+	sourceID, err := store.UpsertRecording(ctx, models.Recording{ArtistID: artistID, Title: "Source Loop"})
+	if err != nil {
+		t.Fatalf("UpsertRecording(source) error = %v", err)
+	}
+	derivativeID, err := store.UpsertRecording(ctx, models.Recording{ArtistID: artistID, Title: "Derivative Loop"})
+	if err != nil {
+		t.Fatalf("UpsertRecording(derivative) error = %v", err)
+	}
+
+	firstID, err := store.RecordSampleEdge(ctx, models.SampleEdge{
+		SourceRecording:     models.Recording{RecordingID: sourceID},
+		DerivativeRecording: models.Recording{RecordingID: derivativeID},
+		Kind:                "direct_sample",
+	}, models.Claim{}, nil)
+	if err != nil {
+		t.Fatalf("RecordSampleEdge(first) error = %v", err)
+	}
+	duplicateID, err := store.RecordSampleEdge(ctx, models.SampleEdge{
+		SourceRecording:     models.Recording{RecordingID: sourceID},
+		DerivativeRecording: models.Recording{RecordingID: derivativeID},
+		Kind:                "",
+	}, models.Claim{}, nil)
+	if err != nil {
+		t.Fatalf("RecordSampleEdge(duplicate) error = %v", err)
+	}
+	if duplicateID != firstID {
+		t.Fatalf("duplicate sample id = %s, want %s", duplicateID, firstID)
+	}
+	edges, err := store.OutgoingSamples(ctx, derivativeID)
+	if err != nil {
+		t.Fatalf("OutgoingSamples() error = %v", err)
+	}
+	if len(edges) != 1 {
+		t.Fatalf("duplicate upsert created %d edges, want 1", len(edges))
+	}
+
+	_, err = store.RecordSampleEdge(ctx, models.SampleEdge{
+		SourceRecording:     models.Recording{RecordingID: derivativeID},
+		DerivativeRecording: models.Recording{RecordingID: sourceID},
+		Kind:                "direct_sample",
+	}, models.Claim{}, nil)
+	if !errors.Is(err, ErrSampleCycle) {
+		t.Fatalf("reverse edge error = %v, want ErrSampleCycle", err)
+	}
+
+	_, err = store.RecordSampleEdge(ctx, models.SampleEdge{
+		SourceRecording:     models.Recording{RecordingID: sourceID},
+		DerivativeRecording: models.Recording{RecordingID: sourceID},
+		Kind:                "direct_sample",
+	}, models.Claim{}, nil)
+	if !errors.Is(err, ErrSampleCycle) {
+		t.Fatalf("self-loop error = %v, want ErrSampleCycle", err)
 	}
 }
 
