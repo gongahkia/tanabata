@@ -135,6 +135,11 @@ type QuoteProvenance struct {
 	Source           *Source  `json:"source,omitempty"`
 }
 
+type SimilarQuote struct {
+	Quote      Quote   `json:"quote"`
+	MergeScore float64 `json:"merge_score"`
+}
+
 type ArtistProvenanceSummary struct {
 	ArtistID            string         `json:"artist_id"`
 	StatusCounts        map[string]int `json:"status_counts"`

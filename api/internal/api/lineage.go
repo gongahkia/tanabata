@@ -396,3 +396,22 @@ func (s *Server) quoteLineage(c *gin.Context) {
 	}
 	dataResponse(c, http.StatusOK, lineage, nil)
 }
+
+// quoteSimilar GET /v1/quotes/{quote_id}/similar — unmerged near-duplicate candidates.
+func (s *Server) quoteSimilar(c *gin.Context) {
+	threshold, apiErr := parseThreshold(c.Query("threshold"), 0.6)
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
+	response, err := s.store.SimilarQuotes(c.Request.Context(), c.Param("quote_id"), threshold, parseLimit(c.Query("limit"), 10))
+	if err != nil {
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "similar_quotes_failed", "failed to load similar quotes", nil, err)
+		return
+	}
+	if response == nil {
+		errorResponse(c, http.StatusNotFound, "quote_not_found", "quote not found", nil)
+		return
+	}
+	listResponse(c, http.StatusOK, response.Data, response.Meta, response.Pagination)
+}

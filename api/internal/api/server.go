@@ -125,6 +125,7 @@ func (s *Server) Router() *gin.Engine {
 		v1.GET("/quotes", s.listQuotes)
 		v1.GET("/quotes/random", s.randomQuote)
 		v1.GET("/quotes/:quote_id", s.quoteByID)
+		v1.GET("/quotes/:quote_id/similar", s.quoteSimilar)
 		v1.GET("/quotes/:quote_id/provenance", s.quoteProvenance)
 		v1.GET("/quotes/:quote_id/lineage", s.quoteLineage)
 
@@ -945,6 +946,21 @@ func parseInt(value string) int {
 		return 0
 	}
 	return parsed
+}
+
+func parseThreshold(value string, fallback float64) (float64, *apiError) {
+	if strings.TrimSpace(value) == "" {
+		return fallback, nil
+	}
+	parsed, err := strconv.ParseFloat(value, 64)
+	if err != nil || parsed < 0 || parsed > 1 {
+		return 0, &apiError{
+			status:  http.StatusBadRequest,
+			code:    "invalid_threshold",
+			message: "threshold must be a number between 0 and 1",
+		}
+	}
+	return parsed, nil
 }
 
 func parseOffset(value string, max int) (int, *apiError) { //nolint:unparam // issue requires explicit max hook
