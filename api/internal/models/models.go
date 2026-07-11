@@ -314,6 +314,24 @@ type IngestionAuditEvent struct {
 	Details    string `json:"details,omitempty"`
 }
 
+type WebhookSubscription struct {
+	ID            string   `json:"id"`
+	URL           string   `json:"url"`
+	Secret        string   `json:"secret,omitempty"`
+	EventKinds    []string `json:"event_kinds"`
+	CreatedAt     string   `json:"created_at"`
+	DisabledAt    string   `json:"disabled_at,omitempty"`
+	LastSuccessAt string   `json:"last_success_at,omitempty"`
+	FailureCount  int      `json:"failure_count"`
+}
+
+type WebhookEvent struct {
+	EventID    string `json:"event_id"`
+	Kind       string `json:"kind"`
+	OccurredAt string `json:"occurred_at"`
+	Data       any    `json:"data"`
+}
+
 type TimelineEvent struct {
 	EventID  string         `json:"event_id"`
 	Kind     string         `json:"kind"`

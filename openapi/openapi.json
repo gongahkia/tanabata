@@ -2024,6 +2024,101 @@
         }
       }
     },
+    "/v1/webhooks": {
+      "get": {
+        "operationId": "listWebhooks",
+        "security": [{ "WebhookAdminBearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Webhook subscriptions with redacted secrets",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/WebhookSubscription" } },
+                    "meta": { "$ref": "#/components/schemas/ListMeta" },
+                    "pagination": { "$ref": "#/components/schemas/Pagination" }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/Error400" },
+          "404": { "$ref": "#/components/responses/Error404" },
+          "409": { "$ref": "#/components/responses/Error409" },
+          "500": { "$ref": "#/components/responses/Error500" },
+          "default": { "$ref": "#/components/responses/ErrorDefault" },
+          "429": { "$ref": "#/components/responses/Error429" }
+        }
+      },
+      "post": {
+        "operationId": "createWebhook",
+        "security": [{ "WebhookAdminBearer": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/WebhookCreateRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created webhook subscription; secret is returned only in this response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "$ref": "#/components/schemas/WebhookSubscription" }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/Error400" },
+          "404": { "$ref": "#/components/responses/Error404" },
+          "409": { "$ref": "#/components/responses/Error409" },
+          "500": { "$ref": "#/components/responses/Error500" },
+          "default": { "$ref": "#/components/responses/ErrorDefault" },
+          "429": { "$ref": "#/components/responses/Error429" }
+        }
+      }
+    },
+    "/v1/webhooks/{webhook_id}": {
+      "delete": {
+        "operationId": "deleteWebhook",
+        "security": [{ "WebhookAdminBearer": [] }],
+        "parameters": [
+          { "name": "webhook_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Webhook deletion result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": { "deleted": { "type": "boolean" } }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/Error400" },
+          "404": { "$ref": "#/components/responses/Error404" },
+          "409": { "$ref": "#/components/responses/Error409" },
+          "500": { "$ref": "#/components/responses/Error500" },
+          "default": { "$ref": "#/components/responses/ErrorDefault" },
+          "429": { "$ref": "#/components/responses/Error429" }
+        }
+      }
+    },
     "/v1/quotes/{quote_id}/lineage": {
       "get": {
         "operationId": "getQuoteLineage",
@@ -2659,6 +2754,33 @@
           "job_id": { "type": "string" }
         }
       },
+      "WebhookCreateRequest": {
+        "type": "object",
+        "required": ["url", "event_kinds"],
+        "properties": {
+          "url": { "type": "string", "format": "uri" },
+          "event_kinds": {
+            "type": "array",
+            "items": { "type": "string", "enum": ["claim.state_changed", "job.completed", "dispute.raised"] }
+          }
+        }
+      },
+      "WebhookSubscription": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "secret": { "type": "string", "description": "Returned only immediately after creation." },
+          "event_kinds": {
+            "type": "array",
+            "items": { "type": "string", "enum": ["claim.state_changed", "job.completed", "dispute.raised"] }
+          },
+          "created_at": { "type": "string" },
+          "disabled_at": { "type": "string" },
+          "last_success_at": { "type": "string" },
+          "failure_count": { "type": "integer" }
+        }
+      },
       "QuoteLineage": {
         "type": "object",
         "properties": {
@@ -2696,6 +2818,11 @@
         "in": "header",
         "name": "X-No-Auth-Required",
         "description": "Documentation-only marker: Tanabata API endpoints are public and require no authentication."
+      },
+      "WebhookAdminBearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Admin token from TANABATA_WEBHOOK_ADMIN_TOKEN."
       }
     },
     "responses": {
