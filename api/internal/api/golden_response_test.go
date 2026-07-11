@@ -95,6 +95,36 @@ func TestEntityGraphGoldenResponse(t *testing.T) {
 	}
 }
 
+func TestEntitySearchGoldenResponse(t *testing.T) {
+	server, store := seededLineageServer(t)
+	defer store.Close()
+
+	recorder := httptest.NewRecorder()
+	request := httptest.NewRequest(http.MethodGet, "/v1/entities/search?q=hallelujah&limit=6", nil)
+	server.Router().ServeHTTP(recorder, request)
+	if recorder.Code != http.StatusOK {
+		t.Fatalf("entity search status = %d, want 200 body=%s", recorder.Code, recorder.Body.String())
+	}
+	actual := canonicalGoldenJSON(t, recorder.Body.Bytes())
+	path := filepath.Join("testdata", "golden", "entities_search.json")
+	if *updateGolden {
+		if err := os.MkdirAll(filepath.Dir(path), 0o750); err != nil {
+			t.Fatalf("MkdirAll() error = %v", err)
+		}
+		if err := os.WriteFile(path, actual, 0o600); err != nil {
+			t.Fatalf("WriteFile(%s) error = %v", path, err)
+		}
+		return
+	}
+	expected, err := os.ReadFile(path) // #nosec G304 -- fixed golden testdata path
+	if err != nil {
+		t.Fatalf("ReadFile(%s) error = %v", path, err)
+	}
+	if !bytes.Equal(bytes.TrimSpace(expected), bytes.TrimSpace(actual)) {
+		t.Fatalf("golden mismatch for entity search\nexpected:\n%s\nactual:\n%s", expected, actual)
+	}
+}
+
 func seedGoldenOperationalState(t *testing.T, store *catalog.Store) {
 	t.Helper()
 	ctx := context.Background()

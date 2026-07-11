@@ -1026,6 +1026,51 @@
         }
       }
     },
+    "/v1/entities/search": {
+      "get": {
+        "operationId": "searchEntities",
+        "parameters": [
+          { "name": "q", "in": "query", "schema": { "type": "string" } },
+          { "name": "kinds", "in": "query", "description": "Comma-separated entity kinds: artist,quote,work,recording,performance.", "schema": { "type": "string" } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } },
+          { "name": "cursor", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Unified cross-kind entity search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "$ref": "#/components/schemas/EntitySearchResults" },
+                    "meta": { "$ref": "#/components/schemas/CursorMeta" }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorDefault"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
+          }
+        }
+      }
+    },
     "/v1/stats": {
       "get": {
         "operationId": "getStats",
@@ -2254,6 +2299,22 @@
         "properties": {
           "artists": { "type": "array", "items": { "$ref": "#/components/schemas/Artist" } },
           "quotes": { "type": "array", "items": { "$ref": "#/components/schemas/Quote" } }
+        }
+      },
+      "EntitySearchHit": {
+        "type": "object",
+        "properties": {
+          "kind": { "type": "string", "enum": ["artist", "quote", "work", "recording", "performance"] },
+          "id": { "type": "string" },
+          "label": { "type": "string" },
+          "score": { "type": "number" },
+          "snippet": { "type": "string" }
+        }
+      },
+      "EntitySearchResults": {
+        "type": "object",
+        "properties": {
+          "hits": { "type": "array", "items": { "$ref": "#/components/schemas/EntitySearchHit" } }
         }
       },
       "IntegrityReport": {

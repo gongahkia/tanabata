@@ -1728,17 +1728,16 @@ func (s *Store) Search(ctx context.Context, query string) (models.SearchResponse
 
 func (s *Store) SearchWithLimit(ctx context.Context, query string, limit int) (models.SearchResponse, error) {
 	response := models.SearchResponse{}
-	meta, err := s.Meta(ctx)
+	unified, err := s.EntitySearch(ctx, query, []string{"artist", "quote"}, legacySearchCandidateLimit(limit))
 	if err != nil {
 		return response, err
 	}
-	response.Meta = meta
-
+	response.Meta = unified.Meta
+	artists, _, err := s.searchResultsFromHits(ctx, unified.Data.Hits)
+	if err != nil {
+		return response, err
+	}
 	limit = normalizeLimit(limit)
-	artists, err := s.searchArtists(ctx, query, limit)
-	if err != nil {
-		return response, err
-	}
 	quotes, err := s.searchQuotes(ctx, query, limit)
 	if err != nil {
 		return response, err
@@ -1763,6 +1762,115 @@ func (s *Store) SearchWithLimit(ctx context.Context, query string, limit int) (m
 		Quotes:  quotes,
 	}
 	return response, nil
+}
+
+func legacySearchCandidateLimit(limit int) int {
+	if limit < 20 {
+		return 20
+	}
+	return limit
+}
+
+func (s *Store) EntitySearch(ctx context.Context, query string, kinds []string, limit int) (models.EntitySearchResponse, error) {
+	response := models.EntitySearchResponse{Data: models.EntitySearchResults{Hits: []models.EntitySearchHit{}}}
+	meta, err := s.Meta(ctx)
+	if err != nil {
+		return response, err
+	}
+	response.Meta = meta
+	fts := ftsQuery(query)
+	if fts == "" {
+		return response, nil
+	}
+	searchLimit := normalizeEntitySearchLimit(limit)
+	enabled := entitySearchKindSet(kinds)
+	weights := entitySearchWeights()
+	hits := []models.EntitySearchHit{}
+	if enabled["artist"] {
+		artistHits, err := s.entitySearchArtists(ctx, fts, weights["artist"], searchLimit)
+		if err != nil {
+			return response, err
+		}
+		hits = append(hits, artistHits...)
+	}
+	if enabled["quote"] {
+		quoteHits, err := s.entitySearchQuotes(ctx, fts, weights["quote"], searchLimit)
+		if err != nil {
+			return response, err
+		}
+		hits = append(hits, quoteHits...)
+	}
+	if enabled["work"] {
+		workHits, err := s.entitySearchWorks(ctx, fts, weights["work"], searchLimit)
+		if err != nil {
+			return response, err
+		}
+		hits = append(hits, workHits...)
+	}
+	if enabled["recording"] {
+		recordingHits, err := s.entitySearchRecordings(ctx, fts, weights["recording"], searchLimit)
+		if err != nil {
+			return response, err
+		}
+		hits = append(hits, recordingHits...)
+	}
+	if enabled["performance"] {
+		performanceHits, err := s.entitySearchPerformances(ctx, fts, weights["performance"], searchLimit)
+		if err != nil {
+			return response, err
+		}
+		hits = append(hits, performanceHits...)
+	}
+	sort.SliceStable(hits, func(i, j int) bool {
+		if hits[i].Score == hits[j].Score {
+			if hits[i].Kind == hits[j].Kind {
+				return hits[i].ID < hits[j].ID
+			}
+			return hits[i].Kind < hits[j].Kind
+		}
+		return hits[i].Score > hits[j].Score
+	})
+	if len(hits) > searchLimit {
+		hits = hits[:searchLimit]
+	}
+	response.Data.Hits = hits
+	return response, nil
+}
+
+func (s *Store) searchResultsFromHits(ctx context.Context, hits []models.EntitySearchHit) ([]models.Artist, []models.Quote, error) {
+	artists := []models.Artist{}
+	quotes := []models.Quote{}
+	seenArtists := map[string]bool{}
+	seenQuotes := map[string]bool{}
+	for _, hit := range hits {
+		switch hit.Kind {
+		case "artist":
+			if seenArtists[hit.ID] {
+				continue
+			}
+			artist, err := s.ArtistByID(ctx, hit.ID)
+			if err != nil {
+				return nil, nil, err
+			}
+			if artist != nil {
+				artists = append(artists, *artist)
+				seenArtists[hit.ID] = true
+			}
+		case "quote":
+			if seenQuotes[hit.ID] {
+				continue
+			}
+			quote, err := s.QuoteByID(ctx, hit.ID)
+			if err != nil {
+				return nil, nil, err
+			}
+			if quote != nil {
+				quotes = append(quotes, *quote)
+				seenQuotes[hit.ID] = true
+			}
+		}
+	}
+	return artists, quotes, nil
 }
 
 func (s *Store) Stats(ctx context.Context) (map[string]any, error) {
@@ -2487,40 +2595,6 @@ func (s *Store) jobItems(ctx context.Context, jobID string) ([]models.JobItem, e
 	return items, rows.Err()
 }
 
-func (s *Store) searchArtists(ctx context.Context, query string, limit int) ([]models.Artist, error) {
-	fts := ftsQuery(query)
-	if fts == "" {
-		return nil, nil
-	}
-	rows, err := s.db.QueryContext(ctx, `
-		SELECT artist_id
-		FROM artist_search
-		WHERE artist_search MATCH ?
-		ORDER BY bm25(artist_search), artist_id
-		LIMIT ?
-	`, fts, limit)
-	if err != nil {
-		return nil, err
-	}
-	artistIDs := []string{}
-	for rows.Next() {
-		var artistID string
-		if err := rows.Scan(&artistID); err != nil {
-			_ = rows.Close()
-			return nil, err
-		}
-		artistIDs = append(artistIDs, artistID)
-	}
-	if err := rows.Err(); err != nil {
-		_ = rows.Close()
-		return nil, err
-	}
-	if err := rows.Close(); err != nil {
-		return nil, err
-	}
-	return s.artistsByIDs(ctx, artistIDs)
-}
-
 func (s *Store) searchQuotes(ctx context.Context, query string, limit int) ([]models.Quote, error) {
 	fts := ftsQuery(query)
 	if fts == "" {
@@ -2576,6 +2650,200 @@ func (s *Store) searchQuotes(ctx context.Context, query string, limit int) ([]mo
 	return s.quotesByIDs(ctx, quoteIDs)
 }
 
+func (s *Store) entitySearchArtists(ctx context.Context, fts string, weight float64, limit int) ([]models.EntitySearchHit, error) {
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT artist_id, name, snippet(artist_search, 1, '', '', '...', 12), bm25(artist_search)
+		FROM artist_search
+		WHERE artist_search MATCH ?
+		ORDER BY bm25(artist_search), artist_id
+		LIMIT ?
+	`, fts, limit)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	hits := []models.EntitySearchHit{}
+	for rows.Next() {
+		var id, label, snippet string
+		var rank float64
+		if err := rows.Scan(&id, &label, &snippet, &rank); err != nil {
+			return nil, err
+		}
+		hits = append(hits, entitySearchHit("artist", id, label, snippet, rank, weight))
+	}
+	return hits, rows.Err()
+}
+
+func (s *Store) entitySearchQuotes(ctx context.Context, fts string, weight float64, limit int) ([]models.EntitySearchHit, error) {
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT quote_search.quote_id, quotes.text, snippet(quote_search, 3, '', '', '...', 12), bm25(quote_search)
+		FROM quote_search
+		JOIN quotes ON quotes.quote_id = quote_search.quote_id
+		WHERE quote_search MATCH ?
+		ORDER BY bm25(quote_search), quote_search.quote_id
+		LIMIT ?
+	`, fts, limit)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	hits := []models.EntitySearchHit{}
+	for rows.Next() {
+		var id, label, snippet string
+		var rank float64
+		if err := rows.Scan(&id, &label, &snippet, &rank); err != nil {
+			return nil, err
+		}
+		hits = append(hits, entitySearchHit("quote", id, truncate(label, 96), snippet, rank, weight))
+	}
+	return hits, rows.Err()
+}
+
+func (s *Store) entitySearchWorks(ctx context.Context, fts string, weight float64, limit int) ([]models.EntitySearchHit, error) {
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT work_id, title, snippet(work_search, 1, '', '', '...', 12), bm25(work_search)
+		FROM work_search
+		WHERE work_search MATCH ?
+		ORDER BY bm25(work_search), work_id
+		LIMIT ?
+	`, fts, limit)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	hits := []models.EntitySearchHit{}
+	for rows.Next() {
+		var id, label, snippet string
+		var rank float64
+		if err := rows.Scan(&id, &label, &snippet, &rank); err != nil {
+			return nil, err
+		}
+		hits = append(hits, entitySearchHit("work", id, label, snippet, rank, weight))
+	}
+	return hits, rows.Err()
+}
+
+func (s *Store) entitySearchRecordings(ctx context.Context, fts string, weight float64, limit int) ([]models.EntitySearchHit, error) {
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT recording_id,
+			CASE WHEN artist_name <> '' THEN artist_name || ' - ' || title ELSE title END,
+			snippet(recording_search, 3, '', '', '...', 12),
+			bm25(recording_search)
+		FROM recording_search
+		WHERE recording_search MATCH ?
+		ORDER BY bm25(recording_search), recording_id
+		LIMIT ?
+	`, fts, limit)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	hits := []models.EntitySearchHit{}
+	for rows.Next() {
+		var id, label, snippet string
+		var rank float64
+		if err := rows.Scan(&id, &label, &snippet, &rank); err != nil {
+			return nil, err
+		}
+		hits = append(hits, entitySearchHit("recording", id, label, snippet, rank, weight))
+	}
+	return hits, rows.Err()
+}
+
+func (s *Store) entitySearchPerformances(ctx context.Context, fts string, weight float64, limit int) ([]models.EntitySearchHit, error) {
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT performance_id,
+			trim(artist_name || ' @ ' || CASE WHEN event_name <> '' THEN event_name WHEN venue <> '' THEN venue ELSE city END || ' ' || performed_at),
+			snippet(performance_search, 4, '', '', '...', 12),
+			bm25(performance_search)
+		FROM performance_search
+		WHERE performance_search MATCH ?
+		ORDER BY bm25(performance_search), performance_id
+		LIMIT ?
+	`, fts, limit)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	hits := []models.EntitySearchHit{}
+	for rows.Next() {
+		var id, label, snippet string
+		var rank float64
+		if err := rows.Scan(&id, &label, &snippet, &rank); err != nil {
+			return nil, err
+		}
+		hits = append(hits, entitySearchHit("performance", id, label, snippet, rank, weight))
+	}
+	return hits, rows.Err()
+}
+
+func entitySearchHit(kind, id, label, snippet string, rank, weight float64) models.EntitySearchHit {
+	snippet = strings.TrimSpace(snippet)
+	if snippet == "" {
+		snippet = label
+	}
+	return models.EntitySearchHit{
+		Kind:    kind,
+		ID:      id,
+		Label:   label,
+		Score:   -rank * weight,
+		Snippet: snippet,
+	}
+}
+
+func entitySearchKindSet(kinds []string) map[string]bool {
+	defaults := []string{"artist", "quote", "work", "recording", "performance"}
+	if len(kinds) == 0 {
+		kinds = defaults
+	}
+	enabled := map[string]bool{}
+	for _, kind := range kinds {
+		switch kind {
+		case "artist", "quote", "work", "recording", "performance":
+			enabled[kind] = true
+		}
+	}
+	return enabled
+}
+
+func entitySearchWeights() map[string]float64 {
+	defaults := map[string]float64{
+		"artist":      1.15,
+		"quote":       1.0,
+		"work":        1.2,
+		"recording":   1.05,
+		"performance": 0.9,
+	}
+	weights := map[string]float64{}
+	for kind, fallback := range defaults {
+		weights[kind] = entitySearchWeight(kind, fallback)
+	}
+	return weights
+}
+
+func entitySearchWeight(kind string, fallback float64) float64 {
+	value := strings.TrimSpace(os.Getenv("TANABATA_SEARCH_WEIGHT_" + strings.ToUpper(kind)))
+	if value == "" {
+		return fallback
+	}
+	parsed, err := strconv.ParseFloat(value, 64)
+	if err != nil || parsed <= 0 {
+		return fallback
+	}
+	return parsed
+}
+
+func normalizeEntitySearchLimit(limit int) int {
+	switch {
+	case limit <= 0:
+		return 100
+	case limit > 500:
+		return 500
+	default:
+		return limit
+	}
+}
+
 func (s *Store) rebuildSearchIndices(ctx context.Context) error {
 	if _, err := s.db.ExecContext(ctx, `DELETE FROM artist_search`); err != nil {
 		return err
@@ -2606,6 +2874,9 @@ func (s *Store) rebuildSearchIndices(ctx context.Context) error {
 		return err
 	}
 	if err := s.rebuildWorkSearch(ctx); err != nil {
+		return err
+	}
+	if err := s.rebuildPerformanceSearch(ctx); err != nil {
 		return err
 	}
 	return nil
@@ -2929,183 +3200,6 @@ func (s *Store) hydrateArtist(ctx context.Context, artist *models.Artist) error 
 	}
 	artist.Links, err = s.artistLinks(ctx, artist.ArtistID)
 	return err
-}
-
-func (s *Store) artistsByIDs(ctx context.Context, artistIDs []string) ([]models.Artist, error) {
-	if len(artistIDs) == 0 {
-		return []models.Artist{}, nil
-	}
-	placeholders := sqlPlaceholders(len(artistIDs))
-	args := stringArgs(artistIDs)
-	// #nosec G202 -- placeholders are generated; values remain bound
-	query := `
-		SELECT
-			artists.artist_id,
-			artists.name,
-			COALESCE(artists.mbid, ''),
-			COALESCE(artists.wikidata_id, ''),
-			COALESCE(artists.wikiquote_title, ''),
-			COALESCE(artists.country, ''),
-			COALESCE(artists.life_span_begin, ''),
-			COALESCE(artists.life_span_end, ''),
-			COALESCE(artists.description, ''),
-			COALESCE(artists.bio_summary, ''),
-			COALESCE(artists.provider_status, '{}')
-		FROM artists
-		WHERE artists.artist_id IN (` + placeholders + `)`
-	rows, err := s.db.QueryContext(ctx, query, args...) // #nosec G201 -- placeholders only; values remain bound
-	if err != nil {
-		return nil, err
-	}
-	artists, err := s.scanArtistRowsWithChildren(ctx, rows)
-	if err != nil {
-		return nil, err
-	}
-	artistsByID := make(map[string]models.Artist, len(artists))
-	for _, artist := range artists {
-		artistsByID[artist.ArtistID] = artist
-	}
-	ordered := make([]models.Artist, 0, len(artistIDs))
-	for _, artistID := range artistIDs {
-		if artist, ok := artistsByID[artistID]; ok {
-			ordered = append(ordered, artist)
-		}
-	}
-	return ordered, nil
-}
-
-func (s *Store) scanArtistRowsWithChildren(ctx context.Context, rows *sql.Rows) ([]models.Artist, error) {
-	artists := []models.Artist{}
-	artistIDs := []string{}
-	artistIndex := map[string]int{}
-	for rows.Next() {
-		var artist models.Artist
-		var statusJSON string
-		if err := rows.Scan(
-			&artist.ArtistID,
-			&artist.Name,
-			&artist.MBID,
-			&artist.WikidataID,
-			&artist.WikiquoteTitle,
-			&artist.Country,
-			&artist.LifeSpan.Begin,
-			&artist.LifeSpan.End,
-			&artist.Description,
-			&artist.BioSummary,
-			&statusJSON,
-		); err != nil {
-			_ = rows.Close()
-			return nil, err
-		}
-		artist.ProviderStatus = map[string]string{}
-		if statusJSON != "" {
-			_ = json.Unmarshal([]byte(statusJSON), &artist.ProviderStatus)
-		}
-		artist.Aliases = []string{}
-		artist.Genres = []string{}
-		artist.Links = []models.ArtistLink{}
-		artistIndex[artist.ArtistID] = len(artists)
-		artists = append(artists, artist)
-		artistIDs = append(artistIDs, artist.ArtistID)
-	}
-	if err := rows.Err(); err != nil {
-		_ = rows.Close()
-		return nil, err
-	}
-	if err := rows.Close(); err != nil {
-		return nil, err
-	}
-	if len(artistIDs) == 0 {
-		return artists, nil
-	}
-	placeholders := sqlPlaceholders(len(artistIDs))
-	args := stringArgs(artistIDs)
-
-	// #nosec G202 -- placeholders are generated; values remain bound
-	aliasQuery := `
-		SELECT artist_aliases.artist_id, artist_aliases.alias
-		FROM artist_aliases
-		WHERE artist_aliases.artist_id IN (` + placeholders + `)
-		ORDER BY artist_aliases.artist_id ASC, artist_aliases.alias ASC`
-	aliasRows, err := s.db.QueryContext(ctx, aliasQuery, args...) // #nosec G201 -- placeholders only; values remain bound
-	if err != nil {
-		return nil, err
-	}
-	for aliasRows.Next() {
-		var artistID, alias string
-		if err := aliasRows.Scan(&artistID, &alias); err != nil {
-			_ = aliasRows.Close()
-			return nil, err
-		}
-		if idx, ok := artistIndex[artistID]; ok {
-			artists[idx].Aliases = append(artists[idx].Aliases, alias)
-		}
-	}
-	if err := aliasRows.Err(); err != nil {
-		_ = aliasRows.Close()
-		return nil, err
-	}
-	if err := aliasRows.Close(); err != nil {
-		return nil, err
-	}
-
-	// #nosec G202 -- placeholders are generated; values remain bound
-	genreQuery := `
-		SELECT artist_tags.artist_id, artist_tags.tag
-		FROM artist_tags
-		WHERE artist_tags.artist_id IN (` + placeholders + `)
-		ORDER BY artist_tags.artist_id ASC, artist_tags.tag ASC`
-	genreRows, err := s.db.QueryContext(ctx, genreQuery, args...) // #nosec G201 -- placeholders only; values remain bound
-	if err != nil {
-		return nil, err
-	}
-	for genreRows.Next() {
-		var artistID, genre string
-		if err := genreRows.Scan(&artistID, &genre); err != nil {
-			_ = genreRows.Close()
-			return nil, err
-		}
-		if idx, ok := artistIndex[artistID]; ok {
-			artists[idx].Genres = append(artists[idx].Genres, genre)
-		}
-	}
-	if err := genreRows.Err(); err != nil {
-		_ = genreRows.Close()
-		return nil, err
-	}
-	if err := genreRows.Close(); err != nil {
-		return nil, err
-	}
-
-	// #nosec G202 -- placeholders are generated; values remain bound
-	linkQuery := `
-		SELECT artist_links.artist_id, artist_links.provider, artist_links.kind, artist_links.url, artist_links.external_id
-		FROM artist_links
-		WHERE artist_links.artist_id IN (` + placeholders + `)
-		ORDER BY artist_links.artist_id ASC, artist_links.provider ASC, artist_links.kind ASC, artist_links.url ASC`
-	linkRows, err := s.db.QueryContext(ctx, linkQuery, args...) // #nosec G201 -- placeholders only; values remain bound
-	if err != nil {
-		return nil, err
-	}
-	for linkRows.Next() {
-		var artistID string
-		var link models.ArtistLink
-		if err := linkRows.Scan(&artistID, &link.Provider, &link.Kind, &link.URL, &link.ExternalID); err != nil {
-			_ = linkRows.Close()
-			return nil, err
-		}
-		if idx, ok := artistIndex[artistID]; ok {
-			artists[idx].Links = append(artists[idx].Links, link)
-		}
-	}
-	if err := linkRows.Err(); err != nil {
-		_ = linkRows.Close()
-		return nil, err
-	}
-	if err := linkRows.Close(); err != nil {
-		return nil, err
-	}
-	return artists, nil
 }
 
 func (s *Store) artistAliases(ctx context.Context, artistID string) ([]string, error) {

@@ -51,9 +51,26 @@ type SearchResults struct {
 	Quotes  []Quote  `json:"quotes"`
 }
 
+type EntitySearchHit struct {
+	Kind    string  `json:"kind"`
+	ID      string  `json:"id"`
+	Label   string  `json:"label"`
+	Score   float64 `json:"score"`
+	Snippet string  `json:"snippet,omitempty"`
+}
+
+type EntitySearchResults struct {
+	Hits []EntitySearchHit `json:"hits"`
+}
+
 type SearchResponse struct {
 	Data SearchResults `json:"data"`
 	Meta ListMeta      `json:"meta"`
+}
+
+type EntitySearchResponse struct {
+	Data EntitySearchResults `json:"data"`
+	Meta ListMeta            `json:"meta"`
 }
 
 type Artist struct {

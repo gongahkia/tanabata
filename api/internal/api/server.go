@@ -51,6 +51,7 @@ var (
 	quoteSorts                    = []string{"random"}
 	performanceSorts              = []string{"asc", "desc"}
 	graphEdgeKinds                = []string{"attribution", "sample", "credit", "cover", "performance"}
+	entitySearchKinds             = []string{"artist", "quote", "work", "recording", "performance"}
 )
 
 var errUnknownCursor = errors.New("unknown cursor")
@@ -157,6 +158,7 @@ func (s *Server) Router() *gin.Engine {
 		v1.GET("/timeline", s.timeline)
 		v1.GET("/review/queue", s.reviewQueue)
 		v1.GET("/review/stale", s.staleQuotes)
+		v1.GET("/entities/search", s.entitiesSearch)
 		v1.GET("/search", s.search)
 		v1.GET("/stats", s.stats)
 		v1.GET("/integrity", s.integrity)
@@ -786,6 +788,57 @@ func (s *Server) search(c *gin.Context) {
 	dataResponse(c, http.StatusOK, response.Data, cursorMeta(response.Meta, nextCursor))
 }
 
+func (s *Server) entitiesSearch(c *gin.Context) {
+	query := strings.TrimSpace(c.Query("q"))
+	if query == "" {
+		errorResponse(c, http.StatusBadRequest, "missing_query", "q is required", nil)
+		return
+	}
+	kinds, apiErr := parseEntitySearchKinds(c.Query("kinds"))
+	if apiErr != nil {
+		apiErr.write(c)
+		return
+	}
+	limit := parseLimit(c.Query("limit"), 10)
+	response, err := s.store.EntitySearch(c.Request.Context(), query, kinds, 500)
+	if err != nil {
+		s.loggedErrorResponse(c, http.StatusInternalServerError, "search_failed", "failed to search catalog", nil, err)
+		return
+	}
+	hits, nextCursor, err := paginateEntitySearchHits(response.Data.Hits, c.Query("cursor"), limit)
+	if err != nil {
+		errorResponse(c, http.StatusBadRequest, "unknown_cursor", "unknown cursor", nil)
+		return
+	}
+	dataResponse(c, http.StatusOK, models.EntitySearchResults{Hits: hits}, cursorMeta(response.Meta, nextCursor))
+}
+
+func parseEntitySearchKinds(value string) ([]string, *apiError) {
+	if strings.TrimSpace(value) == "" {
+		return append([]string(nil), entitySearchKinds...), nil
+	}
+	seen := map[string]bool{}
+	kinds := []string{}
+	for _, part := range strings.Split(value, ",") {
+		part = strings.TrimSpace(part)
+		if part == "" {
+			continue
+		}
+		kind, apiErr := parseEnum("kinds", part, entitySearchKinds)
+		if apiErr != nil {
+			return nil, apiErr
+		}
+		if !seen[kind] {
+			kinds = append(kinds, kind)
+			seen[kind] = true
+		}
+	}
+	if len(kinds) == 0 {
+		return append([]string(nil), entitySearchKinds...), nil
+	}
+	return kinds, nil
+}
+
 func (s *Server) stats(c *gin.Context) {
 	stats, err := s.store.Stats(c.Request.Context())
 	if err != nil {
@@ -967,6 +1020,39 @@ func paginateSearchQuotes(quotes []models.Quote, cursor string, limit int) ([]mo
 		nextCursor = quotes[end-1].QuoteID
 	}
 	return quotes[start:end], nextCursor, nil
+}
+
+func paginateEntitySearchHits(hits []models.EntitySearchHit, cursor string, limit int) ([]models.EntitySearchHit, string, error) {
+	start := 0
+	if cursor != "" {
+		found := false
+		for i, hit := range hits {
+			if entitySearchCursor(hit) == cursor {
+				start = i + 1
+				found = true
+				break
+			}
+		}
+		if !found {
+			return nil, "", errUnknownCursor
+		}
+	}
+	if start >= len(hits) {
+		return []models.EntitySearchHit{}, "", nil
+	}
+	end := start + limit
+	if end > len(hits) {
+		end = len(hits)
+	}
+	nextCursor := ""
+	if end < len(hits) && end > start {
+		nextCursor = entitySearchCursor(hits[end-1])
+	}
+	return hits[start:end], nextCursor, nil
+}
+
+func entitySearchCursor(hit models.EntitySearchHit) string {
+	return hit.Kind + "|" + hit.ID
 }
 
 func paginateTimelineEvents(events []models.TimelineEvent, cursor string, limit int) ([]models.TimelineEvent, string, error) {

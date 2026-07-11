@@ -531,4 +531,21 @@ var catalogMigrations = []schemaMigration{
 			`CREATE INDEX IF NOT EXISTS idx_claims_updated ON claims(updated_at DESC);`,
 		},
 	},
+	{
+		Version: 8,
+		Name:    "performance_search_index",
+		Statements: []string{
+			`CREATE VIRTUAL TABLE IF NOT EXISTS performance_search USING fts5(
+				performance_id UNINDEXED,
+				artist_id UNINDEXED,
+				artist_name,
+				work_title,
+				event_name,
+				venue,
+				city,
+				country,
+				performed_at UNINDEXED
+			);`,
+		},
+	},
 }

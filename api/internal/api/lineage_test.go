@@ -268,6 +268,82 @@ func TestDisputesAtomFeed(t *testing.T) {
 	}
 }
 
+func TestEntitySearchEndpoint(t *testing.T) {
+	server, store := seededLineageServer(t)
+	defer store.Close()
+
+	ctx := context.Background()
+	artistID, err := store.ResolveArtistID(ctx, "Leonard Cohen")
+	if err != nil || artistID == "" {
+		t.Fatalf("ResolveArtistID() id=%q err=%v", artistID, err)
+	}
+	if err := store.UpsertQuote(ctx, models.Quote{
+		Text:             "Hallelujah remains a useful quote-search fixture.",
+		ArtistID:         artistID,
+		ArtistName:       "Leonard Cohen",
+		ProvenanceStatus: "verified",
+		ConfidenceScore:  0.99,
+		ProviderOrigin:   "tanabata_test",
+		FirstSeenAt:      "2026-01-01T00:00:00Z",
+		LastVerifiedAt:   "2026-01-01T00:00:00Z",
+	}); err != nil {
+		t.Fatalf("UpsertQuote() error = %v", err)
+	}
+	if err := store.RefreshSearchIndices(ctx); err != nil {
+		t.Fatalf("RefreshSearchIndices() error = %v", err)
+	}
+
+	recorder := get(t, server, "/v1/entities/search?q=hallelujah&limit=20")
+	var payload struct {
+		Data models.EntitySearchResults `json:"data"`
+		Meta models.CursorMeta          `json:"meta"`
+	}
+	mustJSON(t, recorder.Body.Bytes(), &payload)
+	kinds := map[string]bool{}
+	for _, hit := range payload.Data.Hits {
+		if hit.Kind == "" || hit.ID == "" || hit.Label == "" || hit.Score < 0 {
+			t.Fatalf("incomplete hit: %+v", hit)
+		}
+		kinds[hit.Kind] = true
+	}
+	for _, kind := range []string{"work", "recording", "quote"} {
+		if !kinds[kind] {
+			t.Fatalf("missing %s hit in %+v", kind, payload.Data.Hits)
+		}
+	}
+
+	recorder = get(t, server, "/v1/entities/search?q=hallelujah&limit=1")
+	var first struct {
+		Data models.EntitySearchResults `json:"data"`
+		Meta models.CursorMeta          `json:"meta"`
+	}
+	mustJSON(t, recorder.Body.Bytes(), &first)
+	if len(first.Data.Hits) != 1 || first.Meta.NextCursor == "" {
+		t.Fatalf("expected first page and cursor, got %+v", first)
+	}
+	recorder = get(t, server, "/v1/entities/search?q=hallelujah&limit=1&cursor="+first.Meta.NextCursor)
+	var second struct {
+		Data models.EntitySearchResults `json:"data"`
+		Meta models.CursorMeta          `json:"meta"`
+	}
+	mustJSON(t, recorder.Body.Bytes(), &second)
+	if len(second.Data.Hits) != 1 || second.Data.Hits[0].ID == first.Data.Hits[0].ID {
+		t.Fatalf("expected stable second page, first=%+v second=%+v", first.Data.Hits, second.Data.Hits)
+	}
+
+	recorder = httptest.NewRecorder()
+	request := httptest.NewRequest(http.MethodGet, "/v1/entities/search?q=hallelujah&cursor=made-up", nil)
+	server.Router().ServeHTTP(recorder, request)
+	if recorder.Code != http.StatusBadRequest {
+		t.Fatalf("invalid cursor status = %d, want 400 body=%s", recorder.Code, recorder.Body.String())
+	}
+	var problem models.ProblemDetails
+	mustJSON(t, recorder.Body.Bytes(), &problem)
+	if problem.Code != "unknown_cursor" {
+		t.Fatalf("problem code = %q, want unknown_cursor", problem.Code)
+	}
+}
+
 func TestQuoteLineageEndpointShape(t *testing.T) {
 	server, store := seededLineageServer(t)
 	defer store.Close()
