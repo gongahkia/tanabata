@@ -31,6 +31,7 @@ func TestAPIGoldenResponses(t *testing.T) {
 	}{
 		{name: "search", path: "/v1/search?q=frank"},
 		{name: "provenance", path: goldenProvenancePath(t, store)},
+		{name: "lineage", path: goldenLineagePath(t, store)},
 		{name: "providers", path: "/v1/providers"},
 		{name: "timeline", path: "/v1/timeline?limit=6"},
 	}
@@ -121,6 +122,21 @@ func goldenProvenancePath(t *testing.T, store *catalog.Store) string {
 		t.Fatalf("expected verified quote for golden provenance fixture")
 	}
 	return "/v1/quotes/" + quotes.Data[0].QuoteID + "/provenance"
+}
+
+func goldenLineagePath(t *testing.T, store *catalog.Store) string {
+	t.Helper()
+	quotes, err := store.ListQuotes(context.Background(), models.QuoteFilters{
+		Query: "precise enough",
+		Limit: 1,
+	})
+	if err != nil {
+		t.Fatalf("ListQuotes() error = %v", err)
+	}
+	if len(quotes.Data) == 0 {
+		t.Fatalf("expected merged quote for golden lineage fixture")
+	}
+	return "/v1/quotes/" + quotes.Data[0].QuoteID + "/lineage"
 }
 
 func canonicalGoldenJSON(t *testing.T, content []byte) []byte {

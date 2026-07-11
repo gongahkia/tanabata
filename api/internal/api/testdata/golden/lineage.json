@@ -1,0 +1,22 @@
+{
+  "data": {
+    "attributed_to_id": "tanabata:frank-ocean",
+    "attributed_to_name": "Frank Ocean",
+    "confidence_score": 0.99,
+    "merge_history": [
+      {
+        "loser_quote_id": "94d47a860079f5f10c4a21b9ef10babb",
+        "merge_id": "tanabata:merge:751a4e71f90d16d49ebe796d4e77c5b0",
+        "merge_score": 100,
+        "merged_at": "\u003ctimestamp\u003e",
+        "reason": "near_duplicate_quote",
+        "winner_quote_id": "d37edeaab5a095648aec95beb9944482"
+      }
+    ],
+    "provenance_status": "verified",
+    "quote_id": "d37edeaab5a095648aec95beb9944482",
+    "refuting_evidence": [],
+    "supporting_evidence": [],
+    "text": "Make the work precise enough that it can survive your mood."
+  }
+}

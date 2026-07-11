@@ -412,13 +412,21 @@ func (s *Store) QuoteMergeHistory(ctx context.Context, quoteID string) ([]models
 
 // RecordQuoteMerge persists a merge decision (called by ingestion when duplicates are folded).
 func (s *Store) RecordQuoteMerge(ctx context.Context, log models.QuoteMergeLog) error {
+	return recordQuoteMerge(ctx, s.db, log)
+}
+
+type quoteMergeExecutor interface {
+	ExecContext(context.Context, string, ...any) (sql.Result, error)
+}
+
+func recordQuoteMerge(ctx context.Context, execer quoteMergeExecutor, log models.QuoteMergeLog) error {
 	if strings.TrimSpace(log.MergeID) == "" {
-		log.MergeID = "tanabata:merge:" + search.StableHash(log.WinnerQuoteID, log.LoserQuoteID, log.MergedAt)
+		log.MergeID = "tanabata:merge:" + search.StableHash(log.WinnerQuoteID, log.LoserQuoteID, log.Reason)
 	}
 	if strings.TrimSpace(log.MergedAt) == "" {
 		log.MergedAt = time.Now().UTC().Format(time.RFC3339)
 	}
-	_, err := s.db.ExecContext(ctx, `
+	_, err := execer.ExecContext(ctx, `
 		INSERT INTO quote_merge_log(merge_id, winner_quote_id, loser_quote_id, merge_score, reason, merged_at, job_id)
 		VALUES(?, ?, ?, ?, ?, ?, ?)
 		ON CONFLICT(merge_id) DO NOTHING

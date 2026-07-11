@@ -769,11 +769,13 @@ func (s *Store) UpsertSource(ctx context.Context, source models.Source) error {
 }
 
 func (s *Store) UpsertQuote(ctx context.Context, quote models.Quote) error {
-	existingID, existingStatus, err := s.existingQuote(ctx, quote.ArtistID, quote.Text)
+	existingID, existingStatus, mergeScore, err := s.existingQuote(ctx, quote.ArtistID, quote.Text)
 	if err != nil {
 		return err
 	}
+	var mergeLog *models.QuoteMergeLog
 	if existingID != "" {
+		incomingQuoteID := candidateQuoteID(quote)
 		existingQuote, err := s.QuoteByID(ctx, existingID)
 		if err != nil {
 			return err
@@ -784,13 +786,18 @@ func (s *Store) UpsertQuote(ctx context.Context, quote models.Quote) error {
 		if existingStatus == "needs_review" || existingStatus == "legacy_unverified" || quote.QuoteID == "" {
 			quote.QuoteID = existingID
 		}
+		if incomingQuoteID != "" && incomingQuoteID != quote.QuoteID {
+			mergeLog = &models.QuoteMergeLog{
+				WinnerQuoteID: quote.QuoteID,
+				LoserQuoteID:  incomingQuoteID,
+				MergeScore:    mergeScore,
+				Reason:        "near_duplicate_quote",
+				MergedAt:      time.Now().UTC().Format(time.RFC3339),
+			}
+		}
 	}
 	if quote.QuoteID == "" {
-		sourceURL := ""
-		if quote.Source != nil {
-			sourceURL = quote.Source.URL
-		}
-		quote.QuoteID = search.QuoteID(quote.ArtistID, search.NormalizeText(quote.Text), sourceURL)
+		quote.QuoteID = candidateQuoteID(quote)
 	}
 	year := ""
 	if quote.Year != nil {
@@ -800,7 +807,17 @@ func (s *Store) UpsertQuote(ctx context.Context, quote models.Quote) error {
 	if providerOrigin == "" && quote.Source != nil {
 		providerOrigin = quote.Source.Provider
 	}
-	if _, err := s.db.ExecContext(ctx, `
+	tx, err := s.db.BeginTx(ctx, nil)
+	if err != nil {
+		return err
+	}
+	committed := false
+	defer func() {
+		if !committed {
+			_ = tx.Rollback()
+		}
+	}()
+	if _, err := tx.ExecContext(ctx, `
 		INSERT INTO quotes(
 			quote_id, text, normalized_text, artist_id, source_id, source_type, work_title, year,
 			provenance_status, confidence_score, provider_origin, license, first_seen_at, last_verified_at
@@ -822,19 +839,19 @@ func (s *Store) UpsertQuote(ctx context.Context, quote models.Quote) error {
 	`, quote.QuoteID, quote.Text, search.NormalizeText(quote.Text), quote.ArtistID, nullToEmpty(quote.SourceID), quote.SourceType, quote.WorkTitle, year, quote.ProvenanceStatus, quote.ConfidenceScore, providerOrigin, quote.License, quote.FirstSeenAt, quote.LastVerifiedAt); err != nil {
 		return err
 	}
-	if _, err := s.db.ExecContext(ctx, `DELETE FROM quote_tags WHERE quote_id = ?`, quote.QuoteID); err != nil {
+	if _, err := tx.ExecContext(ctx, `DELETE FROM quote_tags WHERE quote_id = ?`, quote.QuoteID); err != nil {
 		return err
 	}
 	for _, tag := range dedupeStrings(quote.Tags) {
-		if _, err := s.db.ExecContext(ctx, `INSERT INTO quote_tags(quote_id, tag) VALUES(?, ?)`, quote.QuoteID, tag); err != nil {
+		if _, err := tx.ExecContext(ctx, `INSERT INTO quote_tags(quote_id, tag) VALUES(?, ?)`, quote.QuoteID, tag); err != nil {
 			return err
 		}
 	}
-	if _, err := s.db.ExecContext(ctx, `DELETE FROM quote_evidence WHERE quote_id = ?`, quote.QuoteID); err != nil {
+	if _, err := tx.ExecContext(ctx, `DELETE FROM quote_evidence WHERE quote_id = ?`, quote.QuoteID); err != nil {
 		return err
 	}
 	for idx, evidence := range dedupeStrings(quote.Evidence) {
-		if _, err := s.db.ExecContext(ctx, `
+		if _, err := tx.ExecContext(ctx, `
 			INSERT INTO quote_evidence(quote_id, evidence, position)
 			VALUES(?, ?, ?)
 		`, quote.QuoteID, evidence, idx); err != nil {
@@ -842,13 +859,22 @@ func (s *Store) UpsertQuote(ctx context.Context, quote models.Quote) error {
 		}
 	}
 	if len(quote.Evidence) == 0 {
-		if _, err := s.db.ExecContext(ctx, `
+		if _, err := tx.ExecContext(ctx, `
 			INSERT INTO quote_evidence(quote_id, evidence, position)
 			VALUES(?, ?, 0)
 		`, quote.QuoteID, "Imported without explicit evidence; inspect source metadata."); err != nil {
 			return err
 		}
 	}
+	if mergeLog != nil {
+		if err := recordQuoteMerge(ctx, tx, *mergeLog); err != nil {
+			return err
+		}
+	}
+	if err := tx.Commit(); err != nil {
+		return err
+	}
+	committed = true
 	if quote.ArtistName == "" {
 		artist, _ := s.ArtistByID(ctx, quote.ArtistID)
 		if artist != nil {
@@ -858,14 +884,25 @@ func (s *Store) UpsertQuote(ctx context.Context, quote models.Quote) error {
 	return s.syncQuoteSearch(ctx, quote)
 }
 
-func (s *Store) existingQuote(ctx context.Context, artistID, text string) (string, string, error) {
+func candidateQuoteID(quote models.Quote) string {
+	if strings.TrimSpace(quote.QuoteID) != "" {
+		return quote.QuoteID
+	}
+	sourceURL := ""
+	if quote.Source != nil {
+		sourceURL = quote.Source.URL
+	}
+	return search.QuoteID(quote.ArtistID, search.NormalizeText(quote.Text), sourceURL)
+}
+
+func (s *Store) existingQuote(ctx context.Context, artistID, text string) (string, string, int, error) {
 	rows, err := s.db.QueryContext(ctx, `
 		SELECT quote_id, provenance_status, text
 		FROM quotes
 		WHERE artist_id = ?
 	`, artistID)
 	if err != nil {
-		return "", "", err
+		return "", "", 0, err
 	}
 	defer rows.Close()
 
@@ -875,7 +912,7 @@ func (s *Store) existingQuote(ctx context.Context, artistID, text string) (strin
 	for rows.Next() {
 		var quoteID, provenance, candidateText string
 		if err := rows.Scan(&quoteID, &provenance, &candidateText); err != nil {
-			return "", "", err
+			return "", "", 0, err
 		}
 		score := search.QuoteMergeScore(text, candidateText)
 		if score > bestScore {
@@ -885,12 +922,12 @@ func (s *Store) existingQuote(ctx context.Context, artistID, text string) (strin
 		}
 	}
 	if err := rows.Err(); err != nil {
-		return "", "", err
+		return "", "", 0, err
 	}
 	if bestScore < 90 {
-		return "", "", nil
+		return "", "", 0, nil
 	}
-	return bestID, bestProvenance, nil
+	return bestID, bestProvenance, bestScore, nil
 }
 
 func (s *Store) ReplaceArtistRelations(ctx context.Context, artistID string, relations []models.RelatedArtist) error {
