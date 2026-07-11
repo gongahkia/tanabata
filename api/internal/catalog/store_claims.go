@@ -110,9 +110,7 @@ func (s *Store) RecordClaimEvidence(ctx context.Context, evidence models.ClaimEv
 	if evidence.Weight == 0 {
 		evidence.Weight = 1.0
 	}
-	if strings.TrimSpace(evidence.EvidenceKind) == "" {
-		evidence.EvidenceKind = "manual_note"
-	}
+	evidence.EvidenceKind = normalizeEvidenceKind(evidence.EvidenceKind)
 	if strings.TrimSpace(evidence.RecordedAt) == "" {
 		evidence.RecordedAt = time.Now().UTC().Format(time.RFC3339)
 	}
@@ -578,7 +576,7 @@ func (s *Store) SeedCuratedMisquotes(ctx context.Context, bundlePath, jobID stri
 			ArtistID:         attributedArtistID,
 			ArtistName:       record.AttributedToName,
 			Tags:             record.Tags,
-			ProvenanceStatus: defaultStatus(record.Status),
+			ProvenanceStatus: defaultProvenanceStatus(record.Status),
 			ConfidenceScore:  record.ConfidenceScore,
 			ProviderOrigin:   defaultProvider(record.ProviderOrigin),
 			License:          record.License,
@@ -692,10 +690,6 @@ func (s *Store) resolveOrCreateArtist(ctx context.Context, name string) (string,
 }
 
 func curatedEvidenceToClaim(ev models.CuratedEvidence, supports bool) models.ClaimEvidence {
-	kind := strings.TrimSpace(ev.EvidenceKind)
-	if kind == "" {
-		kind = "manual_note"
-	}
 	weight := ev.Weight
 	if weight == 0 {
 		weight = 1.0
@@ -709,9 +703,20 @@ func curatedEvidenceToClaim(ev models.CuratedEvidence, supports bool) models.Cla
 		Excerpt:      ev.Excerpt,
 		SourceURL:    ev.SourceURL,
 		ArchivedURL:  ev.ArchivedURL,
-		EvidenceKind: kind,
+		EvidenceKind: normalizeEvidenceKind(ev.EvidenceKind),
 		Weight:       weight,
 		RecordedAt:   recordedAt,
+	}
+}
+
+func normalizeEvidenceKind(kind string) string {
+	switch strings.ToLower(strings.TrimSpace(kind)) {
+	case "archival_positive", "archival_negative", "aggregator_evidence", "editorial", "provider", "licensing":
+		return strings.ToLower(strings.TrimSpace(kind))
+	case "", "manual_note", "journalism", "talk_page_audit", "literary_record", "court_record":
+		return "editorial"
+	default:
+		return "provider"
 	}
 }
 
@@ -720,6 +725,17 @@ func defaultStatus(value string) string {
 		return "needs_review"
 	}
 	return value
+}
+
+func defaultProvenanceStatus(value string) string {
+	switch strings.TrimSpace(value) {
+	case "verified", "source_attributed", "provider_attributed", "ambiguous", "needs_review":
+		return strings.TrimSpace(value)
+	case "disputed", "refuted":
+		return "ambiguous"
+	default:
+		return "needs_review"
+	}
 }
 
 func defaultProvider(value string) string {

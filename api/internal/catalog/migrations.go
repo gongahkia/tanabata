@@ -1,10 +1,20 @@
 package catalog
 
 type schemaMigration struct {
-	Version    int
-	Name       string
-	Statements []string
+	Version        int
+	Name           string
+	Statements     []string
+	ForeignKeysOff bool
 }
+
+const (
+	provenanceStatusSQLList = "'verified', 'source_attributed', 'provider_attributed', 'ambiguous', 'needs_review'"
+	claimStatusSQLList      = provenanceStatusSQLList + ", 'disputed', 'refuted'"
+	claimKindSQLList        = "'attribution', 'sample', 'credit', 'cover', 'performance'"
+	jobStatusSQLList        = "'queued', 'running', 'succeeded', 'failed', 'partial'"
+	evidenceKindSQLList     = "'archival_positive', 'archival_negative', 'aggregator_evidence', 'editorial', 'provider', 'licensing'"
+	claimRelationSQLList    = "'', 'attributed_to', 'actually_said_by', 'recording_of', 'composer', 'producer', 'direct_sample', 'interpolation', 'replay', 'cover_interpolation', 'lyrics_quote', 'performed'"
+)
 
 var catalogMigrations = []schemaMigration{
 	{
@@ -69,7 +79,7 @@ var catalogMigrations = []schemaMigration{
 				source_type TEXT NOT NULL DEFAULT '',
 				work_title TEXT NOT NULL DEFAULT '',
 				year TEXT NOT NULL DEFAULT '',
-				provenance_status TEXT NOT NULL,
+				provenance_status TEXT NOT NULL CHECK(provenance_status IN (` + provenanceStatusSQLList + `)),
 				confidence_score REAL NOT NULL,
 				provider_origin TEXT NOT NULL DEFAULT '',
 				license TEXT NOT NULL DEFAULT '',
@@ -145,7 +155,7 @@ var catalogMigrations = []schemaMigration{
 				job_id TEXT PRIMARY KEY,
 				name TEXT NOT NULL,
 				scope TEXT NOT NULL DEFAULT '',
-				status TEXT NOT NULL,
+				status TEXT NOT NULL CHECK(status IN (` + jobStatusSQLList + `)),
 				started_at TEXT NOT NULL,
 				finished_at TEXT NOT NULL DEFAULT '',
 				details TEXT NOT NULL DEFAULT '',
@@ -156,7 +166,7 @@ var catalogMigrations = []schemaMigration{
 				job_id TEXT NOT NULL,
 				provider TEXT NOT NULL,
 				target TEXT NOT NULL DEFAULT '',
-				status TEXT NOT NULL,
+				status TEXT NOT NULL CHECK(status IN (` + jobStatusSQLList + `)),
 				started_at TEXT NOT NULL,
 				finished_at TEXT NOT NULL DEFAULT '',
 				details TEXT NOT NULL DEFAULT '',
@@ -286,13 +296,13 @@ var catalogMigrations = []schemaMigration{
 			);`, // work_id and recording_id are optional cross-refs, enforced in code
 			`CREATE TABLE IF NOT EXISTS claims (
 				claim_id TEXT PRIMARY KEY,
-				kind TEXT NOT NULL,
+				kind TEXT NOT NULL CHECK(kind IN (` + claimKindSQLList + `)),
 				subject_type TEXT NOT NULL,
 				subject_id TEXT NOT NULL,
 				object_type TEXT NOT NULL,
 				object_id TEXT NOT NULL,
-				relation TEXT NOT NULL DEFAULT '',
-				status TEXT NOT NULL,
+				relation TEXT NOT NULL DEFAULT '' CHECK(relation IN (` + claimRelationSQLList + `)),
+				status TEXT NOT NULL CHECK(status IN (` + claimStatusSQLList + `)),
 				confidence_score REAL NOT NULL DEFAULT 0,
 				provider_origin TEXT NOT NULL DEFAULT '',
 				source_id TEXT NOT NULL DEFAULT '',
@@ -308,7 +318,7 @@ var catalogMigrations = []schemaMigration{
 				excerpt TEXT NOT NULL,
 				source_url TEXT NOT NULL DEFAULT '',
 				archived_url TEXT NOT NULL DEFAULT '',
-				evidence_kind TEXT NOT NULL DEFAULT 'manual_note',
+				evidence_kind TEXT NOT NULL DEFAULT 'editorial' CHECK(evidence_kind IN (` + evidenceKindSQLList + `)),
 				weight REAL NOT NULL DEFAULT 1.0,
 				recorded_at TEXT NOT NULL,
 				FOREIGN KEY (claim_id) REFERENCES claims(claim_id) ON DELETE CASCADE
@@ -378,6 +388,135 @@ var catalogMigrations = []schemaMigration{
 			`ALTER TABLE samples_v5 RENAME TO samples;`,
 			`CREATE INDEX IF NOT EXISTS idx_samples_source ON samples(source_recording_id);`,
 			`CREATE INDEX IF NOT EXISTS idx_samples_derivative ON samples(derivative_recording_id);`,
+		},
+	},
+	{
+		Version:        6,
+		Name:           "enum_check_constraints",
+		ForeignKeysOff: true,
+		Statements: []string{
+			`DROP TABLE IF EXISTS quotes_v6;`,
+			`CREATE TABLE quotes_v6 (
+				quote_id TEXT PRIMARY KEY,
+				text TEXT NOT NULL,
+				normalized_text TEXT NOT NULL,
+				artist_id TEXT NOT NULL,
+				source_id TEXT NOT NULL DEFAULT '',
+				source_type TEXT NOT NULL DEFAULT '',
+				work_title TEXT NOT NULL DEFAULT '',
+				year TEXT NOT NULL DEFAULT '',
+				provenance_status TEXT NOT NULL CHECK(provenance_status IN (` + provenanceStatusSQLList + `)),
+				confidence_score REAL NOT NULL,
+				provider_origin TEXT NOT NULL DEFAULT '',
+				license TEXT NOT NULL DEFAULT '',
+				first_seen_at TEXT NOT NULL DEFAULT '',
+				last_verified_at TEXT NOT NULL DEFAULT '',
+				FOREIGN KEY (artist_id) REFERENCES artists(artist_id) ON DELETE CASCADE
+			);`,
+			`INSERT INTO quotes_v6(quote_id, text, normalized_text, artist_id, source_id, source_type, work_title, year, provenance_status, confidence_score, provider_origin, license, first_seen_at, last_verified_at)
+				SELECT quote_id, text, normalized_text, artist_id, source_id, source_type, work_title, year,
+					CASE WHEN provenance_status IN (` + provenanceStatusSQLList + `) THEN provenance_status ELSE 'needs_review' END,
+					confidence_score, provider_origin, license, first_seen_at, last_verified_at
+				FROM quotes;`,
+			`DROP TABLE quotes;`,
+			`ALTER TABLE quotes_v6 RENAME TO quotes;`,
+			`CREATE INDEX IF NOT EXISTS idx_quotes_artist_provenance ON quotes(artist_id, provenance_status, confidence_score DESC);`,
+			`CREATE INDEX IF NOT EXISTS idx_quotes_source ON quotes(source_id);`,
+			`DROP TABLE IF EXISTS jobs_v6;`,
+			`CREATE TABLE jobs_v6 (
+				job_id TEXT PRIMARY KEY,
+				name TEXT NOT NULL,
+				scope TEXT NOT NULL DEFAULT '',
+				status TEXT NOT NULL CHECK(status IN (` + jobStatusSQLList + `)),
+				started_at TEXT NOT NULL,
+				finished_at TEXT NOT NULL DEFAULT '',
+				details TEXT NOT NULL DEFAULT '',
+				error_message TEXT NOT NULL DEFAULT ''
+			);`,
+			`INSERT INTO jobs_v6(job_id, name, scope, status, started_at, finished_at, details, error_message)
+				SELECT job_id, name, scope,
+					CASE WHEN status IN (` + jobStatusSQLList + `) THEN status ELSE 'failed' END,
+					started_at, finished_at, details, error_message
+				FROM jobs;`,
+			`DROP TABLE jobs;`,
+			`ALTER TABLE jobs_v6 RENAME TO jobs;`,
+			`DROP TABLE IF EXISTS job_items_v6;`,
+			`CREATE TABLE job_items_v6 (
+				job_item_id TEXT PRIMARY KEY,
+				job_id TEXT NOT NULL,
+				provider TEXT NOT NULL,
+				target TEXT NOT NULL DEFAULT '',
+				status TEXT NOT NULL CHECK(status IN (` + jobStatusSQLList + `)),
+				started_at TEXT NOT NULL,
+				finished_at TEXT NOT NULL DEFAULT '',
+				details TEXT NOT NULL DEFAULT '',
+				error_message TEXT NOT NULL DEFAULT '',
+				FOREIGN KEY (job_id) REFERENCES jobs(job_id) ON DELETE CASCADE
+			);`,
+			`INSERT INTO job_items_v6(job_item_id, job_id, provider, target, status, started_at, finished_at, details, error_message)
+				SELECT job_item_id, job_id, provider, target,
+					CASE WHEN status IN (` + jobStatusSQLList + `) THEN status ELSE 'failed' END,
+					started_at, finished_at, details, error_message
+				FROM job_items;`,
+			`DROP TABLE job_items;`,
+			`ALTER TABLE job_items_v6 RENAME TO job_items;`,
+			`CREATE INDEX IF NOT EXISTS idx_job_items_lookup ON job_items(job_id, provider, started_at DESC);`,
+			`DROP TABLE IF EXISTS claims_v6;`,
+			`CREATE TABLE claims_v6 (
+				claim_id TEXT PRIMARY KEY,
+				kind TEXT NOT NULL CHECK(kind IN (` + claimKindSQLList + `)),
+				subject_type TEXT NOT NULL,
+				subject_id TEXT NOT NULL,
+				object_type TEXT NOT NULL,
+				object_id TEXT NOT NULL,
+				relation TEXT NOT NULL DEFAULT '' CHECK(relation IN (` + claimRelationSQLList + `)),
+				status TEXT NOT NULL CHECK(status IN (` + claimStatusSQLList + `)),
+				confidence_score REAL NOT NULL DEFAULT 0,
+				provider_origin TEXT NOT NULL DEFAULT '',
+				source_id TEXT NOT NULL DEFAULT '',
+				asserted_at TEXT NOT NULL,
+				last_verified_at TEXT NOT NULL DEFAULT '',
+				notes TEXT NOT NULL DEFAULT ''
+			);`,
+			`INSERT INTO claims_v6(claim_id, kind, subject_type, subject_id, object_type, object_id, relation, status, confidence_score, provider_origin, source_id, asserted_at, last_verified_at, notes)
+				SELECT claim_id,
+					CASE WHEN kind IN (` + claimKindSQLList + `) THEN kind ELSE 'attribution' END,
+					subject_type, subject_id, object_type, object_id,
+					CASE WHEN relation IN (` + claimRelationSQLList + `) THEN relation ELSE '' END,
+					CASE WHEN status IN (` + claimStatusSQLList + `) THEN status ELSE 'needs_review' END,
+					confidence_score, provider_origin, source_id, asserted_at, last_verified_at, notes
+				FROM claims;`,
+			`DROP TABLE claims;`,
+			`ALTER TABLE claims_v6 RENAME TO claims;`,
+			`CREATE INDEX IF NOT EXISTS idx_claims_subject ON claims(subject_type, subject_id, kind);`,
+			`CREATE INDEX IF NOT EXISTS idx_claims_object ON claims(object_type, object_id, kind);`,
+			`CREATE INDEX IF NOT EXISTS idx_claims_status ON claims(status, kind);`,
+			`DROP TABLE IF EXISTS claim_evidence_v6;`,
+			`CREATE TABLE claim_evidence_v6 (
+				evidence_id TEXT PRIMARY KEY,
+				claim_id TEXT NOT NULL,
+				supports INTEGER NOT NULL DEFAULT 1,
+				source_id TEXT NOT NULL DEFAULT '',
+				excerpt TEXT NOT NULL,
+				source_url TEXT NOT NULL DEFAULT '',
+				archived_url TEXT NOT NULL DEFAULT '',
+				evidence_kind TEXT NOT NULL DEFAULT 'editorial' CHECK(evidence_kind IN (` + evidenceKindSQLList + `)),
+				weight REAL NOT NULL DEFAULT 1.0,
+				recorded_at TEXT NOT NULL,
+				FOREIGN KEY (claim_id) REFERENCES claims(claim_id) ON DELETE CASCADE
+			);`,
+			`INSERT INTO claim_evidence_v6(evidence_id, claim_id, supports, source_id, excerpt, source_url, archived_url, evidence_kind, weight, recorded_at)
+				SELECT evidence_id, claim_id, supports, source_id, excerpt, source_url, archived_url,
+					CASE
+						WHEN evidence_kind IN (` + evidenceKindSQLList + `) THEN evidence_kind
+						WHEN evidence_kind IN ('manual_note', 'journalism', 'talk_page_audit', 'literary_record', 'court_record') THEN 'editorial'
+						ELSE 'provider'
+					END,
+					weight, recorded_at
+				FROM claim_evidence;`,
+			`DROP TABLE claim_evidence;`,
+			`ALTER TABLE claim_evidence_v6 RENAME TO claim_evidence;`,
+			`CREATE INDEX IF NOT EXISTS idx_claim_evidence_claim ON claim_evidence(claim_id, supports);`,
 		},
 	},
 }
