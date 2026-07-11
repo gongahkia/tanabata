@@ -14,30 +14,51 @@ import (
 	"github.com/gongahkia/tanabata/api/internal/search"
 )
 
+var ErrSampleCycle = errors.New("sample edge would create a cycle")
+
 // RecordSampleEdge persists that derivativeID samples sourceID and binds a claim with evidence.
 func (s *Store) RecordSampleEdge(ctx context.Context, edge models.SampleEdge, claim models.Claim, evidence []models.ClaimEvidence) (string, error) {
-	if strings.TrimSpace(edge.SourceRecording.RecordingID) == "" || strings.TrimSpace(edge.DerivativeRecording.RecordingID) == "" {
+	sourceID := strings.TrimSpace(edge.SourceRecording.RecordingID)
+	derivativeID := strings.TrimSpace(edge.DerivativeRecording.RecordingID)
+	if sourceID == "" || derivativeID == "" {
 		return "", errors.New("sample edge requires source and derivative recording ids")
 	}
-	sampleID := "tanabata:sample:" + search.StableHash(edge.SourceRecording.RecordingID, edge.DerivativeRecording.RecordingID, edge.Kind)
+	kind := defaultSampleKind(edge.Kind)
+	cycle, err := s.sampleEdgeWouldCycle(ctx, sourceID, derivativeID)
+	if err != nil {
+		return "", err
+	}
+	if cycle {
+		return "", ErrSampleCycle
+	}
+	sampleID := "tanabata:sample:" + search.StableHash(sourceID, derivativeID, kind)
 	if _, err := s.db.ExecContext(ctx, `
 		INSERT INTO samples(sample_id, source_recording_id, derivative_recording_id, kind, source_offset_ms, derivative_offset_ms, duration_ms, notes)
 		VALUES(?, ?, ?, ?, ?, ?, ?, ?)
-		ON CONFLICT(sample_id) DO UPDATE SET
+		ON CONFLICT(source_recording_id, derivative_recording_id, kind) DO UPDATE SET
 			kind = excluded.kind,
 			source_offset_ms = excluded.source_offset_ms,
 			derivative_offset_ms = excluded.derivative_offset_ms,
 			duration_ms = excluded.duration_ms,
 			notes = COALESCE(NULLIF(excluded.notes, ''), samples.notes)
-	`, sampleID, edge.SourceRecording.RecordingID, edge.DerivativeRecording.RecordingID, defaultSampleKind(edge.Kind), edge.SourceOffsetMs, edge.DerivativeOffsetMs, edge.DurationMs, edge.Notes); err != nil {
+	`, sampleID, sourceID, derivativeID, kind, edge.SourceOffsetMs, edge.DerivativeOffsetMs, edge.DurationMs, edge.Notes); err != nil {
+		if sampleCycleConstraintFailed(err) {
+			return "", ErrSampleCycle
+		}
+		return "", err
+	}
+	if err := s.db.QueryRowContext(ctx, `
+		SELECT sample_id FROM samples
+		WHERE source_recording_id = ? AND derivative_recording_id = ? AND kind = ?
+	`, sourceID, derivativeID, kind).Scan(&sampleID); err != nil {
 		return "", err
 	}
 	claim.Kind = "sample"
 	claim.SubjectType = "recording"
-	claim.SubjectID = edge.DerivativeRecording.RecordingID
+	claim.SubjectID = derivativeID
 	claim.ObjectType = "recording"
-	claim.ObjectID = edge.SourceRecording.RecordingID
-	claim.Relation = defaultSampleKind(edge.Kind)
+	claim.ObjectID = sourceID
+	claim.Relation = kind
 	if claim.Status == "" {
 		claim.Status = "provider_attributed"
 	}
@@ -55,6 +76,37 @@ func (s *Store) RecordSampleEdge(ctx context.Context, edge models.SampleEdge, cl
 		}
 	}
 	return sampleID, nil
+}
+
+func (s *Store) sampleEdgeWouldCycle(ctx context.Context, sourceID, derivativeID string) (bool, error) {
+	if sourceID == derivativeID {
+		return true, nil
+	}
+	var exists int
+	if err := s.db.QueryRowContext(ctx, `
+		WITH RECURSIVE reachable(recording_id, depth) AS (
+			SELECT derivative_recording_id, 1
+			FROM samples
+			WHERE source_recording_id = ?
+			UNION ALL
+			SELECT samples.derivative_recording_id, reachable.depth + 1
+			FROM samples
+			JOIN reachable ON samples.source_recording_id = reachable.recording_id
+			WHERE reachable.depth < 8
+		)
+		SELECT EXISTS(SELECT 1 FROM reachable WHERE recording_id = ?)
+	`, derivativeID, sourceID).Scan(&exists); err != nil {
+		return false, err
+	}
+	return exists == 1, nil
+}
+
+func sampleCycleConstraintFailed(err error) bool {
+	if err == nil {
+		return false
+	}
+	message := err.Error()
+	return strings.Contains(message, "samples_no_self_loop") || strings.Contains(message, "CHECK constraint failed")
 }
 
 // IncomingSamples lists every recording that sampled (or was derived from) the given recording.
@@ -235,6 +287,21 @@ func (s *Store) SeedCuratedSamples(ctx context.Context, bundlePath, jobID string
 			evidence = append(evidence, curatedEvidenceToClaim(ev, true))
 		}
 		if _, err := s.RecordSampleEdge(ctx, edge, claim, evidence); err != nil {
+			if errors.Is(err, ErrSampleCycle) {
+				if err := s.RecordIngestionAuditEvent(ctx, models.IngestionAuditEvent{
+					EventID:    uuid.NewString(),
+					JobID:      jobID,
+					Provider:   "tanabata_curated",
+					Target:     fmt.Sprintf("sample:%s->%s", sourceRecID, derivativeRecID),
+					Action:     "record_sample_cycle",
+					Status:     "rejected",
+					OccurredAt: time.Now().UTC().Format(time.RFC3339),
+					Details:    fmt.Sprintf("kind=%s error=%s", defaultSampleKind(record.Kind), ErrSampleCycle.Error()),
+				}); err != nil {
+					return imported, err
+				}
+				continue
+			}
 			return imported, err
 		}
 		if err := s.RecordIngestionAuditEvent(ctx, models.IngestionAuditEvent{

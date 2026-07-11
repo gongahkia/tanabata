@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"path/filepath"
 	"testing"
 
@@ -117,6 +118,62 @@ func TestSampleLineageFlowsBothDirections(t *testing.T) {
 	if len(incoming.Data) == 0 {
 		t.Fatalf("expected the ancestor (%s — %s) to surface descendants", ancestor.ArtistName, ancestor.Title)
 	}
+}
+
+func TestSampleCycleAuditEventVisible(t *testing.T) {
+	dir := t.TempDir()
+	store, err := catalog.Open(filepath.Join(dir, "catalog.sqlite"))
+	if err != nil {
+		t.Fatalf("Open() error = %v", err)
+	}
+	defer store.Close()
+	bundlePath := filepath.Join(dir, "samples.json")
+	fixture := `[
+		{
+			"source_artist_name": "Cycle Source",
+			"source_track_title": "Source Loop",
+			"derivative_artist_name": "Cycle Derivative",
+			"derivative_track_title": "Derivative Loop",
+			"kind": "direct_sample",
+			"status": "source_attributed",
+			"confidence_score": 0.9
+		},
+		{
+			"source_artist_name": "Cycle Derivative",
+			"source_track_title": "Derivative Loop",
+			"derivative_artist_name": "Cycle Source",
+			"derivative_track_title": "Source Loop",
+			"kind": "direct_sample",
+			"status": "source_attributed",
+			"confidence_score": 0.9
+		}
+	]`
+	if err := os.WriteFile(bundlePath, []byte(fixture), 0o600); err != nil {
+		t.Fatalf("write sample fixture: %v", err)
+	}
+	imported, err := store.SeedCuratedSamples(context.Background(), bundlePath, "job-cycle")
+	if err != nil {
+		t.Fatalf("SeedCuratedSamples() error = %v", err)
+	}
+	if imported != 1 {
+		t.Fatalf("imported = %d, want 1", imported)
+	}
+	server, err := NewServer(store, nil)
+	if err != nil {
+		t.Fatalf("NewServer() error = %v", err)
+	}
+
+	recorder := get(t, server, "/v1/jobs/job-cycle/audit?limit=10")
+	var payload struct {
+		Data []models.IngestionAuditEvent `json:"data"`
+	}
+	mustJSON(t, recorder.Body.Bytes(), &payload)
+	for _, event := range payload.Data {
+		if event.Action == "record_sample_cycle" && event.Status == "rejected" {
+			return
+		}
+	}
+	t.Fatalf("record_sample_cycle audit event missing: %+v", payload.Data)
 }
 
 func TestDisputesFeedIncludesMultipleKinds(t *testing.T) {

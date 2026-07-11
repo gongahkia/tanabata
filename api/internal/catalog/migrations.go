@@ -352,4 +352,32 @@ var catalogMigrations = []schemaMigration{
 			);`,
 		},
 	},
+	{
+		Version: 5,
+		Name:    "samples_unique_and_no_self_loops",
+		Statements: []string{
+			`CREATE TABLE samples_v5 (
+				sample_id TEXT PRIMARY KEY,
+				source_recording_id TEXT NOT NULL,
+				derivative_recording_id TEXT NOT NULL,
+				kind TEXT NOT NULL DEFAULT 'direct_sample',
+				source_offset_ms INTEGER NOT NULL DEFAULT 0,
+				derivative_offset_ms INTEGER NOT NULL DEFAULT 0,
+				duration_ms INTEGER NOT NULL DEFAULT 0,
+				notes TEXT NOT NULL DEFAULT '',
+				CONSTRAINT samples_unique_edge UNIQUE(source_recording_id, derivative_recording_id, kind),
+				CONSTRAINT samples_no_self_loop CHECK(source_recording_id != derivative_recording_id),
+				FOREIGN KEY (source_recording_id) REFERENCES recordings(recording_id) ON DELETE CASCADE,
+				FOREIGN KEY (derivative_recording_id) REFERENCES recordings(recording_id) ON DELETE CASCADE
+			);`,
+			`INSERT OR IGNORE INTO samples_v5(sample_id, source_recording_id, derivative_recording_id, kind, source_offset_ms, derivative_offset_ms, duration_ms, notes)
+				SELECT sample_id, source_recording_id, derivative_recording_id, kind, source_offset_ms, derivative_offset_ms, duration_ms, notes
+				FROM samples
+				WHERE source_recording_id != derivative_recording_id;`,
+			`DROP TABLE samples;`,
+			`ALTER TABLE samples_v5 RENAME TO samples;`,
+			`CREATE INDEX IF NOT EXISTS idx_samples_source ON samples(source_recording_id);`,
+			`CREATE INDEX IF NOT EXISTS idx_samples_derivative ON samples(derivative_recording_id);`,
+		},
+	},
 }
