@@ -180,6 +180,12 @@ func (s *Store) applySchemaMigrations(ctx context.Context) error {
 		if applied[migration.Version] {
 			continue
 		}
+		if migration.ForeignKeysOff {
+			if err := s.applySchemaMigrationWithForeignKeysOff(ctx, migration); err != nil {
+				return err
+			}
+			continue
+		}
 		tx, err := s.db.BeginTx(ctx, nil)
 		if err != nil {
 			return err
@@ -200,6 +206,41 @@ func (s *Store) applySchemaMigrations(ctx context.Context) error {
 		if err := tx.Commit(); err != nil {
 			return err
 		}
+	}
+	return nil
+}
+
+func (s *Store) applySchemaMigrationWithForeignKeysOff(ctx context.Context, migration schemaMigration) error {
+	if _, err := s.db.ExecContext(ctx, `PRAGMA foreign_keys = OFF`); err != nil {
+		return fmt.Errorf("disable foreign keys for migration %03d %s: %w", migration.Version, migration.Name, err)
+	}
+	if _, err := s.db.ExecContext(ctx, `PRAGMA legacy_alter_table = ON`); err != nil {
+		_, _ = s.db.ExecContext(ctx, `PRAGMA foreign_keys = ON`)
+		return fmt.Errorf("enable legacy alter table for migration %03d %s: %w", migration.Version, migration.Name, err)
+	}
+	defer func() {
+		_, _ = s.db.ExecContext(context.Background(), `PRAGMA legacy_alter_table = OFF`)
+		_, _ = s.db.ExecContext(context.Background(), `PRAGMA foreign_keys = ON`)
+	}()
+	tx, err := s.db.BeginTx(ctx, nil)
+	if err != nil {
+		return err
+	}
+	for _, stmt := range migration.Statements {
+		if _, err := tx.ExecContext(ctx, stmt); err != nil {
+			_ = tx.Rollback()
+			return fmt.Errorf("apply migration %03d %s: %w", migration.Version, migration.Name, err)
+		}
+	}
+	if _, err := tx.ExecContext(ctx, `
+		INSERT INTO schema_migrations(version, name, applied_at)
+		VALUES(?, ?, ?)
+	`, migration.Version, migration.Name, time.Now().UTC().Format(time.RFC3339)); err != nil {
+		_ = tx.Rollback()
+		return fmt.Errorf("record migration %03d %s: %w", migration.Version, migration.Name, err)
+	}
+	if err := tx.Commit(); err != nil {
+		return err
 	}
 	return nil
 }

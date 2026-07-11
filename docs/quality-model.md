@@ -18,6 +18,17 @@ Tanabata treats quote quality as an explainable catalog decision, not a single m
 - `ambiguous`: evidence conflicts or multiple plausible attributions exist.
 - `needs_review`: imported or merged data is not strong enough for display without review context.
 
+## DB-Enforced Enums
+
+SQLite CHECK constraints enforce these catalog enum sets:
+
+- Quote `provenance_status`: `verified`, `source_attributed`, `provider_attributed`, `ambiguous`, `needs_review`.
+- Claim `status`: quote provenance states plus `disputed` and `refuted`.
+- Claim `kind`: `attribution`, `sample`, `credit`, `cover`, `performance`.
+- Claim `relation`: empty, `attributed_to`, `actually_said_by`, `recording_of`, `composer`, `producer`, `direct_sample`, `interpolation`, `replay`, `cover_interpolation`, `lyrics_quote`, `performed`.
+- Job `status`: `queued`, `running`, `succeeded`, `failed`, `partial`.
+- Claim `evidence_kind`: `archival_positive`, `archival_negative`, `aggregator_evidence`, `editorial`, `provider`, `licensing`.
+
 ## Freshness Policy
 
 - `fresh`: verified in the last 90 days.

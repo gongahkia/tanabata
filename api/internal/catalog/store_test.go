@@ -3,6 +3,7 @@ package catalog
 import (
 	"bytes"
 	"context"
+	"database/sql"
 	"errors"
 	"log/slog"
 	"path/filepath"
@@ -113,6 +114,135 @@ func TestSchemaMigrationsAreRecordedAndIdempotent(t *testing.T) {
 	}
 }
 
+func TestEnumCheckConstraintsRejectInvalidValues(t *testing.T) {
+	store, err := Open(filepath.Join(t.TempDir(), "catalog.sqlite"))
+	if err != nil {
+		t.Fatalf("Open() error = %v", err)
+	}
+	defer store.Close()
+	ctx := context.Background()
+	now := time.Now().UTC().Format(time.RFC3339)
+	mustExecTestSQL(t, ctx, store.db, `
+		INSERT INTO artists(artist_id, name, slug, description, bio_summary, provider_status)
+		VALUES('artist-enum', 'Enum Artist', 'enum-artist', '', '', '{}')
+	`)
+	mustExecTestSQL(t, ctx, store.db, `
+		INSERT INTO jobs(job_id, name, status, started_at)
+		VALUES('job-valid', 'valid', 'queued', ?)
+	`, now)
+	mustExecTestSQL(t, ctx, store.db, `
+		INSERT INTO claims(claim_id, kind, subject_type, subject_id, object_type, object_id, status, asserted_at)
+		VALUES('claim-valid', 'attribution', 'quote', 'q-valid', 'artist', 'artist-enum', 'needs_review', ?)
+	`, now)
+	cases := []struct {
+		name string
+		stmt string
+		args []any
+	}{
+		{
+			name: "quote provenance",
+			stmt: `INSERT INTO quotes(quote_id, text, normalized_text, artist_id, provenance_status, confidence_score)
+				VALUES('quote-invalid', 'text', 'text', 'artist-enum', 'typo', 0.1)`,
+		},
+		{
+			name: "claim kind",
+			stmt: `INSERT INTO claims(claim_id, kind, subject_type, subject_id, object_type, object_id, status, asserted_at)
+				VALUES('claim-kind-invalid', 'typo', 'quote', 'q', 'artist', 'artist-enum', 'needs_review', ?)`,
+			args: []any{now},
+		},
+		{
+			name: "claim status",
+			stmt: `INSERT INTO claims(claim_id, kind, subject_type, subject_id, object_type, object_id, status, asserted_at)
+				VALUES('claim-status-invalid', 'attribution', 'quote', 'q', 'artist', 'artist-enum', 'pending', ?)`,
+			args: []any{now},
+		},
+		{
+			name: "claim relation",
+			stmt: `INSERT INTO claims(claim_id, kind, subject_type, subject_id, object_type, object_id, relation, status, asserted_at)
+				VALUES('claim-relation-invalid', 'attribution', 'quote', 'q', 'artist', 'artist-enum', 'typo', 'needs_review', ?)`,
+			args: []any{now},
+		},
+		{
+			name: "job status",
+			stmt: `INSERT INTO jobs(job_id, name, status, started_at)
+				VALUES('job-invalid', 'invalid', 'waiting', ?)`,
+			args: []any{now},
+		},
+		{
+			name: "job item status",
+			stmt: `INSERT INTO job_items(job_item_id, job_id, provider, status, started_at)
+				VALUES('job-item-invalid', 'job-valid', 'provider', 'done', ?)`,
+			args: []any{now},
+		},
+		{
+			name: "evidence kind",
+			stmt: `INSERT INTO claim_evidence(evidence_id, claim_id, excerpt, evidence_kind, recorded_at)
+				VALUES('evidence-invalid', 'claim-valid', 'excerpt', 'manual_note', ?)`,
+			args: []any{now},
+		},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			if _, err := store.db.ExecContext(ctx, tc.stmt, tc.args...); err == nil {
+				t.Fatalf("expected CHECK constraint error")
+			}
+		})
+	}
+}
+
+func TestEnumMigrationNormalizesLegacyValues(t *testing.T) {
+	ctx := context.Background()
+	dbPath := filepath.Join(t.TempDir(), "catalog.sqlite")
+	db, err := sql.Open("sqlite", sqliteDSN(dbPath))
+	if err != nil {
+		t.Fatalf("sql.Open() error = %v", err)
+	}
+	now := time.Now().UTC().Format(time.RFC3339)
+	for _, stmt := range legacyEnumSchemaSQL(now) {
+		mustExecTestSQL(t, ctx, db, stmt)
+	}
+	if err := db.Close(); err != nil {
+		t.Fatalf("Close() error = %v", err)
+	}
+
+	store, err := Open(dbPath)
+	if err != nil {
+		t.Fatalf("Open() error = %v", err)
+	}
+	defer store.Close()
+
+	var quoteStatus, quoteText string
+	if err := store.db.QueryRowContext(ctx, `SELECT provenance_status, text FROM quotes WHERE quote_id = 'legacy-quote'`).Scan(&quoteStatus, &quoteText); err != nil {
+		t.Fatalf("read migrated quote: %v", err)
+	}
+	if quoteStatus != "needs_review" || quoteText != "legacy text" {
+		t.Fatalf("migrated quote status=%q text=%q", quoteStatus, quoteText)
+	}
+	var claimKind, claimStatus, claimRelation string
+	if err := store.db.QueryRowContext(ctx, `SELECT kind, status, relation FROM claims WHERE claim_id = 'legacy-claim'`).Scan(&claimKind, &claimStatus, &claimRelation); err != nil {
+		t.Fatalf("read migrated claim: %v", err)
+	}
+	if claimKind != "attribution" || claimStatus != "needs_review" || claimRelation != "" {
+		t.Fatalf("migrated claim kind=%q status=%q relation=%q", claimKind, claimStatus, claimRelation)
+	}
+	var jobStatus, jobItemStatus, evidenceKind string
+	if err := store.db.QueryRowContext(ctx, `SELECT status FROM jobs WHERE job_id = 'legacy-job'`).Scan(&jobStatus); err != nil {
+		t.Fatalf("read migrated job: %v", err)
+	}
+	if err := store.db.QueryRowContext(ctx, `SELECT status FROM job_items WHERE job_item_id = 'legacy-item'`).Scan(&jobItemStatus); err != nil {
+		t.Fatalf("read migrated job item: %v", err)
+	}
+	if err := store.db.QueryRowContext(ctx, `SELECT evidence_kind FROM claim_evidence WHERE evidence_id = 'legacy-evidence'`).Scan(&evidenceKind); err != nil {
+		t.Fatalf("read migrated evidence: %v", err)
+	}
+	if jobStatus != "failed" || jobItemStatus != "failed" || evidenceKind != "editorial" {
+		t.Fatalf("job=%q item=%q evidence=%q", jobStatus, jobItemStatus, evidenceKind)
+	}
+	if _, err := store.db.ExecContext(ctx, `INSERT INTO jobs(job_id, name, status, started_at) VALUES('after-migration', 'invalid', 'waiting', ?)`, now); err == nil {
+		t.Fatalf("expected migrated CHECK constraint to reject invalid status")
+	}
+}
+
 func TestOpenConfiguresSQLitePragmas(t *testing.T) {
 	tempDir := t.TempDir()
 	dbPath := filepath.Join(tempDir, "catalog.sqlite")
@@ -140,6 +270,136 @@ func TestOpenConfiguresSQLitePragmas(t *testing.T) {
 	}
 	if pragmas.tempStore != 2 {
 		t.Fatalf("temp_store = %d, want 2", pragmas.tempStore)
+	}
+}
+
+func mustExecTestSQL(t *testing.T, ctx context.Context, db *sql.DB, stmt string, args ...any) {
+	t.Helper()
+	if _, err := db.ExecContext(ctx, stmt, args...); err != nil {
+		t.Fatalf("exec test SQL: %v\n%s", err, stmt)
+	}
+}
+
+func legacyEnumSchemaSQL(now string) []string {
+	return []string{
+		`CREATE TABLE schema_migrations (
+			version INTEGER PRIMARY KEY,
+			name TEXT NOT NULL,
+			applied_at TEXT NOT NULL
+		);`,
+		`INSERT INTO schema_migrations(version, name, applied_at) VALUES
+			(1, 'core_catalog_schema', '` + now + `'),
+			(2, 'catalog_indexes', '` + now + `'),
+			(3, 'fts_search', '` + now + `'),
+			(4, 'lineage_claims_and_entities', '` + now + `'),
+			(5, 'samples_unique_and_no_self_loops', '` + now + `');`,
+		`CREATE TABLE artists (
+			artist_id TEXT PRIMARY KEY,
+			name TEXT NOT NULL,
+			slug TEXT NOT NULL UNIQUE,
+			description TEXT NOT NULL DEFAULT '',
+			bio_summary TEXT NOT NULL DEFAULT '',
+			provider_status TEXT NOT NULL DEFAULT '{}'
+		);`,
+		`CREATE TABLE quote_sources (
+			source_id TEXT PRIMARY KEY,
+			provider TEXT NOT NULL,
+			url TEXT NOT NULL,
+			title TEXT NOT NULL DEFAULT '',
+			publisher TEXT NOT NULL DEFAULT '',
+			license TEXT NOT NULL DEFAULT '',
+			retrieved_at TEXT NOT NULL DEFAULT ''
+		);`,
+		`CREATE TABLE quotes (
+			quote_id TEXT PRIMARY KEY,
+			text TEXT NOT NULL,
+			normalized_text TEXT NOT NULL,
+			artist_id TEXT NOT NULL,
+			source_id TEXT NOT NULL DEFAULT '',
+			source_type TEXT NOT NULL DEFAULT '',
+			work_title TEXT NOT NULL DEFAULT '',
+			year TEXT NOT NULL DEFAULT '',
+			provenance_status TEXT NOT NULL,
+			confidence_score REAL NOT NULL,
+			provider_origin TEXT NOT NULL DEFAULT '',
+			license TEXT NOT NULL DEFAULT '',
+			first_seen_at TEXT NOT NULL DEFAULT '',
+			last_verified_at TEXT NOT NULL DEFAULT ''
+		);`,
+		`CREATE TABLE quote_evidence (
+			quote_id TEXT NOT NULL,
+			evidence TEXT NOT NULL,
+			position INTEGER NOT NULL DEFAULT 0,
+			PRIMARY KEY (quote_id, position)
+		);`,
+		`CREATE TABLE provider_errors (
+			error_id TEXT PRIMARY KEY,
+			provider TEXT NOT NULL,
+			occurred_at TEXT NOT NULL,
+			context TEXT NOT NULL DEFAULT '',
+			message TEXT NOT NULL
+		);`,
+		`CREATE TABLE jobs (
+			job_id TEXT PRIMARY KEY,
+			name TEXT NOT NULL,
+			scope TEXT NOT NULL DEFAULT '',
+			status TEXT NOT NULL,
+			started_at TEXT NOT NULL,
+			finished_at TEXT NOT NULL DEFAULT '',
+			details TEXT NOT NULL DEFAULT '',
+			error_message TEXT NOT NULL DEFAULT ''
+		);`,
+		`CREATE TABLE job_items (
+			job_item_id TEXT PRIMARY KEY,
+			job_id TEXT NOT NULL,
+			provider TEXT NOT NULL,
+			target TEXT NOT NULL DEFAULT '',
+			status TEXT NOT NULL,
+			started_at TEXT NOT NULL,
+			finished_at TEXT NOT NULL DEFAULT '',
+			details TEXT NOT NULL DEFAULT '',
+			error_message TEXT NOT NULL DEFAULT ''
+		);`,
+		`CREATE TABLE claims (
+			claim_id TEXT PRIMARY KEY,
+			kind TEXT NOT NULL,
+			subject_type TEXT NOT NULL,
+			subject_id TEXT NOT NULL,
+			object_type TEXT NOT NULL,
+			object_id TEXT NOT NULL,
+			relation TEXT NOT NULL DEFAULT '',
+			status TEXT NOT NULL,
+			confidence_score REAL NOT NULL DEFAULT 0,
+			provider_origin TEXT NOT NULL DEFAULT '',
+			source_id TEXT NOT NULL DEFAULT '',
+			asserted_at TEXT NOT NULL,
+			last_verified_at TEXT NOT NULL DEFAULT '',
+			notes TEXT NOT NULL DEFAULT ''
+		);`,
+		`CREATE TABLE claim_evidence (
+			evidence_id TEXT PRIMARY KEY,
+			claim_id TEXT NOT NULL,
+			supports INTEGER NOT NULL DEFAULT 1,
+			source_id TEXT NOT NULL DEFAULT '',
+			excerpt TEXT NOT NULL,
+			source_url TEXT NOT NULL DEFAULT '',
+			archived_url TEXT NOT NULL DEFAULT '',
+			evidence_kind TEXT NOT NULL DEFAULT 'manual_note',
+			weight REAL NOT NULL DEFAULT 1.0,
+			recorded_at TEXT NOT NULL
+		);`,
+		`INSERT INTO artists(artist_id, name, slug, description, bio_summary, provider_status)
+			VALUES('legacy-artist', 'Legacy Artist', 'legacy-artist', '', '', '{}');`,
+		`INSERT INTO quotes(quote_id, text, normalized_text, artist_id, provenance_status, confidence_score, provider_origin, first_seen_at, last_verified_at)
+			VALUES('legacy-quote', 'legacy text', 'legacy text', 'legacy-artist', 'typo', 0.2, '', '` + now + `', '` + now + `');`,
+		`INSERT INTO jobs(job_id, name, status, started_at)
+			VALUES('legacy-job', 'legacy job', 'waiting', '` + now + `');`,
+		`INSERT INTO job_items(job_item_id, job_id, provider, status, started_at)
+			VALUES('legacy-item', 'legacy-job', 'legacy-provider', 'done', '` + now + `');`,
+		`INSERT INTO claims(claim_id, kind, subject_type, subject_id, object_type, object_id, relation, status, confidence_score, asserted_at)
+			VALUES('legacy-claim', 'wrong_kind', 'quote', 'legacy-quote', 'artist', 'legacy-artist', 'wrong_relation', 'pending', 0.1, '` + now + `');`,
+		`INSERT INTO claim_evidence(evidence_id, claim_id, excerpt, evidence_kind, recorded_at)
+			VALUES('legacy-evidence', 'legacy-claim', 'legacy excerpt', 'manual_note', '` + now + `');`,
 	}
 }
 
