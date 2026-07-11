@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"errors"
-	"fmt"
+	"strconv"
 	"strings"
 	"time"
 
@@ -116,6 +116,10 @@ func (s *Store) ListPerformances(ctx context.Context, filters models.Performance
 	if strings.EqualFold(filters.Sort, "asc") {
 		sortOrder = "ASC"
 	}
+	orderClause := ` ORDER BY performances.performed_at DESC LIMIT ? OFFSET ?`
+	if sortOrder == "ASC" {
+		orderClause = ` ORDER BY performances.performed_at ASC LIMIT ? OFFSET ?`
+	}
 
 	var total int
 	if err := s.db.QueryRowContext(ctx, `SELECT COUNT(*) FROM performances`+where, args...).Scan(&total); err != nil {
@@ -126,8 +130,7 @@ func (s *Store) ListPerformances(ctx context.Context, filters models.Performance
 	offset := normalizeOffset(filters.Offset)
 	queryArgs := append([]any{}, args...)
 	queryArgs = append(queryArgs, limit, offset)
-	rows, err := s.db.QueryContext(ctx, performanceSelectSQL+where+
-		fmt.Sprintf(` ORDER BY performances.performed_at %s LIMIT ? OFFSET ?`, sortOrder), queryArgs...)
+	rows, err := s.db.QueryContext(ctx, performanceSelectSQL+where+orderClause, queryArgs...)
 	if err != nil {
 		return response, err
 	}
@@ -297,7 +300,7 @@ func (s *Store) SeedCuratedPerformances(ctx context.Context, bundlePath, jobID s
 			Action:     "record_performance",
 			Status:     "succeeded",
 			OccurredAt: time.Now().UTC().Format(time.RFC3339),
-			Details:    fmt.Sprintf("work=%s evidence=%d", workID, len(record.Evidence)),
+			Details:    "work=" + workID + " evidence=" + strconv.Itoa(len(record.Evidence)),
 		}); err != nil {
 			return imported, err
 		}

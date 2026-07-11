@@ -18,6 +18,7 @@ linters:
     - exhaustive # enum switch coverage
     - unused # unused code
     - prealloc # slice allocation hints
+    - forbidigo # path-scoped forbidden identifiers
   settings:
     errcheck:
       exclude-functions:
@@ -27,6 +28,10 @@ linters:
     gocritic:
       disabled-checks:
         - ifElseChain # noisy style preference
+    forbidigo:
+      forbid:
+        - pattern: ^fmt\.Sprintf$
+          msg: fmt.Sprintf is forbidden in internal/catalog; use explicit SQL constants or typed conversion helpers
     revive:
       rules:
         - name: exported # exported docs
@@ -38,6 +43,9 @@ linters:
       - text: "^exported:" # existing exported docs excluded from initial rollout
         linters:
           - revive
+      - path-except: ^internal/catalog/.*\.go$
+        linters:
+          - forbidigo
 
 formatters:
   enable:

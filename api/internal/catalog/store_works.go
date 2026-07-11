@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"strconv"
 	"strings"
 	"time"
 
@@ -418,7 +419,7 @@ func (s *Store) SeedCuratedWorks(ctx context.Context, bundlePath, jobID string) 
 			Action:     "upsert_work",
 			Status:     "succeeded",
 			OccurredAt: now,
-			Details:    fmt.Sprintf("covers=%d credits=%d", len(record.Covers), len(record.Credits)),
+			Details:    "covers=" + strconv.Itoa(len(record.Covers)) + " credits=" + strconv.Itoa(len(record.Credits)),
 		}); err != nil {
 			return imported, err
 		}
