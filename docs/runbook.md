@@ -39,6 +39,24 @@ If a job fails:
 - Re-run the same ingestion command; imports are idempotent and merge duplicate quote evidence.
 - Run `/v1/integrity` after recovery.
 
+## Ingestion Locking
+
+`cmd/ingest` takes an exclusive POSIX lock at `<catalog>.ingest.lock` and writes the holder PID into that file. A second ingest process exits with `already_running` and code `2`.
+
+If the lock file remains after a confirmed-dead process, inspect the PID first:
+
+```bash
+cat api/data/catalog.sqlite.ingest.lock
+ps -p "$(cat api/data/catalog.sqlite.ingest.lock)"
+```
+
+After confirming the PID is stale, break the lock and continue:
+
+```bash
+cd api
+go run ./cmd/ingest -catalog data/catalog.sqlite -force-unlock -bootstrap=true -all=true
+```
+
 ## Provider Cooldowns
 
 Provider failures are classified as:
