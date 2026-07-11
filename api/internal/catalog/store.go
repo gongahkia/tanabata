@@ -741,7 +741,7 @@ func (s *Store) UpsertArtist(ctx context.Context, artist models.Artist) error {
 	}
 	for _, alias := range dedupeStrings(append(artist.Aliases, artist.Name)) {
 		if _, err := s.db.ExecContext(ctx, `
-			INSERT INTO artist_aliases(artist_id, alias, normalized_alias)
+			INSERT OR IGNORE INTO artist_aliases(artist_id, alias, normalized_alias)
 			VALUES(?, ?, ?)
 		`, artist.ArtistID, alias, search.NormalizeText(alias)); err != nil {
 			return err
@@ -764,7 +764,7 @@ func (s *Store) UpsertArtist(ctx context.Context, artist models.Artist) error {
 		return err
 	}
 	for _, genre := range dedupeStrings(artist.Genres) {
-		if _, err := s.db.ExecContext(ctx, `INSERT INTO artist_tags(artist_id, tag) VALUES(?, ?)`, artist.ArtistID, genre); err != nil {
+		if _, err := s.db.ExecContext(ctx, `INSERT OR IGNORE INTO artist_tags(artist_id, tag) VALUES(?, ?)`, artist.ArtistID, genre); err != nil {
 			return err
 		}
 	}
@@ -933,9 +933,15 @@ func (s *Store) UpsertQuote(ctx context.Context, quote models.Quote) error {
 			source_type = excluded.source_type,
 			work_title = excluded.work_title,
 			year = excluded.year,
-			provenance_status = excluded.provenance_status,
-			confidence_score = excluded.confidence_score,
-			provider_origin = excluded.provider_origin,
+			provenance_status = CASE
+				WHEN (CASE excluded.provenance_status WHEN 'verified' THEN 5 WHEN 'source_attributed' THEN 4 WHEN 'provider_attributed' THEN 3 WHEN 'ambiguous' THEN 2 WHEN 'needs_review' THEN 1 ELSE 0 END) > (CASE quotes.provenance_status WHEN 'verified' THEN 5 WHEN 'source_attributed' THEN 4 WHEN 'provider_attributed' THEN 3 WHEN 'ambiguous' THEN 2 WHEN 'needs_review' THEN 1 ELSE 0 END)
+					OR ((CASE excluded.provenance_status WHEN 'verified' THEN 5 WHEN 'source_attributed' THEN 4 WHEN 'provider_attributed' THEN 3 WHEN 'ambiguous' THEN 2 WHEN 'needs_review' THEN 1 ELSE 0 END) = (CASE quotes.provenance_status WHEN 'verified' THEN 5 WHEN 'source_attributed' THEN 4 WHEN 'provider_attributed' THEN 3 WHEN 'ambiguous' THEN 2 WHEN 'needs_review' THEN 1 ELSE 0 END) AND excluded.confidence_score >= quotes.confidence_score)
+				THEN excluded.provenance_status ELSE quotes.provenance_status END,
+			confidence_score = MAX(quotes.confidence_score, excluded.confidence_score),
+			provider_origin = CASE
+				WHEN (CASE excluded.provenance_status WHEN 'verified' THEN 5 WHEN 'source_attributed' THEN 4 WHEN 'provider_attributed' THEN 3 WHEN 'ambiguous' THEN 2 WHEN 'needs_review' THEN 1 ELSE 0 END) > (CASE quotes.provenance_status WHEN 'verified' THEN 5 WHEN 'source_attributed' THEN 4 WHEN 'provider_attributed' THEN 3 WHEN 'ambiguous' THEN 2 WHEN 'needs_review' THEN 1 ELSE 0 END)
+					OR ((CASE excluded.provenance_status WHEN 'verified' THEN 5 WHEN 'source_attributed' THEN 4 WHEN 'provider_attributed' THEN 3 WHEN 'ambiguous' THEN 2 WHEN 'needs_review' THEN 1 ELSE 0 END) = (CASE quotes.provenance_status WHEN 'verified' THEN 5 WHEN 'source_attributed' THEN 4 WHEN 'provider_attributed' THEN 3 WHEN 'ambiguous' THEN 2 WHEN 'needs_review' THEN 1 ELSE 0 END) AND excluded.confidence_score >= quotes.confidence_score)
+				THEN COALESCE(NULLIF(excluded.provider_origin, ''), quotes.provider_origin) ELSE quotes.provider_origin END,
 			license = excluded.license,
 			first_seen_at = excluded.first_seen_at,
 			last_verified_at = excluded.last_verified_at
