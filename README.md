@@ -2,9 +2,12 @@
 ![](https://github.com/gongahkia/tanabata/actions/workflows/scrape.yml/badge.svg)
 ![](https://github.com/gongahkia/tanabata/actions/workflows/ci.yml/badge.svg)
 
+> [!IMPORTANT]
+> `Tanabata` now ***live*** at [tanabata.onrender.com/v1/quotes](https://tanabata.onrender.com/v1/quotes).
+
 # `Tanabata` 🎶
 
-Small read-only [REST API](#api) for musician quotes with [built-in provenance](#architecture).
+Small read-only [REST API](#api) for musician quotes with [built-in provenance](#architecture), [webhooks](#webhook) and [native iframe embedding](#embed).
 
 ## Stack
 
@@ -14,9 +17,6 @@ Small read-only [REST API](#api) for musician quotes with [built-in provenance](
 * *Package*: [Docker](https://www.docker.com/)
 
 ## Usage
-
-> [!NOTE]
-> The easiest way to access `Tanabata` is via its ***live Render Deployment [here](https://tanabata.onrender.com/v1/quotes)***.
 
 If you'd want to try it for yourself, the below instructions are for locally running `Tanabata`.
 
