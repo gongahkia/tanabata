@@ -4,7 +4,7 @@
 
 # `Tanabata` 🎶
 
-Small read-only [REST API](#api) for musician quotes with [built-in provenance, lineage & ingestion history](#architecture).
+Small read-only [REST API](#api) for musician quotes with [built-in provenance](#architecture).
 
 ## Stack
 
@@ -15,7 +15,10 @@ Small read-only [REST API](#api) for musician quotes with [built-in provenance, 
 
 ## Usage
 
-The below instructions are for locally running `Tanabata`.
+> [!NOTE]  
+> The easiest way to access `Tanabata` is via its ***live Render Deployment [here](https://tanabata.onrender.com/v1/quotes)***.
+
+If you'd want to try it for yourself, the below instructions are for locally running `Tanabata`.
 
 1. First clone the repo locally on your machine.
 
@@ -47,6 +50,8 @@ $ ./scripts/compose-smoke.sh
 ```
 
 ## API
+
+
 
 ### `GET` `/v1/search?q=frank`
 
