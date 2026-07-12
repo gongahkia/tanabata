@@ -1,9 +1,8 @@
 [![](https://img.shields.io/badge/tanabata_1.0.0-passing-green)](https://github.com/gongahkia/tanabata/releases/tag/1.0.0)
 ![](https://github.com/gongahkia/tanabata/actions/workflows/scrape.yml/badge.svg)
 ![](https://github.com/gongahkia/tanabata/actions/workflows/ci.yml/badge.svg)
-![](https://img.shields.io/badge/tanabata_1.0.0-deployment_down-orange)
 
-# `Tanabata`
+# `Tanabata` 🎶
 
 Small read-only [REST API](#api) for musician quotes with [built-in provenance, lineage & ingestion history](#architecture).
 
