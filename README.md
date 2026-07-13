@@ -3,7 +3,7 @@
 ![](https://github.com/gongahkia/tanabata/actions/workflows/ci.yml/badge.svg)
 
 > [!IMPORTANT]
-> `Tanabata` now ***live*** at [tanabata.onrender.com/v1/quotes](https://tanabata.onrender.com/v1/quotes).
+> `Tanabata` is now ***live*** at [tanabata.onrender.com/v1/quotes](https://tanabata.onrender.com/v1/quotes).
 
 # `Tanabata` 🎶
 
