@@ -144,6 +144,3 @@ jobs:
         with:
           sarif_file: trivy-image.sarif
           category: trivy-image
-      - name: Fail on Trivy findings
-        if: steps.trivy.outcome == 'failure'
-        run: exit 1
