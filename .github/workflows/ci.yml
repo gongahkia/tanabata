@@ -15,7 +15,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        go-version: [1.24.x, 1.25.x, stable]
+        # api/go.mod declares Go 1.25 as the minimum supported version.
+        go-version: [1.25.x, 1.26.x, stable]
     defaults:
       run:
         working-directory: ./api

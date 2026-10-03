@@ -28,7 +28,7 @@ jobs:
       - id: syft
         uses: anchore/sbom-action/download-syft@v0
       - name: Add Syft to PATH
-        run: echo "$(dirname '${{ steps.syft.outputs.cmd }}')" >> "$GITHUB_PATH"
+        run: dirname '${{ steps.syft.outputs.cmd }}' >> "$GITHUB_PATH"
       - uses: goreleaser/goreleaser-action@v7
         with:
           distribution: goreleaser
