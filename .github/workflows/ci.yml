@@ -94,8 +94,13 @@ jobs:
       - name: Generate govulncheck SARIF
         run: |
           govulncheck -format sarif ./... > govulncheck.sarif
-          # govulncheck can emit duplicate CVE tags; GitHub rejects that SARIF.
-          jq '(.runs[]?.tool.driver.rules[]?.properties.tags) |= unique' govulncheck.sarif > govulncheck.clean.sarif
+          # govulncheck can emit duplicate tags and call stacks; GitHub rejects that SARIF.
+          jq '
+            .runs[] |= (
+              .tool.driver.rules[]? |= (if .properties.tags? then .properties.tags |= unique else . end)
+              | .results[]? |= (if .stacks? then .stacks |= unique else . end)
+            )
+          ' govulncheck.sarif > govulncheck.clean.sarif
           mv govulncheck.clean.sarif govulncheck.sarif
       - name: Check HIGH/CRITICAL govulncheck findings
         run: |
